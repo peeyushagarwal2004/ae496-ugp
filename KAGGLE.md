@@ -33,18 +33,56 @@ upload via Kaggle's **+ Add Data → Upload**, and replace the clone line below
 with a copy out of `/kaggle/input/...`. It works, but you re-upload on every
 code change, which gets old fast.
 
-Then in a Kaggle notebook with **Accelerator = GPU T4 x2** (or P100):
+Then in a Kaggle notebook with **Accelerator = GPU T4 x2** (or P100), and
+**Internet switched on** in the right sidebar (needs phone verification on your
+Kaggle account -- both clones fail instantly without it).
+
+A private repo needs credentials. Add your token under **Add-ons -> Secrets ->
+Add a new secret**, labelled `GH_TOKEN`, and check that it is attached to the
+notebook. Then, in the first cell:
 
 ```python
-!git clone https://github.com/<you>/ae496-ugp.git /kaggle/working/ugp
-!git clone https://github.com/Aeroscience-Computations-Analysis-Lab/underPINN.git /kaggle/working/ugp/upinn
-%cd /kaggle/working/ugp
-!pip install -q flax optax
-import jax; print(jax.default_backend(), jax.devices())
+import subprocess
+from kaggle_secrets import UserSecretsClient
+
+GH_USER, REPO = "<you>", "ae496-ugp"
+tok = UserSecretsClient().get_secret("GH_TOKEN")
+
+subprocess.run(["rm", "-rf", "/kaggle/working/ugp"], check=False)
+subprocess.run(["git", "clone", "-q",
+                f"https://{tok}@github.com/{GH_USER}/{REPO}.git",
+                "/kaggle/working/ugp"], check=True)
+subprocess.run(["git", "clone", "-q",
+                "https://github.com/Aeroscience-Computations-Analysis-Lab/underPINN.git",
+                "/kaggle/working/ugp/upinn"], check=True)
+print("cloned OK")
 ```
 
-JAX with CUDA is preinstalled on Kaggle. If `default_backend()` prints `cpu`,
-stop and fix that first — everything below assumes GPU.
+```python
+!pip install -q flax optax
+```
+
+Use `subprocess.run`, not `!git clone`: the `!` magic echoes the command --
+token included -- into the notebook output, and Kaggle saves outputs.
+
+Then in a **separate** cell (a pip install does not affect modules already
+imported in the same cell):
+
+```python
+%cd /kaggle/working/ugp
+import jax, flax, optax
+print("jax", jax.__version__, "| flax", flax.__version__, "| optax", optax.__version__)
+print("backend:", jax.default_backend(), jax.devices())
+!ls upinn/underPINN | head
+```
+
+Two things must be true before going further:
+
+* **`backend: gpu`.** If it prints `cpu`, the pip install resolved a CPU JAX
+  wheel over Kaggle's preinstalled CUDA one -- a common trap. Fix with
+  `!pip install -q -U "jax[cuda12]"` and re-run the cell.
+* **`ls upinn/underPINN` lists `core`, `nn`, `pde`, ...** If it is empty, the
+  second clone landed in the wrong place and every `import underPINN` fails.
 
 ## 1. Ground truth (~5 min on GPU)
 
