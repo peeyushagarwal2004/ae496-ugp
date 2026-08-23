@@ -9,16 +9,29 @@ laptop, and avoids pushing 200 MB around. Generate it in the notebook.
 
 ## 0. Get the code there
 
-Easiest is a GitHub repo (the project isn't one yet):
+The local git repo is already created and committed (code only, 142 KB —
+`.gitignore` keeps the datasets out). You only need to push it somewhere Kaggle
+can reach.
+
+1. Go to <https://github.com/new>, name it `ae496-ugp`, set it **Private**, and
+   do **not** tick "Add a README" — the repo already has one.
+2. Push (replace `<you>` with your GitHub username):
 
 ```bash
-cd "C:/Users/hp/Desktop/AE496 UGP"
-git init && git add src tests experiments README.md KAGGLE.md && git commit -m "UGP: PINN vortex shedding"
-gh repo create ae496-ugp --private --source=. --push
+git remote add origin https://github.com/<you>/ae496-ugp.git
+git branch -M main
+git push -u origin main
 ```
 
-Add `data/`, `runs/`, `figures/`, `upinn/`, `*.npz` to `.gitignore` first — the
-datasets are regenerated on Kaggle and `upinn/` is installed from its own repo.
+When git asks for a password, give it a **personal access token**, not your
+account password (GitHub → Settings → Developer settings → Personal access
+tokens → generate one with `repo` scope). Plain passwords stopped working for
+git years ago.
+
+*No GitHub account?* Alternative: zip `src/`, `tests/` and `experiments/`,
+upload via Kaggle's **+ Add Data → Upload**, and replace the clone line below
+with a copy out of `/kaggle/input/...`. It works, but you re-upload on every
+code change, which gets old fast.
 
 Then in a Kaggle notebook with **Accelerator = GPU T4 x2** (or P100):
 
@@ -41,21 +54,28 @@ python src/cfd/lbm_cylinder.py --u 0.05 --height 50 --steps 102000 \
 python src/cfd/inspect_data.py --tag re100_v4
 ```
 
-Check the printed St and C_d. Expect **St ≈ 0.168** and **C_d ≈ 1.42** — both
-sit above the 1.375 benchmark because of the 2 % blockage, which the
-convergence study already quantified (see README). If they come out wildly
-different, something is wrong with the GPU build, not the physics.
+Check the printed numbers against what this exact command produced locally:
+
+```
+Cd = 1.3798   (benchmark 1.37-1.38,  +0.3 %)
+St = 0.1611   (benchmark 0.165,      -2.3 %)
+```
+
+LBM is deterministic, so the GPU should reproduce these to within float32
+round-off. If it does not, something is wrong with the GPU build — sort that
+out before spending quota on training.
 
 ## 2. Base flow for the decomposition (~2 min on GPU)
 
 ```bash
-python src/pinn/base_flow.py --tag re100_v4 --net fourier_mlp --sigma 8 --epochs 25000
+python src/pinn/base_flow.py --tag re100_v4 --net fourier_mlp --sigma 12 --epochs 25000
 ```
 
-Target **relative L2 below ~1 %**. Fourier features beat a plain MLP by 7.7×
-here, so don't substitute `--net mlp`. If it lands above 2 %, raise `--sigma`
-or `--epochs` — a loose base flow leaks a steady residual into u′ and defeats
-the whole point of decomposing.
+Target **relative L2 below ~1 %**. The same fit reached **1.2e-3** locally, so
+anything much worse means something is off. Fourier features beat a plain MLP
+by 7.7x here, and sigma = 12 won a scan over 8/12/16/24 — don't substitute
+`--net mlp`. A loose base flow leaks a steady residual into u' and defeats the
+whole point of decomposing.
 
 ## 3. Calibrate before committing (~5 min)
 
