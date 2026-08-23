@@ -188,8 +188,11 @@ def evaluate(pde, params, ds, t0, t1, n_times=8):
     for k in ks:
         coords, vals = ds.snapshot(k)
         pred = np.asarray(pde.u(params, jnp.asarray(coords)))
-        errs.append(ds.relative_l2(pred.T, vals.T) if pred.shape[0] == vals.shape[0]
-                    else ds.relative_l2(pred, vals))
+        # Both are (M, 3) = (points, [u, v, p]). relative_l2 slices the LAST
+        # axis to take (u, v), so they must be passed un-transposed: passing
+        # the transpose silently reduces the comparison to two grid points.
+        assert pred.shape == vals.shape, (pred.shape, vals.shape)
+        errs.append(ds.relative_l2(pred, vals))
 
     # Shedding amplitude: r.m.s. of v(t) at the wake probe.
     tt = np.linspace(t0, t1, 200)
