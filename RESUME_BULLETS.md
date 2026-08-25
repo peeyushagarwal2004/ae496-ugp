@@ -35,3 +35,24 @@ application. Numbers only where measured; shedding/FNO results pending.
   **underPINN** library, verified to **1e-16**.
 * Traced a **+18% drag bias** to domain blockage (not the solver) via a
   **convergence study**, overturning two wrong hypotheses.
+
+---
+
+## Planned / in-progress (method-forward; add results once measured)
+
+High-signal techniques on the roadmap — safe to list as *methods in use* even
+before results land. Pick the 1–2 that fit the target role.
+
+* **Self-adaptive loss weighting** (NTK / gradient-norm balancing) to
+  auto-tune the PDE/BC/IC/data terms — the core difficulty in multi-objective
+  PINN training.
+* **Residual-based adaptive collocation (RAR-D)** — resampling points where the
+  PDE residual is largest, instead of uniform sampling.
+* **Physics-regularised Fourier Neural Operator** — adding a divergence-free /
+  NS-residual penalty to a data-driven operator to extend its stable
+  **autoregressive rollout** horizon (the project's novel contribution).
+* **Sparse-sensor flow reconstruction** — inverse PINN recovering the full
+  field (and pressure) from a few velocity probes, the regime where physics
+  priors most outperform pure ML.
+* **Distributed data-parallel training** across multi-GPU (T4×2) via JAX
+  `pmap`/sharding.
