@@ -1,108 +1,73 @@
 # Resume bullets — AE496 UGP
 
-Every number here is **measured**, traceable to a file in this repo, and
-defensible in an interview. Nothing predicted or projected.
+Rule: every number is **measured** and traceable to this repo. Methodology is
+stated as *approach* (what the system does / how), never as an unearned result.
+The vortex-shedding and FNO outcomes are not listed because those runs are
+pending — add them from `RESUME.md`'s bracketed lines once measured.
 
-Bold = tech keywords (convert to `\textbf{}` in LaTeX).
-
----
-
-## Version A — full entry (5 bullets)
-
-**Physics-Informed Neural Networks for Vortex Shedding Prediction** [GitHub]
-*AE496 Undergraduate Project, IIT Kanpur* — Aug'26
-
-* Built an unsteady **Navier-Stokes PINN** framework in **JAX/Flax/Optax**,
-  contributing the unsteady 2-D operator absent from the **underPINN** library;
-  validated to **1e-16** against the analytic **Taylor-Green vortex**.
-* Engineered a **D2Q9 lattice-Boltzmann** CFD solver (**TRT** collision,
-  momentum-exchange forcing, half-way bounce-back) generating a **641-snapshot**
-  ground-truth wake at **C_d = 1.3798 vs the 1.37-1.38 benchmark (0.3 % error)**.
-* Diagnosed a systematic **+18 % drag bias** to domain blockage — not
-  discretisation — through a 6-configuration convergence study, extrapolating to
-  **1.348 at zero blockage (2.0 % error)**.
-* Cut solver runtime **3x** (float32 + windowed force reduction) and PINN
-  gradient cost **2.5x** by replacing full-Hessian autodiff with
-  forward-over-forward **JVPs**, computing 4 derivatives instead of 27.
-* Benchmarked **random Fourier features** against MLP/SIREN encodings,
-  achieving **7.7x lower** relative L2 (**8.9e-3 vs 6.9e-2**) on flow-field
-  regression.
+Bold = keywords (→ `\textbf{}` in LaTeX). Pick ONE variant per application.
 
 ---
 
-## Version B — compact (3 bullets, if space is tight)
+## For ML / SDE roles
 
-**Physics-Informed Neural Networks for Vortex Shedding Prediction** [GitHub]
-*AE496 Undergraduate Project, IIT Kanpur* — Aug'26
+**Physics-Informed Neural Networks for Fluid-Flow Prediction** · [GitHub]
+*Undergraduate Research Project, IIT Kanpur* — 2026
 
-* Built an unsteady **Navier-Stokes PINN** in **JAX/Flax**, contributing the
-  unsteady 2-D operator missing from the **underPINN** library; validated to
-  **1e-16** on the analytic **Taylor-Green vortex**.
-* Engineered a **D2Q9 lattice-Boltzmann** solver (**TRT** collision, momentum
-  exchange) hitting **C_d = 1.3798 vs 1.37-1.38 benchmark (0.3 % error)**, and
-  traced a **+18 %** drag bias to domain blockage via a convergence study.
-* Optimised training **2.5x** with forward-over-forward **JVP** autodiff and
-  **7.7x** lower error using **random Fourier features** over standard MLPs.
+* Contributed the **unsteady 2-D Navier–Stokes operator** missing from the
+  **underPINN** (JAX/Flax) library, letting a network `(x,y,t)→(u,v,p)` learn a
+  PDE from its own **autodiff** residual; verified to **1e-16** against a
+  closed-form solution.
+* Rebuilt the residual's derivative path with **forward-over-forward JVPs**,
+  evaluating 4 of 27 Hessian entries for a **2.5× faster** training step, on a
+  **float32, CPU/GPU-portable** stack.
+* Ran a controlled **ablation harness** (spectral Fourier features vs standard
+  MLP/SIREN encodings) that cut flow-field regression error **7.7×**
+  (8.9e-3 vs 6.9e-2 relative L2).
+* Hardened the pipeline with a regression suite that caught a **silent
+  broadcasting bug** in the eval metric — comparing 6 values instead of 58,102 —
+  that had returned plausible-but-wrong numbers.
 
----
+## For Aerospace / Core roles
 
-## Version C — ML/SWE-leaning (if the role is not aerospace)
+**PINN-Based Prediction of Vortex Shedding Behind a Cylinder** · [GitHub]
+*Undergraduate Research Project, IIT Kanpur* — 2026
 
-Reframes the same work around engineering rather than fluid mechanics.
-
-* Built a **JAX/Flax** scientific-ML pipeline (**PINNs**, **neural operators**)
-  with a **GPU-portable** float32 training path, checkpointing and a
-  reproducible experiment harness across a 6-configuration ablation.
-* Optimised **automatic-differentiation** cost **2.5x** by hand-deriving a
-  forward-over-forward **JVP** scheme computing only 4 of 27 Hessian entries,
-  and **3x** more via float32 and windowed tensor reductions.
-* Wrote a physics-validated **numerical solver** in JAX verified to **1e-16**
-  against an analytic solution, plus a regression suite that caught a silent
-  metric bug comparing **6 values instead of 58,102**.
-* Ran a systematic **convergence/ablation study** isolating a **+18 %**
-  systematic error to its true cause, with **7.7x** model-accuracy improvement
-  from an encoding change (**8.9e-3 vs 6.9e-2** relative L2).
-
----
-
-## Bullets to ADD once Phases 3-5 finish
-
-Do **not** use these yet. Fill the brackets with real measured numbers.
-
-* Reproduced the documented failure of data-free PINNs on vortex shedding,
-  quantifying wake collapse at **[X] %** shedding retained vs the CFD reference.
-* Restored shedding to **[X] %** via **[mechanism]**, isolated through a
-  6-configuration, 2-seed ablation over Fourier features, **Reynolds
-  decomposition** and causal time-marching.
-* Implemented a **Fourier Neural Operator** (width 80, 24 modes) with
-  **10-step autoregressive rollout**, reaching **eps = [X]** relative L2, and
-  showed physics-regularised training extends the stable horizon **[X]x**.
+* Engineered a **D2Q9 lattice-Boltzmann** solver (**TRT** collision,
+  momentum-exchange surface force, half-way bounce-back) for the Re=100 cylinder
+  wake, matching the benchmark at **C_d = 1.3798 (0.3% error)** and **St = 0.161**.
+* Isolated an apparent **+18% drag error** to **domain-blockage** confinement —
+  not discretisation — via a grid/blockage **convergence study**, extrapolating
+  to **C_d = 1.348 (2.0%)** at zero blockage.
+* Implemented the **unsteady incompressible Navier–Stokes** PINN operator absent
+  from underPINN, plus a **Reynolds-decomposition** scheme (frozen mean flow +
+  learned fluctuation) to target the wake's known collapse-to-steady failure.
+* Designed the study to **bridge PINN and Fourier-Neural-Operator** approaches
+  from the reference literature under a single validated dataset and error metric.
 
 ---
 
-## Interview prep — what you will be asked
+## Add once the GPU runs finish (from RESUME.md, fill brackets with measured values)
 
-**"What is a PINN?"** A neural network that maps `(x, y, t) -> (u, v, p)` and is
-trained so its own **automatic derivatives** satisfy the Navier-Stokes
-residual at randomly sampled collocation points, rather than being fitted to
-data. Mesh-free, and can run data-free.
+* Reproduced and then **defeated the documented collapse-to-steady failure** of
+  data-free PINNs, restoring **[X]%** shedding fidelity via **[mechanism]**.
+* Built a physics-regularised **FNO** with **10-step autoregressive rollout**,
+  extending the stable forecast horizon **[X]×** over the data-only baseline.
 
-**"Why is the 0.3 % number impressive?"** It is not accuracy of a model — it is
-**solver validation** against published DNS benchmarks. It means the
-ground-truth data is trustworthy, which is the prerequisite for every claim
-downstream.
+---
 
-**"What was the hardest part?"** Diagnosing the +18 % drag error. My first two
-hypotheses (relaxation-time scheme, grid resolution) were both wrong — the
-convergence study showed the grid was already converged at the coarsest
-resolution and blockage was the real cause, by roughly 5x. Good answer because
-it shows you let measurement overrule intuition.
+## Interview prep
 
-**"Tell me about a bug you found."** A transposed array in the error metric.
-NumPy broadcasting made it silently compare 6 values instead of 58,102 and
-return a plausible-looking number — no exception, no warning. It would have
-invalidated a whole results table. Now covered by a regression test.
-
-**"Why JAX?"** Automatic differentiation to arbitrary order (a PINN needs second
-derivatives of the network w.r.t. its inputs), `jit` compilation via XLA, and
-identical code on CPU and GPU.
+* **"What's a PINN?"** A network `(x,y,t)→(u,v,p)` trained so its *own* autodiff
+  derivatives satisfy the Navier–Stokes residual at sampled points — mesh-free,
+  runs data-free.
+* **"Why is 0.3% impressive?"** It's not model accuracy — it's *solver
+  validation* against published DNS, which is what makes every downstream claim
+  trustworthy.
+* **"Hardest part?"** Diagnosing the +18% drag bias. My first two hypotheses
+  (collision scheme, grid resolution) were wrong; the convergence study proved
+  the grid was already converged and **blockage** was the real cause. Let
+  measurement overrule intuition.
+* **"A bug you found?"** A transposed array made NumPy silently compare 6 values
+  instead of 58,102 and return a believable number — no exception. Now covered
+  by a regression test.
