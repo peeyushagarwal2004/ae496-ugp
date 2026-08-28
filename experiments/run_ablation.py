@@ -92,14 +92,19 @@ def main():
                 print(f"[{name} seed {seed}] FAILED (exit {proc.returncode})")
                 continue
 
-            res = json.loads((run_dir / "results.json").read_text())["results"]
-            if not res:
-                print(f"[{name} seed {seed}] produced no windows")
+            blob = json.loads((run_dir / "results.json").read_text())
+            res, overall = blob["results"], blob.get("overall") or {}
+            if not res or not overall:
+                print(f"[{name} seed {seed}] produced no usable evaluation")
                 continue
+            # `overall` scores every config over the same span, so configs with
+            # different window counts stay comparable.
             summary.append({
                 "config": name, "seed": seed,
-                "shedding": float(sum(r["shedding_ratio"] for r in res) / len(res)),
-                "rel_l2": float(sum(r["rel_l2_mean"] for r in res) / len(res)),
+                "shedding": float(overall["shedding_ratio"]),
+                "rel_l2": float(overall["rel_l2_mean"]),
+                "probe_pinn": float(overall["probe_v_rms_pinn"]),
+                "probe_lbm": float(overall["probe_v_rms_lbm"]),
                 "windows": len(res),
                 "minutes": (time.time() - t0) / 60.0,
             })

@@ -205,6 +205,8 @@ def evaluate(pde, params, ds, t0, t1, n_times=8):
     v_true = ds.fields[sel, 1, i, j]
 
     return {
+        "t0": float(t0),
+        "t1": float(t1),
         "rel_l2_mean": float(np.mean(errs)),
         "rel_l2_max": float(np.max(errs)),
         "probe_v_rms_pinn": float(np.std(v_pred)),
@@ -352,11 +354,19 @@ def main():
             a, b, args.epochs, args.log_every, f"win {wdw + 1}/{args.windows}")
         all_hist.append(hist)
         m = evaluate(pde, params, ds, a, b)
-        results.append(dict(window=wdw, t0=a, t1=b, **m))
+        results.append(dict(window=wdw, **m))
         print(f"  -> rel L2 {m['rel_l2_mean']:.4f}   "
               f"probe v rms: PINN {m['probe_v_rms_pinn']:.4f} vs "
               f"LBM {m['probe_v_rms_lbm']:.4f}   "
               f"shedding retained {100 * m['shedding_ratio']:.1f} %\n", flush=True)
+
+    # ---- one evaluation identical for every configuration ---------------
+    # Per-window scores are not comparable across configs: a config trained in
+    # four 1.5 t* windows gets scored on windows where the reference amplitude
+    # is small, which inflates the ratio against a config scored over one 6 t*
+    # window. Score everything over the same full span instead.
+    overall = evaluate(pde, params, ds, t_start,
+                       min(t_start + span, t_hi), n_times=24) if results else {}
 
     # ---- report ---------------------------------------------------------
     out = Path(args.out) if args.out else ROOT / "runs" / (
@@ -364,17 +374,28 @@ def main():
         f"_d{args.n_data}_w{args.windows}")
     out.mkdir(parents=True, exist_ok=True)
     (out / "results.json").write_text(json.dumps(
-        {"args": vars(args), "results": results, "history": all_hist}, indent=2))
+        {"args": vars(args), "overall": overall, "results": results,
+         "history": all_hist}, indent=2))
 
     print("=" * 68)
     for r in results:
         print(f"  window {r['window']}  t* {r['t0']:.1f}-{r['t1']:.1f}   "
               f"relL2 {r['rel_l2_mean']:.4f}   shedding {100 * r['shedding_ratio']:5.1f} %")
     if results:
-        avg = np.mean([r["shedding_ratio"] for r in results])
         print("=" * 68)
-        print(f"  mean shedding retained: {100 * avg:.1f} %")
-        print("  (a value near 0 % is the documented collapse to steady flow)")
+        print(f"  OVERALL (t* {overall['t0']:.1f}-{overall['t1']:.1f}, the headline number)")
+        print(f"    relative L2       {overall['rel_l2_mean']:.4f}")
+        print(f"    probe v rms       PINN {overall['probe_v_rms_pinn']:.4f}  "
+              f"vs LBM {overall['probe_v_rms_lbm']:.4f}")
+        print(f"    shedding retained {100 * overall['shedding_ratio']:.1f} %")
+        print("    (near 0 % is the documented collapse to steady flow)")
+
+        per_win = np.mean([r["shedding_ratio"] for r in results])
+        if abs(per_win - overall["shedding_ratio"]) > 0.05:
+            print(f"\n  note: naive mean of per-window ratios would read "
+                  f"{100 * per_win:.1f} % -- inflated, because a short window can "
+                  f"\n        land where the reference amplitude is small. Use the "
+                  f"OVERALL value.")
     print(f"\nresults -> {out}/results.json")
 
 
