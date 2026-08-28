@@ -31,20 +31,30 @@ from google.colab import userdata
 GH_USER, GH_REPO = "peeyushagarwal2004", "ae496-ugp"
 TOKEN = userdata.get('GH_TOKEN')      # needed only for pushing results
 
+os.chdir("/content")      # must leave /content/ugp before deleting it
 subprocess.run(["rm", "-rf", "/content/ugp"], check=False)
-subprocess.run(["git", "clone", "-q",
-                f"https://github.com/{GH_USER}/{GH_REPO}.git",
-                "/content/ugp"], check=True)
-subprocess.run(["git", "clone", "-q",
-    "https://github.com/Aeroscience-Computations-Analysis-Lab/underPINN.git",
-    "/content/ugp/upinn"], check=True)
+for url, dest in [
+    (f"https://github.com/{GH_USER}/{GH_REPO}.git", "/content/ugp"),
+    ("https://github.com/Aeroscience-Computations-Analysis-Lab/underPINN.git",
+     "/content/ugp/upinn"),
+]:
+    p = subprocess.run(["git", "clone", url, dest], capture_output=True, text=True)
+    if p.returncode:
+        raise SystemExit(f"clone failed ({p.returncode}):
+{p.stderr}")
 os.chdir("/content/ugp")
 print(subprocess.run(["ls"], capture_output=True, text=True).stdout)
 ```
 
 ```python
-!pip install -q flax optax
+!pip install -q -U "flax>=0.12.9" "optax>=0.2.8"
 ```
+
+**Then Runtime -> Restart session.** Colab ships a flax that predates JAX 0.11
+and calls `jax.core.get_opaque_trace_state`, removed in JAX 0.11.0 — every
+network build fails with an `AttributeError` until flax is upgraded. The
+restart is required because jax/flax are already imported; without it the
+upgrade has no effect on the running kernel.
 
 `src` must appear in that listing. If it does not, the clone failed and nothing
 below will work.
