@@ -59,8 +59,11 @@ print("cloned OK")
 ```
 
 ```python
-!pip install -q flax optax
+!pip install -q -U "flax>=0.12.9" "optax>=0.2.8"
 ```
+
+The version pin matters: older flax calls `jax.core.get_opaque_trace_state`,
+removed in JAX 0.11.0, and every network build fails until it is upgraded.
 
 Use `subprocess.run`, not `!git clone`: the `!` magic echoes the command --
 token included -- into the notebook output, and Kaggle saves outputs.
