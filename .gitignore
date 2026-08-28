@@ -25,3 +25,6 @@ __pycache__/
 *resume*.pdf
 *resume*.tex
 *cv*.pdf
+
+# Personal resume drafts — kept locally, not published
+RESUME_BULLETS.md
