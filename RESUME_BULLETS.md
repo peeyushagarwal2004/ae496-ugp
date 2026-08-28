@@ -11,8 +11,8 @@ application. Numbers only where measured; shedding/FNO results pending.
 
 * Learning a continuous flow field from PDE residuals via **PINNs** +
   **automatic differentiation** in **JAX / Flax / Optax**.
-* Applied **Fourier-feature embeddings** over MLP/SIREN for a **7.7×** accuracy
-  gain; **FNOs** with **autoregressive rollout** for forecasting.
+* Applied **Fourier-feature embeddings** over MLP/SIREN for **7.7× lower error**
+  than a baseline MLP; **FNOs** with **autoregressive rollout** for forecasting.
 * Cut training-step cost **2.5×** with a **forward-over-forward JVP** scheme on a
   **float32, GPU-portable** stack.
 
@@ -31,8 +31,9 @@ application. Numbers only where measured; shedding/FNO results pending.
 
 ## Standout achievements (swap in if a line frees up)
 
-* Contributed the **unsteady 2-D Navier–Stokes operator** missing from the
-  **underPINN** library, verified to **1e-16**.
+* Implemented a mesh-free **2-D unsteady Navier–Stokes** collocation operator
+  `(x,y,t)→(u,v,p)` for the **underPINN** framework, verified to **1e-16**
+  against the analytic Taylor–Green vortex.
 * Traced a **+18% drag bias** to domain blockage (not the solver) via a
   **convergence study**, overturning two wrong hypotheses.
 

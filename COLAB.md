@@ -14,20 +14,26 @@ deterministic, and 190 MB does not belong in a repo.
    * Name `GH_TOKEN`, value = your GitHub personal access token (`repo` scope)
    * Toggle **Notebook access** on — without this `userdata.get` raises.
 
+The repo is public, so the clone needs no token. The token is only for *pushing*
+results back, which always requires authentication.
+
 ---
 
 ## Cell 1 — clone and install
+
+The repo is public, so cloning needs no credentials. The token is still required
+later — pushing always authenticates, public or not.
 
 ```python
 import subprocess, os
 from google.colab import userdata
 
 GH_USER, GH_REPO = "peeyushagarwal2004", "ae496-ugp"
-TOKEN = userdata.get('GH_TOKEN')
+TOKEN = userdata.get('GH_TOKEN')      # needed only for pushing results
 
 subprocess.run(["rm", "-rf", "/content/ugp"], check=False)
 subprocess.run(["git", "clone", "-q",
-                f"https://{TOKEN}@github.com/{GH_USER}/{GH_REPO}.git",
+                f"https://github.com/{GH_USER}/{GH_REPO}.git",
                 "/content/ugp"], check=True)
 subprocess.run(["git", "clone", "-q",
     "https://github.com/Aeroscience-Computations-Analysis-Lab/underPINN.git",
@@ -40,8 +46,8 @@ print(subprocess.run(["ls"], capture_output=True, text=True).stdout)
 !pip install -q flax optax
 ```
 
-`src` must appear in that listing. If it does not, the clone failed (usually a
-bad or unattached token) and nothing below will work.
+`src` must appear in that listing. If it does not, the clone failed and nothing
+below will work.
 
 ## Cell 2 — verify GPU, define helpers
 
