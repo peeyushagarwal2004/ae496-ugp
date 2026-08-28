@@ -1,14 +1,16 @@
-# Regenerated on Kaggle in ~5 min; far too large to track.
+# Large regenerated datasets — never tracked (400+ MB; rebuilt in ~5 min on GPU)
 data/
-runs/
-figures/
 *.npz
 *.pkl
+*.tar.gz
 
-# underPINN is cloned separately (see KAGGLE.md)
+# underPINN is cloned separately (see COLAB.md / KAGGLE.md)
 upinn/
 underPINN/
-*.tar.gz
+
+# Results ARE tracked: runs/*.json and figures/*.png are small and are the
+# point of a cloud run. Binary artefacts inside them are still excluded by the
+# patterns above.
 
 # logs and scratch
 logs_*.txt
@@ -18,3 +20,8 @@ run_v4_chain.sh
 __pycache__/
 *.py[cod]
 .ipynb_checkpoints/
+
+# Personal documents that happen to live in this folder — never publish these
+*resume*.pdf
+*resume*.tex
+*cv*.pdf
