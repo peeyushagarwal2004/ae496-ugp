@@ -391,7 +391,7 @@ which is a genuinely interesting question and a defensible headline result.
 **Knobs to try before concluding a mechanism failed:**
 
 * `--sigma` on the unsteady net defaults to **2.0**, but the base-flow fit of
-  the *same flow field* wanted **12**. This is very likely too low —
+  the *same flow field* wanted **8–12**. This is very likely too low —
   **the most probable quick win.**
 * `--w-ic` (default 10) — the IC is what excludes the trivial solution. If
   shedding dies, raise it hard (100, 1000).
