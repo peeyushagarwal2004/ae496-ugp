@@ -44,9 +44,12 @@ upinn/       vendored underPINN source
 |---|---|
 | 1. Ground-truth data | **done** — solver validated, see below |
 | 2. Unsteady NS operator | **done** — validated to machine precision |
-| 3. PINN experiment | pipeline built and smoke-tested; needs GPU to run for real |
-| 4. Defeating the collapse | mechanisms implemented as switches; not yet run |
+| 3. PINN experiment | pipeline built and smoke-tested; full-budget GPU run pending |
+| 4. Defeating the collapse | ablation (`experiments/run_ablation.py`) ready; not yet run at full budget |
 | 5. FNO comparison | not started |
+
+Ground truth has been reproduced on a Colab GPU. Phases 3–4 run from
+`COLAB.md` Cells 4–7, which push results to `runs/` after each config.
 
 ### Phase 1 result: the solver is validated
 
@@ -84,9 +87,11 @@ python src/cfd/inspect_data.py --tag re100_v4
 python src/cfd/convergence_sweep.py && python src/cfd/plot_convergence.py
 
 # smooth mean flow for the Reynolds decomposition
-python src/pinn/base_flow.py --tag re100_v4 --net fourier_mlp --sigma 8 --epochs 25000
+python src/pinn/base_flow.py --tag re100_v4 --net fourier_mlp --width 128 \
+    --sigma 8 --epochs 25000
 
 # the experiment
+python experiments/run_ablation.py --tag re100_v4 --epochs 20000 --seeds 2   # full matrix
 python src/pinn/cylinder_unsteady.py --smoke                    # CPU sanity check
 python src/pinn/cylinder_unsteady.py --tag re100_v4 --epochs 20000            # 3a: expect collapse
 python src/pinn/cylinder_unsteady.py --tag re100_v4 --decompose \
@@ -109,7 +114,8 @@ and LBM. A value near 0 % is the documented collapse.
 
 CPU-only development works for phases 1–2. Phase 3 does not: a realistic
 20 000-epoch run is ~8 hours on CPU, and the ablation needs a dozen. Everything
-is JAX and runs unchanged on GPU (Kaggle gives 30 GPU-h/week).
+is JAX and runs unchanged on GPU — see `COLAB.md` (current workflow) or
+`KAGGLE.md` (30 GPU-h/week).
 
 ## Things that turned out to be wrong
 

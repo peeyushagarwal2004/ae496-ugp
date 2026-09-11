@@ -279,7 +279,7 @@ solver defect** — the headline validation result. Figure:
 `figures/convergence.png`.
 
 Base flow for the decomposition: `data/base_flow_re100_v4.pkl`,
-relative L2 = **1.10e-3** (Fourier MLP 128×5, sigma = 12).
+relative L2 = **1.10e-3** (Fourier MLP 128×5, sigma = 8).
 
 ---
 
