@@ -40,8 +40,7 @@ for url, dest in [
 ]:
     p = subprocess.run(["git", "clone", url, dest], capture_output=True, text=True)
     if p.returncode:
-        raise SystemExit(f"clone failed ({p.returncode}):
-{p.stderr}")
+        raise SystemExit(f"clone failed ({p.returncode}):\n{p.stderr}")
 os.chdir("/content/ugp")
 print(subprocess.run(["ls"], capture_output=True, text=True).stdout)
 ```
@@ -119,11 +118,11 @@ If it does not, stop — the GPU build is wrong, and training on it wastes quota
 
 ```python
 run("src/pinn/base_flow.py", "--tag", "re100_v4",
-    "--net", "fourier_mlp", "--sigma", "12", "--epochs", "25000")
+    "--net", "fourier_mlp", "--width", "128", "--sigma", "8", "--epochs", "25000")
 save("base flow fit re100_v4 (Colab)")
 ```
 
-Target **relative L2 below ~1 %**; locally this reached **1.2e-3**. A loose base
+Target **relative L2 below ~1 %**; locally this reached **1.1e-3**. A loose base
 flow leaks a steady residual into u' and defeats the decomposition, so do not
 proceed if it lands above ~2 %.
 
