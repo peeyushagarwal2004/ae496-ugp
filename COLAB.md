@@ -17,19 +17,17 @@ deterministic, and 190 MB does not belong in a repo.
 The repo is public, so the clone needs no token. The token is only for *pushing*
 results back, which always requires authentication.
 
+**Order:** Cell 1 → Cell 2 → **Runtime → Restart session** → Cells 3–7.
+Never re-run Cells 1–2 after the restart.
+
 ---
 
-## Cell 1 — clone and install
-
-The repo is public, so cloning needs no credentials. The token is still required
-later — pushing always authenticates, public or not.
+## Cell 1 — clone
 
 ```python
 import subprocess, os
-from google.colab import userdata
 
 GH_USER, GH_REPO = "peeyushagarwal2004", "ae496-ugp"
-TOKEN = userdata.get('GH_TOKEN')      # needed only for pushing results
 
 os.chdir("/content")      # must leave /content/ugp before deleting it
 subprocess.run(["rm", "-rf", "/content/ugp"], check=False)
@@ -45,27 +43,33 @@ os.chdir("/content/ugp")
 print(subprocess.run(["ls"], capture_output=True, text=True).stdout)
 ```
 
+`src` must appear in that listing. If it does not, the clone failed and nothing
+below will work.
+
+## Cell 2 — install
+
 ```python
 !pip install -q -U "flax>=0.12.9" "optax>=0.2.8"
 ```
 
-**Then Runtime -> Restart session.** Colab ships a flax that predates JAX 0.11
+**Then Runtime → Restart session.** Colab ships a flax that predates JAX 0.11
 and calls `jax.core.get_opaque_trace_state`, removed in JAX 0.11.0 — every
 network build fails with an `AttributeError` until flax is upgraded. The
 restart is required because jax/flax are already imported; without it the
 upgrade has no effect on the running kernel.
 
-`src` must appear in that listing. If it does not, the clone failed and nothing
-below will work.
+The restart wipes every Python variable, which is why the token is read in
+Cell 3 rather than Cell 1.
 
-## Cell 2 — verify GPU, define helpers
-
-Must be a **separate cell** — a `pip install` does not affect modules already
-imported in the same cell.
+## Cell 3 — verify GPU, define helpers
 
 ```python
 import subprocess, sys, os, time
+from google.colab import userdata
+
 os.chdir("/content/ugp"); sys.path.insert(0, "/content/ugp")
+GH_USER, GH_REPO = "peeyushagarwal2004", "ae496-ugp"
+TOKEN = userdata.get('GH_TOKEN')      # needed only for pushing results
 
 import jax
 print("jax", jax.__version__, "|", jax.default_backend(), jax.devices())
@@ -89,12 +93,12 @@ def save(msg):
 
 **`backend` must print `gpu`.** If it says `cpu`, run
 `!pip install -q -U "jax[cuda12]"`, then **Runtime → Restart session**, and
-re-run Cells 1–2. Everything below assumes GPU.
+re-run Cell 3. Everything below assumes GPU.
 
 `subprocess` is used rather than `!` because the `!` magic forks a process that
 already holds JAX's threads, which can deadlock on long runs.
 
-## Cell 3 — ground truth (~5 min)
+## Cell 4 — ground truth (~5 min)
 
 ```python
 run("src/cfd/lbm_cylinder.py", "--u", "0.05", "--height", "50",
@@ -114,7 +118,7 @@ St = 0.1611   (benchmark 0.165,      -2.3 %)
 LBM is deterministic, so the GPU should reproduce these to float32 round-off.
 If it does not, stop — the GPU build is wrong, and training on it wastes quota.
 
-## Cell 4 — base flow for the decomposition (~2 min)
+## Cell 5 — base flow for the decomposition (~2 min)
 
 ```python
 run("src/pinn/base_flow.py", "--tag", "re100_v4",
@@ -126,7 +130,7 @@ Target **relative L2 below ~1 %**; locally this reached **1.1e-3**. A loose base
 flow leaks a steady residual into u' and defeats the decomposition, so do not
 proceed if it lands above ~2 %.
 
-## Cell 5 — calibrate (~5 min)
+## Optional — calibrate (~5 min)
 
 ```python
 run("experiments/run_ablation.py", "--tag", "re100_v4", "--quick")
@@ -134,7 +138,8 @@ run("experiments/run_ablation.py", "--tag", "re100_v4", "--quick")
 
 Six configs at 2000 epochs. **Not a result** — it measures per-run cost so you
 can size Cell 6, and proves every code path works on GPU. Read the `min` column
-and multiply by ~10.
+and multiply by ~10. Output goes to `runs_quick/`, which is never pushed and
+never marks a config as done for Cell 6. Skip it if you just want to start.
 
 ## Cell 6 — the real experiment (push after each config)
 
@@ -152,8 +157,8 @@ for cfg in CONFIGS:
 ```
 
 `run_ablation.py` appends to `runs/ablation/summary.json` and **skips
-configurations already present**, so re-running this cell after a disconnect
-resumes rather than repeating.
+configurations already present**, so re-running this cell resumes rather than
+repeating.
 
 ## Cell 7 — final table
 
@@ -168,6 +173,13 @@ save("final ablation table (Colab)")
 ```
 
 ---
+
+## After a disconnect
+
+The VM is gone, so start over: **Cell 1 → Cell 2 → restart → Cells 3, 4, 5 →
+Cell 6.** Cells 4–5 must be re-run because the dataset and base flow live in
+`data/`, which is never pushed (~7 min). Cell 6 then skips every config whose
+results were pushed — the fresh clone brings `runs/ablation/summary.json` back.
 
 ## Reading the result
 

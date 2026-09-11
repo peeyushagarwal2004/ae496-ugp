@@ -16,7 +16,7 @@ the PINN and the LBM reference.
 
 Usage (GPU):
     python experiments/run_ablation.py --tag re100_v4 --epochs 20000
-    python experiments/run_ablation.py --quick          # small, for a first check
+    python experiments/run_ablation.py --quick          # timing check -> runs_quick/
     python experiments/run_ablation.py --only baseline,all
 """
 
@@ -65,7 +65,9 @@ def main():
     if unknown:
         raise SystemExit(f"unknown config(s): {unknown}; choose from {list(MATRIX)}")
 
-    outdir = ROOT / "runs" / "ablation"
+    # --quick is calibration, not data. Keeping it out of runs/ means it cannot
+    # mark configs as done for the real sweep, and push_results never ships it.
+    outdir = ROOT / ("runs_quick" if args.quick else "runs") / "ablation"
     outdir.mkdir(parents=True, exist_ok=True)
     summary_path = outdir / "summary.json"
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else []

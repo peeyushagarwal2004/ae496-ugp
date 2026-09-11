@@ -109,12 +109,14 @@ out before spending quota on training.
 ## 2. Base flow for the decomposition (~2 min on GPU)
 
 ```bash
-python src/pinn/base_flow.py --tag re100_v4 --net fourier_mlp --sigma 12 --epochs 25000
+python src/pinn/base_flow.py --tag re100_v4 --net fourier_mlp --width 128 \
+    --sigma 8 --epochs 25000
 ```
 
-Target **relative L2 below ~1 %**. The same fit reached **1.2e-3** locally, so
+Target **relative L2 below ~1 %**. The same fit reached **1.1e-3** locally, so
 anything much worse means something is off. Fourier features beat a plain MLP
-by 7.7x here, and sigma = 12 won a scan over 8/12/16/24 — don't substitute
+by 7.7x here, and sigma = 8 and 12 tied in a scan over 8/12/16/24 (the saved
+v4 fit uses 8) — don't substitute
 `--net mlp`. A loose base flow leaks a steady residual into u' and defeats the
 whole point of decomposing.
 
