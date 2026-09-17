@@ -55,6 +55,8 @@ def main():
     ap.add_argument("--quick", action="store_true",
                     help="short runs, for checking the GPU path works")
     ap.add_argument("--extra", default="", help="extra flags passed to every run")
+    ap.add_argument("--run-name", default="ablation",
+                    help="results go to runs/<run-name>; use a new name for a different budget")
     args = ap.parse_args()
 
     if args.quick:
@@ -67,7 +69,7 @@ def main():
 
     # --quick is calibration, not data. Keeping it out of runs/ means it cannot
     # mark configs as done for the real sweep, and push_results never ships it.
-    outdir = ROOT / ("runs_quick" if args.quick else "runs") / "ablation"
+    outdir = ROOT / ("runs_quick" if args.quick else "runs") / args.run_name
     outdir.mkdir(parents=True, exist_ok=True)
     summary_path = outdir / "summary.json"
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else []
@@ -108,6 +110,8 @@ def main():
                 "probe_pinn": float(overall["probe_v_rms_pinn"]),
                 "probe_lbm": float(overall["probe_v_rms_lbm"]),
                 "windows": len(res),
+                "epochs_per_window": args.epochs,
+                "extra": args.extra,
                 "minutes": (time.time() - t0) / 60.0,
             })
             summary_path.write_text(json.dumps(summary, indent=2))
