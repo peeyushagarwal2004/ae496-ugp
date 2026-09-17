@@ -179,15 +179,26 @@ def make_loss(pde, w):
 # --------------------------------------------------------------------------
 # Evaluation
 # --------------------------------------------------------------------------
-def evaluate(pde, params, ds, t0, t1, n_times=8):
-    """Relative L2 against LBM, plus the wake-probe shedding amplitude."""
+def evaluate(pde, segments, ds, t0, t1, n_times=8):
+    """Relative L2 against LBM, plus the wake-probe shedding amplitude.
+
+    `segments` is [(a, b, params), ...] in time order: each window's network is
+    only trained on its own [a, b], so every time is scored with the network
+    that owns it. Scoring a marched run with its final network alone would
+    judge it mostly on time it never trained on.
+    """
+    ends = np.array([b for _, b, _ in segments[:-1]])
+
+    def params_at(t):
+        return segments[int(np.searchsorted(ends, t, side="left"))][2]
+
     k0, k1 = ds.nearest_time_index(t0), ds.nearest_time_index(t1)
     ks = np.unique(np.linspace(k0, k1, n_times).astype(int))
 
     errs = []
     for k in ks:
         coords, vals = ds.snapshot(k)
-        pred = np.asarray(pde.u(params, jnp.asarray(coords)))
+        pred = np.asarray(pde.u(params_at(ds.t[k]), jnp.asarray(coords)))
         # Both are (M, 3) = (points, [u, v, p]). relative_l2 slices the LAST
         # axis to take (u, v), so they must be passed un-transposed: passing
         # the transpose silently reduces the comparison to two grid points.
@@ -197,7 +208,11 @@ def evaluate(pde, params, ds, t0, t1, n_times=8):
     # Shedding amplitude: r.m.s. of v(t) at the wake probe.
     tt = np.linspace(t0, t1, 200)
     probe = np.stack([np.full_like(tt, PROBE[0]), np.full_like(tt, PROBE[1]), tt], axis=1)
-    v_pred = np.asarray(pde.u(params, jnp.asarray(probe)))[:, 1]
+    owner = np.searchsorted(ends, tt, side="left")
+    v_pred = np.empty_like(tt)
+    for s in np.unique(owner):
+        m = owner == s
+        v_pred[m] = np.asarray(pde.u(segments[s][2], jnp.asarray(probe[m])))[:, 1]
 
     i = int(np.argmin(np.abs(ds.x - PROBE[0])))
     j = int(np.argmin(np.abs(ds.y - PROBE[1])))
@@ -343,17 +358,23 @@ def main():
           f"t* {t_start:.2f} .. {min(t_start + span, t_hi):.2f}\n")
 
     rng = np.random.default_rng(args.seed)
-    all_hist, results = [], []
+    all_hist, results, segments = [], [], []
     for wdw in range(args.windows):
         a = t_start + wdw * args.window_len
         b = min(a + args.window_len, t_hi)
         if a >= t_hi:
             break
+        # Restart the optimiser per window. The schedule halves the rate every
+        # epochs/5 steps, so one step counter carried across windows left
+        # window 2 at lr 3e-5 and window 4 at 3e-8 -- frozen, which would read
+        # as time-marching failing rather than as an optimiser artefact.
+        state = opt.init(params)
         params, state, hist = train_window(
             pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
             a, b, args.epochs, args.log_every, f"win {wdw + 1}/{args.windows}")
         all_hist.append(hist)
-        m = evaluate(pde, params, ds, a, b)
+        segments.append((a, b, params))
+        m = evaluate(pde, [(a, b, params)], ds, a, b)
         results.append(dict(window=wdw, **m))
         print(f"  -> rel L2 {m['rel_l2_mean']:.4f}   "
               f"probe v rms: PINN {m['probe_v_rms_pinn']:.4f} vs "
@@ -364,8 +385,9 @@ def main():
     # Per-window scores are not comparable across configs: a config trained in
     # four 1.5 t* windows gets scored on windows where the reference amplitude
     # is small, which inflates the ratio against a config scored over one 6 t*
-    # window. Score everything over the same full span instead.
-    overall = evaluate(pde, params, ds, t_start,
+    # window. Score everything over the same full span instead, each time by
+    # the window network that trained on it.
+    overall = evaluate(pde, segments, ds, t_start,
                        min(t_start + span, t_hi), n_times=24) if results else {}
 
     # ---- report ---------------------------------------------------------
