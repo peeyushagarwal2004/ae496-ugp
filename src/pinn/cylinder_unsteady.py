@@ -33,6 +33,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import pickle
 import sys
 import time
 from pathlib import Path
@@ -263,6 +264,31 @@ def train_window(pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
     return params, state, hist
 
 
+def build(args, ds):
+    """Model, PDE operator and start time for `args` (shared with plotting)."""
+    xmin, xmax, ymin, ymax = ds.bounds
+    t_lo, _ = ds.t_range
+    t_start = args.t_start if args.t_start is not None else t_lo
+
+    net_cfg = {"type": args.net, "layers": [3] + [args.width] * args.depth + [3]}
+    if args.net in ("fourier_mlp", "fourier"):
+        net_cfg.update(n_fourier=args.n_fourier, sigma=args.sigma)
+    base_net = build_model(net_cfg)
+
+    span = args.windows * args.window_len
+    shift = np.array([0.5 * (xmin + xmax), 0.5 * (ymin + ymax), t_start + 0.5 * span])
+    scale = np.array([0.5 * (xmax - xmin), 0.5 * (ymax - ymin), max(0.5 * span, 1e-6)])
+    model = Rescaled(base_net, shift, scale)
+
+    if args.decompose:
+        bf_path = ROOT / "data" / f"base_flow_{args.tag}.pkl"
+        if not bf_path.exists():
+            raise SystemExit(f"{bf_path} missing -- run src/pinn/base_flow.py first")
+        model = MeanPlusFluctuation(BaseFlowNet.restore(bf_path), model)
+
+    return model, NavierStokes2DUnsteadyPDE(model, Re=ds.Re, fast=True), t_start
+
+
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--tag", default="re100_v3")
@@ -297,6 +323,8 @@ def main():
                     help="float64 (slow on GPU; for precision checks only)")
     ap.add_argument("--smoke", action="store_true", help="tiny CPU sanity run")
     ap.add_argument("--out", default=None)
+    ap.add_argument("--save-params", action="store_true",
+                    help="also write each window's weights to <out>/params.pkl (for plotting)")
     args = ap.parse_args()
 
     if args.smoke:
@@ -306,8 +334,7 @@ def main():
 
     ds = load(args.tag)
     xmin, xmax, ymin, ymax = ds.bounds
-    t_lo, t_hi = ds.t_range
-    t_start = args.t_start if args.t_start is not None else t_lo
+    _, t_hi = ds.t_range
     cyl = Cylinder2D(radius=0.5, center=(0.0, 0.0))
 
     cfg = dict(bounds=(xmin, xmax, ymin, ymax), n_interior=args.n_interior,
@@ -315,23 +342,8 @@ def main():
                n_data=args.n_data, resample_every=args.resample_every)
 
     # ---- model ----------------------------------------------------------
-    net_cfg = {"type": args.net, "layers": [3] + [args.width] * args.depth + [3]}
-    if args.net in ("fourier_mlp", "fourier"):
-        net_cfg.update(n_fourier=args.n_fourier, sigma=args.sigma)
-    base_net = build_model(net_cfg)
-
+    model, pde, t_start = build(args, ds)
     span = args.windows * args.window_len
-    shift = np.array([0.5 * (xmin + xmax), 0.5 * (ymin + ymax), t_start + 0.5 * span])
-    scale = np.array([0.5 * (xmax - xmin), 0.5 * (ymax - ymin), max(0.5 * span, 1e-6)])
-    model = Rescaled(base_net, shift, scale)
-
-    if args.decompose:
-        bf_path = ROOT / "data" / f"base_flow_{args.tag}.pkl"
-        if not bf_path.exists():
-            raise SystemExit(f"{bf_path} missing -- run src/pinn/base_flow.py first")
-        model = MeanPlusFluctuation(BaseFlowNet.restore(bf_path), model)
-
-    pde = NavierStokes2DUnsteadyPDE(model, Re=ds.Re, fast=True)
 
     key = jax.random.PRNGKey(args.seed)
     params = model.init(key, jnp.zeros((1, 3)))
@@ -398,6 +410,10 @@ def main():
     (out / "results.json").write_text(json.dumps(
         {"args": vars(args), "overall": overall, "results": results,
          "history": all_hist}, indent=2))
+    if args.save_params:
+        with open(out / "params.pkl", "wb") as f:
+            pickle.dump({"args": vars(args), "segments": [
+                (a, b, jax.tree_util.tree_map(np.asarray, p)) for a, b, p in segments]}, f)
 
     print("=" * 68)
     for r in results:
