@@ -1,0 +1,74 @@
+[
+  {
+    "config": "baseline",
+    "seed": 0,
+    "shedding": 0.01895884319816934,
+    "rel_l2": 0.27040260882939543,
+    "probe_pinn": 0.007807917729560229,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 4000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250",
+    "minutes": 87.77891701459885
+  },
+  {
+    "config": "all+data",
+    "seed": 0,
+    "shedding": 0.507901957213906,
+    "rel_l2": 0.05858302837471089,
+    "probe_pinn": 0.20917187062297768,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 1000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250",
+    "minutes": 112.34635605414708
+  },
+  {
+    "config": "march",
+    "seed": 0,
+    "shedding": 0.03677559262523334,
+    "rel_l2": 0.220572243789992,
+    "probe_pinn": 0.015145481117823162,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 1000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250",
+    "minutes": 77.85677384138107
+  },
+  {
+    "config": "all",
+    "seed": 0,
+    "shedding": 0.35024167683071195,
+    "rel_l2": 0.09802297653765317,
+    "probe_pinn": 0.144241827920254,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 1000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250",
+    "minutes": 85.30592848857243
+  },
+  {
+    "config": "fourier",
+    "seed": 0,
+    "shedding": 0.0649538432652391,
+    "rel_l2": 0.2130344140788478,
+    "probe_pinn": 0.026750274746863634,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 4000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250",
+    "minutes": 129.71965825955073
+  },
+  {
+    "config": "decompose",
+    "seed": 0,
+    "shedding": 0.019108110345653077,
+    "rel_l2": 0.18947423599831292,
+    "probe_pinn": 0.00786939118525038,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 4000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250",
+    "minutes": 115.66239973306656
+  }
+]
