@@ -1,0 +1,50 @@
+[
+  {
+    "config": "fourier",
+    "seed": 0,
+    "shedding": 0.10463037820053477,
+    "rel_l2": 0.14928130211219304,
+    "probe_pinn": 0.043090465829762836,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8",
+    "minutes": 3.3965782284736634
+  },
+  {
+    "config": "fourier",
+    "seed": 1,
+    "shedding": 0.1331465213383992,
+    "rel_l2": 0.1473592180772033,
+    "probe_pinn": 0.05483441546094646,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8",
+    "minutes": 3.3936548034350076
+  },
+  {
+    "config": "all",
+    "seed": 0,
+    "shedding": 0.9673406117775422,
+    "rel_l2": 0.04286468989047673,
+    "probe_pinn": 0.39838485050347466,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8",
+    "minutes": 15.804430842399597
+  },
+  {
+    "config": "all",
+    "seed": 1,
+    "shedding": 0.9836644658094597,
+    "rel_l2": 0.04206604537250965,
+    "probe_pinn": 0.40510758711658557,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8",
+    "minutes": 15.808395115534465
+  }
+]

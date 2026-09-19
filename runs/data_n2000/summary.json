@@ -1,0 +1,14 @@
+[
+  {
+    "config": "all+data",
+    "seed": 0,
+    "shedding": 0.989835793957663,
+    "rel_l2": 0.015918392313928154,
+    "probe_pinn": 0.4076491568716402,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--n-data 2000",
+    "minutes": 16.060479752222697
+  }
+]

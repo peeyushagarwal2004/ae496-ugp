@@ -325,18 +325,21 @@ python experiments/run_ablation.py --tag re100_v4 --only baseline --epochs 20000
 Plain MLP `[3,128x6,3]`, physics + boundary + initial conditions, **no data**,
 single time window of one shedding period.
 
-**Result [ESTIMATE].**
+**Result [MEASURED].** A100 GPU, 20 000 epochs, 2 seeds (`runs/ablation`):
 
-| quantity | expected | reasoning |
-|---|---|---|
-| shedding retained | **0–10 %** | literature says the PINN behaves as a steady solver; our 300-epoch smoke run gave 3.6 % but was nowhere near converged |
-| relative L2 | 0.2–0.4 | the mean flow is ~96 % of the field's energy, so even a fully collapsed solution scores moderately |
-| PDE residual loss | small and still falling | the steady solution genuinely satisfies the PDE — a low residual here is *not* evidence of success |
+| quantity | seed 0 | seed 1 | estimate was |
+|---|---|---|---|
+| shedding retained | 9.8 % | 11.3 % | 0–10 % — right |
+| relative L2 | 0.184 | 0.183 | 0.2–0.4 — slightly pessimistic |
+
+The collapse reproduces: the wake keeps about a tenth of the reference
+amplitude, i.e. the PINN is solving the steady problem. Raising the budget to
+80 000 epochs (`runs/ctrl_budget80k`) moves it only to **21.9 %**, so the
+collapse is not an under-training artefact.
 
 **Deliverable.** One figure: PINN vs LBM vorticity at the same `t*`, showing a
-symmetric steady wake where the reference has a Kármán street. Plotting script
-not yet written — adapt `src/cfd/inspect_data.py`, which already handles
-vorticity, the cylinder mask and non-dimensional axes.
+symmetric steady wake where the reference has a Kármán street —
+`figures/ablation_cpu_fields.png`, from `experiments/plot_fields.py`.
 
 > If shedding retained comes out high here, **be suspicious before being
 > pleased**: check that the initial condition is not simply being memorised
@@ -364,18 +367,53 @@ python experiments/run_ablation.py --tag re100_v4 --epochs 20000 --seeds 2
 | `all` | all three | — |
 | `all+data` | plus 4000 supervised points/window | — |
 
-**Result [ESTIMATE].** Ordered by my confidence, which is low:
+**Result [MEASURED].** A100 GPU, 20 000 epochs per window, 2 seeds each, seed
+means (`runs/ablation`, figure `figures/ablation.png`):
 
-| config | shedding retained | relative L2 | reasoning |
+| config | shedding retained | relative L2 | estimate was |
 |---|---|---|---|
-| `baseline` | 0–10 % | 0.2–0.4 | documented |
-| `fourier` | 10–35 % | 0.15–0.35 | representation improves (measured 7.7x on base-flow regression) but representation was never the only obstacle |
-| `decompose` | 5–25 % | 0.15–0.3 | conditioning only; does not exclude `u' = 0` |
-| `march` | 25–60 % | 0.1–0.25 | most physically motivated: directly strengthens the IC and enforces causality — **my pick for the largest single effect** |
-| `all` | 40–85 % | 0.05–0.2 | mechanisms address different obstacles, so expect complementarity |
-| `all+data` | 80–100 % | **0.02–0.10** | with supervision this becomes a well-posed regression; should comfortably beat the paper's `eps < 0.1` because Re = 100 is far easier than Re = 240–3060 |
+| `baseline` | 10.6 % | 0.183 | 0–10 % — right |
+| `fourier` | 9.7 % | 0.167 | 10–35 % — too optimistic |
+| `decompose` | 7.0 % | 0.110 | 5–25 % — right, at the bottom |
+| `march` | **89.2 %** | 0.078 | 25–60 % — **badly under-estimated** |
+| `all` | **90.2 %** | 0.047 | 40–85 % — under-estimated |
+| `all+data` | 100.0 % | **0.015** | 80–100 % — right |
 
-**How to interpret whatever actually happens:**
+**Causal time-marching alone is sufficient, data-free.** That is the headline,
+and it is the "one mechanism suffices" row of the interpretation table below.
+The other two mechanisms do not restore shedding on their own, but they roughly
+halve the error once marching is in place (0.078 → 0.047).
+
+*Equal-budget control (`runs/ctrl_budget80k`).* `march` runs 4 windows, so it
+takes 4x the optimiser steps of a single-window config. Re-running the
+single-window configs at 80 000 epochs — the same total — gives **21.9 %**
+(`baseline`) and **23.8 %** (`decompose`). Both improve, neither approaches
+89 %. **The gain is causality, not compute.** Quote this control alongside the
+headline; without it the comparison is confounded.
+
+*Knobs (`runs/ablation_sigma8`, `runs/ablation_wic100`).*
+
+| change | effect |
+|---|---|
+| `--sigma 8` on `all` | 90.2 % -> **97.6 %**, L2 0.047 -> **0.042** — the best data-free result |
+| `--sigma 8` on `fourier` alone | 9.7 % -> 11.9 %: still collapsed. Spectral bias was never the binding constraint |
+| `--w-ic 100` on `all` | 89.8 %, L2 0.046 — no change. Once marching supplies the causal chain, the IC weight does not matter |
+
+*How little supervision is needed (`runs/data_n*`, `all` + data, 1 seed):*
+
+| data points per window | shedding retained | relative L2 |
+|---|---|---|
+| 0 | 90.2 % | 0.047 |
+| 100 | 97.7 % | 0.030 |
+| 500 | 97.0 % | 0.021 |
+| 2000 | 99.0 % | 0.016 |
+| 4000 | 100.0 % | 0.015 |
+
+Shedding saturates by 100 points; the remaining benefit of data is accuracy,
+and it has largely flattened by 2000. So the physics is buying the *dynamics*,
+and the data is buying the last factor of ~3 in error.
+
+**How to interpret whatever actually happens** (the row that fired is the first):
 
 | outcome | meaning | how to write it |
 |---|---|---|
@@ -384,19 +422,10 @@ python experiments/run_ablation.py --tag re100_v4 --epochs 20000 --seeds 2
 | only `all+data` works | reproduces the literature: PINNs need data here | legitimate negative result — then quantify *how little* data suffices |
 | nothing works | the collapse is robust at this budget | report honestly; sweep `--n-data 0/100/500/2000/8000` for the minimum supervision that restores shedding |
 
-The last two rows are realistic, not failure. A curve of *shedding retained vs
-amount of supervision* directly answers "what is the physics actually buying?",
-which is a genuinely interesting question and a defensible headline result.
-
-**Knobs to try before concluding a mechanism failed:**
-
-* `--sigma` on the unsteady net defaults to **2.0**, but the base-flow fit of
-  the *same flow field* wanted **8–12**. This is very likely too low —
-  **the most probable quick win.**
-* `--w-ic` (default 10) — the IC is what excludes the trivial solution. If
-  shedding dies, raise it hard (100, 1000).
-* `--window-len` — shorter windows strengthen the causal chain.
-* `--n-interior` / `--n-wake` — 8000/4000 is modest for a 3-D `(x,y,t)` domain.
+**Budget is what separates these results from the CPU sweep.** The same matrix
+at 1000–4000 epochs (`runs/ablation_cpu`) gave `march` 3.7 % and `all` 35 %,
+which reads as "only the combined mechanisms work". That conclusion was an
+artefact of under-training. Do not quote the CPU numbers as the result.
 
 ---
 
@@ -457,9 +486,14 @@ mechanisms and ablation (Phase 4) → FNO comparison (Phase 5) → conclusions.
 | `figures/re100_vorticity.png` | the Kármán street over one shedding period |
 | `figures/re100_forces.png` | `C_l`/`C_d` histories and the lift spectrum |
 | `figures/re100_mean.png` | the base flow `u0` |
+| `figures/ablation.png` | **the Phase 4 headline**: shedding retained and L2 per config, full GPU budget |
+| `figures/ctrl_budget80k.png` | the equal-budget control that rules out "marching just trains longer" |
+| `figures/ablation_sigma8.png` | the σ = 8 variant, the best data-free result |
+| `figures/ablation_cpu_fields.png` | PINN vs LBM vorticity — the collapsed baseline against the reference |
 
-**Still to generate:** PINN-vs-LBM field comparison (Phase 3), ablation bar
-chart of shedding retained (Phase 4), FNO rollout-error curve (Phase 5).
+**Still to generate:** field comparison for the *successful* data-free config
+(`runs/fields_best`, params saved on the GPU server), FNO rollout-error curve
+(Phase 5).
 
 ---
 
@@ -484,6 +518,12 @@ and the ablation is a dozen runs. Everything is JAX and runs unchanged on GPU.
 Kaggle gives 30 GPU-h/week, ~9 h per session; use **Save Version → Save & Run
 All** so it survives disconnection. Everything defaults to **float32**
 deliberately — a T4 runs float64 at 1/32 rate.
+
+**[MEASURED] on an A100** (IITK `kanaada`, see §11): ~12 ms per epoch at the
+default point counts, so 3–4 min for a single-window 20 000-epoch run and
+~16 min for a 4-window one. The whole matrix above — 12 ablation runs, 4 knob
+runs, 3 data-sweep runs and 4 control runs — took **under 4 h**. That is the
+same work the CPU sweep spent ~10 h on at a fifth of the budget.
 
 ### §9 Sanity check after any change
 
@@ -517,3 +557,45 @@ transposed metric still prints a plausible number.
   configuration, benchmark ~0.23). Do not quote it as a validation metric
   without longer averaging.
 * **float64 is the wrong default on GPU** (1/32 rate on a T4).
+* **An under-trained ablation gives the wrong qualitative answer, not just a
+  worse number.** At 1000–4000 epochs `march` scored 3.7 % and only `all`
+  worked, which reads as "the mechanisms are complementary". At 20 000 epochs
+  `march` alone scores 89 % and the honest conclusion is the opposite: one
+  mechanism suffices. Fix the budget before interpreting an ablation.
+* **A 4-window run takes 4x the optimiser steps of a 1-window run**, so the
+  ablation matrix is not budget-matched by construction. `runs/ctrl_budget80k`
+  is the control that makes the marching claim defensible; do not drop it.
+* **`--sigma` mattered only in combination** (97.6 % with marching, 11.9 %
+  without). A knob that does nothing alone can still be worth several points on
+  top of the mechanism that works — test knobs on the winning config, not the
+  baseline.
+
+### §11 The IITK GPU server
+
+```bash
+ssh iitkgpu     # 172.27.21.120, user phyguest, key ~/.ssh/iitk_gpu
+```
+
+Two A100 40 GB cards. GPU 0 is usually busy with other users, so pin
+`CUDA_VISIBLE_DEVICES=1`. It is a **shared guest account** — write only inside
+`/home/phyguest/rajeshr/peeyush`.
+
+Constraints found the hard way, all still true:
+
+* **`/home` is 100 % full** (a few MB free). No room for the 190 MB dataset, so
+  the server carries a 10 MB trimmed copy: 34 snapshots covering `t* 91.1–97.4`,
+  which is exactly the span every run trains and scores on. The wake-probe
+  reference comes out at 0.4118 either way, so scores are comparable with the
+  CPU runs.
+* **No internet** (pip fails on an SSL intercept). `einops`, which underPINN
+  imports, is symlinked from another env into `peeyush/pylib`.
+* **No JAX in the default python.** Use the existing CUDA env:
+  `~/anaconda3/envs/graphcast-env/bin/python` (jax 0.4.31, flax 0.9.0), with
+  `PYTHONPATH=$P/pylib:$P/underPINN_GPU_Ready/underPINN_GPU:$P/AE496_UGP/src`.
+* That env has **numpy 1.26**, so a pickle written by numpy 2 will not load.
+  The server's `base_flow_re100_v4.pkl` was re-saved for it; if you refit the
+  base flow locally you must convert it again.
+
+`gpu_sweep.sh`, `gpu_control.sh` and `gpu_fields.sh` in the repo root run the
+matrix unattended (`setsid nohup ./gpu_sweep.sh &`), and `run_ablation.py`
+skips configs already in `summary.json`, so a killed sweep resumes.
