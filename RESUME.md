@@ -490,10 +490,9 @@ mechanisms and ablation (Phase 4) → FNO comparison (Phase 5) → conclusions.
 | `figures/ctrl_budget80k.png` | the equal-budget control that rules out "marching just trains longer" |
 | `figures/ablation_sigma8.png` | the σ = 8 variant, the best data-free result |
 | `figures/ablation_cpu_fields.png` | PINN vs LBM vorticity — the collapsed baseline against the reference |
+| `figures/fields_best.png` | the *successful* data-free PINN: a Kármán street, and the probe trace against LBM |
 
-**Still to generate:** field comparison for the *successful* data-free config
-(`runs/fields_best`, params saved on the GPU server), FNO rollout-error curve
-(Phase 5).
+**Still to generate:** FNO rollout-error curve (Phase 5).
 
 ---
 
