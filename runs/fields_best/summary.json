@@ -1,0 +1,14 @@
+[
+  {
+    "config": "all",
+    "seed": 0,
+    "shedding": 0.9673406117775422,
+    "rel_l2": 0.04286468989047673,
+    "probe_pinn": 0.39838485050347466,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8 --save-params",
+    "minutes": 15.857330656051635
+  }
+]
