@@ -1,0 +1,26 @@
+[
+  {
+    "config": "baseline",
+    "seed": 0,
+    "shedding": 0.01895884319816934,
+    "rel_l2": 0.27040260882939543,
+    "probe_pinn": 0.007807917729560229,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 4000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250 --save-params",
+    "minutes": 467.4267985224724
+  },
+  {
+    "config": "all",
+    "seed": 0,
+    "shedding": 0.35024167683071195,
+    "rel_l2": 0.09802297653765317,
+    "probe_pinn": 0.144241827920254,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 1000,
+    "extra": "--n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250 --save-params",
+    "minutes": 366.0126618425051
+  }
+]
