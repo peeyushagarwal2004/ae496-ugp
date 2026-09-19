@@ -1,0 +1,50 @@
+[
+  {
+    "config": "baseline",
+    "seed": 0,
+    "shedding": 0.21828236008013888,
+    "rel_l2": 0.13590447256192062,
+    "probe_pinn": 0.08989634501985522,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 80000,
+    "extra": "",
+    "minutes": 11.539775776863099
+  },
+  {
+    "config": "baseline",
+    "seed": 1,
+    "shedding": 0.2186634681006975,
+    "rel_l2": 0.14043977831803967,
+    "probe_pinn": 0.09005329869258166,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 80000,
+    "extra": "",
+    "minutes": 11.576519231001535
+  },
+  {
+    "config": "decompose",
+    "seed": 0,
+    "shedding": 0.2518084576498018,
+    "rel_l2": 0.08848104574369521,
+    "probe_pinn": 0.10370356990593971,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 80000,
+    "extra": "",
+    "minutes": 14.487625781695048
+  },
+  {
+    "config": "decompose",
+    "seed": 1,
+    "shedding": 0.22251100336017476,
+    "rel_l2": 0.09307480400768886,
+    "probe_pinn": 0.09163784889185127,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 1,
+    "epochs_per_window": 80000,
+    "extra": "",
+    "minutes": 14.506105228265126
+  }
+]

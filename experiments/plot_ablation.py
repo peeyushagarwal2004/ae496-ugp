@@ -71,7 +71,25 @@ def main():
 
     seeds = max(v["n"] for v in m.values())
     steps = {r["windows"] * r["epochs_per_window"] for r in rows}
-    budget = f"{steps.pop()} steps per config" if len(steps) == 1 else "mixed budgets"
+    per_window = {r["epochs_per_window"] for r in rows}
+    if len(steps) == 1:
+        budget = f"{steps.pop()} steps per config"
+    elif len(per_window) == 1:
+        # Marched configs train the same epochs on each of their windows, so
+        # the step count differs even though the per-window budget does not.
+        budget = f"{per_window.pop()} epochs per window"
+    else:
+        budget = "mixed budgets"
+
+    # The headline depends on the data: at a small budget only the combined
+    # configs shed, at a full one time-marching alone already does.
+    single_best = max((n for n in m if n not in COMBINED and n != "baseline"),
+                      key=lambda n: m[n]["shedding"], default=None)
+    if single_best is not None and m[single_best]["shedding"] >= 50:
+        headline = (f"{LABELS[single_best].capitalize()} alone pulls the PINN "
+                    "out of the steady collapse")
+    else:
+        headline = "Only the combined mechanisms pull the PINN out of the steady collapse"
 
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(10.5, 4.2), sharey=True,
                                  gridspec_kw=dict(width_ratios=[1.35, 1], wspace=0.08))
@@ -102,7 +120,7 @@ def main():
 
     # Header band: reserve the top of the figure so titles never meet the panels.
     fig.subplots_adjust(top=0.78)
-    fig.suptitle("Only the combined mechanisms pull the PINN out of the steady collapse",
+    fig.suptitle(headline,
                  x=0.01, y=0.99, ha="left", va="top", fontsize=12.5, color=INK)
     fig.text(0.01, 0.905,
              f"Re = 100 cylinder wake · data-free unless noted · {seeds} seed{'' if seeds == 1 else 's'} · {budget}"
