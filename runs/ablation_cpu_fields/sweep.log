@@ -1,0 +1,157 @@
+=== fields rerun start Fri Sep 18 12:53:04 2026 | --n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250 --save-params
+
+### baseline @ 4000 epochs/window  (Fri Sep 18 12:53:04 2026)
+
+======================================================================
+[baseline seed 0] (no flags)
+======================================================================
+Re=100  mode=mlp  windows=1 x 6.0 t*  data=0  epochs/window=4000
+domain x[-5,15] y[-4.97917,5.02083]  t* 91.10 .. 97.10
+
+  [win 1/1] ep      0  loss 2.186e+01  pde 7.12e-03  bc 1.51e+00  ic 6.71e-01  dat 0.00e+00  (  7.0s)
+  [win 1/1] ep    250  loss 3.756e-01  pde 1.49e-02  bc 7.75e-03  ic 2.83e-02  dat 0.00e+00  (248.6s)
+  [win 1/1] ep    500  loss 2.868e-01  pde 1.11e-02  bc 7.16e-03  ic 2.04e-02  dat 0.00e+00  (510.9s)
+  [win 1/1] ep    750  loss 2.438e-01  pde 9.50e-03  bc 4.81e-03  ic 1.86e-02  dat 0.00e+00  (772.0s)
+  [win 1/1] ep   1000  loss 2.247e-01  pde 9.27e-03  bc 4.02e-03  ic 1.75e-02  dat 0.00e+00  (1043.7s)
+  [win 1/1] ep   1250  loss 2.058e-01  pde 8.68e-03  bc 3.26e-03  ic 1.65e-02  dat 0.00e+00  (1311.7s)
+  [win 1/1] ep   1500  loss 1.900e-01  pde 7.21e-03  bc 2.49e-03  ic 1.58e-02  dat 0.00e+00  (1567.6s)
+  [win 1/1] ep   1750  loss 1.786e-01  pde 6.62e-03  bc 1.91e-03  ic 1.53e-02  dat 0.00e+00  (1829.3s)
+  [win 1/1] ep   2000  loss 1.746e-01  pde 6.43e-03  bc 1.89e-03  ic 1.49e-02  dat 0.00e+00  (2088.1s)
+  [win 1/1] ep   2250  loss 1.647e-01  pde 5.76e-03  bc 1.31e-03  ic 1.46e-02  dat 0.00e+00  (25777.6s)
+  [win 1/1] ep   2500  loss 1.593e-01  pde 5.40e-03  bc 1.10e-03  ic 1.43e-02  dat 0.00e+00  (26141.9s)
+  [win 1/1] ep   2750  loss 1.559e-01  pde 5.18e-03  bc 9.84e-04  ic 1.41e-02  dat 0.00e+00  (26533.8s)
+  [win 1/1] ep   3000  loss 1.522e-01  pde 4.95e-03  bc 8.48e-04  ic 1.39e-02  dat 0.00e+00  (26943.4s)
+  [win 1/1] ep   3250  loss 1.467e-01  pde 4.82e-03  bc 7.18e-04  ic 1.35e-02  dat 0.00e+00  (27202.1s)
+  [win 1/1] ep   3500  loss 1.453e-01  pde 4.73e-03  bc 6.77e-04  ic 1.34e-02  dat 0.00e+00  (27468.6s)
+  [win 1/1] ep   3750  loss 1.438e-01  pde 4.64e-03  bc 6.37e-04  ic 1.33e-02  dat 0.00e+00  (27762.6s)
+  [win 1/1] ep   3999  loss 1.423e-01  pde 4.54e-03  bc 6.00e-04  ic 1.32e-02  dat 0.00e+00  (28021.3s)
+  -> rel L2 0.2706   probe v rms: PINN 0.0078 vs LBM 0.4118   shedding retained 1.9 %
+
+====================================================================
+  window 0  t* 91.1-97.1   relL2 0.2706   shedding   1.9 %
+====================================================================
+  OVERALL (t* 91.1-97.1, the headline number)
+    relative L2       0.2704
+    probe v rms       PINN 0.0078  vs LBM 0.4118
+    shedding retained 1.9 %
+    (near 0 % is the documented collapse to steady flow)
+
+results -> C:\Users\hp\Desktop\AE496 UGP\runs\ablation_cpu_fields\baseline_s0/results.json
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+baseline        0               1.9%    0.2704   467.4
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> C:\Users\hp\Desktop\AE496 UGP\runs\ablation_cpu_fields\summary.json
+### stage exit 0 (Fri Sep 18 20:40:30 2026)
+
+### all @ 1000 epochs/window  (Fri Sep 18 20:40:30 2026)
+
+======================================================================
+[all seed 0] --decompose --net fourier_mlp --windows 4 --window-len 1.5
+======================================================================
+Re=100  mode=decomposed fourier_mlp  windows=4 x 1.5 t*  data=0  epochs/window=1000
+domain x[-5,15] y[-4.97917,5.02083]  t* 91.10 .. 97.10
+
+  [win 1/4] ep      0  loss 6.301e+00  pde 3.85e-02  bc 5.31e-01  ic 9.56e-02  dat 0.00e+00  (  6.6s)
+  [win 1/4] ep    250  loss 1.211e-01  pde 4.83e-03  bc 4.09e-03  ic 7.53e-03  dat 0.00e+00  (524.4s)
+  [win 1/4] ep    500  loss 7.305e-02  pde 7.45e-03  bc 2.43e-03  ic 4.13e-03  dat 0.00e+00  (1114.3s)
+  [win 1/4] ep    750  loss 5.380e-02  pde 8.10e-03  bc 1.36e-03  ic 3.21e-03  dat 0.00e+00  (7637.5s)
+  [win 1/4] ep    999  loss 4.733e-02  pde 7.87e-03  bc 1.08e-03  ic 2.86e-03  dat 0.00e+00  (7963.6s)
+  -> rel L2 0.1183   probe v rms: PINN 0.0237 vs LBM 0.1966   shedding retained 12.1 %
+
+  [win 2/4] ep      0  loss 4.416e-01  pde 1.12e-02  bc 2.96e-02  ic 1.35e-02  dat 0.00e+00  (  1.0s)
+  [win 2/4] ep    250  loss 5.506e-02  pde 7.43e-03  bc 1.34e-03  ic 3.43e-03  dat 0.00e+00  (264.6s)
+  [win 2/4] ep    500  loss 4.062e-02  pde 6.91e-03  bc 6.60e-04  ic 2.71e-03  dat 0.00e+00  (515.6s)
+  [win 2/4] ep    750  loss 3.622e-02  pde 6.51e-03  bc 5.44e-04  ic 2.43e-03  dat 0.00e+00  (786.1s)
+  [win 2/4] ep    999  loss 3.437e-02  pde 6.32e-03  bc 5.08e-04  ic 2.30e-03  dat 0.00e+00  (1045.2s)
+  -> rel L2 0.1019   probe v rms: PINN 0.0082 vs LBM 0.1053   shedding retained 7.8 %
+
+  [win 3/4] ep      0  loss 2.778e-01  pde 8.99e-03  bc 1.54e-02  ic 1.14e-02  dat 0.00e+00  (  1.0s)
+  [win 3/4] ep    250  loss 4.326e-02  pde 5.51e-03  bc 1.05e-03  ic 2.73e-03  dat 0.00e+00  (259.9s)
+  [win 3/4] ep    500  loss 3.302e-02  pde 4.92e-03  bc 6.05e-04  ic 2.21e-03  dat 0.00e+00  (530.9s)
+  [win 3/4] ep    750  loss 2.908e-02  pde 4.58e-03  bc 4.69e-04  ic 1.98e-03  dat 0.00e+00  (21640.0s)
+=== fields rerun start Sat Sep 19 09:15:10 2026 | --n-interior 2000 --n-wake 1000 --n-ic 2000 --n-bc 200 --log-every 250 --save-params
+
+### baseline @ 4000 epochs/window  (Sat Sep 19 09:15:10 2026)
+[baseline seed 0] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+baseline        0               1.9%    0.2704   467.4
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> C:\Users\hp\Desktop\AE496 UGP\runs\ablation_cpu_fields\summary.json
+### stage exit 0 (Sat Sep 19 09:15:11 2026)
+
+### all @ 1000 epochs/window  (Sat Sep 19 09:15:11 2026)
+
+======================================================================
+[all seed 0] --decompose --net fourier_mlp --windows 4 --window-len 1.5
+======================================================================
+Re=100  mode=decomposed fourier_mlp  windows=4 x 1.5 t*  data=0  epochs/window=1000
+domain x[-5,15] y[-4.97917,5.02083]  t* 91.10 .. 97.10
+
+  [win 1/4] ep      0  loss 6.301e+00  pde 3.85e-02  bc 5.31e-01  ic 9.56e-02  dat 0.00e+00  (  6.7s)
+  [win 1/4] ep    250  loss 1.211e-01  pde 4.83e-03  bc 4.09e-03  ic 7.53e-03  dat 0.00e+00  (307.0s)
+  [win 1/4] ep    500  loss 7.305e-02  pde 7.45e-03  bc 2.43e-03  ic 4.13e-03  dat 0.00e+00  (677.9s)
+  [win 1/4] ep    750  loss 5.380e-02  pde 8.10e-03  bc 1.36e-03  ic 3.21e-03  dat 0.00e+00  (1209.8s)
+  [win 1/4] ep    999  loss 4.733e-02  pde 7.87e-03  bc 1.08e-03  ic 2.86e-03  dat 0.00e+00  (1954.3s)
+  -> rel L2 0.1183   probe v rms: PINN 0.0237 vs LBM 0.1966   shedding retained 12.1 %
+
+  [win 2/4] ep      0  loss 4.416e-01  pde 1.12e-02  bc 2.96e-02  ic 1.35e-02  dat 0.00e+00  (  2.7s)
+  [win 2/4] ep    250  loss 5.506e-02  pde 7.43e-03  bc 1.34e-03  ic 3.43e-03  dat 0.00e+00  (746.0s)
+  [win 2/4] ep    500  loss 4.062e-02  pde 6.91e-03  bc 6.60e-04  ic 2.71e-03  dat 0.00e+00  (1521.2s)
+  [win 2/4] ep    750  loss 3.622e-02  pde 6.51e-03  bc 5.44e-04  ic 2.43e-03  dat 0.00e+00  (16872.8s)
+  [win 2/4] ep    999  loss 3.437e-02  pde 6.32e-03  bc 5.08e-04  ic 2.30e-03  dat 0.00e+00  (17197.2s)
+  -> rel L2 0.1019   probe v rms: PINN 0.0082 vs LBM 0.1053   shedding retained 7.8 %
+
+  [win 3/4] ep      0  loss 2.778e-01  pde 8.99e-03  bc 1.54e-02  ic 1.14e-02  dat 0.00e+00  (  1.2s)
+  [win 3/4] ep    250  loss 4.326e-02  pde 5.51e-03  bc 1.05e-03  ic 2.73e-03  dat 0.00e+00  (337.6s)
+  [win 3/4] ep    500  loss 3.302e-02  pde 4.92e-03  bc 6.05e-04  ic 2.21e-03  dat 0.00e+00  (688.2s)
+  [win 3/4] ep    750  loss 2.908e-02  pde 4.58e-03  bc 4.69e-04  ic 1.98e-03  dat 0.00e+00  (1032.0s)
+  [win 3/4] ep    999  loss 2.728e-02  pde 4.40e-03  bc 4.20e-04  ic 1.87e-03  dat 0.00e+00  (1371.9s)
+  -> rel L2 0.0927   probe v rms: PINN 0.0078 vs LBM 0.2437   shedding retained 3.2 %
+
+  [win 4/4] ep      0  loss 2.314e-01  pde 1.10e-02  bc 1.35e-02  ic 8.49e-03  dat 0.00e+00  (  1.2s)
+  [win 4/4] ep    250  loss 4.611e-02  pde 6.51e-03  bc 9.54e-04  ic 3.01e-03  dat 0.00e+00  (345.1s)
+  [win 4/4] ep    500  loss 2.986e-02  pde 6.41e-03  bc 4.52e-04  ic 1.89e-03  dat 0.00e+00  (698.8s)
+  [win 4/4] ep    750  loss 2.551e-02  pde 6.23e-03  bc 3.60e-04  ic 1.57e-03  dat 0.00e+00  (1047.8s)
+  [win 4/4] ep    999  loss 2.381e-02  pde 6.10e-03  bc 3.29e-04  ic 1.44e-03  dat 0.00e+00  (1385.9s)
+  -> rel L2 0.0836   probe v rms: PINN 0.0460 vs LBM 0.1016   shedding retained 45.3 %
+
+====================================================================
+  window 0  t* 91.1-92.6   relL2 0.1183   shedding  12.1 %
+  window 1  t* 92.6-94.1   relL2 0.1019   shedding   7.8 %
+  window 2  t* 94.1-95.6   relL2 0.0927   shedding   3.2 %
+  window 3  t* 95.6-97.1   relL2 0.0836   shedding  45.3 %
+====================================================================
+  OVERALL (t* 91.1-97.1, the headline number)
+    relative L2       0.0980
+    probe v rms       PINN 0.1442  vs LBM 0.4118
+    shedding retained 35.0 %
+    (near 0 % is the documented collapse to steady flow)
+
+  note: naive mean of per-window ratios would read 17.1 % -- inflated, because a short window can 
+        land where the reference amplitude is small. Use the OVERALL value.
+
+results -> C:\Users\hp\Desktop\AE496 UGP\runs\ablation_cpu_fields\all_s0/results.json
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+all             0              35.0%    0.0980   366.0
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> C:\Users\hp\Desktop\AE496 UGP\runs\ablation_cpu_fields\summary.json
+### stage exit 0 (Sat Sep 19 15:21:12 2026)
+SWEEP_DONE Sat Sep 19 15:21:12 2026
