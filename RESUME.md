@@ -509,23 +509,24 @@ One deviation from the paper's Table 1: rollout activations are recomputed
 needed. Neither changes the recipe. **[MEASURED]** on the A100: ~38 s per
 epoch, so ~2.1 h per 200-epoch variant.
 
-**Result [MEASURED].** A100, paper recipe, 200 epochs, 1 seed, 16 held-out
-initial conditions, `runs/fno`, figure `figures/fno.png`. Quoted as the
-pairwise mean of adjacent steps, for the parity reason below:
+**Result [MEASURED].** A100, paper recipe, 200 epochs, **2 seeds**, 16 held-out
+initial conditions, `runs/fno`, figure `figures/fno.png`. Seed means, quoted as
+the pairwise mean of adjacent steps for the parity reason below (per-seed
+values in brackets):
 
 | forecast steps | 10 (trained) | 20 | 30 | 50 |
 |---|---|---|---|---|
 | in shedding periods | 0.31 | 0.61 | 0.92 | 1.53 |
-| `data` (paper recipe) | 0.093 | 0.191 | 0.316 | **0.388** |
-| `physics` (continuity + vorticity) | **0.073** | **0.131** | **0.304** | 0.627 |
-| `physics_div` (continuity only) | 0.075 | 0.140 | 0.312 | 0.588 |
+| `data` (paper recipe) | 0.093 | 0.183 | **0.296** | **0.365** (0.39, 0.34) |
+| `physics` (continuity + vorticity) | **0.074** | **0.132** | 0.307 | 0.772 (0.63, 0.92) |
+| `physics_div` (continuity only) | 0.075 | 0.140 | 0.312 | 0.764 (0.59, 0.94) |
 
 **The estimate was wrong, and inverted.** It predicted no benefit inside the
 trained horizon and growing benefit outside it. What happened is the opposite:
 physics helps immediately and substantially — 22 % lower error at the trained
 horizon, 31 % lower at twice it — and then **loses beyond ~30 steps**. The
-crossover sits at step 32, which is **0.98 shedding periods**: physics helps
-for about one period of forecast and hurts after that.
+crossover sits at step 27-32 across seeds, which is **0.8-1.0 shedding
+periods**: physics helps for about one period of forecast and hurts after that.
 
 Both physics variants behave the same, so the effect is not specific to the
 vorticity term; continuity alone buys most of it (0.075 vs 0.073 at the trained
@@ -556,10 +557,13 @@ win over them.** Re = 100 LBM data is clean, periodic and two-dimensional; the
 paper's Re = 240–3060 PIV is noisy, experimental and genuinely 3-D. The
 comparable claim is only that the reproduction works.
 
-**Not yet done:** every row above is **1 seed**, while the PINN tables are 2.
-The 50-step comparison in particular sits where seed spread should be largest,
-so the crossover position should not go in the report until a second seed
-confirms it (~3 h on the A100).
+**Seed check [MEASURED].** The second seed confirms the shape. Inside one
+period the runs are tight and the ordering never changes: at 20 steps
+`physics` gives 0.131 and 0.133 against `data` at 0.191 and 0.175. The
+crossover lands at step 32 and 28 (`physics`), 31 and 27 (`physics_div`).
+Beyond it the spread explodes exactly as expected of diverged rollouts --
+`physics` reads 0.63 and 0.92 at 50 steps -- which is why the late-horizon
+gap is reported as "both have failed" rather than as a measured ratio.
 
 ---
 
