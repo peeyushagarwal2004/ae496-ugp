@@ -29,3 +29,11 @@ __pycache__/
 
 # Personal resume drafts — kept locally, not published
 RESUME_BULLETS.md
+
+# LaTeX build artefacts (report.pdf IS tracked - it is the deliverable)
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.fls
+report/*.fdb_latexmk
