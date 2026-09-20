@@ -399,19 +399,26 @@ headline; without it the comparison is confounded.
 | `--sigma 8` on `fourier` alone | 9.7 % -> 11.9 %: still collapsed. Spectral bias was never the binding constraint |
 | `--w-ic 100` on `all` | 89.8 %, L2 0.046 — no change. Once marching supplies the causal chain, the IC weight does not matter |
 
-*How little supervision is needed (`runs/data_n*`, `all` + data, 1 seed):*
+*How little supervision is needed (`runs/data_n*`, `all` + data, 2 seeds,
+seed means with the spread in brackets):*
 
 | data points per window | shedding retained | relative L2 |
 |---|---|---|
-| 0 | 90.2 % | 0.047 |
-| 100 | 97.7 % | 0.030 |
-| 500 | 97.0 % | 0.021 |
-| 2000 | 99.0 % | 0.016 |
-| 4000 | 100.0 % | 0.015 |
+| 0 | 90.2 % (90.0, 90.5) | 0.047 |
+| 100 | 96.2 % (94.6, 97.7) | 0.030 |
+| 500 | 97.6 % (97.0, 98.2) | 0.021 |
+| 2000 | 99.5 % (99.0, 99.9) | 0.016 |
+| 4000 | 100.0 % (100.0, 100.1) | 0.015 |
 
 Shedding saturates by 100 points; the remaining benefit of data is accuracy,
 and it has largely flattened by 2000. So the physics is buying the *dynamics*,
 and the data is buying the last factor of ~3 in error.
+
+The error column is reproducible to three decimals across seeds (e.g. 0.0295
+vs 0.0296 at 100 points), while shedding retained moves by up to 3 points.
+That is the expected asymmetry: L2 is an average over the whole field, the
+shedding ratio is one probe's r.m.s., so quote L2 when a tight number is
+needed and the shedding ratio when the question is whether the wake survived.
 
 **How to interpret whatever actually happens** (the row that fired is the first):
 

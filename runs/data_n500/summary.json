@@ -10,5 +10,17 @@
     "epochs_per_window": 20000,
     "extra": "--n-data 500",
     "minutes": 15.984927070140838
+  },
+  {
+    "config": "all+data",
+    "seed": 1,
+    "shedding": 0.9818847366090246,
+    "rel_l2": 0.0200726290516669,
+    "probe_pinn": 0.4043746321027884,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--n-data 500",
+    "minutes": 17.62178141673406
   }
 ]
