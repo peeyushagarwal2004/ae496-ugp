@@ -509,18 +509,57 @@ One deviation from the paper's Table 1: rollout activations are recomputed
 needed. Neither changes the recipe. **[MEASURED]** on the A100: ~38 s per
 epoch, so ~2.1 h per 200-epoch variant.
 
-**Result [ESTIMATE].**
+**Result [MEASURED].** A100, paper recipe, 200 epochs, 1 seed, 16 held-out
+initial conditions, `runs/fno`, figure `figures/fno.png`. Quoted as the
+pairwise mean of adjacent steps, for the parity reason below:
 
-| case | eps @ 10 steps | eps @ 50 steps | reasoning |
-|---|---|---|---|
-| paper, Re 240–3060, PIV | < 0.1 (their measured value) | not reported | noisy experimental data, 3-D effects |
-| our FNO, Re = 100, LBM | **0.01–0.05** | 0.1–0.4 | clean periodic data, far easier than theirs — this is *not* a win over the paper and must be said explicitly |
-| our physics-informed FNO | 0.01–0.05 (similar) | **0.05–0.2** | physics should matter little inside the trained horizon and increasingly beyond it, where pure data-driven rollout drifts |
+| forecast steps | 10 (trained) | 20 | 30 | 50 |
+|---|---|---|---|---|
+| in shedding periods | 0.31 | 0.61 | 0.92 | 1.53 |
+| `data` (paper recipe) | 0.093 | 0.191 | 0.316 | **0.388** |
+| `physics` (continuity + vorticity) | **0.073** | **0.131** | **0.304** | 0.627 |
+| `physics_div` (continuity only) | 0.075 | 0.140 | 0.312 | 0.588 |
 
-The expected shape of the result — *no benefit inside the trained horizon, growing
-benefit outside it* — is itself the finding. If physics helps everywhere,
-suspect a bug; if it helps nowhere, that is a real (and publishable) negative
-result about the value of physics priors for short-horizon forecasting.
+**The estimate was wrong, and inverted.** It predicted no benefit inside the
+trained horizon and growing benefit outside it. What happened is the opposite:
+physics helps immediately and substantially — 22 % lower error at the trained
+horizon, 31 % lower at twice it — and then **loses beyond ~30 steps**. The
+crossover sits at step 32, which is **0.98 shedding periods**: physics helps
+for about one period of forecast and hurts after that.
+
+Both physics variants behave the same, so the effect is not specific to the
+vorticity term; continuity alone buys most of it (0.075 vs 0.073 at the trained
+horizon).
+
+*Why the late-horizon loss is not obviously a defect.* By 50 steps both
+variants have failed in the sense that matters: `eps_fluct` exceeds 1.0
+(1.56 for `data`, 2.51 for `physics`), i.e. predicting zero fluctuation would
+be better than either rollout. The `data` curve flattens near 0.39 because it
+decays towards the mean flow — the safest possible wrong answer — while the
+physics-constrained rollouts keep injecting fluctuation energy and overshoot.
+Ranking two failed forecasts by which fails more gracefully is weak evidence;
+the honest statement is **physics extends the useful horizon, and neither model
+is usable past one shedding period.**
+
+**Parity artefact — quote smoothed numbers.** The rollout error alternates
+between even and odd steps by 30–45 % in *every* variant (step-to-step ratio
+0.79 then 1.45 for `data`). It is a period-2 mode of the two-frame
+autoregressive map, present with and without physics, and it means a single
+step's `eps` can be read 30 % better or worse purely by which parity it lands
+on. The table above and `plot_rollout.py` both use the pairwise mean; the raw
+curve is drawn faint in the figure so the artefact stays visible rather than
+hidden.
+
+**Comparison with the reference paper.** At the trained horizon our `data`
+variant reaches `eps` = 0.093 against the paper's `eps < 0.1`. **This is not a
+win over them.** Re = 100 LBM data is clean, periodic and two-dimensional; the
+paper's Re = 240–3060 PIV is noisy, experimental and genuinely 3-D. The
+comparable claim is only that the reproduction works.
+
+**Not yet done:** every row above is **1 seed**, while the PINN tables are 2.
+The 50-step comparison in particular sits where seed spread should be largest,
+so the crossover position should not go in the report until a second seed
+confirms it (~3 h on the A100).
 
 ---
 
