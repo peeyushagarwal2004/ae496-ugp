@@ -429,7 +429,7 @@ artefact of under-training. Do not quote the CPU numbers as the result.
 
 ---
 
-### Phase 5 — The FNO comparison (only remaining code)
+### Phase 5 — The FNO comparison (code written, runs pending)
 
 **Objective.** Two things: (a) reproduce the reference paper's method on our
 data, and (b) answer the question that unites the topic with the reference —
@@ -452,10 +452,54 @@ metric  : eps = ||q*-q||_2/||q||_2 over stacked (u,v)
 `data.py` already exposes `.fluct` and `.sample(..., fluctuation=True)`, and
 `CylinderDataset.relative_l2` already implements the paper's metric.
 
-*(b) Contribute.* Add a physics term to the FNO loss — the full NS residual, or
-at minimum a divergence-free penalty `|u_x + v_y|^2` on the predicted field —
-and measure rollout error at **10, 20 and 50 steps**, i.e. well beyond the
-trained horizon. Plot `eps` vs rollout step for both variants.
+*(b) Contribute.* Add a physics term to the FNO loss and measure rollout error
+at **10, 20 and 50 steps**, i.e. well beyond the trained horizon. Plot `eps`
+vs rollout step for both variants.
+
+**Code [WRITTEN, NOT YET RUN AT FULL BUDGET].**
+
+| file | what |
+|---|---|
+| `src/fno/physics.py` | grid residuals: continuity, and vorticity transport |
+| `src/fno/cylinder_fno.py` | data pipeline, FNO2D wrapper, rollout, training, rollout-error evaluation |
+| `experiments/run_fno.py` | runs the variants under identical settings; resumable like `run_ablation.py` |
+| `experiments/plot_rollout.py` | `eps` vs forecast horizon, trained horizon shaded |
+| `tests/test_fno.py` | 9 guards, all passing |
+
+```bash
+python experiments/run_fno.py --tag re100_v4 --epochs 200     # data, physics, physics_div
+python experiments/plot_rollout.py --run-name fno
+python src/fno/cylinder_fno.py --quick                        # CPU sanity run, ~1 min
+```
+
+Four decisions worth knowing before reading any result it produces:
+
+* **The residual is vorticity transport, not momentum.** The network predicts
+  `(u, v)` only, so any residual containing `grad p` is unusable. Taking the
+  curl of the momentum equations removes the pressure, leaving
+  `w_t + u.grad(w) - (1/Re) lap(w)`. Continuity is available separately and is
+  the cheap minimum (`--variant physics_div`).
+* **Physics terms are normalised by the residual the LBM data itself leaves**
+  (`reference_residuals`). LBM is weakly compressible and second-order, so the
+  measured field does not satisfy either equation exactly; pushing a prediction
+  below that floor is fitting discretisation error, not physics. After the
+  normalisation `w_div = w_vort = 1` means "penalise as hard as the data's own
+  violation", which is why the weights survive a change of grid or `Re`.
+* **Two error numbers are reported, `eps_full` and `eps_fluct`.** The model
+  learns `u'`, but the paper reports error on the velocity. Adding the frozen
+  mean back shrinks the relative error by roughly the mean-to-fluctuation
+  energy ratio — a factor of several — for no modelling merit. Quote
+  `eps_full` for comparability with the paper and `eps_fluct` as the honest
+  difficulty measure, and never mix them in one table.
+* **The split is contiguous in time**, train first and test after. A random
+  split would leak: consecutive snapshots of a periodic wake are nearly the
+  same picture, so the model would be scored on forecasting frames it had
+  effectively already seen.
+
+Deviations from the paper's Table 1, both for memory on a shared 40 GB card:
+batch 8 rather than 16, and rollout activations recomputed
+(`jax.checkpoint`) instead of stored. `--downsample 2` quarters the memory
+again if needed. Neither changes the recipe.
 
 **Result [ESTIMATE].**
 
@@ -492,7 +536,8 @@ mechanisms and ablation (Phase 4) → FNO comparison (Phase 5) → conclusions.
 | `figures/ablation_cpu_fields.png` | PINN vs LBM vorticity — the collapsed baseline against the reference |
 | `figures/fields_best.png` | the *successful* data-free PINN: a Kármán street, and the probe trace against LBM |
 
-**Still to generate:** FNO rollout-error curve (Phase 5).
+**Still to generate:** FNO rollout-error curve (Phase 5) — the script is
+`experiments/plot_rollout.py`, waiting on the runs.
 
 ---
 
@@ -527,10 +572,10 @@ same work the CPU sweep spent ~10 h on at a fifth of the budget.
 ### §9 Sanity check after any change
 
 ```bash
-python tests/test_ns2d_unsteady.py && python tests/test_lbm_freeslip.py && python tests/test_metrics.py
+python tests/test_ns2d_unsteady.py && python tests/test_lbm_freeslip.py &&   python tests/test_metrics.py && python tests/test_fno.py
 ```
 
-All three must pass. They catch failure modes that are otherwise invisible: a
+All four must pass. They catch failure modes that are otherwise invisible: a
 wrong PDE residual still trains, a leaky wall still looks like a wake, and a
 transposed metric still prints a plausible number.
 
