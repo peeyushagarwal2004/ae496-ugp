@@ -202,6 +202,16 @@ def build_geometry(nx, ny, cx, cy, radius):
 # --------------------------------------------------------------------------
 # Post-processing
 # --------------------------------------------------------------------------
+def strouhal_estimate(Re):
+    """Williamson's (1988) empirical St(Re) for the laminar 2-D shedding range.
+
+    Only used to size the warmup and the snapshot interval before the run --
+    the reported St is always measured from the lift signal afterwards, so an
+    imperfect estimate costs a little record length, never accuracy.
+    """
+    return -3.3265 / Re + 0.1816 + 1.6e-4 * Re
+
+
 def strouhal(cl, dt_star):
     """Shedding frequency from the lift signal, via mean zero-crossing spacing.
 
@@ -233,6 +243,8 @@ def main():
     ap.add_argument("--warmup-periods", type=float, default=30.0,
                     help="shedding periods to discard before recording")
     ap.add_argument("--snaps-per-period", type=int, default=40)
+    ap.add_argument("--st", type=float, default=None,
+                    help="override the St(Re) estimate used to size the record")
     ap.add_argument("--chunk", type=int, default=200, help="steps fused per XLA call")
     ap.add_argument("--length", type=float, default=30.0, help="domain length, diameters")
     ap.add_argument("--height", type=float, default=20.0, help="domain height, diameters")
@@ -285,7 +297,11 @@ def main():
     links = jnp.asarray(links_np)  # bool
 
     # Shedding period in lattice steps, from the expected Strouhal number.
-    period = D / (0.165 * U)
+    # 0.165 is the Re = 100 value; across the 2-D shedding range St varies by
+    # ~40 % (0.136 at Re = 60, 0.192 at Re = 180), and it sets both the warmup
+    # length and the snapshot spacing, so it must follow Re.
+    st_guess = args.st if args.st else strouhal_estimate(args.re)
+    period = D / (st_guess * U)
     warmup = int(args.warmup_periods * period)
     snap_every = max(1, int(round(period / args.snaps_per_period)))
 
@@ -421,7 +437,7 @@ def main():
         "St": st,
         "Cd_mean": cd_mean,
         "Cl_rms": cl_rms,
-        "St_target": 0.165,
+        "St_target": st_guess,
         "Cd_target": [1.37, 1.38],
         "runtime_s": time.time() - t0,
         "dtype": str(DTYPE().dtype),
