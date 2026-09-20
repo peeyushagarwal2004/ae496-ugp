@@ -1,0 +1,151 @@
+### fno start Sun Sep 20 10:01:05 IST 2026
+
+======================================================================
+[data seed 0]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  data's own residuals: div 2.869e-05  vort 6.185e-03  (physics terms are relative to these)
+2026-09-20 10:01:18.396178: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-09-20 10:01:18.473035: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.076965424s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 6.0963e+00  data 6.0963e+00  div 0.000e+00  vort 0.000e+00  (  24.5s)
+  ep   10  loss 6.4681e-01  data 6.4681e-01  div 0.000e+00  vort 0.000e+00  ( 198.1s)
+  ep   20  loss 4.7812e-01  data 4.7812e-01  div 0.000e+00  vort 0.000e+00  ( 371.4s)
+  ep   30  loss 2.9736e-01  data 2.9736e-01  div 0.000e+00  vort 0.000e+00  ( 544.5s)
+  ep   40  loss 2.2077e-01  data 2.2077e-01  div 0.000e+00  vort 0.000e+00  ( 717.4s)
+  ep   50  loss 2.0172e-01  data 2.0172e-01  div 0.000e+00  vort 0.000e+00  ( 890.3s)
+  ep   60  loss 1.4212e-01  data 1.4212e-01  div 0.000e+00  vort 0.000e+00  (1063.0s)
+  ep   70  loss 1.3569e-01  data 1.3569e-01  div 0.000e+00  vort 0.000e+00  (1236.6s)
+  ep   80  loss 9.2821e-02  data 9.2821e-02  div 0.000e+00  vort 0.000e+00  (1410.3s)
+  ep   90  loss 8.9867e-02  data 8.9867e-02  div 0.000e+00  vort 0.000e+00  (1582.9s)
+  ep  100  loss 6.4581e-02  data 6.4581e-02  div 0.000e+00  vort 0.000e+00  (1755.4s)
+  ep  110  loss 6.7067e-02  data 6.7067e-02  div 0.000e+00  vort 0.000e+00  (1927.9s)
+  ep  120  loss 5.9732e-02  data 5.9732e-02  div 0.000e+00  vort 0.000e+00  (2100.4s)
+  ep  130  loss 4.7266e-02  data 4.7266e-02  div 0.000e+00  vort 0.000e+00  (2272.8s)
+  ep  140  loss 4.1322e-02  data 4.1322e-02  div 0.000e+00  vort 0.000e+00  (2445.3s)
+  ep  150  loss 3.6661e-02  data 3.6661e-02  div 0.000e+00  vort 0.000e+00  (2617.9s)
+  ep  160  loss 3.4638e-02  data 3.4638e-02  div 0.000e+00  vort 0.000e+00  (2790.3s)
+  ep  170  loss 3.2986e-02  data 3.2986e-02  div 0.000e+00  vort 0.000e+00  (2962.8s)
+  ep  180  loss 3.2997e-02  data 3.2997e-02  div 0.000e+00  vort 0.000e+00  (3135.9s)
+  ep  190  loss 3.2410e-02  data 3.2410e-02  div 0.000e+00  vort 0.000e+00  (3309.4s)
+  ep  199  loss 3.1349e-02  data 3.1349e-02  div 0.000e+00  vort 0.000e+00  (3465.7s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.1717
+        eps_fluct@10  0.3306
+        eps_fluct@20  0.6400
+        eps_fluct@50  1.5645
+          eps_full@1  0.0398
+         eps_full@10  0.0763
+         eps_full@20  0.1484
+         eps_full@50  0.3818
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/data_s0/results.json
+
+======================================================================
+[physics seed 0]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  data's own residuals: div 2.869e-05  vort 6.185e-03  (physics terms are relative to these)
+2026-09-20 10:59:14.578950: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-09-20 10:59:14.656752: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.07790287s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 1.1516e+01  data 9.9249e+00  div 1.394e+00  vort 1.970e+01  (  25.9s)
+  ep   10  loss 8.9099e-01  data 6.9224e-01  div 1.792e-01  vort 1.955e+00  ( 199.6s)
+  ep   20  loss 4.4886e-01  data 3.7423e-01  div 6.369e-02  vort 1.094e+00  ( 373.4s)
+  ep   30  loss 4.4404e-01  data 3.8686e-01  div 4.762e-02  vort 9.559e-01  ( 547.1s)
+  ep   40  loss 3.0610e-01  data 2.6207e-01  div 3.547e-02  vort 8.560e-01  ( 720.8s)
+  ep   50  loss 2.2096e-01  data 1.8985e-01  div 2.314e-02  vort 7.966e-01  ( 894.5s)
+  ep   60  loss 2.1901e-01  data 1.9019e-01  div 2.128e-02  vort 7.534e-01  (1068.1s)
+  ep   70  loss 1.8120e-01  data 1.5547e-01  div 1.848e-02  vort 7.249e-01  (1241.7s)
+  ep   80  loss 1.4800e-01  data 1.2597e-01  div 1.493e-02  vort 7.099e-01  (1415.1s)
+  ep   90  loss 1.2211e-01  data 1.0060e-01  div 1.446e-02  vort 7.055e-01  (1588.6s)
+  ep  100  loss 1.0926e-01  data 8.8350e-02  div 1.387e-02  vort 7.040e-01  (1762.1s)
+  ep  110  loss 1.2232e-01  data 1.0180e-01  div 1.355e-02  vort 6.968e-01  (1935.7s)
+  ep  120  loss 1.0106e-01  data 8.0636e-02  div 1.337e-02  vort 7.060e-01  (2109.2s)
+  ep  130  loss 9.6557e-02  data 7.5845e-02  div 1.360e-02  vort 7.115e-01  (2282.8s)
+  ep  140  loss 8.9999e-02  data 6.9076e-02  div 1.376e-02  vort 7.164e-01  (2456.2s)
+  ep  150  loss 8.6900e-02  data 6.5898e-02  div 1.384e-02  vort 7.163e-01  (2629.6s)
+  ep  160  loss 8.5586e-02  data 6.4499e-02  div 1.390e-02  vort 7.187e-01  (2803.0s)
+  ep  170  loss 8.3644e-02  data 6.2522e-02  div 1.391e-02  vort 7.215e-01  (2976.3s)
+  ep  180  loss 8.4112e-02  data 6.2931e-02  div 1.396e-02  vort 7.217e-01  (3149.7s)
+  ep  190  loss 8.1542e-02  data 6.0292e-02  div 1.402e-02  vort 7.228e-01  (3323.1s)
+  ep  199  loss 8.1042e-02  data 5.9757e-02  div 1.405e-02  vort 7.238e-01  (3479.1s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.1213
+        eps_fluct@10  0.2794
+        eps_fluct@20  0.4584
+        eps_fluct@50  2.5140
+          eps_full@1  0.0281
+         eps_full@10  0.0646
+         eps_full@20  0.1079
+         eps_full@50  0.6113
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/physics_s0/results.json
+
+======================================================================
+[physics_div seed 0]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+variant physics_div  w_div=1.0  w_vort=0.0  rollout 10 -> eval 50
+
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  data's own residuals: div 2.869e-05  vort 6.185e-03  (physics terms are relative to these)
+2026-09-20 11:57:23.936876: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-09-20 11:57:24.013219: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.076440595s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 1.1324e+01  data 9.9306e+00  div 1.393e+00  vort 0.000e+00  (  25.1s)
+  ep   10  loss 9.4204e-01  data 8.1525e-01  div 1.268e-01  vort 0.000e+00  ( 200.4s)
+  ep   20  loss 5.8541e-01  data 4.7942e-01  div 1.060e-01  vort 0.000e+00  ( 375.8s)
+  ep   30  loss 3.7059e-01  data 3.2097e-01  div 4.962e-02  vort 0.000e+00  ( 551.3s)
+  ep   40  loss 3.0170e-01  data 2.6772e-01  div 3.398e-02  vort 0.000e+00  ( 726.7s)
+  ep   50  loss 2.5032e-01  data 2.2528e-01  div 2.505e-02  vort 0.000e+00  ( 902.2s)
+  ep   60  loss 1.8927e-01  data 1.7094e-01  div 1.833e-02  vort 0.000e+00  (1077.7s)
+  ep   70  loss 1.7514e-01  data 1.5670e-01  div 1.844e-02  vort 0.000e+00  (1253.2s)
+  ep   80  loss 1.2796e-01  data 1.1352e-01  div 1.444e-02  vort 0.000e+00  (1428.7s)
+  ep   90  loss 1.1069e-01  data 9.6635e-02  div 1.405e-02  vort 0.000e+00  (1604.2s)
+  ep  100  loss 1.0443e-01  data 9.0486e-02  div 1.394e-02  vort 0.000e+00  (1779.8s)
+  ep  110  loss 1.2296e-01  data 1.0982e-01  div 1.313e-02  vort 0.000e+00  (1955.3s)
+  ep  120  loss 9.1693e-02  data 7.8141e-02  div 1.355e-02  vort 0.000e+00  (2130.7s)
+  ep  130  loss 8.7415e-02  data 7.3717e-02  div 1.370e-02  vort 0.000e+00  (2306.1s)
+  ep  140  loss 8.0456e-02  data 6.6590e-02  div 1.387e-02  vort 0.000e+00  (2481.6s)
+  ep  150  loss 7.9035e-02  data 6.5079e-02  div 1.396e-02  vort 0.000e+00  (2657.2s)
+  ep  160  loss 7.8118e-02  data 6.4117e-02  div 1.400e-02  vort 0.000e+00  (2832.5s)
+  ep  170  loss 7.5486e-02  data 6.1414e-02  div 1.407e-02  vort 0.000e+00  (3007.9s)
+  ep  180  loss 7.5125e-02  data 6.0954e-02  div 1.417e-02  vort 0.000e+00  (3183.4s)
+  ep  190  loss 7.3901e-02  data 5.9725e-02  div 1.418e-02  vort 0.000e+00  (3358.9s)
+  ep  199  loss 7.3042e-02  data 5.8802e-02  div 1.424e-02  vort 0.000e+00  (3516.8s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.1314
+        eps_fluct@10  0.2859
+        eps_fluct@20  0.4937
+        eps_fluct@50  2.3687
+          eps_full@1  0.0305
+         eps_full@10  0.0662
+         eps_full@20  0.1162
+         eps_full@50  0.5759
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/physics_div_s0/results.json
+
+======================================================================
+variant        seed   eps_full@1  eps_full@10  eps_full@20  eps_full@50     min
+----------------------------------------------------------------------
+data              0       0.0398       0.0763       0.1484       0.3818    57.9
+physics           0       0.0281       0.0646       0.1079       0.6113    58.2
+physics_div       0       0.0305       0.0662       0.1162       0.5759    58.8
+======================================================================
+eps_full@N: relative L2 on (u, v) after N recursive steps, held-out ICs.
+The trained horizon is 10 steps -- the columns beyond it are the point.
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/summary.json
+### fno exit 0 (Sun Sep 20 12:55:59 IST 2026)
+/dev/sdb        5.5T  5.2T   14G 100% /data
+FNO_DONE Sun Sep 20 12:55:59 IST 2026

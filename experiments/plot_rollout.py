@@ -70,11 +70,18 @@ def main():
     fig.patch.set_facecolor(SURFACE)
     ax.set_facecolor(SURFACE)
 
+    # The error alternates between even and odd steps by ~30 % in every
+    # variant -- a period-2 mode of the two-frame autoregressive map, not a
+    # physics effect. Raw curves are drawn faint and the pairwise mean bold,
+    # so the comparison is not read off whichever parity a step happens to be.
     for variant, (steps, eps, n_seeds) in curves.items():
         label = LABELS.get(variant, variant)
         if n_seeds > 1:
             label += f" ({n_seeds} seeds)"
-        ax.plot(steps, eps, lw=2.0, color=COLORS.get(variant, INK_2), label=label)
+        color = COLORS.get(variant, INK_2)
+        ax.plot(steps, eps, lw=0.8, color=color, alpha=0.35)
+        ax.plot(steps[1:], np.convolve(eps, [0.5, 0.5], mode="valid"),
+                lw=2.0, color=color, label=label)
 
     ax.axvspan(0, trained, color=GRID, alpha=0.55, lw=0)
     ax.text(trained, ax.get_ylim()[1], " trained horizon ", ha="left", va="top",
