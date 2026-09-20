@@ -1,0 +1,288 @@
+### fno_seed1 start Sun Sep 20 13:05:53 IST 2026
+[data seed 0] already done, skipping
+
+======================================================================
+[data seed 1]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  data's own residuals: div 2.869e-05  vort 6.185e-03  (physics terms are relative to these)
+2026-09-20 13:06:08.706376: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-09-20 13:06:10.178748: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 2.472455281s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 5.4547e+00  data 5.4547e+00  div 0.000e+00  vort 0.000e+00  (  51.3s)
+  ep   10  loss 4.8535e-01  data 4.8535e-01  div 0.000e+00  vort 0.000e+00  ( 447.4s)
+  ep   20  loss 3.7555e-01  data 3.7555e-01  div 0.000e+00  vort 0.000e+00  ( 841.2s)
+  ep   30  loss 3.0797e-01  data 3.0797e-01  div 0.000e+00  vort 0.000e+00  (1236.5s)
+  ep   40  loss 2.6637e-01  data 2.6637e-01  div 0.000e+00  vort 0.000e+00  (1631.4s)
+  ep   50  loss 1.9695e-01  data 1.9695e-01  div 0.000e+00  vort 0.000e+00  (2027.3s)
+  ep   60  loss 1.4778e-01  data 1.4778e-01  div 0.000e+00  vort 0.000e+00  (2393.1s)
+  ep   70  loss 1.3339e-01  data 1.3339e-01  div 0.000e+00  vort 0.000e+00  (2776.5s)
+  ep   80  loss 9.6944e-02  data 9.6944e-02  div 0.000e+00  vort 0.000e+00  (3161.9s)
+  ep   90  loss 8.1954e-02  data 8.1954e-02  div 0.000e+00  vort 0.000e+00  (3546.4s)
+  ep  100  loss 1.1457e-01  data 1.1457e-01  div 0.000e+00  vort 0.000e+00  (3929.8s)
+  ep  110  loss 7.3670e-02  data 7.3670e-02  div 0.000e+00  vort 0.000e+00  (4248.0s)
+  ep  120  loss 5.9446e-02  data 5.9446e-02  div 0.000e+00  vort 0.000e+00  (4420.5s)
+  ep  130  loss 4.7530e-02  data 4.7530e-02  div 0.000e+00  vort 0.000e+00  (4592.7s)
+  ep  140  loss 5.1477e-02  data 5.1477e-02  div 0.000e+00  vort 0.000e+00  (4764.9s)
+  ep  150  loss 4.0458e-02  data 4.0458e-02  div 0.000e+00  vort 0.000e+00  (4937.1s)
+  ep  160  loss 3.4737e-02  data 3.4737e-02  div 0.000e+00  vort 0.000e+00  (5109.5s)
+  ep  170  loss 3.3088e-02  data 3.3088e-02  div 0.000e+00  vort 0.000e+00  (5281.9s)
+  ep  180  loss 3.2080e-02  data 3.2080e-02  div 0.000e+00  vort 0.000e+00  (5454.3s)
+  ep  190  loss 3.1261e-02  data 3.1261e-02  div 0.000e+00  vort 0.000e+00  (5626.5s)
+  ep  199  loss 3.0654e-02  data 3.0654e-02  div 0.000e+00  vort 0.000e+00  (5781.4s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.1746
+        eps_fluct@10  0.3322
+        eps_fluct@20  0.5490
+        eps_fluct@50  1.1718
+          eps_full@1  0.0405
+         eps_full@10  0.0770
+         eps_full@20  0.1282
+         eps_full@50  0.2888
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/data_s1/results.json
+[physics seed 0] already done, skipping
+
+======================================================================
+[physics seed 1]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  data's own residuals: div 2.869e-05  vort 6.185e-03  (physics terms are relative to these)
+2026-09-20 14:42:39.607990: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-09-20 14:42:39.686581: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.078694692s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 1.1352e+01  data 9.9503e+00  div 1.200e+00  vort 2.015e+01  (  26.2s)
+  ep   10  loss 9.8151e-01  data 7.5869e-01  div 2.051e-01  vort 1.774e+00  ( 199.4s)
+  ep   20  loss 5.0821e-01  data 4.3220e-01  div 6.530e-02  vort 1.072e+00  ( 372.5s)
+  ep   30  loss 4.6999e-01  data 3.9733e-01  div 6.342e-02  vort 9.236e-01  ( 545.7s)
+  ep   40  loss 2.5517e-01  data 2.1340e-01  div 3.326e-02  vort 8.512e-01  ( 718.8s)
+  ep   50  loss 2.1623e-01  data 1.8328e-01  div 2.483e-02  vort 8.123e-01  ( 891.9s)
+  ep   60  loss 1.8289e-01  data 1.5630e-01  div 1.884e-02  vort 7.748e-01  (1064.9s)
+  ep   70  loss 1.5581e-01  data 1.3213e-01  div 1.617e-02  vort 7.510e-01  (1238.3s)
+  ep   80  loss 1.6994e-01  data 1.4572e-01  div 1.697e-02  vort 7.245e-01  (1412.4s)
+  ep   90  loss 1.2034e-01  data 9.9171e-02  div 1.400e-02  vort 7.166e-01  (1585.6s)
+  ep  100  loss 1.1643e-01  data 9.6223e-02  div 1.313e-02  vort 7.076e-01  (1759.0s)
+  ep  110  loss 1.0584e-01  data 8.5895e-02  div 1.292e-02  vort 7.021e-01  (1932.3s)
+  ep  120  loss 9.6690e-02  data 7.6703e-02  div 1.299e-02  vort 7.001e-01  (2105.4s)
+  ep  130  loss 1.0396e-01  data 8.4240e-02  div 1.278e-02  vort 6.942e-01  (2278.5s)
+  ep  140  loss 9.0755e-02  data 7.0639e-02  div 1.310e-02  vort 7.015e-01  (2451.8s)
+  ep  150  loss 8.2634e-02  data 6.2261e-02  div 1.332e-02  vort 7.051e-01  (2625.3s)
+  ep  160  loss 8.2397e-02  data 6.2076e-02  div 1.327e-02  vort 7.051e-01  (2798.5s)
+  ep  170  loss 8.0461e-02  data 6.0037e-02  div 1.337e-02  vort 7.058e-01  (2971.6s)
+  ep  180  loss 7.9162e-02  data 5.8685e-02  div 1.341e-02  vort 7.071e-01  (3144.6s)
+  ep  190  loss 7.8479e-02  data 5.7872e-02  div 1.353e-02  vort 7.080e-01  (3317.9s)
+  ep  199  loss 7.7923e-02  data 5.7361e-02  div 1.348e-02  vort 7.081e-01  (3473.8s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.1242
+        eps_fluct@10  0.2848
+        eps_fluct@20  0.4466
+        eps_fluct@50  3.8496
+          eps_full@1  0.0288
+         eps_full@10  0.0659
+         eps_full@20  0.1051
+         eps_full@50  0.9263
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/physics_s1/results.json
+[physics_div seed 0] already done, skipping
+
+======================================================================
+[physics_div seed 1]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+variant physics_div  w_div=1.0  w_vort=0.0  rollout 10 -> eval 50
+
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  data's own residuals: div 2.869e-05  vort 6.185e-03  (physics terms are relative to these)
+2026-09-20 15:40:44.315357: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-09-20 15:40:44.392828: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.077624894s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 1.1158e+01  data 9.9591e+00  div 1.198e+00  vort 0.000e+00  (  24.9s)
+  ep   10  loss 9.1434e-01  data 7.2290e-01  div 1.914e-01  vort 0.000e+00  ( 198.9s)
+  ep   20  loss 6.2240e-01  data 5.1854e-01  div 1.039e-01  vort 0.000e+00  ( 371.9s)
+  ep   30  loss 3.6706e-01  data 3.1564e-01  div 5.142e-02  vort 0.000e+00  ( 544.7s)
+  ep   40  loss 3.0179e-01  data 2.6178e-01  div 4.001e-02  vort 0.000e+00  ( 717.7s)
+  ep   50  loss 2.7495e-01  data 2.4822e-01  div 2.673e-02  vort 0.000e+00  ( 890.6s)
+  ep   60  loss 1.8049e-01  data 1.6093e-01  div 1.956e-02  vort 0.000e+00  (1063.5s)
+  ep   70  loss 1.9938e-01  data 1.8131e-01  div 1.807e-02  vort 0.000e+00  (1236.4s)
+  ep   80  loss 1.3582e-01  data 1.2087e-01  div 1.496e-02  vort 0.000e+00  (1409.4s)
+  ep   90  loss 1.1047e-01  data 9.6871e-02  div 1.359e-02  vort 0.000e+00  (1582.3s)
+  ep  100  loss 1.0462e-01  data 9.1658e-02  div 1.296e-02  vort 0.000e+00  (1755.2s)
+  ep  110  loss 1.1169e-01  data 9.8862e-02  div 1.282e-02  vort 0.000e+00  (1928.1s)
+  ep  120  loss 9.0940e-02  data 7.8100e-02  div 1.284e-02  vort 0.000e+00  (2100.8s)
+  ep  130  loss 8.1970e-02  data 6.8818e-02  div 1.315e-02  vort 0.000e+00  (2273.7s)
+  ep  140  loss 8.1016e-02  data 6.7808e-02  div 1.321e-02  vort 0.000e+00  (2446.5s)
+  ep  150  loss 7.6471e-02  data 6.3197e-02  div 1.327e-02  vort 0.000e+00  (2619.2s)
+  ep  160  loss 7.4885e-02  data 6.1596e-02  div 1.329e-02  vort 0.000e+00  (2791.8s)
+  ep  170  loss 7.3301e-02  data 5.9934e-02  div 1.337e-02  vort 0.000e+00  (2964.4s)
+  ep  180  loss 7.1781e-02  data 5.8365e-02  div 1.342e-02  vort 0.000e+00  (3137.0s)
+  ep  190  loss 7.1350e-02  data 5.7828e-02  div 1.352e-02  vort 0.000e+00  (3309.7s)
+  ep  199  loss 7.0581e-02  data 5.7100e-02  div 1.348e-02  vort 0.000e+00  (3465.0s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.1289
+        eps_fluct@10  0.2889
+        eps_fluct@20  0.4640
+        eps_fluct@50  3.9516
+          eps_full@1  0.0299
+         eps_full@10  0.0669
+         eps_full@20  0.1091
+         eps_full@50  0.9584
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/physics_div_s1/results.json
+
+======================================================================
+variant        seed   eps_full@1  eps_full@10  eps_full@20  eps_full@50     min
+----------------------------------------------------------------------
+data              0       0.0398       0.0763       0.1484       0.3818    57.9
+physics           0       0.0281       0.0646       0.1079       0.6113    58.2
+physics_div       0       0.0305       0.0662       0.1162       0.5759    58.8
+data              1       0.0405       0.0770       0.1282       0.2888    96.6
+physics           1       0.0288       0.0659       0.1051       0.9263    58.1
+physics_div       1       0.0299       0.0669       0.1091       0.9584    57.9
+======================================================================
+eps_full@N: relative L2 on (u, v) after N recursive steps, held-out ICs.
+The trained horizon is 10 steps -- the columns beyond it are the point.
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/fno/summary.json
+### fno_seed1 exit 0 (Sun Sep 20 16:38:28 IST 2026)
+### multiperiod start Sun Sep 20 16:38:28 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5514 t*  data=0  epochs/window=20000
+domain x[-5,15] y[-4.97917,5.02083]  t* 91.10 .. 122.13
+
+  [win 1/20] ep      0  loss 5.435e+00  pde 2.68e-01  bc 4.16e-01  ic 1.01e-01  dat 0.00e+00  (  9.9s)
+  [win 1/20] ep   2000  loss 7.075e-03  pde 3.98e-03  bc 1.01e-04  ic 2.09e-04  dat 0.00e+00  ( 33.0s)
+  [win 1/20] ep   4000  loss 5.841e-03  pde 2.89e-03  bc 1.52e-04  ic 1.43e-04  dat 0.00e+00  ( 56.0s)
+  [win 1/20] ep   6000  loss 3.724e-03  pde 2.06e-03  bc 5.11e-05  ic 1.15e-04  dat 0.00e+00  ( 79.1s)
+  [win 1/20] ep   8000  loss 3.976e-03  pde 1.70e-03  bc 1.30e-04  ic 9.76e-05  dat 0.00e+00  (102.2s)
+  [win 1/20] ep  10000  loss 2.999e-03  pde 1.44e-03  bc 7.07e-05  ic 8.55e-05  dat 0.00e+00  (125.3s)
+  [win 1/20] ep  12000  loss 2.956e-03  pde 1.50e-03  bc 6.16e-05  ic 8.38e-05  dat 0.00e+00  (148.3s)
+  [win 1/20] ep  14000  loss 3.401e-03  pde 1.74e-03  bc 9.06e-05  ic 7.52e-05  dat 0.00e+00  (171.4s)
+  [win 1/20] ep  16000  loss 2.978e-03  pde 1.59e-03  bc 6.45e-05  ic 7.42e-05  dat 0.00e+00  (194.5s)
+  [win 1/20] ep  18000  loss 3.023e-03  pde 1.73e-03  bc 5.77e-05  ic 7.16e-05  dat 0.00e+00  (217.6s)
+  [win 1/20] ep  19999  loss 1.436e-03  pde 6.14e-04  bc 1.62e-05  ic 6.60e-05  dat 0.00e+00  (240.6s)
+  -> rel L2 0.0380   probe v rms: PINN 0.1688 vs LBM 0.2100   shedding retained 80.4 %
+
+  [win 2/20] ep      0  loss 7.427e-02  pde 9.23e-03  bc 4.84e-03  ic 1.67e-03  dat 0.00e+00  (  0.0s)
+  [win 2/20] ep   2000  loss 2.564e-03  pde 1.64e-03  bc 4.28e-05  ic 4.93e-05  dat 0.00e+00  ( 23.1s)
+  [win 2/20] ep   4000  loss 3.340e-03  pde 1.50e-03  bc 1.38e-04  ic 4.60e-05  dat 0.00e+00  ( 46.2s)
+  [win 2/20] ep   6000  loss 1.540e-03  pde 9.35e-04  bc 3.27e-05  ic 2.78e-05  dat 0.00e+00  ( 69.3s)
+  [win 2/20] ep   8000  loss 1.214e-03  pde 6.87e-04  bc 2.60e-05  ic 2.68e-05  dat 0.00e+00  ( 92.4s)
+  [win 2/20] ep  10000  loss 1.113e-03  pde 6.08e-04  bc 2.67e-05  ic 2.38e-05  dat 0.00e+00  (115.5s)
+  [win 2/20] ep  12000  loss 1.238e-03  pde 4.63e-04  bc 5.81e-05  ic 1.93e-05  dat 0.00e+00  (138.6s)
+  [win 2/20] ep  14000  loss 1.096e-03  pde 6.39e-04  bc 2.80e-05  ic 1.77e-05  dat 0.00e+00  (161.6s)
+  [win 2/20] ep  16000  loss 7.930e-04  pde 3.57e-04  bc 2.78e-05  ic 1.58e-05  dat 0.00e+00  (184.7s)
+  [win 2/20] ep  18000  loss 8.412e-04  pde 4.73e-04  bc 1.97e-05  ic 1.71e-05  dat 0.00e+00  (207.8s)
+  [win 2/20] ep  19999  loss 3.723e-04  pde 1.81e-04  bc 5.55e-06  ic 1.36e-05  dat 0.00e+00  (230.9s)
+  -> rel L2 0.0383   probe v rms: PINN 0.1005 vs LBM 0.1380   shedding retained 72.8 %
+
+  [win 3/20] ep      0  loss 5.736e-02  pde 6.81e-03  bc 1.88e-03  ic 3.18e-03  dat 0.00e+00  (  0.0s)
+  [win 3/20] ep   2000  loss 3.140e-03  pde 1.07e-03  bc 1.48e-04  ic 5.91e-05  dat 0.00e+00  ( 23.1s)
+  [win 3/20] ep   4000  loss 3.725e-03  pde 1.88e-03  bc 1.09e-04  ic 7.55e-05  dat 0.00e+00  ( 46.2s)
+  [win 3/20] ep   6000  loss 2.882e-03  pde 1.89e-03  bc 4.14e-05  ic 5.76e-05  dat 0.00e+00  ( 69.2s)
+  [win 3/20] ep   8000  loss 2.418e-03  pde 1.42e-03  bc 6.12e-05  ic 3.82e-05  dat 0.00e+00  ( 92.3s)
+  [win 3/20] ep  10000  loss 2.456e-03  pde 1.68e-03  bc 4.88e-05  ic 2.83e-05  dat 0.00e+00  (115.4s)
+  [win 3/20] ep  12000  loss 1.749e-03  pde 8.88e-04  bc 6.20e-05  ic 2.41e-05  dat 0.00e+00  (138.5s)
+  [win 3/20] ep  14000  loss 1.518e-03  pde 9.86e-04  bc 3.18e-05  ic 2.14e-05  dat 0.00e+00  (161.6s)
+  [win 3/20] ep  16000  loss 1.135e-03  pde 6.16e-04  bc 3.57e-05  ic 1.62e-05  dat 0.00e+00  (184.6s)
+  [win 3/20] ep  18000  loss 8.783e-04  pde 4.23e-04  bc 2.92e-05  ic 1.63e-05  dat 0.00e+00  (207.7s)
+  [win 3/20] ep  19999  loss 4.261e-04  pde 2.45e-04  bc 5.99e-06  ic 1.21e-05  dat 0.00e+00  (230.8s)
+  -> rel L2 0.0509   probe v rms: PINN 0.1958 vs LBM 0.2209   shedding retained 88.6 %
+
+  [win 4/20] ep      0  loss 5.944e-02  pde 6.78e-03  bc 2.48e-03  ic 2.79e-03  dat 0.00e+00  (  0.0s)
+  [win 4/20] ep   2000  loss 4.520e-03  pde 1.40e-03  bc 1.73e-04  ic 1.40e-04  dat 0.00e+00  ( 23.1s)
+  [win 4/20] ep   4000  loss 3.530e-03  pde 1.28e-03  bc 1.14e-04  ic 1.11e-04  dat 0.00e+00  ( 46.2s)
+  [win 4/20] ep   6000  loss 4.607e-03  pde 1.43e-03  bc 2.33e-04  ic 8.51e-05  dat 0.00e+00  ( 69.2s)
+  [win 4/20] ep   8000  loss 6.398e-03  pde 1.37e-03  bc 4.33e-04  ic 7.04e-05  dat 0.00e+00  ( 92.3s)
+  [win 4/20] ep  10000  loss 4.889e-03  pde 1.04e-03  bc 2.99e-04  ic 8.61e-05  dat 0.00e+00  (115.4s)
+  [win 4/20] ep  12000  loss 1.002e-02  pde 8.34e-04  bc 8.60e-04  ic 5.86e-05  dat 0.00e+00  (138.5s)
+  [win 4/20] ep  14000  loss 4.591e-03  pde 1.43e-03  bc 2.41e-04  ic 7.58e-05  dat 0.00e+00  (161.6s)
+  [win 4/20] ep  16000  loss 6.833e-03  pde 9.60e-04  bc 5.18e-04  ic 6.97e-05  dat 0.00e+00  (184.7s)
+  [win 4/20] ep  18000  loss 5.841e-03  pde 1.44e-03  bc 3.65e-04  ic 7.52e-05  dat 0.00e+00  (207.8s)
+  [win 4/20] ep  19999  loss 1.195e-03  pde 2.98e-04  bc 1.11e-05  ic 7.86e-05  dat 0.00e+00  (230.9s)
+  -> rel L2 0.0358   probe v rms: PINN 0.1240 vs LBM 0.1359   shedding retained 91.2 %
+
+  [win 5/20] ep      0  loss 5.827e-02  pde 8.89e-03  bc 3.08e-03  ic 1.86e-03  dat 0.00e+00  (  0.0s)
+  [win 5/20] ep   2000  loss 2.194e-03  pde 1.64e-03  bc 2.58e-05  ic 2.97e-05  dat 0.00e+00  ( 23.1s)
+  [win 5/20] ep   4000  loss 2.926e-03  pde 1.95e-03  bc 5.07e-05  ic 4.68e-05  dat 0.00e+00  ( 46.2s)
+  [win 5/20] ep   6000  loss 2.354e-03  pde 1.15e-03  bc 8.24e-05  ic 3.81e-05  dat 0.00e+00  ( 69.2s)
+  [win 5/20] ep   8000  loss 1.542e-03  pde 9.89e-04  bc 2.82e-05  ic 2.71e-05  dat 0.00e+00  ( 92.3s)
+  [win 5/20] ep  10000  loss 1.214e-03  pde 7.04e-04  bc 2.56e-05  ic 2.54e-05  dat 0.00e+00  (115.4s)
+  [win 5/20] ep  12000  loss 8.745e-04  pde 5.21e-04  bc 1.65e-05  ic 1.88e-05  dat 0.00e+00  (138.5s)
+  [win 5/20] ep  14000  loss 1.055e-03  pde 7.43e-04  bc 1.25e-05  ic 1.87e-05  dat 0.00e+00  (161.6s)
+  [win 5/20] ep  16000  loss 9.455e-04  pde 4.73e-04  bc 2.96e-05  ic 1.77e-05  dat 0.00e+00  (184.7s)
+  [win 5/20] ep  18000  loss 1.230e-03  pde 4.87e-04  bc 5.83e-05  ic 1.60e-05  dat 0.00e+00  (207.7s)
+  [win 5/20] ep  19999  loss 3.404e-04  pde 1.66e-04  bc 3.15e-06  ic 1.42e-05  dat 0.00e+00  (230.8s)
+  -> rel L2 0.0462   probe v rms: PINN 0.2523 vs LBM 0.3034   shedding retained 83.2 %
+
+  [win 6/20] ep      0  loss 8.707e-02  pde 7.51e-03  bc 4.35e-03  ic 3.61e-03  dat 0.00e+00  (  0.0s)
+  [win 6/20] ep   2000  loss 4.980e-03  pde 2.13e-03  bc 1.79e-04  ic 1.07e-04  dat 0.00e+00  ( 23.1s)
+  [win 6/20] ep   4000  loss 6.591e-03  pde 2.22e-03  bc 3.75e-04  ic 6.22e-05  dat 0.00e+00  ( 46.2s)
+  [win 6/20] ep   6000  loss 5.485e-03  pde 1.16e-03  bc 3.81e-04  ic 5.19e-05  dat 0.00e+00  ( 69.3s)
+  [win 6/20] ep   8000  loss 4.509e-03  pde 1.89e-03  bc 2.14e-04  ic 4.88e-05  dat 0.00e+00  ( 92.3s)
+  [win 6/20] ep  10000  loss 4.430e-03  pde 2.73e-03  bc 1.24e-04  ic 4.59e-05  dat 0.00e+00  (115.4s)
+  [win 6/20] ep  12000  loss 5.063e-03  pde 9.72e-04  bc 3.77e-04  ic 3.17e-05  dat 0.00e+00  (138.5s)
+  [win 6/20] ep  14000  loss 3.477e-03  pde 1.04e-03  bc 2.18e-04  ic 2.56e-05  dat 0.00e+00  (161.6s)
+  [win 6/20] ep  16000  loss 3.995e-03  pde 8.46e-04  bc 2.91e-04  ic 2.37e-05  dat 0.00e+00  (184.7s)
+  [win 6/20] ep  18000  loss 4.070e-03  pde 9.00e-04  bc 2.89e-04  ic 2.80e-05  dat 0.00e+00  (207.7s)
+  [win 6/20] ep  19999  loss 5.152e-04  pde 2.48e-04  bc 7.34e-06  ic 1.94e-05  dat 0.00e+00  (230.8s)
+  -> rel L2 0.0389   probe v rms: PINN 0.1361 vs LBM 0.1714   shedding retained 79.4 %
+
+  [win 7/20] ep      0  loss 1.212e-01  pde 1.27e-02  bc 9.54e-03  ic 1.30e-03  dat 0.00e+00  (  0.0s)
+  [win 7/20] ep   2000  loss 4.080e-03  pde 1.95e-03  bc 1.67e-04  ic 4.54e-05  dat 0.00e+00  ( 23.1s)
+  [win 7/20] ep   4000  loss 3.192e-03  pde 1.44e-03  bc 1.52e-04  ic 2.24e-05  dat 0.00e+00  ( 46.2s)
+  [win 7/20] ep   6000  loss 3.330e-03  pde 2.44e-03  bc 7.38e-05  ic 1.57e-05  dat 0.00e+00  ( 69.2s)
+  [win 7/20] ep   8000  loss 3.747e-03  pde 2.52e-03  bc 1.13e-04  ic 9.34e-06  dat 0.00e+00  ( 92.3s)
+  [win 7/20] ep  10000  loss 2.371e-03  pde 1.66e-03  bc 6.17e-05  ic 9.60e-06  dat 0.00e+00  (115.5s)
+  [win 7/20] ep  12000  loss 3.910e-03  pde 2.30e-03  bc 1.54e-04  ic 6.62e-06  dat 0.00e+00  (138.6s)
+  [win 7/20] ep  14000  loss 2.814e-03  pde 2.06e-03  bc 6.79e-05  ic 7.30e-06  dat 0.00e+00  (161.7s)
+  [win 7/20] ep  16000  loss 2.864e-03  pde 2.01e-03  bc 7.80e-05  ic 7.07e-06  dat 0.00e+00  (184.7s)
+  [win 7/20] ep  18000  loss 1.378e-03  pde 8.47e-04  bc 4.79e-05  ic 5.25e-06  dat 0.00e+00  (207.8s)
+  [win 7/20] ep  19999  loss 1.787e-04  pde 1.15e-04  bc 2.08e-06  ic 4.31e-06  dat 0.00e+00  (230.9s)
+  -> rel L2 0.0320   probe v rms: PINN 0.3017 vs LBM 0.3079   shedding retained 98.0 %
+
+  [win 8/20] ep      0  loss 6.434e-02  pde 9.85e-03  bc 3.77e-03  ic 1.68e-03  dat 0.00e+00  (  0.0s)
+  [win 8/20] ep   2000  loss 2.515e-03  pde 1.85e-03  bc 3.86e-05  ic 2.84e-05  dat 0.00e+00  ( 23.1s)
+  [win 8/20] ep   4000  loss 2.559e-03  pde 1.53e-03  bc 8.80e-05  ic 1.48e-05  dat 0.00e+00  ( 46.2s)
+  [win 8/20] ep   6000  loss 3.328e-03  pde 2.65e-03  bc 5.92e-05  ic 8.80e-06  dat 0.00e+00  ( 69.3s)
+  [win 8/20] ep   8000  loss 1.660e-03  pde 1.26e-03  bc 3.18e-05  ic 8.40e-06  dat 0.00e+00  ( 92.3s)
+  [win 8/20] ep  10000  loss 1.376e-03  pde 1.00e-03  bc 3.25e-05  ic 4.73e-06  dat 0.00e+00  (115.4s)
+  [win 8/20] ep  12000  loss 1.672e-03  pde 1.22e-03  bc 4.15e-05  ic 3.53e-06  dat 0.00e+00  (138.5s)
+  [win 8/20] ep  14000  loss 1.116e-03  pde 9.23e-04  bc 1.53e-05  ic 4.01e-06  dat 0.00e+00  (161.6s)
+  [win 8/20] ep  16000  loss 1.127e-03  pde 9.39e-04  bc 1.58e-05  ic 3.03e-06  dat 0.00e+00  (184.7s)
+  [win 8/20] ep  18000  loss 6.009e-04  pde 4.04e-04  bc 1.71e-05  ic 2.55e-06  dat 0.00e+00  (207.8s)
+  [win 8/20] ep  19999  loss 1.233e-04  pde 8.24e-05  bc 1.77e-06  ic 2.31e-06  dat 0.00e+00  (230.9s)
+  -> rel L2 0.0357   probe v rms: PINN 0.1480 vs LBM 0.1315   shedding retained 112.6 %
+
+  [win 9/20] ep      0  loss 5.826e-02  pde 9.24e-03  bc 3.40e-03  ic 1.51e-03  dat 0.00e+00  (  0.0s)
+  [win 9/20] ep   2000  loss 2.772e-03  pde 1.83e-03  bc 7.68e-05  ic 1.76e-05  dat 0.00e+00  ( 23.1s)
+  [win 9/20] ep   4000  loss 2.199e-03  pde 1.16e-03  bc 8.98e-05  ic 1.40e-05  dat 0.00e+00  ( 46.2s)
+  [win 9/20] ep   6000  loss 2.252e-03  pde 1.77e-03  bc 4.16e-05  ic 6.53e-06  dat 0.00e+00  ( 69.2s)
+  [win 9/20] ep   8000  loss 2.100e-03  pde 1.75e-03  bc 3.12e-05  ic 3.89e-06  dat 0.00e+00  ( 92.3s)
+  [win 9/20] ep  10000  loss 1.062e-03  pde 7.96e-04  bc 2.41e-05  ic 2.45e-06  dat 0.00e+00  (115.4s)
+  [win 9/20] ep  12000  loss 1.351e-03  pde 1.18e-03  bc 1.50e-05  ic 2.07e-06  dat 0.00e+00  (138.5s)
+  [win 9/20] ep  14000  loss 8.204e-04  pde 7.23e-04  bc 8.00e-06  ic 1.75e-06  dat 0.00e+00  (161.6s)
+  [win 9/20] ep  16000  loss 1.077e-03  pde 9.46e-04  bc 1.17e-05  ic 1.37e-06  dat 0.00e+00  (184.6s)
+  [win 9/20] ep  18000  loss 1.414e-03  pde 1.32e-03  bc 7.88e-06  ic 1.33e-06  dat 0.00e+00  (207.7s)
+  [win 9/20] ep  19999  loss 1.270e-04  pde 1.00e-04  bc 1.24e-06  ic 1.46e-06  dat 0.00e+00  (230.8s)
+  -> rel L2 0.0290   probe v rms: PINN 0.2954 vs LBM 0.3134   shedding retained 94.3 %
+
+  [win 10/20] ep      0  loss 5.145e-02  pde 9.59e-03  bc 3.49e-03  ic 6.94e-04  dat 0.00e+00  (  0.0s)
+  [win 10/20] ep   2000  loss 2.033e-03  pde 1.41e-03  bc 3.89e-05  ic 2.35e-05  dat 0.00e+00  ( 23.1s)
+  [win 10/20] ep   4000  loss 2.950e-03  pde 1.53e-03  bc 1.22e-04  ic 1.97e-05  dat 0.00e+00  ( 46.2s)
+  [win 10/20] ep   6000  loss 2.954e-03  pde 2.15e-03  bc 6.38e-05  ic 1.64e-05  dat 0.00e+00  ( 69.3s)
+  [win 10/20] ep   8000  loss 2.015e-03  pde 1.52e-03  bc 3.71e-05  ic 1.27e-05  dat 0.00e+00  ( 92.4s)
+  [win 10/20] ep  10000  loss 2.697e-03  pde 1.43e-03  bc 1.12e-04  ic 1.39e-05  dat 0.00e+00  (115.5s)
+  [win 10/20] ep  12000  loss 2.772e-03  pde 1.77e-03  bc 8.91e-05  ic 1.14e-05  dat 0.00e+00  (138.6s)
+  [win 10/20] ep  14000  loss 3.133e-03  pde 2.02e-03  bc 1.02e-04  ic 9.67e-06  dat 0.00e+00  (161.7s)
+  [win 10/20] ep  16000  loss 1.829e-03  pde 6.74e-04  bc 1.03e-04  ic 1.20e-05  dat 0.00e+00  (184.8s)
+  [win 10/20] ep  18000  loss 2.838e-03  pde 1.89e-03  bc 8.24e-05  ic 1.23e-05  dat 0.00e+00  (207.8s)
+  [win 10/20] ep  19999  loss 2.197e-04  pde 7.34e-05  bc 2.57e-06  ic 1.21e-05  dat 0.00e+00  (230.9s)
+  -> rel
