@@ -430,8 +430,8 @@ def parse_args(argv=None):
     ap.add_argument("--proj", type=int, default=128)
     ap.add_argument("--padding", type=int, default=8)
     ap.add_argument("--epochs", type=int, default=200)
-    ap.add_argument("--batch", type=int, default=8,
-                    help="paper uses 16; 8 fits a 40 GB card at width 80")
+    ap.add_argument("--batch", type=int, default=16,
+                    help="the paper's value; fits a 40 GB A100 at width 80 with remat")
     ap.add_argument("--rollout", type=int, default=10,
                     help="recursive steps trained through, loss summed over all")
     ap.add_argument("--lr", type=float, default=1e-3)
