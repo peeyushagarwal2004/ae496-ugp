@@ -496,10 +496,11 @@ Four decisions worth knowing before reading any result it produces:
   same picture, so the model would be scored on forecasting frames it had
   effectively already seen.
 
-Deviations from the paper's Table 1, both for memory on a shared 40 GB card:
-batch 8 rather than 16, and rollout activations recomputed
-(`jax.checkpoint`) instead of stored. `--downsample 2` quarters the memory
-again if needed. Neither changes the recipe.
+One deviation from the paper's Table 1: rollout activations are recomputed
+(`jax.checkpoint`) rather than stored, which is what lets the paper's batch of
+16 fit a 40 GB A100 at width 80. `--downsample 2` quarters the memory again if
+needed. Neither changes the recipe. **[MEASURED]** on the A100: ~38 s per
+epoch, so ~2.1 h per 200-epoch variant.
 
 **Result [ESTIMATE].**
 
