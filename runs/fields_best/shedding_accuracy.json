@@ -1,0 +1,20 @@
+[
+  {
+    "run": "all",
+    "dir": "C:\\Users\\hp\\Desktop\\AE496 UGP\\runs\\fields_best\\all_s0",
+    "t_span": [
+      91.09791666666666,
+      97.09791666666666
+    ],
+    "periods_covered": 0.9470727359983604,
+    "St_pinn": 0.15645854735369205,
+    "St_lbm": 0.15784545599972674,
+    "St_error_pct": -0.8786497129426971,
+    "zero_crossings_pinn": 2,
+    "amplitude_ratio": 0.9651833520704828,
+    "phase_lag_periods": 0.008247109992193245,
+    "phase_drift_periods": -0.00019140847538604963,
+    "rel_l2_saved": 0.04286468989047673,
+    "shedding_saved": 0.9673406117775422
+  }
+]
