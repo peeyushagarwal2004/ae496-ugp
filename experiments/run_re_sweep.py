@@ -176,67 +176,106 @@ def validate(re, meta):
     blockage study per Re and is out of scope here. St is far less sensitive,
     so it is the honest one-number check that the dataset is a real wake.
     """
-    st_measured = float(meta["St"])
+    sat = saturation(re)
+    # Reported St is the vorticity one: the lift value in the metadata is
+    # acoustically contaminated (see `saturation`).
+    st_measured = float(sat["St_vorticity"])
     st_expected = strouhal_estimate(re)
     err = 100.0 * (st_measured - st_expected) / st_expected
-    sat = saturation(re)
     print(f"[Re {re:g}] St {st_measured:.4f} vs correlation {st_expected:.4f} "
           f"({err:+.1f} %)   Cd {meta['Cd_mean']:.4f} at {meta['blockage']:.1%} blockage")
-    print(f"[Re {re:g}] probe r.m.s. growth {sat['probe_growth']:.2f}x, "
-          f"St lift {sat['St_lift']:.4f} vs probe {sat['St_probe']:.4f} "
-          f"({sat['St_instrument_disagreement_pct']:.1f} % apart)")
+    print(f"[Re {re:g}] probe r.m.s. growth {sat['probe_growth']:.2f}x   "
+          f"St: vorticity {sat['St_vorticity']:.4f}, probe {sat['St_probe']:.4f} "
+          f"({sat['St_instrument_disagreement_pct']:.1f} % apart), "
+          f"lift {sat['St_lift']:.4f}")
     if not sat["saturated"]:
         raise SystemExit(
             f"[Re {re:g}] dataset rejected: probe growth "
-            f"{sat['probe_growth']:.2f}x, lift and probe disagree on St by "
+            f"{sat['probe_growth']:.2f}x, vorticity and probe disagree on St by "
             f"{sat['St_instrument_disagreement_pct']:.1f} %. Nothing trained "
             "on it would be trustworthy. Delete the dataset and regenerate "
             "with a longer warmup.")
-    return {"St": st_measured, "St_correlation": st_expected,
+    return {"St": st_measured, "St_lift_metadata": float(meta["St"]),
+            "St_correlation": st_expected,
             "St_dataset_error_pct": err,
             "Cd_mean": float(meta["Cd_mean"]), "blockage": float(meta["blockage"]),
             "n_snapshots": int(meta["n_snapshots"]), **sat}
 
 
 def saturation(re, growth_max=1.15, agree_max=0.05):
-    """Is the wake saturated, and do two independent signals agree on its rate?
+    """Is the wake saturated, and do two hydrodynamic instruments agree on it?
 
-    Two tests, chosen because each catches a failure actually seen here:
+    Three frequencies are measured and two are trusted:
 
-    * **growth** -- the wake-probe r.m.s. in the last third of the record
-      against the first. Above 1 the wake is still amplifying, which is how the
-      first Re = 60 dataset (still growing 1.44x) produced a meaningless
-      frequency.
-    * **agreement** -- the spectral St of the lift against that of the probe
-      velocity. These are independent instruments: the lift is a surface
-      pressure integral carrying acoustic reverberation, the probe is a local
-      velocity. When they agree the number is trustworthy whatever the
-      amplitude is doing.
+    * **wake vorticity**, averaged over many points in the wake. Sound is
+      irrotational, so this sees the shedding and nothing else. It is the
+      reported value.
+    * **wake-probe velocity** at one point -- an independent estimate that
+      should match it.
+    * **lift**, kept as a diagnostic only. It is a surface pressure integral
+      and carries the domain's acoustic ringing: at Re = 80 it reads 0.1619
+      where the vorticity says 0.1511 and the correlation 0.1528. Gating on
+      the lift rejected a perfectly good dataset, which is what this
+      arrangement fixes.
 
-    Deliberately *not* tested: scatter in zero-crossing spacing. It flagged
-    every dataset including the validated Re = 100 one, because the lift
-    amplitude is modulated at every Re -- an LBM artefact, not a wake defect.
+    Plus a growth test: the probe r.m.s. in the last third of the record
+    against the first, which catches a wake still amplifying (the first
+    Re = 60 dataset was growing 1.44x).
     """
     tag = tag_for(re)
     meta = json.loads((ROOT / "data" / f"cylinder_{tag}_meta.json").read_text())
     with np.load(ROOT / "data" / f"cylinder_{tag}.npz") as d:
         cl = np.asarray(d["cl"], dtype=np.float64)
-        x, y, t = d["x"], d["y"], d["t"]
-        i = int(np.argmin(np.abs(x - 2.0)))  # the wake probe every metric uses
-        j = int(np.argmin(np.abs(y - 0.0)))
-        v = np.asarray(d["snapshots"][:, 1, i, j], dtype=np.float64)
+        x, y, t = np.asarray(d["x"]), np.asarray(d["y"]), np.asarray(d["t"])
+        snaps = np.asarray(d["snapshots"], dtype=np.float64)
 
-    rec = cl[int(meta["warmup_steps"]):]
+    dt = float(t[1] - t[0])
+    i = int(np.argmin(np.abs(x - 2.0)))  # the wake probe every metric uses
+    j = int(np.argmin(np.abs(y - 0.0)))
+    v = snaps[:, 1, i, j]
+
     first, last = np.std(v[: v.size // 3]), np.std(v[2 * v.size // 3:])
     growth = float(last / max(first, 1e-12))
 
-    st_cl = strouhal_spectral(rec, float(meta["dt_star_per_step"]))
-    st_probe = strouhal_spectral(v, float(t[1] - t[0]))
-    agree = abs(st_cl - st_probe) / max(st_probe, 1e-12)
+    st_vort = wake_strouhal(snaps, x, y, dt)
+    st_probe = strouhal_spectral(v, dt)
+    st_lift = strouhal_spectral(cl[int(meta["warmup_steps"]):],
+                                float(meta["dt_star_per_step"]))
+    agree = abs(st_vort - st_probe) / max(st_probe, 1e-12)
 
-    return {"probe_growth": growth, "St_lift": st_cl, "St_probe": st_probe,
+    return {"probe_growth": growth, "St_vorticity": st_vort,
+            "St_probe": st_probe, "St_lift": st_lift,
             "St_instrument_disagreement_pct": 100.0 * agree,
             "saturated": bool(growth < growth_max and agree < agree_max)}
+
+
+def wake_strouhal(snaps, x, y, dt, x_range=(1.5, 8.0), y_max=1.5):
+    """Shedding frequency from vorticity averaged over the wake.
+
+    Vorticity is blind to irrotational sound, and averaging the power spectra
+    of many points rather than trusting one probe suppresses local noise. This
+    is the instrument that showed the low-Re wakes were locked to the domain
+    resonance while every pressure-based measure disagreed with itself.
+    """
+    dx, dy = float(x[1] - x[0]), float(y[1] - y[0])
+    u, v = snaps[:, 0], snaps[:, 1]
+    w = np.gradient(v, dx, axis=1) - np.gradient(u, dy, axis=2)
+
+    xs = np.where((x >= x_range[0]) & (x <= x_range[1]))[0]
+    ys = np.where(np.abs(y) <= y_max)[0]
+    sig = w[:, xs[:, None], ys[None, :]].reshape(w.shape[0], -1)
+    sig = (sig - sig.mean(axis=0, keepdims=True)) * np.hanning(w.shape[0])[:, None]
+
+    n = 1 << int(np.ceil(np.log2(w.shape[0] * 8)))
+    power = (np.abs(np.fft.rfft(sig, n=n, axis=0)) ** 2).mean(axis=1)
+    freq = np.fft.rfftfreq(n, d=dt)
+    k = int(np.argmax(power[1:]) + 1)
+    if k + 1 >= power.size:
+        return float(freq[k])
+    a, b, c = power[k - 1], power[k], power[k + 1]
+    den = a - 2.0 * b + c
+    shift = 0.5 * (a - c) / den if den else 0.0
+    return float(freq[k] + shift * (freq[1] - freq[0]))
 
 
 def fit_base_flow(re, args):
