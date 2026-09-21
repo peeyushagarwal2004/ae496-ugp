@@ -48,7 +48,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "src" / "cfd"))
 
-from lbm_cylinder import strouhal_estimate  # noqa: E402
+from lbm_cylinder import strouhal_estimate, strouhal_spectral  # noqa: E402
 
 PY = sys.executable
 STAGES = ["data", "base", "ablation", "accuracy"]
@@ -88,26 +88,48 @@ def warmup_periods(re, base):
     return base * max(1.0, (100.0 - RE_CRIT) / max(re - RE_CRIT, 1.0))
 
 
-def generate(re, args):
-    tag = tag_for(re)
-    meta = ROOT / "data" / f"cylinder_{tag}_meta.json"
-    if meta.exists():
-        print(f"[Re {re:g}] ground truth already present, skipping generation")
-        return json.loads(meta.read_text())
-
-    # Size the run in shedding periods rather than lattice steps, so that every
-    # dataset records the same number of periods whatever its frequency.
-    period = 24.0 / (strouhal_estimate(re) * 0.05)  # D / (St U), lattice steps
+def _lbm(re, tag, st, args):
+    """One generation pass, with the record sized from the Strouhal number `st`."""
+    period = 24.0 / (st * 0.05)  # D / (St U), in lattice steps
     wp = warmup_periods(re, args.warmup_periods)
     steps = int(round((wp + args.record_periods) * period))
-    print(f"[Re {re:g}] warmup {wp:.0f} periods, record {args.record_periods}, "
-          f"{steps} lattice steps")
+    print(f"[Re {re:g}] St assumed {st:.4f}: warmup {wp:.0f} periods "
+          f"({int(wp * period)} steps), record {args.record_periods:.0f}, "
+          f"{steps} steps total")
     run(PY, "-u", "src/cfd/lbm_cylinder.py", "--re", re,
         # Same domain and resolution as re100_v4, so datasets differ only in Re:
         # 2 % blockage, D = 24 lattice units, Ma = 0.087.
-        "--u", "0.05", "--height", "50", "--steps", steps,
+        "--u", "0.05", "--height", "50", "--steps", steps, "--st", round(st, 5),
         "--warmup-periods", round(wp, 2), "--snaps-per-period", 32, "--tag", tag)
-    return json.loads(meta.read_text())
+    return json.loads((ROOT / "data" / f"cylinder_{tag}_meta.json").read_text())
+
+
+def generate(re, args, tol=0.10):
+    """Generate, then regenerate once if the warmup was sized from a bad guess.
+
+    The warmup is counted in shedding periods, but the period is not known
+    until the run is over. At Re = 80 the correlation over-estimated it, so
+    "24 periods" of warmup was 18 real ones, the wake was still spinning up
+    when recording began, and it shed at St = 0.115 against an expected 0.153.
+    Sizing the second pass from the measured frequency closes that loop.
+    """
+    tag = tag_for(re)
+    meta_path = ROOT / "data" / f"cylinder_{tag}_meta.json"
+    if meta_path.exists():
+        print(f"[Re {re:g}] ground truth already present, skipping generation")
+        return json.loads(meta_path.read_text())
+
+    meta = _lbm(re, tag, strouhal_estimate(re), args)
+    measured = float(meta["St"])
+    drift = abs(measured - strouhal_estimate(re)) / strouhal_estimate(re)
+    if drift > tol:
+        print(f"[Re {re:g}] measured St {measured:.4f} is {100 * drift:.0f} % "
+              f"from the estimate the warmup was sized with -- regenerating "
+              f"with the measured value")
+        for f in (meta_path, ROOT / "data" / f"cylinder_{tag}.npz"):
+            f.unlink(missing_ok=True)
+        meta = _lbm(re, tag, measured, args)
+    return meta
 
 
 def validate(re, meta):
@@ -124,45 +146,61 @@ def validate(re, meta):
     sat = saturation(re)
     print(f"[Re {re:g}] St {st_measured:.4f} vs correlation {st_expected:.4f} "
           f"({err:+.1f} %)   Cd {meta['Cd_mean']:.4f} at {meta['blockage']:.1%} blockage")
-    print(f"[Re {re:g}] saturation: Cl rms growth {sat['cl_growth']:.2f}x, "
-          f"half-period spread {sat['period_spread_pct']:.1f} %")
+    print(f"[Re {re:g}] probe r.m.s. growth {sat['probe_growth']:.2f}x, "
+          f"St lift {sat['St_lift']:.4f} vs probe {sat['St_probe']:.4f} "
+          f"({sat['St_instrument_disagreement_pct']:.1f} % apart)")
     if not sat["saturated"]:
         raise SystemExit(
-            f"[Re {re:g}] the wake has not saturated (growth "
-            f"{sat['cl_growth']:.2f}x, spread {sat['period_spread_pct']:.1f} %). "
-            "Its St is not trustworthy and nothing trained on it would be "
-            "either. Delete the dataset and regenerate with a longer warmup.")
+            f"[Re {re:g}] dataset rejected: probe growth "
+            f"{sat['probe_growth']:.2f}x, lift and probe disagree on St by "
+            f"{sat['St_instrument_disagreement_pct']:.1f} %. Nothing trained "
+            "on it would be trustworthy. Delete the dataset and regenerate "
+            "with a longer warmup.")
     return {"St": st_measured, "St_correlation": st_expected,
             "St_dataset_error_pct": err,
             "Cd_mean": float(meta["Cd_mean"]), "blockage": float(meta["blockage"]),
             "n_snapshots": int(meta["n_snapshots"]), **sat}
 
 
-def saturation(re, growth_max=1.15, spread_max=0.20):
-    """Has the wake stopped growing, and is it periodic?
+def saturation(re, growth_max=1.15, agree_max=0.05):
+    """Is the wake saturated, and do two independent signals agree on its rate?
 
-    Guards the failure that produced the first Re = 60 dataset: near onset the
-    wake is still amplifying when recording starts, and a zero-crossing
-    frequency taken from a growing, irregular signal is meaningless (it read
-    25 % high). Both tests are on the recorded lift signal alone.
+    Two tests, chosen because each catches a failure actually seen here:
+
+    * **growth** -- the wake-probe r.m.s. in the last third of the record
+      against the first. Above 1 the wake is still amplifying, which is how the
+      first Re = 60 dataset (still growing 1.44x) produced a meaningless
+      frequency.
+    * **agreement** -- the spectral St of the lift against that of the probe
+      velocity. These are independent instruments: the lift is a surface
+      pressure integral carrying acoustic reverberation, the probe is a local
+      velocity. When they agree the number is trustworthy whatever the
+      amplitude is doing.
+
+    Deliberately *not* tested: scatter in zero-crossing spacing. It flagged
+    every dataset including the validated Re = 100 one, because the lift
+    amplitude is modulated at every Re -- an LBM artefact, not a wake defect.
     """
     tag = tag_for(re)
     meta = json.loads((ROOT / "data" / f"cylinder_{tag}_meta.json").read_text())
     with np.load(ROOT / "data" / f"cylinder_{tag}.npz") as d:
         cl = np.asarray(d["cl"], dtype=np.float64)
+        x, y, t = d["x"], d["y"], d["t"]
+        i = int(np.argmin(np.abs(x - 2.0)))  # the wake probe every metric uses
+        j = int(np.argmin(np.abs(y - 0.0)))
+        v = np.asarray(d["snapshots"][:, 1, i, j], dtype=np.float64)
+
     rec = cl[int(meta["warmup_steps"]):]
-    n = rec.size
-    first, last = np.std(rec[: n // 3]), np.std(rec[2 * n // 3:])
+    first, last = np.std(v[: v.size // 3]), np.std(v[2 * v.size // 3:])
     growth = float(last / max(first, 1e-12))
 
-    sig = rec - rec.mean()
-    idx = np.where(np.diff(np.signbit(sig)))[0]
-    t0 = idx + sig[idx] / (sig[idx] - sig[idx + 1])
-    half = np.diff(t0)
-    spread = float(half.std() / half.mean()) if half.size > 2 else 1.0
+    st_cl = strouhal_spectral(rec, float(meta["dt_star_per_step"]))
+    st_probe = strouhal_spectral(v, float(t[1] - t[0]))
+    agree = abs(st_cl - st_probe) / max(st_probe, 1e-12)
 
-    return {"cl_growth": growth, "period_spread_pct": 100.0 * spread,
-            "saturated": bool(growth < growth_max and spread < spread_max)}
+    return {"probe_growth": growth, "St_lift": st_cl, "St_probe": st_probe,
+            "St_instrument_disagreement_pct": 100.0 * agree,
+            "saturated": bool(growth < growth_max and agree < agree_max)}
 
 
 def fit_base_flow(re, args):
