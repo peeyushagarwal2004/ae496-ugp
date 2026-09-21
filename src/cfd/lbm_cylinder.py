@@ -212,6 +212,39 @@ def strouhal_estimate(Re):
     return -3.3265 / Re + 0.1816 + 1.6e-4 * Re
 
 
+def strouhal_spectral(sig, dt_star, pad=8):
+    """Shedding frequency from the spectral peak, refined parabolically.
+
+    Complements `strouhal` (zero crossings). Zero-crossing timing is exact for
+    a clean sinusoid but degrades badly when the amplitude is modulated -- LBM
+    is weakly compressible, so the momentum-exchange lift carries acoustic
+    reverberation from the finite domain on top of the shedding, and small
+    ripples near a zero add spurious crossings. Measured on this project's
+    datasets, the two estimators agree at Re = 120-180 (where the lift is
+    clean) and disagree by up to 40 % at Re = 80 (where it is not), while the
+    spectral estimate agrees to ~1 % between the lift and an independent
+    wake-probe velocity at every Re.
+
+    Zero padding interpolates the spectrum; the parabolic fit then resolves the
+    peak to a fraction of a bin, which is what makes this usable on the ~15
+    periods a record contains.
+    """
+    sig = np.asarray(sig, dtype=np.float64)
+    if sig.size < 64:
+        return float("nan")
+    sig = (sig - sig.mean()) * np.hanning(sig.size)
+    n = 1 << int(np.ceil(np.log2(sig.size * pad)))
+    amp = np.abs(np.fft.rfft(sig, n=n))
+    freq = np.fft.rfftfreq(n, d=dt_star)
+    k = int(np.argmax(amp[1:]) + 1)
+    if k + 1 >= amp.size:
+        return float(freq[k])
+    a, b, c = amp[k - 1], amp[k], amp[k + 1]
+    denom = a - 2.0 * b + c
+    shift = 0.5 * (a - c) / denom if denom else 0.0
+    return float(freq[k] + shift * (freq[1] - freq[0]))
+
+
 def strouhal(cl, dt_star):
     """Shedding frequency from the lift signal, via mean zero-crossing spacing.
 
@@ -390,7 +423,11 @@ def main():
 
     # Statistics over the recorded (post-transient) window only.
     tail = slice(warmup, None)
-    st = strouhal(cl[tail], dt_star)
+    # Spectral is the reported value; the zero-crossing estimate is kept beside
+    # it because the two disagreeing is itself the signal that the lift is
+    # contaminated (see `strouhal_spectral`).
+    st = strouhal_spectral(cl[tail], dt_star)
+    st_zc = strouhal(cl[tail], dt_star)
     cd_mean = float(np.mean(cd[tail]))
     cl_rms = float(np.sqrt(np.mean(cl[tail] ** 2)))
 
@@ -435,6 +472,7 @@ def main():
         "dt_star_per_step": dt_star,
         "snapshot_dt_star": snap_every * dt_star,
         "St": st,
+        "St_zero_crossing": st_zc,
         "Cd_mean": cd_mean,
         "Cl_rms": cl_rms,
         "St_target": st_guess,

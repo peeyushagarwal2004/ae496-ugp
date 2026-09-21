@@ -37,24 +37,29 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "src" / "pinn"))
+sys.path.insert(0, str(ROOT / "src" / "cfd"))
 sys.path.insert(0, str(ROOT / "upinn"))
 sys.path.insert(0, str(ROOT / "experiments"))
 
 import cylinder_unsteady as cu  # noqa: E402
+from lbm_cylinder import strouhal_spectral  # noqa: E402
 from pinn.data import load  # noqa: E402
 from plot_fields import probe_series, restore  # noqa: E402
 
 
 def zero_crossing_strouhal(sig, dt):
-    """Shedding frequency from mean zero-crossing spacing (see lbm_cylinder)."""
+    """Shedding frequency, spectral, with the crossing count for context.
+
+    Was zero-crossing timing, which returns NaN on a span holding fewer than
+    two crossings -- exactly what a one-period evaluation window gives at low
+    Re. The spectral estimate (same function the LBM datasets are measured
+    with) degrades gracefully instead, and the crossing count is still
+    reported so a short record is visible as such.
+    """
     sig = np.asarray(sig, dtype=np.float64)
-    sig = sig - sig.mean()
-    idx = np.where(np.diff(np.signbit(sig)))[0]
-    if idx.size < 2:
-        return float("nan"), idx.size
-    t0 = idx + sig[idx] / (sig[idx] - sig[idx + 1])
-    half_period = np.mean(np.diff(t0)) * dt
-    return float(0.5 / half_period), idx.size
+    centred = sig - sig.mean()
+    idx = np.where(np.diff(np.signbit(centred)))[0]
+    return strouhal_spectral(sig, dt), idx.size
 
 
 def phase_lag(pinn, lbm, dt, period):

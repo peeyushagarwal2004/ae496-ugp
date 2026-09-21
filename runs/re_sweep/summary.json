@@ -6,10 +6,14 @@
     "Cd_mean": 1.3798105716705322,
     "blockage": 0.02,
     "n_snapshots": 641,
-    "minutes": 0.0006710926691691081,
+    "minutes": 0.030284313360850017,
     "St_dataset_error_pct": -1.9451539060146221,
     "cl_growth": 0.5836772731896654,
     "period_spread_pct": 16.963848114554292,
-    "saturated": true
+    "saturated": true,
+    "probe_growth": 0.6105219400368642,
+    "St_lift": 0.1610645259684934,
+    "St_probe": 0.15935676375715646,
+    "St_instrument_disagreement_pct": 1.0716596968167638
   }
 }
