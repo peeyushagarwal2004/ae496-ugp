@@ -88,18 +88,54 @@ def warmup_periods(re, base):
     return base * max(1.0, (100.0 - RE_CRIT) / max(re - RE_CRIT, 1.0))
 
 
+D_LATTICE, HEIGHT_D = 24, 50.0
+CS = 1.0 / np.sqrt(3.0)  # lattice speed of sound
+
+
+def acoustic_strouhal(u_lattice, height_d=HEIGHT_D, d_lattice=D_LATTICE):
+    """St of the half-wave acoustic resonance across the channel, in t* units.
+
+    LBM is weakly compressible and the free-slip walls reflect perfectly, so
+    the domain supports a standing wave at c_s / 2H. Converted to the flow's
+    own time scale it is (c_s / 2H)(D / U), so it moves *away* from the
+    shedding frequency as the lattice velocity is lowered.
+    """
+    return (CS / (2.0 * height_d * d_lattice)) * (d_lattice / u_lattice)
+
+
+def lattice_velocity(st_shedding, separation=0.35, u_default=0.05, u_min=0.02):
+    """Largest u (so, fastest run) whose acoustic mode is clear of the shedding.
+
+    Measured on this project's datasets: with u = 0.05 the resonance sits at
+    St = 0.1155, which is 30 % below the shedding at Re = 100 (clean, measured
+    -3 % against the correlation) but only 24 % below it at Re = 80 and 15 % at
+    Re = 60 -- and at both of those the *wake vorticity itself*, which cannot
+    see irrotational sound, oscillates at 0.113. The wake locks onto the
+    resonance. Keeping them `separation` apart avoids the lock-in; the cost is
+    runtime, since a smaller u needs proportionally more steps per t*.
+    """
+    if abs(acoustic_strouhal(u_default) - st_shedding) / st_shedding >= separation:
+        return u_default
+    # Push the resonance above the shedding band rather than below it: the
+    # alternative (raising u) would also raise the Mach number.
+    u = CS / (2.0 * HEIGHT_D) / ((1.0 + separation) * st_shedding)
+    return max(round(u, 4), u_min)
+
+
 def _lbm(re, tag, st, args):
-    """One generation pass, with the record sized from the Strouhal number `st`."""
-    period = 24.0 / (st * 0.05)  # D / (St U), in lattice steps
+    """One generation pass, with the record and the lattice velocity from `st`."""
+    u = lattice_velocity(st)
+    period = D_LATTICE / (st * u)  # D / (St U), in lattice steps
     wp = warmup_periods(re, args.warmup_periods)
     steps = int(round((wp + args.record_periods) * period))
-    print(f"[Re {re:g}] St assumed {st:.4f}: warmup {wp:.0f} periods "
-          f"({int(wp * period)} steps), record {args.record_periods:.0f}, "
+    print(f"[Re {re:g}] St assumed {st:.4f}: u {u:g} (acoustic mode at St "
+          f"{acoustic_strouhal(u):.4f}), warmup {wp:.0f} periods, "
           f"{steps} steps total")
     run(PY, "-u", "src/cfd/lbm_cylinder.py", "--re", re,
-        # Same domain and resolution as re100_v4, so datasets differ only in Re:
-        # 2 % blockage, D = 24 lattice units, Ma = 0.087.
-        "--u", "0.05", "--height", "50", "--steps", steps, "--st", round(st, 5),
+        # Same domain and resolution as re100_v4 -- 2 % blockage, D = 24
+        # lattice units -- so datasets differ only in Re and in the lattice
+        # velocity, which sets the Mach number and the acoustic resonance.
+        "--u", u, "--height", "50", "--steps", steps, "--st", round(st, 5),
         "--warmup-periods", round(wp, 2), "--snaps-per-period", 32, "--tag", tag)
     return json.loads((ROOT / "data" / f"cylinder_{tag}_meta.json").read_text())
 
