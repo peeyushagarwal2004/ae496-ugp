@@ -1,0 +1,20 @@
+[
+  {
+    "run": "all",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/150/all_s0",
+    "t_span": [
+      81.94791666666667,
+      87.44751666666667
+    ],
+    "periods_covered": 1.0178355674257746,
+    "St_pinn": 0.1889654349023196,
+    "St_lbm": 0.18507447222084777,
+    "St_error_pct": 2.102376753952738,
+    "zero_crossings_pinn": 2,
+    "amplitude_ratio": 0.9461214278241861,
+    "phase_lag_periods": 0.00022314747920955093,
+    "phase_drift_periods": -3.596985915086024e-05,
+    "rel_l2_saved": 0.032161755600528454,
+    "shedding_saved": 0.941175859607466
+  }
+]

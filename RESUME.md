@@ -446,6 +446,24 @@ needed and the shedding ratio when the question is whether the wake survived.
 | only `all+data` works | reproduces the literature: PINNs need data here | legitimate negative result — then quantify *how little* data suffices |
 | nothing works | the collapse is robust at this budget | report honestly; sweep `--n-data 0/100/500/2000/8000` for the minimum supervision that restores shedding |
 
+**Across Reynolds number [MEASURED]** (`runs/re_sweep`, figure
+`figures/re_sweep.png`, 2 seeds each, window = measured period / 4 so every
+config spans one period):
+
+| Re | St vs correlation | `baseline` | `all` (data-free) | rel L2 |
+|---|---|---|---|---|
+| 60 | +0.6 % | 37.8, 40.1 % | **88.5, 91.2 %** | 0.031 |
+| 80 | -1.1 % | 22.2, 21.4 % | **95.8, 98.5 %** | 0.022 |
+| 100 | -3.0 % | 9.8, 11.3 % | **96.7, 98.4 %** | 0.042 |
+| 120 | +2.5 % | 20.2, 26.5 % | **103.5, 104.1 %** | 0.035 |
+| 150 | -0.3 % | 35.7, 43.1 % | **94.1, 96.7 %** | 0.032 |
+| 180 | -1.6 % | 31.1, 38.3 % | **93.6, 96.3 %** | 0.027 |
+
+The finding is regime-wide, not dataset-specific. Do not over-read three
+things: Re = 120 exceeds 100 % (amplitude *overshoot*, not accuracy); the
+`baseline` column has no clean trend and a 5-8 point seed spread; and Re = 60
+and 80 run at lower Mach for the acoustic reason below.
+
 **Budget is what separates these results from the CPU sweep.** The same matrix
 at 1000–4000 epochs (`runs/ablation_cpu`) gave `march` 3.7 % and `all` 35 %,
 which reads as "only the combined mechanisms work". That conclusion was an
@@ -669,6 +687,25 @@ transposed metric still prints a plausible number.
   configuration, benchmark ~0.23). Do not quote it as a validation metric
   without longer averaging.
 * **float64 is the wrong default on GPU** (1/32 rate on a T4).
+* **The domain rings, and the wake can lock onto it.** LBM is weakly
+  compressible and the free-slip walls reflect, so the box supports a standing
+  half-wave at `cs/2H` = St 0.1155 at u = 0.05. Where the shedding is within
+  ~25 % of that the wake *locks to it*: Re = 60 and 80 both shed at 0.113
+  until fixed, giving St errors of -16 % and -26 %. Wake vorticity (blind to
+  irrotational sound) confirmed it was the flow, not the measurement. Fix:
+  lower the lattice velocity, which moves the resonance as `(cs/2H)(D/U)`
+  rather than merely damping it -- Re = 60 went to +0.6 %. This is also why
+  `Cl_rms` never converged: the mode beats against the shedding at every Re.
+* **Measure St from wake vorticity, not lift.** The lift is a surface pressure
+  integral and carries the acoustic ringing: at Re = 80 it reads 0.1619 where
+  vorticity says 0.1511 and the correlation 0.1528. Vorticity and a probe
+  velocity agree to ~1 % at every Re. Keep the lift for Cd, which it measures
+  well.
+* **Zero-crossing frequency estimates need a clean sinusoid.** On these
+  modulated signals they disagreed with the spectral estimate by up to 40 %.
+  `lbm_cylinder.strouhal_spectral` (windowed FFT, parabolic peak) is the
+  default now, with the zero-crossing value kept beside it as a contamination
+  flag.
 * **A per-config window length is not a per-config *span*.** The Re sweep
   passed one `--window-len` to every config, but `baseline` trains 1 window
   where `all` trains 4 -- so baseline covered a quarter period and scored

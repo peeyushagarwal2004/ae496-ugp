@@ -1,0 +1,796 @@
+### sweep5 start Mon Sep 21 20:48:38 IST 2026
+
+======================================================================
+Re = 60
+======================================================================
+[Re 60] ground truth already present, skipping generation
+[Re 60] St 0.1366 vs correlation 0.1358 (+0.6 %)   Cd 1.4419 at 2.0% blockage
+[Re 60] probe r.m.s. growth 0.99x   St: vorticity 0.1366, probe 0.1366 (0.0 % apart), lift 0.1365
+[Re 60] base flow already fitted, skipping
+[Re 60] shedding period 7.33 t*: baseline 1 x 7.326, all 4 x 1.831
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re60_v1 --epochs 20000 --seeds 2 --only baseline --run-name re_sweep/60 --extra --sigma 8 --window-len 7.3260 --save-params
+[baseline seed 0] already done, skipping
+[baseline seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+baseline        0              37.8%    0.1723     3.0
+baseline        1              40.1%    0.1749     3.1
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/60/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re60_v1 --epochs 20000 --seeds 2 --only all --run-name re_sweep/60 --extra --sigma 8 --window-len 1.8315 --save-params
+[all seed 0] already done, skipping
+[all seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+all             0              88.5%    0.0309    15.8
+all             1              91.2%    0.0307    15.8
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/60/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/shedding_accuracy.py --run-name re_sweep/60 --runs all_s0 --tag re60_v1
+
+all   t* 396.25 .. 403.58  (0.95 shedding periods)
+  St            PINN 0.1338   LBM 0.1295   (+3.4 %)
+  amplitude     88.9 % of LBM
+  phase lag     +0.000 periods (+0.0 deg)
+  phase drift   +0.000 periods between the first and second half of the span
+  field rel L2  0.0309
+
+  caveat: 0.9 periods of signal and 2 zero crossings. St from so short a record
+  carries roughly a percent of uncertainty per crossing -- it is a consistency
+  check, not a validated frequency like the LBM's 12-period value.
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/60/shedding_accuracy.json
+
+======================================================================
+Re = 80
+======================================================================
+[Re 80] ground truth already present, skipping generation
+[Re 80] St 0.1511 vs correlation 0.1528 (-1.1 %)   Cd 1.3726 at 2.0% blockage
+[Re 80] probe r.m.s. growth 0.78x   St: vorticity 0.1511, probe 0.1527 (1.0 % apart), lift 0.1619
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u src/pinn/base_flow.py --tag re80_v1 --net fourier_mlp --width 128 --sigma 8 --epochs 25000
+fitting base flow u0 for re80_v1 (fourier_mlp 128x5, 25000 epochs)
+  epoch      0  mse 4.560e-01  (  6.8s)
+  epoch   2500  mse 1.630e-05  ( 12.5s)
+  epoch   5000  mse 7.904e-06  ( 18.0s)
+  epoch   7500  mse 2.224e-06  ( 23.5s)
+  epoch  10000  mse 2.175e-06  ( 28.8s)
+  epoch  12500  mse 1.228e-06  ( 34.3s)
+  epoch  15000  mse 1.132e-06  ( 39.7s)
+  epoch  17500  mse 5.624e-07  ( 45.3s)
+  epoch  20000  mse 8.976e-07  ( 51.0s)
+  epoch  22500  mse 6.280e-07  ( 56.8s)
+  epoch  24999  mse 5.352e-07  ( 62.6s)
+
+  relative L2 on (u0, v0) = 2.1438e-03
+    u0: max abs err 3.7616e-02   rms 1.8362e-03
+    v0: max abs err 5.9135e-02   rms 9.5663e-04
+    p0: max abs err 3.6329e-02   rms 7.6371e-04
+
+saved -> /data/rajeshr/peeyush/AE496_UGP/data/base_flow_re80_v1.pkl
+laplacian of u0 over the domain: max|lap u| 35.561, max|lap v| 19.058
+[Re 80] shedding period 6.18 t*: baseline 1 x 6.177, all 4 x 1.544
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re80_v1 --epochs 20000 --seeds 2 --only baseline --run-name re_sweep/80 --extra --sigma 8 --window-len 6.1771 --save-params
+
+======================================================================
+[baseline seed 0] (no flags)
+======================================================================
+Re=80  mode=mlp  windows=1 x 6.1771 t*  data=0  epochs/window=20000
+domain x[-5,15] y[-4.97917,5.02083]  t* 157.84 .. 164.02
+
+  [win 1/1] ep      0  loss 2.532e+01  pde 2.16e-02  bc 1.71e+00  ic 8.23e-01  dat 0.00e+00  (  7.0s)
+  [win 1/1] ep    500  loss 2.475e-01  pde 1.12e-02  bc 5.70e-03  ic 1.79e-02  dat 0.00e+00  ( 11.3s)
+  [win 1/1] ep   1000  loss 2.042e-01  pde 8.08e-03  bc 4.52e-03  ic 1.51e-02  dat 0.00e+00  ( 15.5s)
+  [win 1/1] ep   1500  loss 1.713e-01  pde 6.66e-03  bc 2.72e-03  ic 1.37e-02  dat 0.00e+00  ( 19.6s)
+  [win 1/1] ep   2000  loss 1.450e-01  pde 5.14e-03  bc 1.44e-03  ic 1.25e-02  dat 0.00e+00  ( 23.8s)
+  [win 1/1] ep   2500  loss 1.222e-01  pde 3.76e-03  bc 9.78e-04  ic 1.09e-02  dat 0.00e+00  ( 28.0s)
+  [win 1/1] ep   3000  loss 1.026e-01  pde 3.60e-03  bc 7.60e-04  ic 9.14e-03  dat 0.00e+00  ( 32.2s)
+  [win 1/1] ep   3500  loss 3.555e-02  pde 6.52e-03  bc 4.06e-04  ic 2.50e-03  dat 0.00e+00  ( 36.4s)
+  [win 1/1] ep   4000  loss 2.488e-02  pde 5.62e-03  bc 8.96e-04  ic 1.03e-03  dat 0.00e+00  ( 40.6s)
+  [win 1/1] ep   4500  loss 1.519e-02  pde 4.70e-03  bc 1.49e-04  ic 9.00e-04  dat 0.00e+00  ( 44.8s)
+  [win 1/1] ep   5000  loss 1.279e-02  pde 4.38e-03  bc 1.11e-04  ic 7.29e-04  dat 0.00e+00  ( 49.1s)
+  [win 1/1] ep   5500  loss 1.287e-02  pde 3.84e-03  bc 3.15e-04  ic 5.87e-04  dat 0.00e+00  ( 53.3s)
+  [win 1/1] ep   6000  loss 1.043e-02  pde 3.38e-03  bc 2.17e-04  ic 4.88e-04  dat 0.00e+00  ( 57.5s)
+  [win 1/1] ep   6500  loss 8.443e-03  pde 2.93e-03  bc 1.46e-04  ic 4.06e-04  dat 0.00e+00  ( 61.7s)
+  [win 1/1] ep   7000  loss 8.442e-03  pde 2.73e-03  bc 2.18e-04  ic 3.52e-04  dat 0.00e+00  ( 65.9s)
+  [win 1/1] ep   7500  loss 6.861e-03  pde 2.39e-03  bc 1.26e-04  ic 3.21e-04  dat 0.00e+00  ( 70.2s)
+  [win 1/1] ep   8000  loss 9.242e-03  pde 2.47e-03  bc 3.08e-04  ic 3.69e-04  dat 0.00e+00  ( 74.4s)
+  [win 1/1] ep   8500  loss 5.201e-03  pde 2.30e-03  bc 5.02e-05  ic 2.40e-04  dat 0.00e+00  ( 78.7s)
+  [win 1/1] ep   9000  loss 4.813e-03  pde 1.98e-03  bc 6.63e-05  ic 2.17e-04  dat 0.00e+00  ( 82.9s)
+  [win 1/1] ep   9500  loss 4.197e-03  pde 1.77e-03  bc 6.52e-05  ic 1.77e-04  dat 0.00e+00  ( 87.1s)
+  [win 1/1] ep  10000  loss 4.537e-03  pde 1.75e-03  bc 1.23e-04  ic 1.56e-04  dat 0.00e+00  ( 91.4s)
+  [win 1/1] ep  10500  loss 4.327e-03  pde 1.58e-03  bc 1.16e-04  ic 1.59e-04  dat 0.00e+00  ( 95.6s)
+  [win 1/1] ep  11000  loss 3.710e-03  pde 1.77e-03  bc 6.25e-05  ic 1.31e-04  dat 0.00e+00  ( 99.9s)
+  [win 1/1] ep  11500  loss 3.118e-03  pde 1.56e-03  bc 3.45e-05  ic 1.21e-04  dat 0.00e+00  (104.1s)
+  [win 1/1] ep  12000  loss 3.220e-03  pde 1.61e-03  bc 4.99e-05  ic 1.11e-04  dat 0.00e+00  (108.3s)
+  [win 1/1] ep  12500  loss 2.789e-03  pde 1.50e-03  bc 2.45e-05  ic 1.04e-04  dat 0.00e+00  (112.6s)
+  [win 1/1] ep  13000  loss 2.806e-03  pde 1.45e-03  bc 3.74e-05  ic 9.78e-05  dat 0.00e+00  (116.8s)
+  [win 1/1] ep  13500  loss 2.525e-03  pde 1.33e-03  bc 2.64e-05  ic 9.36e-05  dat 0.00e+00  (121.1s)
+  [win 1/1] ep  14000  loss 3.245e-03  pde 1.61e-03  bc 7.41e-05  ic 8.92e-05  dat 0.00e+00  (125.3s)
+  [win 1/1] ep  14500  loss 2.588e-03  pde 1.44e-03  bc 2.61e-05  ic 8.91e-05  dat 0.00e+00  (129.6s)
+  [win 1/1] ep  15000  loss 2.993e-03  pde 1.39e-03  bc 7.49e-05  ic 8.50e-05  dat 0.00e+00  (133.8s)
+  [win 1/1] ep  15500  loss 2.364e-03  pde 1.32e-03  bc 2.40e-05  ic 8.00e-05  dat 0.00e+00  (138.1s)
+  [win 1/1] ep  16000  loss 2.518e-03  pde 1.45e-03  bc 3.13e-05  ic 7.54e-05  dat 0.00e+00  (142.3s)
+  [win 1/1] ep  16500  loss 2.225e-03  pde 1.31e-03  bc 2.05e-05  ic 7.07e-05  dat 0.00e+00  (146.6s)
+  [win 1/1] ep  17000  loss 2.611e-03  pde 1.26e-03  bc 6.70e-05  ic 6.79e-05  dat 0.00e+00  (150.8s)
+  [win 1/1] ep  17500  loss 2.118e-03  pde 1.18e-03  bc 2.39e-05  ic 6.95e-05  dat 0.00e+00  (155.1s)
+  [win 1/1] ep  18000  loss 2.186e-03  pde 1.19e-03  bc 3.25e-05  ic 6.70e-05  dat 0.00e+00  (159.3s)
+  [win 1/1] ep  18500  loss 1.888e-03  pde 1.11e-03  bc 1.86e-05  ic 5.93e-05  dat 0.00e+00  (163.5s)
+  [win 1/1] ep  19000  loss 2.083e-03  pde 1.23e-03  bc 2.95e-05  ic 5.61e-05  dat 0.00e+00  (167.8s)
+  [win 1/1] ep  19500  loss 1.956e-03  pde 1.10e-03  bc 3.10e-05  ic 5.46e-05  dat 0.00e+00  (172.0s)
+  [win 1/1] ep  19999  loss 1.772e-03  pde 1.07e-03  bc 1.79e-05  ic 5.27e-05  dat 0.00e+00  (176.3s)
+  -> rel L2 0.1639   probe v rms: PINN 0.0588 vs LBM 0.2650   shedding retained 22.2 %
+
+====================================================================
+  window 0  t* 157.8-164.0   relL2 0.1639   shedding  22.2 %
+====================================================================
+  OVERALL (t* 157.8-164.0, the headline number)
+    relative L2       0.1657
+    probe v rms       PINN 0.0588  vs LBM 0.2650
+    shedding retained 22.2 %
+    (near 0 % is the documented collapse to steady flow)
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/80/baseline_s0/results.json
+
+======================================================================
+[baseline seed 1] (no flags)
+======================================================================
+Re=80  mode=mlp  windows=1 x 6.1771 t*  data=0  epochs/window=20000
+domain x[-5,15] y[-4.97917,5.02083]  t* 157.84 .. 164.02
+
+  [win 1/1] ep      0  loss 2.214e+01  pde 3.57e-03  bc 1.75e+00  ic 4.64e-01  dat 0.00e+00  (  6.9s)
+  [win 1/1] ep    500  loss 2.679e-01  pde 1.04e-02  bc 6.34e-03  ic 1.94e-02  dat 0.00e+00  ( 11.2s)
+  [win 1/1] ep   1000  loss 2.050e-01  pde 6.86e-03  bc 4.04e-03  ic 1.58e-02  dat 0.00e+00  ( 15.4s)
+  [win 1/1] ep   1500  loss 1.648e-01  pde 6.06e-03  bc 2.21e-03  ic 1.37e-02  dat 0.00e+00  ( 19.7s)
+  [win 1/1] ep   2000  loss 1.343e-01  pde 5.56e-03  bc 1.80e-03  ic 1.11e-02  dat 0.00e+00  ( 23.9s)
+  [win 1/1] ep   2500  loss 1.432e-01  pde 6.48e-03  bc 8.64e-03  ic 5.03e-03  dat 0.00e+00  ( 28.2s)
+  [win 1/1] ep   3000  loss 3.076e-02  pde 6.50e-03  bc 4.11e-04  ic 2.01e-03  dat 0.00e+00  ( 32.4s)
+  [win 1/1] ep   3500  loss 2.947e-02  pde 5.22e-03  bc 7.65e-04  ic 1.66e-03  dat 0.00e+00  ( 36.7s)
+  [win 1/1] ep   4000  loss 4.681e-02  pde 4.55e-03  bc 3.00e-03  ic 1.22e-03  dat 0.00e+00  ( 41.0s)
+  [win 1/1] ep   4500  loss 1.467e-02  pde 4.34e-03  bc 1.55e-04  ic 8.78e-04  dat 0.00e+00  ( 45.2s)
+  [win 1/1] ep   5000  loss 1.299e-02  pde 4.18e-03  bc 1.45e-04  ic 7.36e-04  dat 0.00e+00  ( 49.5s)
+  [win 1/1] ep   5500  loss 1.195e-02  pde 3.78e-03  bc 2.55e-04  ic 5.62e-04  dat 0.00e+00  ( 53.7s)
+  [win 1/1] ep   6000  loss 9.590e-03  pde 3.57e-03  bc 1.26e-04  ic 4.77e-04  dat 0.00e+00  ( 58.0s)
+  [win 1/1] ep   6500  loss 7.971e-03  pde 3.16e-03  bc 9.29e-05  ic 3.88e-04  dat 0.00e+00  ( 62.3s)
+  [win 1/1] ep   7000  loss 9.214e-03  pde 2.92e-03  bc 2.59e-04  ic 3.71e-04  dat 0.00e+00  ( 66.5s)
+  [win 1/1] ep   7500  loss 7.864e-03  pde 2.60e-03  bc 2.56e-04  ic 2.70e-04  dat 0.00e+00  ( 70.8s)
+  [win 1/1] ep   8000  loss 8.299e-03  pde 2.53e-03  bc 3.62e-04  ic 2.15e-04  dat 0.00e+00  ( 75.0s)
+  [win 1/1] ep   8500  loss 5.025e-03  pde 2.27e-03  bc 5.54e-05  ic 2.20e-04  dat 0.00e+00  ( 79.3s)
+  [win 1/1] ep   9000  loss 4.747e-03  pde 2.20e-03  bc 5.40e-05  ic 2.01e-04  dat 0.00e+00  ( 83.6s)
+  [win 1/1] ep   9500  loss 4.397e-03  pde 2.00e-03  bc 7.28e-05  ic 1.67e-04  dat 0.00e+00  ( 87.8s)
+  [win 1/1] ep  10000  loss 4.897e-03  pde 1.99e-03  bc 1.33e-04  ic 1.58e-04  dat 0.00e+00  ( 92.1s)
+  [win 1/1] ep  10500  loss 3.634e-03  pde 1.80e-03  bc 4.80e-05  ic 1.36e-04  dat 0.00e+00  ( 96.3s)
+  [win 1/1] ep  11000  loss 3.658e-03  pde 1.78e-03  bc 6.80e-05  ic 1.19e-04  dat 0.00e+00  (100.6s)
+  [win 1/1] ep  11500  loss 3.201e-03  pde 1.62e-03  bc 4.97e-05  ic 1.08e-04  dat 0.00e+00  (104.9s)
+  [win 1/1] ep  12000  loss 3.971e-03  pde 1.60e-03  bc 8.99e-05  ic 1.47e-04  dat 0.00e+00  (110.6s)
+  [win 1/1] ep  12500  loss 2.767e-03  pde 1.51e-03  bc 2.57e-05  ic 1.00e-04  dat 0.00e+00  (120.3s)
+  [win 1/1] ep  13000  loss 3.297e-03  pde 1.51e-03  bc 8.48e-05  ic 9.36e-05  dat 0.00e+00  (129.2s)
+  [win 1/1] ep  13500  loss 2.811e-03  pde 1.39e-03  bc 3.88e-05  ic 1.03e-04  dat 0.00e+00  (138.9s)
+  [win 1/1] ep  14000  loss 2.871e-03  pde 1.58e-03  bc 3.79e-05  ic 9.16e-05  dat 0.00e+00  (147.4s)
+  [win 1/1] ep  14500  loss 2.441e-03  pde 1.38e-03  bc 2.38e-05  ic 8.20e-05  dat 0.00e+00  (157.1s)
+  [win 1/1] ep  15000  loss 3.339e-03  pde 1.39e-03  bc 1.18e-04  ic 7.68e-05  dat 0.00e+00  (163.7s)
+  [win 1/1] ep  15500  loss 2.707e-03  pde 1.28e-03  bc 5.37e-05  ic 8.87e-05  dat 0.00e+00  (167.9s)
+  [win 1/1] ep  16000  loss 2.356e-03  pde 1.29e-03  bc 2.84e-05  ic 7.85e-05  dat 0.00e+00  (172.2s)
+  [win 1/1] ep  16500  loss 2.050e-03  pde 1.21e-03  bc 1.78e-05  ic 6.58e-05  dat 0.00e+00  (176.5s)
+  [win 1/1] ep  17000  loss 2.212e-03  pde 1.27e-03  bc 3.06e-05  ic 6.35e-05  dat 0.00e+00  (180.7s)
+  [win 1/1] ep  17500  loss 2.003e-03  pde 1.20e-03  bc 1.81e-05  ic 6.26e-05  dat 0.00e+00  (185.0s)
+  [win 1/1] ep  18000  loss 2.405e-03  pde 1.21e-03  bc 6.01e-05  ic 5.98e-05  dat 0.00e+00  (189.2s)
+  [win 1/1] ep  18500  loss 1.999e-03  pde 1.13e-03  bc 2.10e-05  ic 6.59e-05  dat 0.00e+00  (193.5s)
+  [win 1/1] ep  19000  loss 2.136e-03  pde 1.16e-03  bc 3.41e-05  ic 6.37e-05  dat 0.00e+00  (197.8s)
+  [win 1/1] ep  19500  loss 1.881e-03  pde 1.08e-03  bc 1.98e-05  ic 6.04e-05  dat 0.00e+00  (202.0s)
+  [win 1/1] ep  19999  loss 1.889e-03  pde 1.04e-03  bc 2.60e-05  ic 5.86e-05  dat 0.00e+00  (206.3s)
+  -> rel L2 0.1670   probe v rms: PINN 0.0567 vs LBM 0.2650   shedding retained 21.4 %
+
+====================================================================
+  window 0  t* 157.8-164.0   relL2 0.1670   shedding  21.4 %
+====================================================================
+  OVERALL (t* 157.8-164.0, the headline number)
+    relative L2       0.1690
+    probe v rms       PINN 0.0567  vs LBM 0.2650
+    shedding retained 21.4 %
+    (near 0 % is the documented collapse to steady flow)
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/80/baseline_s1/results.json
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+baseline        0              22.2%    0.1657     3.0
+baseline        1              21.4%    0.1690     3.5
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/80/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re80_v1 --epochs 20000 --seeds 2 --only all --run-name re_sweep/80 --extra --sigma 8 --window-len 1.5443 --save-params
+
+======================================================================
+[all seed 0] --decompose --net fourier_mlp --windows 4 --window-len 1.5
+======================================================================
+Re=80  mode=decomposed fourier_mlp  windows=4 x 1.5443 t*  data=0  epochs/window=20000
+domain x[-5,15] y[-4.97917,5.02083]  t* 157.84 .. 164.02
+
+  [win 1/4] ep      0  loss 6.322e+00  pde 4.78e-01  bc 4.80e-01  ic 1.04e-01  dat 0.00e+00  ( 10.2s)
+  [win 1/4] ep    500  loss 1.805e-02  pde 1.12e-02  bc 2.23e-04  ic 4.62e-04  dat 0.00e+00  ( 20.3s)
+  [win 1/4] ep   1000  loss 1.239e-02  pde 8.62e-03  bc 2.09e-04  ic 1.68e-04  dat 0.00e+00  ( 32.5s)
+  [win 1/4] ep   1500  loss 7.044e-03  pde 5.29e-03  bc 6.94e-05  ic 1.06e-04  dat 0.00e+00  ( 45.7s)
+  [win 1/4] ep   2000  loss 6.149e-03  pde 4.51e-03  bc 9.44e-05  ic 6.98e-05  dat 0.00e+00  ( 57.5s)
+  [win 1/4] ep   2500  loss 5.155e-03  pde 2.94e-03  bc 1.53e-04  ic 6.81e-05  dat 0.00e+00  ( 69.3s)
+  [win 1/4] ep   3000  loss 4.542e-03  pde 2.84e-03  bc 1.23e-04  ic 4.76e-05  dat 0.00e+00  ( 82.4s)
+  [win 1/4] ep   3500  loss 2.469e-03  pde 1.92e-03  bc 1.92e-05  ic 3.57e-05  dat 0.00e+00  ( 94.1s)
+  [win 1/4] ep   4000  loss 3.683e-03  pde 2.61e-03  bc 7.29e-05  ic 3.39e-05  dat 0.00e+00  (105.9s)
+  [win 1/4] ep   4500  loss 2.327e-03  pde 1.92e-03  bc 1.22e-05  ic 2.84e-05  dat 0.00e+00  (118.9s)
+  [win 1/4] ep   5000  loss 2.946e-03  pde 2.31e-03  bc 3.85e-05  ic 2.54e-05  dat 0.00e+00  (130.7s)
+  [win 1/4] ep   5500  loss 2.607e-03  pde 1.72e-03  bc 6.04e-05  ic 2.81e-05  dat 0.00e+00  (142.5s)
+  [win 1/4] ep   6000  loss 2.450e-03  pde 1.87e-03  bc 3.49e-05  ic 2.28e-05  dat 0.00e+00  (155.5s)
+  [win 1/4] ep   6500  loss 2.087e-03  pde 1.24e-03  bc 6.08e-05  ic 2.34e-05  dat 0.00e+00  (167.3s)
+  [win 1/4] ep   7000  loss 2.066e-03  pde 1.35e-03  bc 5.36e-05  ic 1.83e-05  dat 0.00e+00  (179.1s)
+  [win 1/4] ep   7500  loss 1.951e-03  pde 8.71e-04  bc 8.29e-05  ic 2.51e-05  dat 0.00e+00  (192.2s)
+  [win 1/4] ep   8000  loss 2.138e-03  pde 1.50e-03  bc 4.53e-05  ic 1.84e-05  dat 0.00e+00  (204.0s)
+  [win 1/4] ep   8500  loss 1.314e-03  pde 1.09e-03  bc 5.68e-06  ic 1.62e-05  dat 0.00e+00  (215.7s)
+  [win 1/4] ep   9000  loss 1.420e-03  pde 1.01e-03  bc 2.54e-05  ic 1.52e-05  dat 0.00e+00  (228.8s)
+  [win 1/4] ep   9500  loss 1.030e-03  pde 6.99e-04  bc 1.87e-05  ic 1.44e-05  dat 0.00e+00  (240.7s)
+  [win 1/4] ep  10000  loss 1.443e-03  pde 1.04e-03  bc 2.73e-05  ic 1.35e-05  dat 0.00e+00  (252.4s)
+  [win 1/4] ep  10500  loss 9.780e-04  pde 7.63e-04  bc 8.22e-06  ic 1.32e-05  dat 0.00e+00  (265.5s)
+  [win 1/4] ep  11000  loss 1.423e-03  pde 9.87e-04  bc 3.15e-05  ic 1.20e-05  dat 0.00e+00  (277.3s)
+  [win 1/4] ep  11500  loss 1.111e-03  pde 6.83e-04  bc 2.79e-05  ic 1.49e-05  dat 0.00e+00  (289.1s)
+  [win 1/4] ep  12000  loss 1.637e-03  pde 1.25e-03  bc 2.51e-05  ic 1.33e-05  dat 0.00e+00  (302.1s)
+  [win 1/4] ep  12500  loss 1.113e-03  pde 9.47e-04  bc 5.11e-06  ic 1.15e-05  dat 0.00e+00  (313.9s)
+  [win 1/4] ep  13000  loss 1.468e-03  pde 1.07e-03  bc 2.86e-05  ic 1.09e-05  dat 0.00e+00  (325.7s)
+  [win 1/4] ep  13500  loss 1.050e-03  pde 8.36e-04  bc 9.41e-06  ic 1.19e-05  dat 0.00e+00  (338.7s)
+  [win 1/4] ep  14000  loss 1.823e-03  pde 1.46e-03  bc 2.43e-05  ic 1.18e-05  dat 0.00e+00  (350.5s)
+  [win 1/4] ep  14500  loss 1.264e-03  pde 1.06e-03  bc 6.66e-06  ic 1.33e-05  dat 0.00e+00  (362.3s)
+  [win 1/4] ep  15000  loss 1.620e-03  pde 1.31e-03  bc 1.84e-05  ic 1.24e-05  dat 0.00e+00  (375.4s)
+  [win 1/4] ep  15500  loss 1.046e-03  pde 8.29e-04  bc 9.30e-06  ic 1.24e-05  dat 0.00e+00  (387.3s)
+  [win 1/4] ep  16000  loss 1.602e-03  pde 1.29e-03  bc 1.99e-05  ic 1.15e-05  dat 0.00e+00  (399.2s)
+  [win 1/4] ep  16500  loss 1.169e-03  pde 9.97e-04  bc 5.66e-06  ic 1.15e-05  dat 0.00e+00  (412.1s)
+  [win 1/4] ep  17000  loss 1.290e-03  pde 1.01e-03  bc 1.73e-05  ic 1.09e-05  dat 0.00e+00  (423.9s)
+  [win 1/4] ep  17500  loss 8.584e-04  pde 7.08e-04  bc 4.64e-06  ic 1.04e-05  dat 0.00e+00  (435.9s)
+  [win 1/4] ep  18000  loss 1.612e-03  pde 1.34e-03  bc 1.70e-05  ic 9.90e-06  dat 0.00e+00  (448.9s)
+  [win 1/4] ep  18500  loss 1.035e-03  pde 8.83e-04  bc 5.00e-06  ic 1.03e-05  dat 0.00e+00  (460.6s)
+  [win 1/4] ep  19000  loss 1.112e-03  pde 8.16e-04  bc 1.99e-05  ic 9.73e-06  dat 0.00e+00  (472.7s)
+  [win 1/4] ep  19500  loss 6.512e-04  pde 5.10e-04  bc 4.30e-06  ic 9.79e-06  dat 0.00e+00  (485.5s)
+  [win 1/4] ep  19999  loss 6.396e-04  pde 4.56e-04  bc 8.62e-06  ic 9.79e-06  dat 0.00e+00  (497.3s)
+  -> rel L2 0.0225   probe v rms: PINN 0.1500 vs LBM 0.1731   shedding retained 86.6 %
+
+  [win 2/4] ep      0  loss 2.394e-01  pde 1.76e-02  bc 2.16e-02  ic 5.46e-04  dat 0.00e+00  (  0.0s)
+  [win 2/4] ep    500  loss 5.826e-03  pde 4.60e-03  bc 3.92e-05  ic 8.37e-05  dat 0.00e+00  ( 11.8s)
+  [win 2/4] ep   1000  loss 4.364e-03  pde 3.30e-03  bc 5.87e-05  ic 4.78e-05  dat 0.00e+00  ( 24.5s)
+  [win 2/4] ep   1500  loss 4.251e-03  pde 1.91e-03  bc 1.92e-04  ic 4.21e-05  dat 0.00e+00  ( 36.6s)
+  [win 2/4] ep   2000  loss 3.030e-03  pde 1.99e-03  bc 7.45e-05  ic 2.98e-05  dat 0.00e+00  ( 48.4s)
+  [win 2/4] ep   2500  loss 1.830e-03  pde 1.26e-03  bc 2.86e-05  ic 2.83e-05  dat 0.00e+00  ( 61.2s)
+  [win 2/4] ep   3000  loss 2.609e-03  pde 1.87e-03  bc 4.78e-05  ic 2.57e-05  dat 0.00e+00  ( 73.2s)
+  [win 2/4] ep   3500  loss 1.565e-03  pde 1.18e-03  bc 1.41e-05  ic 2.47e-05  dat 0.00e+00  ( 85.1s)
+  [win 2/4] ep   4000  loss 2.364e-03  pde 1.62e-03  bc 4.97e-05  ic 2.43e-05  dat 0.00e+00  ( 98.1s)
+  [win 2/4] ep   4500  loss 1.304e-03  pde 1.05e-03  bc 5.36e-06  ic 2.01e-05  dat 0.00e+00  (110.1s)
+  [win 2/4] ep   5000  loss 2.508e-03  pde 1.93e-03  bc 3.87e-05  ic 1.86e-05  dat 0.00e+00  (121.8s)
+  [win 2/4] ep   5500  loss 1.576e-03  pde 1.18e-03  bc 1.97e-05  ic 2.02e-05  dat 0.00e+00  (134.9s)
+  [win 2/4] ep   6000  loss 1.962e-03  pde 1.19e-03  bc 5.63e-05  ic 2.07e-05  dat 0.00e+00  (146.6s)
+  [win 2/4] ep   6500  loss 1.491e-03  pde 7.57e-04  bc 5.09e-05  ic 2.25e-05  dat 0.00e+00  (158.4s)
+  [win 2/4] ep   7000  loss 2.565e-03  pde 1.43e-03  bc 9.17e-05  ic 2.21e-05  dat 0.00e+00  (171.5s)
+  [win 2/4] ep   7500  loss 1.394e-03  pde 8.51e-04  bc 3.65e-05  ic 1.78e-05  dat 0.00e+00  (183.4s)
+  [win 2/4] ep   8000  loss 1.455e-03  pde 9.46e-04  bc 3.57e-05  ic 1.52e-05  dat 0.00e+00  (195.2s)
+  [win 2/4] ep   8500  loss 6.611e-04  pde 4.83e-04  bc 3.86e-06  ic 1.39e-05  dat 0.00e+00  (208.2s)
+  [win 2/4] ep   9000  loss 2.142e-03  pde 1.72e-03  bc 2.93e-05  ic 1.28e-05  dat 0.00e+00  (220.1s)
+  [win 2/4] ep   9500  loss 1.235e-03  pde 9.88e-04  bc 7.53e-06  ic 1.72e-05  dat 0.00e+00  (231.9s)
+  [win 2/4] ep  10000  loss 1.642e-03  pde 1.13e-03  bc 3.41e-05  ic 1.74e-05  dat 0.00e+00  (244.8s)
+  [win 2/4] ep  10500  loss 8.777e-04  pde 6.18e-04  bc 1.22e-05  ic 1.38e-05  dat 0.00e+00  (256.8s)
+  [win 2/4] ep  11000  loss 1.392e-03  pde 8.76e-04  bc 3.83e-05  ic 1.33e-05  dat 0.00e+00  (268.6s)
+  [win 2/4] ep  11500  loss 6.521e-04  pde 4.41e-04  bc 7.03e-06  ic 1.41e-05  dat 0.00e+00  (281.7s)
+  [win 2/4] ep  12000  loss 1.217e-03  pde 7.31e-04  bc 3.53e-05  ic 1.32e-05  dat 0.00e+00  (293.5s)
+  [win 2/4] ep  12500  loss 6.123e-04  pde 4.32e-04  bc 3.56e-06  ic 1.45e-05  dat 0.00e+00  (305.3s)
+  [win 2/4] ep  13000  loss 1.605e-03  pde 1.27e-03  bc 1.95e-05  ic 1.39e-05  dat 0.00e+00  (318.5s)
+  [win 2/4] ep  13500  loss 6.865e-04  pde 4.57e-04  bc 8.55e-06  ic 1.44e-05  dat 0.00e+00  (330.3s)
+  [win 2/4] ep  14000  loss 1.331e-03  pde 9.57e-04  bc 2.36e-05  ic 1.37e-05  dat 0.00e+00  (342.1s)
+  [win 2/4] ep  14500  loss 5.522e-04  pde 3.70e-04  bc 4.71e-06  ic 1.35e-05  dat 0.00e+00  (355.2s)
+  [win 2/4] ep  15000  loss 1.433e-03  pde 1.12e-03  bc 1.91e-05  ic 1.24e-05  dat 0.00e+00  (367.0s)
+  [win 2/4] ep  15500  loss 6.214e-04  pde 4.03e-04  bc 8.42e-06  ic 1.35e-05  dat 0.00e+00  (378.7s)
+  [win 2/4] ep  16000  loss 1.245e-03  pde 8.50e-04  bc 2.71e-05  ic 1.24e-05  dat 0.00e+00  (391.8s)
+  [win 2/4] ep  16500  loss 5.733e-04  pde 3.97e-04  bc 3.91e-06  ic 1.38e-05  dat 0.00e+00  (403.6s)
+  [win 2/4] ep  17000  loss 1.013e-03  pde 7.15e-04  bc 1.65e-05  ic 1.32e-05  dat 0.00e+00  (415.3s)
+  [win 2/4] ep  17500  loss 4.991e-04  pde 3.28e-04  bc 3.58e-06  ic 1.35e-05  dat 0.00e+00  (428.4s)
+  [win 2/4] ep  18000  loss 1.183e-03  pde 8.18e-04  bc 2.38e-05  ic 1.27e-05  dat 0.00e+00  (440.3s)
+  [win 2/4] ep  18500  loss 4.497e-04  pde 2.88e-04  bc 3.62e-06  ic 1.26e-05  dat 0.00e+00  (452.1s)
+  [win 2/4] ep  19000  loss 9.855e-04  pde 7.07e-04  bc 1.60e-05  ic 1.18e-05  dat 0.00e+00  (465.2s)
+  [win 2/4] ep  19500  loss 4.347e-04  pde 2.70e-04  bc 4.06e-06  ic 1.24e-05  dat 0.00e+00  (477.0s)
+  [win 2/4] ep  19999  loss 3.850e-04  pde 2.33e-04  bc 3.29e-06  ic 1.20e-05  dat 0.00e+00  (488.8s)
+  -> rel L2 0.0205   probe v rms: PINN 0.0519 vs LBM 0.0508   shedding retained 102.1 %
+
+  [win 3/4] ep      0  loss 1.514e-01  pde 1.68e-02  bc 1.29e-02  ic 5.57e-04  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep    500  loss 3.810e-03  pde 2.96e-03  bc 4.56e-05  ic 3.92e-05  dat 0.00e+00  ( 13.0s)
+  [win 3/4] ep   1000  loss 3.087e-03  pde 2.30e-03  bc 5.72e-05  ic 2.13e-05  dat 0.00e+00  ( 24.8s)
+  [win 3/4] ep   1500  loss 1.878e-03  pde 1.27e-03  bc 4.11e-05  ic 1.98e-05  dat 0.00e+00  ( 36.6s)
+  [win 3/4] ep   2000  loss 2.077e-03  pde 1.53e-03  bc 4.13e-05  ic 1.36e-05  dat 0.00e+00  ( 49.7s)
+  [win 3/4] ep   2500  loss 1.056e-03  pde 7.63e-04  bc 1.69e-05  ic 1.24e-05  dat 0.00e+00  ( 61.3s)
+  [win 3/4] ep   3000  loss 1.489e-03  pde 9.95e-04  bc 3.86e-05  ic 1.08e-05  dat 0.00e+00  ( 73.1s)
+  [win 3/4] ep   3500  loss 8.332e-04  pde 5.62e-04  bc 1.64e-05  ic 1.08e-05  dat 0.00e+00  ( 86.2s)
+  [win 3/4] ep   4000  loss 1.582e-03  pde 1.16e-03  bc 3.47e-05  ic 7.70e-06  dat 0.00e+00  ( 98.0s)
+  [win 3/4] ep   4500  loss 6.908e-04  pde 5.41e-04  bc 7.23e-06  ic 7.78e-06  dat 0.00e+00  (109.8s)
+  [win 3/4] ep   5000  loss 1.761e-03  pde 1.48e-03  bc 2.11e-05  ic 6.58e-06  dat 0.00e+00  (122.8s)
+  [win 3/4] ep   5500  loss 7.615e-04  pde 5.34e-04  bc 1.47e-05  ic 8.00e-06  dat 0.00e+00  (134.5s)
+  [win 3/4] ep   6000  loss 1.536e-03  pde 1.20e-03  bc 2.65e-05  ic 7.01e-06  dat 0.00e+00  (146.4s)
+  [win 3/4] ep   6500  loss 5.845e-04  pde 4.03e-04  bc 1.08e-05  ic 7.29e-06  dat 0.00e+00  (159.5s)
+  [win 3/4] ep   7000  loss 9.062e-04  pde 6.28e-04  bc 2.13e-05  ic 6.52e-06  dat 0.00e+00  (171.2s)
+  [win 3/4] ep   7500  loss 6.089e-04  pde 2.20e-04  bc 3.22e-05  ic 6.65e-06  dat 0.00e+00  (183.2s)
+  [win 3/4] ep   8000  loss 1.124e-03  pde 9.02e-04  bc 1.69e-05  ic 5.25e-06  dat 0.00e+00  (196.3s)
+  [win 3/4] ep   8500  loss 3.244e-04  pde 2.28e-04  bc 5.04e-06  ic 4.65e-06  dat 0.00e+00  (208.2s)
+  [win 3/4] ep   9000  loss 1.204e-03  pde 1.06e-03  bc 9.94e-06  ic 4.14e-06  dat 0.00e+00  (220.0s)
+  [win 3/4] ep   9500  loss 4.688e-04  pde 3.03e-04  bc 1.18e-05  ic 4.78e-06  dat 0.00e+00  (232.9s)
+  [win 3/4] ep  10000  loss 1.361e-03  pde 1.21e-03  bc 1.13e-05  ic 3.91e-06  dat 0.00e+00  (244.8s)
+  [win 3/4] ep  10500  loss 2.737e-04  pde 2.08e-04  bc 2.86e-06  ic 3.70e-06  dat 0.00e+00  (256.6s)
+  [win 3/4] ep  11000  loss 8.549e-04  pde 6.58e-04  bc 1.63e-05  ic 3.34e-06  dat 0.00e+00  (269.6s)
+  [win 3/4] ep  11500  loss 2.507e-04  pde 1.81e-04  bc 2.84e-06  ic 4.10e-06  dat 0.00e+00  (281.4s)
+  [win 3/4] ep  12000  loss 9.074e-04  pde 6.95e-04  bc 1.74e-05  ic 3.89e-06  dat 0.00e+00  (293.3s)
+  [win 3/4] ep  12500  loss 2.532e-04  pde 1.61e-04  bc 4.50e-06  ic 4.74e-06  dat 0.00e+00  (306.3s)
+  [win 3/4] ep  13000  loss 8.954e-04  pde 7.57e-04  bc 9.48e-06  ic 4.38e-06  dat 0.00e+00  (317.8s)
+  [win 3/4] ep  13500  loss 2.999e-04  pde 2.21e-04  bc 3.54e-06  ic 4.30e-06  dat 0.00e+00  (329.7s)
+  [win 3/4] ep  14000  loss 7.092e-04  pde 6.07e-04  bc 6.29e-06  ic 3.90e-06  dat 0.00e+00  (342.7s)
+  [win 3/4] ep  14500  loss 3.270e-04  pde 1.64e-04  bc 1.29e-05  ic 3.37e-06  dat 0.00e+00  (354.4s)
+  [win 3/4] ep  15000  loss 4.790e-04  pde 3.17e-04  bc 1.31e-05  ic 3.04e-06  dat 0.00e+00  (366.3s)
+  [win 3/4] ep  15500  loss 2.047e-04  pde 1.31e-04  bc 4.08e-06  ic 3.30e-06  dat 0.00e+00  (379.3s)
+  [win 3/4] ep  16000  loss 6.636e-04  pde 5.49e-04  bc 8.48e-06  ic 3.03e-06  dat 0.00e+00  (391.1s)
+  [win 3/4] ep  16500  loss 2.238e-04  pde 1.69e-04  bc 2.33e-06  ic 3.13e-06  dat 0.00e+00  (402.9s)
+  [win 3/4] ep  17000  loss 4.833e-04  pde 3.05e-04  bc 1.49e-05  ic 2.93e-06  dat 0.00e+00  (416.0s)
+  [win 3/4] ep  17500  loss 1.819e-04  pde 1.22e-04  bc 2.68e-06  ic 3.33e-06  dat 0.00e+00  (427.7s)
+  [win 3/4] ep  18000  loss 4.203e-04  pde 3.23e-04  bc 6.62e-06  ic 3.13e-06  dat 0.00e+00  (439.5s)
+  [win 3/4] ep  18500  loss 1.840e-04  pde 1.23e-04  bc 3.05e-06  ic 3.02e-06  dat 0.00e+00  (452.5s)
+  [win 3/4] ep  19000  loss 5.418e-04  pde 4.42e-04  bc 7.08e-06  ic 2.94e-06  dat 0.00e+00  (464.4s)
+  [win 3/4] ep  19500  loss 1.775e-04  pde 1.30e-04  bc 1.92e-06  ic 2.85e-06  dat 0.00e+00  (476.3s)
+  [win 3/4] ep  19999  loss 1.537e-04  pde 1.10e-04  bc 1.69e-06  ic 2.65e-06  dat 0.00e+00  (489.3s)
+  -> rel L2 0.0215   probe v rms: PINN 0.1483 vs LBM 0.1324   shedding retained 112.1 %
+
+  [win 4/4] ep      0  loss 1.834e-01  pde 1.32e-02  bc 1.64e-02  ic 6.17e-04  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep    500  loss 3.095e-03  pde 2.24e-03  bc 2.97e-05  ic 5.60e-05  dat 0.00e+00  ( 11.9s)
+  [win 4/4] ep   1000  loss 3.777e-03  pde 2.73e-03  bc 6.80e-05  ic 3.68e-05  dat 0.00e+00  ( 23.6s)
+  [win 4/4] ep   1500  loss 1.960e-03  pde 1.02e-03  bc 6.29e-05  ic 3.14e-05  dat 0.00e+00  ( 36.6s)
+  [win 4/4] ep   2000  loss 2.448e-03  pde 1.22e-03  bc 9.67e-05  ic 2.60e-05  dat 0.00e+00  ( 48.5s)
+  [win 4/4] ep   2500  loss 1.500e-03  pde 6.26e-04  bc 5.96e-05  ic 2.78e-05  dat 0.00e+00  ( 60.4s)
+  [win 4/4] ep   3000  loss 2.523e-03  pde 1.61e-03  bc 6.53e-05  ic 2.59e-05  dat 0.00e+00  ( 73.4s)
+  [win 4/4] ep   3500  loss 1.499e-03  pde 5.45e-04  bc 6.63e-05  ic 2.91e-05  dat 0.00e+00  ( 85.3s)
+  [win 4/4] ep   4000  loss 8.622e-03  pde 5.19e-03  bc 1.44e-04  ic 2.00e-04  dat 0.00e+00  ( 97.2s)
+  [win 4/4] ep   4500  loss 4.679e-03  pde 3.21e-03  bc 3.48e-05  ic 1.12e-04  dat 0.00e+00  (110.3s)
+  [win 4/4] ep   5000  loss 4.904e-03  pde 3.47e-03  bc 6.58e-05  ic 7.72e-05  dat 0.00e+00  (122.1s)
+  [win 4/4] ep   5500  loss 3.206e-03  pde 2.41e-03  bc 1.83e-05  ic 6.09e-05  dat 0.00e+00  (133.9s)
+  [win 4/4] ep   6000  loss 3.324e-03  pde 2.44e-03  bc 3.98e-05  ic 4.90e-05  dat 0.00e+00  (147.0s)
+  [win 4/4] ep   6500  loss 2.188e-03  pde 1.61e-03  bc 1.32e-05  ic 4.43e-05  dat 0.00e+00  (158.7s)
+  [win 4/4] ep   7000  loss 2.393e-03  pde 1.65e-03  bc 3.62e-05  ic 3.85e-05  dat 0.00e+00  (170.6s)
+  [win 4/4] ep   7500  loss 1.839e-03  pde 1.11e-03  bc 3.49e-05  ic 3.79e-05  dat 0.00e+00  (183.7s)
+  [win 4/4] ep   8000  loss 2.373e-03  pde 1.69e-03  bc 3.71e-05  ic 3.09e-05  dat 0.00e+00  (195.4s)
+  [win 4/4] ep   8500  loss 1.661e-03  pde 1.27e-03  bc 7.93e-06  ic 3.13e-05  dat 0.00e+00  (207.2s)
+  [win 4/4] ep   9000  loss 1.823e-03  pde 1.33e-03  bc 2.05e-05  ic 2.91e-05  dat 0.00e+00  (220.2s)
+  [win 4/4] ep   9500  loss 1.291e-03  pde 8.34e-04  bc 1.75e-05  ic 2.81e-05  dat 0.00e+00  (231.9s)
+  [win 4/4] ep  10000  loss 3.277e-03  pde 1.43e-03  bc 1.51e-04  ic 3.31e-05  dat 0.00e+00  (243.7s)
+  [win 4/4] ep  10500  loss 1.287e-03  pde 9.08e-04  bc 1.26e-05  ic 2.53e-05  dat 0.00e+00  (256.7s)
+  [win 4/4] ep  11000  loss 2.178e-03  pde 1.58e-03  bc 3.51e-05  ic 2.46e-05  dat 0.00e+00  (268.5s)
+  [win 4/4] ep  11500  loss 1.135e-03  pde 8.22e-04  bc 9.95e-06  ic 2.13e-05  dat 0.00e+00  (280.3s)
+  [win 4/4] ep  12000  loss 1.613e-03  pde 9.55e-04  bc 4.64e-05  ic 1.94e-05  dat 0.00e+00  (293.3s)
+  [win 4/4] ep  12500  loss 7.656e-04  pde 4.96e-04  bc 5.32e-06  ic 2.16e-05  dat 0.00e+00  (305.0s)
+  [win 4/4] ep  13000  loss 1.387e-03  pde 8.25e-04  bc 3.59e-05  ic 2.02e-05  dat 0.00e+00  (317.0s)
+  [win 4/4] ep  13500  loss 7.342e-04  pde 4.63e-04  bc 6.09e-06  ic 2.10e-05  dat 0.00e+00  (329.8s)
+  [win 4/4] ep  14000  loss 1.594e-03  pde 1.10e-03  bc 2.89e-05  ic 2.00e-05  dat 0.00e+00  (341.6s)
+  [win 4/4] ep  14500  loss 7.124e-04  pde 4.55e-04  bc 6.75e-06  ic 1.90e-05  dat 0.00e+00  (353.8s)
+  [win 4/4] ep  15000  loss 1.465e-03  pde 9.60e-04  bc 3.26e-05  ic 1.79e-05  dat 0.00e+00  (366.7s)
+  [win 4/4] ep  15500  loss 7.294e-04  pde 4.00e-04  bc 1.42e-05  ic 1.87e-05  dat 0.00e+00  (375.1s)
+  [win 4/4] ep  16000  loss 1.717e-03  pde 9.49e-04  bc 5.97e-05  ic 1.72e-05  dat 0.00e+00  (382.0s)
+  [win 4/4] ep  16500  loss 6.277e-04  pde 3.79e-04  bc 4.55e-06  ic 2.03e-05  dat 0.00e+00  (389.2s)
+  [win 4/4] ep  17000  loss 1.035e-03  pde 6.14e-04  bc 2.30e-05  ic 1.91e-05  dat 0.00e+00  (396.5s)
+  [win 4/4] ep  17500  loss 5.047e-04  pde 2.64e-04  bc 4.98e-06  ic 1.91e-05  dat 0.00e+00  (403.9s)
+  [win 4/4] ep  18000  loss 8.950e-04  pde 5.36e-04  bc 1.76e-05  ic 1.83e-05  dat 0.00e+00  (411.0s)
+  [win 4/4] ep  18500  loss 4.924e-04  pde 2.62e-04  bc 5.33e-06  ic 1.77e-05  dat 0.00e+00  (419.0s)
+  [win 4/4] ep  19000  loss 8.278e-04  pde 4.44e-04  bc 2.14e-05  ic 1.70e-05  dat 0.00e+00  (430.8s)
+  [win 4/4] ep  19500  loss 4.478e-04  pde 2.24e-04  bc 5.36e-06  ic 1.70e-05  dat 0.00e+00  (442.6s)
+  [win 4/4] ep  19999  loss 3.977e-04  pde 1.97e-04  bc 3.89e-06  ic 1.62e-05  dat 0.00e+00  (454.3s)
+  -> rel L2 0.0195   probe v rms: PINN 0.0297 vs LBM 0.0323   shedding retained 91.8 %
+
+====================================================================
+  window 0  t* 157.8-159.4   relL2 0.0225   shedding  86.6 %
+  window 1  t* 159.4-160.9   relL2 0.0205   shedding 102.1 %
+  window 2  t* 160.9-162.5   relL2 0.0215   shedding 112.1 %
+  window 3  t* 162.5-164.0   relL2 0.0195   shedding  91.8 %
+====================================================================
+  OVERALL (t* 157.8-164.0, the headline number)
+    relative L2       0.0217
+    probe v rms       PINN 0.2539  vs LBM 0.2650
+    shedding retained 95.8 %
+    (near 0 % is the documented collapse to steady flow)
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/80/all_s0/results.json
+
+======================================================================
+[all seed 1] --decompose --net fourier_mlp --windows 4 --window-len 1.5
+======================================================================
+Re=80  mode=decomposed fourier_mlp  windows=4 x 1.5443 t*  data=0  epochs/window=20000
+domain x[-5,15] y[-4.97917,5.02083]  t* 157.84 .. 164.02
+
+  [win 1/4] ep      0  loss 3.675e+00  pde 3.50e-01  bc 2.83e-01  ic 4.93e-02  dat 0.00e+00  ( 10.0s)
+  [win 1/4] ep    500  loss 1.556e-02  pde 1.03e-02  bc 2.25e-04  ic 3.00e-04  dat 0.00e+00  ( 21.9s)
+  [win 1/4] ep   1000  loss 1.067e-02  pde 7.25e-03  bc 2.27e-04  ic 1.16e-04  dat 0.00e+00  ( 33.7s)
+  [win 1/4] ep   1500  loss 1.023e-02  pde 4.29e-03  bc 4.82e-04  ic 1.12e-04  dat 0.00e+00  ( 45.5s)
+  [win 1/4] ep   2000  loss 7.442e-03  pde 4.34e-03  bc 2.52e-04  ic 5.86e-05  dat 0.00e+00  ( 57.4s)
+  [win 1/4] ep   2500  loss 3.878e-03  pde 2.97e-03  bc 4.57e-05  ic 4.46e-05  dat 0.00e+00  ( 69.1s)
+  [win 1/4] ep   3000  loss 5.301e-03  pde 2.73e-03  bc 2.11e-04  ic 4.58e-05  dat 0.00e+00  ( 79.6s)
+  [win 1/4] ep   3500  loss 2.481e-03  pde 1.80e-03  bc 3.94e-05  ic 2.86e-05  dat 0.00e+00  ( 87.5s)
+  [win 1/4] ep   4000  loss 3.161e-03  pde 2.31e-03  bc 6.00e-05  ic 2.54e-05  dat 0.00e+00  ( 99.3s)
+  [win 1/4] ep   4500  loss 1.992e-03  pde 1.69e-03  bc 9.81e-06  ic 2.05e-05  dat 0.00e+00  (111.2s)
+  [win 1/4] ep   5000  loss 2.660e-03  pde 2.15e-03  bc 3.30e-05  ic 1.85e-05  dat 0.00e+00  (122.9s)
+  [win 1/4] ep   5500  loss 2.222e-03  pde 1.52e-03  bc 4.89e-05  ic 2.08e-05  dat 0.00e+00  (134.7s)
+  [win 1/4] ep   6000  loss 2.738e-03  pde 1.98e-03  bc 5.87e-05  ic 1.67e-05  dat 0.00e+00  (146.5s)
+  [win 1/4] ep   6500  loss 1.682e-03  pde 1.26e-03  bc 2.44e-05  ic 1.74e-05  dat 0.00e+00  (157.1s)
+  [win 1/4] ep   7000  loss 2.704e-03  pde 1.56e-03  bc 9.70e-05  ic 1.70e-05  dat 0.00e+00  (164.9s)
+  [win 1/4] ep   7500  loss 1.385e-03  pde 9.83e-04  bc 2.50e-05  ic 1.52e-05  dat 0.00e+00  (176.7s)
+  [win 1/4] ep   8000  loss 1.983e-03  pde 1.45e-03  bc 3.90e-05  ic 1.38e-05  dat 0.00e+00  (188.6s)
+  [win 1/4] ep   8500  loss 1.095e-03  pde 9.09e-04  bc 6.16e-06  ic 1.24e-05  dat 0.00e+00  (200.4s)
+  [win 1/4] ep   9000  loss 2.237e-03  pde 1.82e-03  bc 3.00e-05  ic 1.14e-05  dat 0.00e+00  (212.2s)
+  [win 1/4] ep   9500  loss 1.413e-03  pde 1.20e-03  bc 8.71e-06  ic 1.28e-05  dat 0.00e+00  (223.9s)
+  [win 1/4] ep  10000  loss 1.977e-03  pde 1.54e-03  bc 3.12e-05  ic 1.24e-05  dat 0.00e+00  (234.6s)
+  [win 1/4] ep  10500  loss 1.277e-03  pde 9.54e-04  bc 1.95e-05  ic 1.28e-05  dat 0.00e+00  (242.3s)
+  [win 1/4] ep  11000  loss 2.021e-03  pde 1.70e-03  bc 2.08e-05  ic 1.17e-05  dat 0.00e+00  (254.1s)
+  [win 1/4] ep  11500  loss 1.304e-03  pde 1.04e-03  bc 1.53e-05  ic 1.16e-05  dat 0.00e+00  (266.0s)
+  [win 1/4] ep  12000  loss 1.593e-03  pde 1.13e-03  bc 3.61e-05  ic 1.06e-05  dat 0.00e+00  (277.8s)
+  [win 1/4] ep  12500  loss 9.064e-04  pde 7.45e-04  bc 5.07e-06  ic 1.10e-05  dat 0.00e+00  (289.6s)
+  [win 1/4] ep  13000  loss 1.683e-03  pde 1.39e-03  bc 1.90e-05  ic 1.04e-05  dat 0.00e+00  (301.4s)
+  [win 1/4] ep  13500  loss 1.101e-03  pde 9.38e-04  bc 6.29e-06  ic 1.00e-05  dat 0.00e+00  (312.1s)
+  [win 1/4] ep  14000  loss 1.617e-03  pde 1.26e-03  bc 2.62e-05  ic 9.65e-06  dat 0.00e+00  (319.2s)
+  [win 1/4] ep  14500  loss 9.544e-04  pde 7.88e-04  bc 6.99e-06  ic 9.65e-06  dat 0.00e+00  (332.2s)
+  [win 1/4] ep  15000  loss 1.748e-03  pde 1.30e-03  bc 3.54e-05  ic 9.59e-06  dat 0.00e+00  (344.3s)
+  [win 1/4] ep  15500  loss 1.020e-03  pde 8.04e-04  bc 1.25e-05  ic 9.12e-06  dat 0.00e+00  (356.1s)
+  [win 1/4] ep  16000  loss 1.386e-03  pde 1.06e-03  bc 2.48e-05  ic 8.17e-06  dat 0.00e+00  (369.1s)
+  [win 1/4] ep  16500  loss 7.810e-04  pde 6.52e-04  bc 4.23e-06  ic 8.66e-06  dat 0.00e+00  (380.9s)
+  [win 1/4] ep  17000  loss 1.272e-03  pde 1.03e-03  bc 1.64e-05  ic 8.10e-06  dat 0.00e+00  (392.5s)
+  [win 1/4] ep  17500  loss 7.205e-04  pde 5.90e-04  bc 4.87e-06  ic 8.14e-06  dat 0.00e+00  (405.5s)
+  [win 1/4] ep  18000  loss 1.441e-03  pde 1.14e-03  bc 2.22e-05  ic 7.71e-06  dat 0.00e+00  (417.2s)
+  [win 1/4] ep  18500  loss 8.667e-04  pde 7.38e-04  bc 4.54e-06  ic 8.38e-06  dat 0.00e+00  (429.0s)
+  [win 1/4] ep  19000  loss 1.857e-03  pde 1.51e-03  bc 2.67e-05  ic 7.95e-06  dat 0.00e+00  (442.0s)
+  [win 1/4] ep  19500  loss 1.096e-03  pde 9.45e-04  bc 5.67e-06  ic 9.50e-06  dat 0.00e+00  (453.7s)
+  [win 1/4] ep  19999  loss 9.482e-04  pde 7.99e-04  bc 5.66e-06  ic 9.21e-06  dat 0.00e+00  (466.0s)
+  -> rel L2 0.0244   probe v rms: PINN 0.1631 vs LBM 0.1731   shedding retained 94.2 %
+
+  [win 2/4] ep      0  loss 1.931e-01  pde 2.21e-02  bc 1.64e-02  ic 7.11e-04  dat 0.00e+00  (  0.0s)
+  [win 2/4] ep    500  loss 5.736e-03  pde 4.17e-03  bc 7.05e-05  ic 8.60e-05  dat 0.00e+00  ( 13.1s)
+  [win 2/4] ep   1000  loss 4.045e-03  pde 2.93e-03  bc 5.91e-05  ic 5.26e-05  dat 0.00e+00  ( 24.8s)
+  [win 2/4] ep   1500  loss 2.164e-03  pde 1.61e-03  bc 1.58e-05  ic 3.99e-05  dat 0.00e+00  ( 36.5s)
+  [win 2/4] ep   2000  loss 2.452e-03  pde 1.72e-03  bc 4.03e-05  ic 3.28e-05  dat 0.00e+00  ( 49.5s)
+  [win 2/4] ep   2500  loss 1.932e-03  pde 1.09e-03  bc 5.30e-05  ic 3.10e-05  dat 0.00e+00  ( 61.2s)
+  [win 2/4] ep   3000  loss 2.965e-03  pde 2.25e-03  bc 4.55e-05  ic 2.57e-05  dat 0.00e+00  ( 73.1s)
+  [win 2/4] ep   3500  loss 1.917e-03  pde 1.17e-03  bc 4.78e-05  ic 2.71e-05  dat 0.00e+00  ( 86.1s)
+  [win 2/4] ep   4000  loss 2.446e-03  pde 1.60e-03  bc 5.85e-05  ic 2.57e-05  dat 0.00e+00  ( 97.7s)
+  [win 2/4] ep   4500  loss 1.123e-03  pde 8.28e-04  bc 5.37e-06  ic 2.41e-05  dat 0.00e+00  (109.6s)
+  [win 2/4] ep   5000  loss 1.927e-03  pde 1.43e-03  bc 2.67e-05  ic 2.29e-05  dat 0.00e+00  (122.6s)
+  [win 2/4] ep   5500  loss 1.271e-03  pde 7.68e-04  bc 2.88e-05  ic 2.15e-05  dat 0.00e+00  (134.4s)
+  [win 2/4] ep   6000  loss 2.274e-03  pde 1.60e-03  bc 4.83e-05  ic 1.88e-05  dat 0.00e+00  (146.5s)
+  [win 2/4] ep   6500  loss 1.112e-03  pde 7.37e-04  bc 1.69e-05  ic 2.05e-05  dat 0.00e+00  (159.1s)
+  [win 2/4] ep   7000  loss 3.103e-03  pde 2.19e-03  bc 6.87e-05  ic 2.31e-05  dat 0.00e+00  (170.8s)
+  [win 2/4] ep   7500  loss 1.191e-03  pde 7.94e-04  bc 2.13e-05  ic 1.84e-05  dat 0.00e+00  (183.2s)
+  [win 2/4] ep   8000  loss 2.492e-03  pde 1.43e-03  bc 8.78e-05  ic 1.86e-05  dat 0.00e+00  (195.4s)
+  [win 2/4] ep   8500  loss 8.377e-04  pde 6.07e-04  bc 4.70e-06  ic 1.83e-05  dat 0.00e+00  (207.1s)
+  [win 2/4] ep   9000  loss 2.087e-03  pde 1.63e-03  bc 2.87e-05  ic 1.70e-05  dat 0.00e+00  (220.1s)
+  [win 2/4] ep   9500  loss 8.972e-04  pde 6.30e-04  bc 7.43e-06  ic 1.93e-05  dat 0.00e+00  (232.0s)
+  [win 2/4] ep  10000  loss 1.357e-03  pde 9.66e-04  bc 2.14e-05  ic 1.77e-05  dat 0.00e+00  (243.7s)
+  [win 2/4] ep  10500  loss 6.083e-04  pde 3.68e-04  bc 7.40e-06  ic 1.66e-05  dat 0.00e+00  (256.7s)
+  [win 2/4] ep  11000  loss 1.760e-03  pde 1.22e-03  bc 3.83e-05  ic 1.54e-05  dat 0.00e+00  (268.5s)
+  [win 2/4] ep  11500  loss 6.906e-04  pde 4.34e-04  bc 8.32e-06  ic 1.73e-05  dat 0.00e+00  (280.3s)
+  [win 2/4] ep  12000  loss 1.980e-03  pde 1.43e-03  bc 3.90e-05  ic 1.56e-05  dat 0.00e+00  (293.4s)
+  [win 2/4] ep  12500  loss 7.374e-04  pde 5.34e-04  bc 3.83e-06  ic 1.65e-05  dat 0.00e+00  (304.9s)
+  [win 2/4] ep  13000  loss 1.720e-03  pde 1.34e-03  bc 2.23e-05  ic 1.53e-05  dat 0.00e+00  (316.6s)
+  [win 2/4] ep  13500  loss 5.360e-04  pde 3.25e-04  bc 5.61e-06  ic 1.55e-05  dat 0.00e+00  (329.6s)
+  [win 2/4] ep  14000  loss 1.213e-03  pde 8.23e-04  bc 2.46e-05  ic 1.43e-05  dat 0.00e+00  (341.0s)
+  [win 2/4] ep  14500  loss 4.472e-04  pde 2.57e-04  bc 4.11e-06  ic 1.49e-05  dat 0.00e+00  (353.1s)
+  [win 2/4] ep  15000  loss 1.311e-03  pde 9.75e-04  bc 1.93e-05  ic 1.43e-05  dat 0.00e+00  (365.8s)
+  [win 2/4] ep  15500  loss 5.362e-04  pde 3.04e-04  bc 7.89e-06  ic 1.53e-05  dat 0.00e+00  (377.6s)
+  [win 2/4] ep  16000  loss 1.677e-03  pde 1.33e-03  bc 2.07e-05  ic 1.43e-05  dat 0.00e+00  (390.1s)
+  [win 2/4] ep  16500  loss 6.047e-04  pde 4.07e-04  bc 4.44e-06  ic 1.53e-05  dat 0.00e+00  (402.3s)
+  [win 2/4] ep  17000  loss 1.538e-03  pde 1.07e-03  bc 3.19e-05  ic 1.46e-05  dat 0.00e+00  (414.0s)
+  [win 2/4] ep  17500  loss 4.929e-04  pde 2.96e-04  bc 4.39e-06  ic 1.53e-05  dat 0.00e+00  (426.7s)
+  [win 2/4] ep  18000  loss 8.295e-04  pde 4.65e-04  bc 2.18e-05  ic 1.46e-05  dat 0.00e+00  (438.7s)
+  [win 2/4] ep  18500  loss 4.038e-04  pde 2.30e-04  bc 2.98e-06  ic 1.44e-05  dat 0.00e+00  (450.5s)
+  [win 2/4] ep  19000  loss 1.059e-03  pde 7.76e-04  bc 1.44e-05  ic 1.39e-05  dat 0.00e+00  (463.5s)
+  [win 2/4] ep  19500  loss 4.379e-04  pde 2.57e-04  bc 3.82e-06  ic 1.42e-05  dat 0.00e+00  (475.3s)
+  [win 2/4] ep  19999  loss 3.922e-04  pde 2.16e-04  bc 3.84e-06  ic 1.38e-05  dat 0.00e+00  (487.0s)
+  -> rel L2 0.0201   probe v rms: PINN 0.0474 vs LBM 0.0508   shedding retained 93.4 %
+
+  [win 3/4] ep      0  loss 1.848e-01  pde 1.84e-02  bc 1.61e-02  ic 5.17e-04  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep    500  loss 3.572e-03  pde 2.69e-03  bc 5.17e-05  ic 3.64e-05  dat 0.00e+00  ( 13.0s)
+  [win 3/4] ep   1000  loss 3.369e-03  pde 2.51e-03  bc 6.48e-05  ic 2.07e-05  dat 0.00e+00  ( 24.7s)
+  [win 3/4] ep   1500  loss 1.335e-03  pde 9.64e-04  bc 2.08e-05  ic 1.63e-05  dat 0.00e+00  ( 36.5s)
+  [win 3/4] ep   2000  loss 1.833e-03  pde 1.25e-03  bc 4.41e-05  ic 1.36e-05  dat 0.00e+00  ( 49.5s)
+  [win 3/4] ep   2500  loss 3.382e-03  pde 5.92e-04  bc 2.45e-04  ic 3.37e-05  dat 0.00e+00  ( 61.3s)
+  [win 3/4] ep   3000  loss 1.598e-03  pde 9.58e-04  bc 5.35e-05  ic 1.05e-05  dat 0.00e+00  ( 73.0s)
+  [win 3/4] ep   3500  loss 1.414e-03  pde 4.88e-04  bc 8.00e-05  ic 1.26e-05  dat 0.00e+00  ( 85.9s)
+  [win 3/4] ep   4000  loss 1.780e-03  pde 1.29e-03  bc 4.14e-05  ic 8.04e-06  dat 0.00e+00  ( 97.7s)
+  [win 3/4] ep   4500  loss 6.042e-04  pde 4.92e-04  bc 4.38e-06  ic 6.87e-06  dat 0.00e+00  (109.5s)
+  [win 3/4] ep   5000  loss 1.325e-03  pde 1.02e-03  bc 2.43e-05  ic 6.14e-06  dat 0.00e+00  (122.1s)
+  [win 3/4] ep   5500  loss 5.037e-04  pde 3.17e-04  bc 1.17e-05  ic 7.02e-06  dat 0.00e+00  (134.0s)
+  [win 3/4] ep   6000  loss 1.694e-03  pde 1.38e-03  bc 2.41e-05  ic 6.92e-06  dat 0.00e+00  (146.5s)
+  [win 3/4] ep   6500  loss 3.870e-04  pde 3.00e-04  bc 3.93e-06  ic 4.80e-06  dat 0.00e+00  (158.6s)
+  [win 3/4] ep   7000  loss 1.704e-03  pde 1.19e-03  bc 4.43e-05  ic 7.47e-06  dat 0.00e+00  (170.3s)
+  [win 3/4] ep   7500  loss 4.354e-04  pde 2.98e-04  bc 9.27e-06  ic 4.46e-06  dat 0.00e+00  (183.0s)
+  [win 3/4] ep   8000  loss 1.445e-03  pde 8.96e-04  bc 4.93e-05  ic 5.62e-06  dat 0.00e+00  (195.1s)
+  [win 3/4] ep   8500  loss 3.544e-04  pde 2.85e-04  bc 2.69e-06  ic 4.27e-06  dat 0.00e+00  (206.7s)
+  [win 3/4] ep   9000  loss 8.264e-04  pde 6.64e-04  bc 1.23e-05  ic 3.92e-06  dat 0.00e+00  (219.8s)
+  [win 3/4] ep   9500  loss 3.586e-04  pde 2.09e-04  bc 1.03e-05  ic 4.63e-06  dat 0.00e+00  (231.5s)
+  [win 3/4] ep  10000  loss 8.608e-04  pde 6.67e-04  bc 1.56e-05  ic 3.74e-06  dat 0.00e+00  (243.1s)
+  [win 3/4] ep  10500  loss 3.243e-04  pde 1.91e-04  bc 8.96e-06  ic 4.35e-06  dat 0.00e+00  (256.2s)
+  [win 3/4] ep  11000  loss 1.007e-03  pde 8.11e-04  bc 1.65e-05  ic 3.23e-06  dat 0.00e+00  (267.8s)
+  [win 3/4] ep  11500  loss 2.743e-04  pde 1.83e-04  bc 4.99e-06  ic 4.10e-06  dat 0.00e+00  (279.5s)
+  [win 3/4] ep  12000  loss 7.842e-04  pde 5.93e-04  bc 1.56e-05  ic 3.53e-06  dat 0.00e+00  (292.5s)
+  [win 3/4] ep  12500  loss 2.128e-04  pde 1.50e-04  bc 2.94e-06  ic 3.30e-06  dat 0.00e+00  (304.2s)
+  [win 3/4] ep  13000  loss 1.118e-03  pde 9.19e-04  bc 1.68e-05  ic 3.13e-06  dat 0.00e+00  (316.2s)
+  [win 3/4] ep  13500  loss 2.194e-04  pde 1.48e-04  bc 3.66e-06  ic 3.49e-06  dat 0.00e+00  (329.0s)
+  [win 3/4] ep  14000  loss 5.169e-04  pde 4.00e-04  bc 8.56e-06  ic 3.10e-06  dat 0.00e+00  (340.8s)
+  [win 3/4] ep  14500  loss 1.825e-04  pde 1.32e-04  bc 2.22e-06  ic 2.86e-06  dat 0.00e+00  (353.3s)
+  [win 3/4] ep  15000  loss 5.172e-04  pde 3.89e-04  bc 1.01e-05  ic 2.70e-06  dat 0.00e+00  (365.6s)
+  [win 3/4] ep  15500  loss 1.575e-04  pde 1.09e-04  bc 1.97e-06  ic 2.90e-06  dat 0.00e+00  (377.2s)
+  [win 3/4] ep  16000  loss 5.320e-04  pde 4.29e-04  bc 7.47e-06  ic 2.80e-06  dat 0.00e+00  (389.9s)
+  [win 3/4] ep  16500  loss 1.848e-04  pde 1.41e-04  bc 1.66e-06  ic 2.72e-06  dat 0.00e+00  (402.0s)
+  [win 3/4] ep  17000  loss 7.552e-04  pde 6.25e-04  bc 1.05e-05  ic 2.48e-06  dat 0.00e+00  (413.6s)
+  [win 3/4] ep  17500  loss 1.854e-04  pde 1.28e-04  bc 2.85e-06  ic 2.86e-06  dat 0.00e+00  (426.6s)
+  [win 3/4] ep  18000  loss 5.809e-04  pde 4.89e-04  bc 6.59e-06  ic 2.62e-06  dat 0.00e+00  (438.4s)
+  [win 3/4] ep  18500  loss 1.806e-04  pde 1.32e-04  bc 2.27e-06  ic 2.56e-06  dat 0.00e+00  (450.2s)
+  [win 3/4] ep  19000  loss 5.307e-04  pde 3.73e-04  bc 1.35e-05  ic 2.31e-06  dat 0.00e+00  (463.3s)
+  [win 3/4] ep  19500  loss 1.558e-04  pde 1.07e-04  bc 1.96e-06  ic 2.89e-06  dat 0.00e+00  (475.0s)
+  [win 3/4] ep  19999  loss 1.330e-04  pde 9.17e-05  bc 1.42e-06  ic 2.71e-06  dat 0.00e+00  (486.6s)
+  -> rel L2 0.0213   probe v rms: PINN 0.1499 vs LBM 0.1324   shedding retained 113.2 %
+
+  [win 4/4] ep      0  loss 1.364e-01  pde 1.23e-02  bc 1.18e-02  ic 6.10e-04  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep    500  loss 2.114e-03  pde 1.55e-03  bc 1.49e-05  ic 4.14e-05  dat 0.00e+00  ( 13.0s)
+  [win 4/4] ep   1000  loss 3.428e-03  pde 1.37e-03  bc 1.69e-04  ic 3.76e-05  dat 0.00e+00  ( 24.7s)
+  [win 4/4] ep   1500  loss 1.540e-03  pde 7.25e-04  bc 4.84e-05  ic 3.31e-05  dat 0.00e+00  ( 36.5s)
+  [win 4/4] ep   2000  loss 2.052e-03  pde 1.42e-03  bc 4.01e-05  ic 2.29e-05  dat 0.00e+00  ( 49.6s)
+  [win 4/4] ep   2500  loss 9.443e-04  pde 4.76e-04  bc 2.28e-05  ic 2.40e-05  dat 0.00e+00  ( 61.0s)
+  [win 4/4] ep   3000  loss 2.195e-03  pde 1.42e-03  bc 5.42e-05  ic 2.38e-05  dat 0.00e+00  ( 72.8s)
+  [win 4/4] ep   3500  loss 7.075e-04  pde 3.50e-04  bc 1.60e-05  ic 1.97e-05  dat 0.00e+00  ( 85.8s)
+  [win 4/4] ep   4000  loss 1.644e-03  pde 1.06e-03  bc 4.17e-05  ic 1.71e-05  dat 0.00e+00  ( 97.5s)
+  [win 4/4] ep   4500  loss 4.901e-04  pde 2.78e-04  bc 4.22e-06  ic 1.70e-05  dat 0.00e+00  (109.7s)
+  [win 4/4] ep   5000  loss 1.993e-03  pde 1.29e-03  bc 5.51e-05  ic 1.56e-05  dat 0.00e+00  (122.2s)
+  [win 4/4] ep   5500  loss 7.569e-04  pde 2.27e-04  bc 3.07e-05  ic 2.22e-05  dat 0.00e+00  (133.9s)
+  [win 4/4] ep   6000  loss 1.453e-03  pde 8.87e-04  bc 4.10e-05  ic 1.56e-05  dat 0.00e+00  (146.4s)
+  [win 4/4] ep   6500  loss 3.978e-04  pde 1.85e-04  bc 5.43e-06  ic 1.58e-05  dat 0.00e+00  (158.5s)
+  [win 4/4] ep   7000  loss 1.346e-03  pde 8.76e-04  bc 3.24e-05  ic 1.45e-05  dat 0.00e+00  (170.2s)
+  [win 4/4] ep   7500  loss 4.952e-04  pde 1.58e-04  bc 2.02e-05  ic 1.36e-05  dat 0.00e+00  (183.2s)
+  [win 4/4] ep   8000  loss 2.037e-03  pde 1.45e-03  bc 4.62e-05  ic 1.22e-05  dat 0.00e+00  (195.1s)
+  [win 4/4] ep   8500  loss 3.395e-04  pde 1.60e-04  bc 4.84e-06  ic 1.31e-05  dat 0.00e+00  (206.9s)
+  [win 4/4] ep   9000  loss 2.172e-03  pde 1.81e-03  bc 2.40e-05  ic 1.19e-05  dat 0.00e+00  (219.9s)
+  [win 4/4] ep   9500  loss 3.855e-04  pde 1.76e-04  bc 8.48e-06  ic 1.25e-05  dat 0.00e+00  (231.6s)
+  [win 4/4] ep  10000  loss 2.104e-03  pde 1.39e-03  bc 5.96e-05  ic 1.19e-05  dat 0.00e+00  (243.2s)
+  [win 4/4] ep  10500  loss 3.207e-04  pde 1.57e-04  bc 3.55e-06  ic 1.28e-05  dat 0.00e+00  (256.2s)
+  [win 4/4] ep  11000  loss 2.321e-03  pde 1.86e-03  bc 3.36e-05  ic 1.24e-05  dat 0.00e+00  (267.8s)
+  [win 4/4] ep  11500  loss 3.357e-04  pde 1.39e-04  bc 6.63e-06  ic 1.30e-05  dat 0.00e+00  (279.5s)
+  [win 4/4] ep  12000  loss 1.313e-03  pde 8.38e-04  bc 3.58e-05  ic 1.18e-05  dat 0.00e+00  (292.5s)
+  [win 4/4] ep  12500  loss 2.975e-04  pde 1.37e-04  bc 2.88e-06  ic 1.32e-05  dat 0.00e+00  (304.0s)
+  [win 4/4] ep  13000  loss 1.204e-03  pde 6.92e-04  bc 3.91e-05  ic 1.22e-05  dat 0.00e+00  (316.3s)
+  [win 4/4] ep  13500  loss 3.001e-04  pde 1.41e-04  bc 2.80e-06  ic 1.31e-05  dat 0.00e+00  (328.8s)
+  [win 4/4] ep  14000  loss 1.004e-03  pde 6.16e-04  bc 2.63e-05  ic 1.24e-05  dat 0.00e+00  (340.5s)
+  [win 4/4] ep  14500  loss 2.985e-04  pde 1.29e-04  bc 4.40e-06  ic 1.26e-05  dat 0.00e+00  (353.1s)
+  [win 4/4] ep  15000  loss 1.012e-03  pde 6.19e-04  bc 2.77e-05  ic 1.17e-05  dat 0.00e+00  (365.1s)
+  [win 4/4] ep  15500  loss 2.622e-04  pde 1.27e-04  bc 3.00e-06  ic 1.06e-05  dat 0.00e+00  (376.9s)
+  [win 4/4] ep  16000  loss 8.575e-04  pde 3.53e-04  bc 4.07e-05  ic 9.84e-06  dat 0.00e+00  (389.8s)
+  [win 4/4] ep  16500  loss 2.585e-04  pde 1.14e-04  bc 2.62e-06  ic 1.18e-05  dat 0.00e+00  (401.5s)
+  [win 4/4] ep  17000  loss 5.558e-04  pde 2.74e-04  bc 1.71e-05  ic 1.11e-05  dat 0.00e+00  (413.3s)
+  [win 4/4] ep  17500  loss 2.504e-04  pde 1.18e-04  bc 2.66e-06  ic 1.05e-05  dat 0.00e+00  (426.3s)
+  [win 4/4] ep  18000  loss 1.495e-03  pde 7.58e-04  bc 6.39e-05  ic 9.84e-06  dat 0.00e+00  (438.1s)
+  [win 4/4] ep  18500  loss 2.711e-04  pde 1.16e-04  bc 2.68e-06  ic 1.28e-05  dat 0.00e+00  (449.8s)
+  [win 4/4] ep  19000  loss 6.395e-04  pde 3.76e-04  bc 1.41e-05  ic 1.22e-05  dat 0.00e+00  (462.9s)
+  [win 4/4] ep  19500  loss 2.667e-04  pde 1.20e-04  bc 2.88e-06  ic 1.18e-05  dat 0.00e+00  (474.7s)
+  [win 4/4] ep  19999  loss 2.599e-04  pde 1.07e-04  bc 3.96e-06  ic 1.13e-05  dat 0.00e+00  (486.4s)
+  -> rel L2 0.0179   probe v rms: PINN 0.0317 vs LBM 0.0323   shedding retained 98.0 %
+
+====================================================================
+  window 0  t* 157.8-159.4   relL2 0.0244   shedding  94.2 %
+  window 1  t* 159.4-160.9   relL2 0.0201   shedding  93.4 %
+  window 2  t* 160.9-162.5   relL2 0.0213   shedding 113.2 %
+  window 3  t* 162.5-164.0   relL2 0.0179   shedding  98.0 %
+====================================================================
+  OVERALL (t* 157.8-164.0, the headline number)
+    relative L2       0.0216
+    probe v rms       PINN 0.2609  vs LBM 0.2650
+    shedding retained 98.5 %
+    (near 0 % is the documented collapse to steady flow)
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/80/all_s1/results.json
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+all             0              95.8%    0.0217    32.4
+all             1              98.5%    0.0216    32.3
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/80/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/shedding_accuracy.py --run-name re_sweep/80 --runs all_s0 --tag re80_v1
+
+all   t* 157.84 .. 164.02  (1.00 shedding periods)
+  St            PINN 0.1648   LBM 0.1616   (+2.0 %)
+  amplitude     96.1 % of LBM
+  phase lag     -0.000 periods (-0.1 deg)
+  phase drift   -0.000 periods between the first and second half of the span
+  field rel L2  0.0217
+
+  caveat: 1.0 periods of signal and 2 zero crossings. St from so short a record
+  carries roughly a percent of uncertainty per crossing -- it is a consistency
+  check, not a validated frequency like the LBM's 12-period value.
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/80/shedding_accuracy.json
+
+======================================================================
+Re = 120
+======================================================================
+[Re 120] ground truth already present, skipping generation
+[Re 120] St 0.1774 vs correlation 0.1731 (+2.5 %)   Cd 1.4097 at 2.0% blockage
+[Re 120] probe r.m.s. growth 0.94x   St: vorticity 0.1774, probe 0.1774 (0.0 % apart), lift 0.1775
+[Re 120] base flow already fitted, skipping
+[Re 120] shedding period 5.65 t*: baseline 1 x 5.646, all 4 x 1.412
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re120_v1 --epochs 20000 --seeds 2 --only baseline --run-name re_sweep/120 --extra --sigma 8 --window-len 5.6463 --save-params
+[baseline seed 0] already done, skipping
+[baseline seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+baseline        0              20.2%    0.1796     5.6
+baseline        1              26.5%    0.1779     6.3
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/120/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re120_v1 --epochs 20000 --seeds 2 --only all --run-name re_sweep/120 --extra --sigma 8 --window-len 1.4116 --save-params
+[all seed 0] already done, skipping
+[all seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+all             0             103.5%    0.0349    15.8
+all             1             104.1%    0.0339    15.8
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/120/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/shedding_accuracy.py --run-name re_sweep/120 --runs all_s0 --tag re120_v1
+
+all   t* 86.85 .. 92.49  (1.06 shedding periods)
+  St            PINN 0.1890   LBM 0.1873   (+0.9 %)
+  amplitude     103.3 % of LBM
+  phase lag     -0.000 periods (-0.1 deg)
+  phase drift   -0.000 periods between the first and second half of the span
+  field rel L2  0.0349
+
+  caveat: 1.1 periods of signal and 2 zero crossings. St from so short a record
+  carries roughly a percent of uncertainty per crossing -- it is a consistency
+  check, not a validated frequency like the LBM's 12-period value.
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/120/shedding_accuracy.json
+
+======================================================================
+Re = 150
+======================================================================
+[Re 150] ground truth already present, skipping generation
+[Re 150] St 0.1828 vs correlation 0.1834 (-0.3 %)   Cd 1.3849 at 2.0% blockage
+[Re 150] probe r.m.s. growth 0.94x   St: vorticity 0.1828, probe 0.1828 (0.0 % apart), lift 0.1827
+[Re 150] base flow already fitted, skipping
+[Re 150] shedding period 5.50 t*: baseline 1 x 5.500, all 4 x 1.375
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re150_v1 --epochs 20000 --seeds 2 --only baseline --run-name re_sweep/150 --extra --sigma 8 --window-len 5.4996 --save-params
+[baseline seed 0] already done, skipping
+[baseline seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+baseline        0              35.7%    0.1824     5.1
+baseline        1              43.1%    0.1954     4.8
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/150/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re150_v1 --epochs 20000 --seeds 2 --only all --run-name re_sweep/150 --extra --sigma 8 --window-len 1.3749 --save-params
+[all seed 0] already done, skipping
+[all seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+all             0              94.1%    0.0322    15.8
+all             1              96.7%    0.0310    15.8
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/150/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/shedding_accuracy.py --run-name re_sweep/150 --runs all_s0 --tag re150_v1
+
+all   t* 81.95 .. 87.45  (1.02 shedding periods)
+  St            PINN 0.1890   LBM 0.1851   (+2.1 %)
+  amplitude     94.6 % of LBM
+  phase lag     +0.000 periods (+0.1 deg)
+  phase drift   -0.000 periods between the first and second half of the span
+  field rel L2  0.0322
+
+  caveat: 1.0 periods of signal and 2 zero crossings. St from so short a record
+  carries roughly a percent of uncertainty per crossing -- it is a consistency
+  check, not a validated frequency like the LBM's 12-period value.
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/150/shedding_accuracy.json
+
+======================================================================
+Re = 180
+======================================================================
+[Re 180] ground truth already present, skipping generation
+[Re 180] St 0.1889 vs correlation 0.1919 (-1.6 %)   Cd 1.3770 at 2.0% blockage
+[Re 180] probe r.m.s. growth 0.90x   St: vorticity 0.1889, probe 0.1889 (0.0 % apart), lift 0.1887
+[Re 180] base flow already fitted, skipping
+[Re 180] shedding period 5.23 t*: baseline 1 x 5.225, all 4 x 1.306
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re180_v1 --epochs 20000 --seeds 2 --only baseline --run-name re_sweep/180 --extra --sigma 8 --window-len 5.2250 --save-params
+[baseline seed 0] already done, skipping
+[baseline seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+baseline        0              31.1%    0.1676     4.9
+baseline        1              38.3%    0.1808     5.2
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/180/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/run_ablation.py --tag re180_v1 --epochs 20000 --seeds 2 --only all --run-name re_sweep/180 --extra --sigma 8 --window-len 1.3063 --save-params
+[all seed 0] already done, skipping
+[all seed 1] already done, skipping
+
+======================================================================
+config       seed  shedding retained    rel L2     min
+----------------------------------------------------------------------
+all             0              93.6%    0.0269    15.8
+all             1              96.3%    0.0252    28.6
+======================================================================
+shedding retained ~ 0 %  : collapsed to the steady base flow
+shedding retained ~ 100 %: wake amplitude matches the LBM reference
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/180/summary.json
+
+$ /home/phyguest/anaconda3/envs/graphcast-env/bin/python -u experiments/shedding_accuracy.py --run-name re_sweep/180 --runs all_s0 --tag re180_v1
+
+all   t* 78.32 .. 83.54  (0.95 shedding periods)
+  St            PINN 0.1825   LBM 0.1821   (+0.2 %)
+  amplitude     94.3 % of LBM
+  phase lag     +0.000 periods (+0.0 deg)
+  phase drift   +0.000 periods between the first and second half of the span
+  field rel L2  0.0269
+
+  caveat: 1.0 periods of signal and 2 zero crossings. St from so short a record
+  carries roughly a percent of uncertainty per crossing -- it is a consistency
+  check, not a validated frequency like the LBM's 12-period value.
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/180/shedding_accuracy.json
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/re_sweep/summary.json
+### sweep5 exit 0 (Mon Sep 21 22:01:44 IST 2026)
+SWEEP5_DONE Mon Sep 21 22:01:44 IST 2026

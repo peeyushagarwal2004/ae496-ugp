@@ -1,0 +1,50 @@
+[
+  {
+    "config": "all",
+    "seed": 0,
+    "shedding": 0.941175859607466,
+    "rel_l2": 0.032161755600528454,
+    "probe_pinn": 0.6333874349307084,
+    "probe_lbm": 0.6729745864868164,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8 --window-len 1.3749 --save-params",
+    "minutes": 15.78937100172043
+  },
+  {
+    "config": "all",
+    "seed": 1,
+    "shedding": 0.966804052074642,
+    "rel_l2": 0.0309884488203149,
+    "probe_pinn": 0.6506345571587108,
+    "probe_lbm": 0.6729745864868164,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8 --window-len 1.3749 --save-params",
+    "minutes": 15.81235625743866
+  },
+  {
+    "config": "baseline",
+    "seed": 0,
+    "shedding": 0.35740845172843916,
+    "rel_l2": 0.18240413791104118,
+    "probe_pinn": 0.24052680500883963,
+    "probe_lbm": 0.6729745864868164,
+    "windows": 1,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8 --window-len 5.4996 --save-params",
+    "minutes": 5.107769636313121
+  },
+  {
+    "config": "baseline",
+    "seed": 1,
+    "shedding": 0.4310768302312455,
+    "rel_l2": 0.19542053672364426,
+    "probe_pinn": 0.29010375156892,
+    "probe_lbm": 0.6729745864868164,
+    "windows": 1,
+    "epochs_per_window": 20000,
+    "extra": "--sigma 8 --window-len 5.4996 --save-params",
+    "minutes": 4.776352024078369
+  }
+]
