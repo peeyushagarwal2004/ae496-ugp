@@ -337,6 +337,23 @@ amplitude, i.e. the PINN is solving the steady problem. Raising the budget to
 80 000 epochs (`runs/ctrl_budget80k`) moves it only to **21.9 %**, so the
 collapse is not an under-training artefact.
 
+**Multi-period accuracy [MEASURED]** (`runs/multiperiod`, 20 windows, `all`
+at sigma 8, data-free, t* 91.1-122.1 = 5.03 shedding periods):
+
+| quantity | 1 period (4 windows) | 5 periods (20 windows) |
+|---|---|---|
+| St | 0.1565 (-0.9 %) | **0.1622 (+0.1 %)** |
+| amplitude | 96.5 % | 94.8 % |
+| phase lag | +2.9 deg | +2.4 deg |
+| phase drift across the span | -0.000 periods | **-0.005 periods** |
+| relative L2 | 0.043 | **0.036** |
+| zero crossings behind the St | 2 | 10 |
+
+Marching five times as far *improves* the field error and the frequency, and
+drifts 0.005 of a period (~2 deg) over the whole span. The chain does not
+accumulate error at this horizon. Measure with
+`python experiments/shedding_accuracy.py --run-name multiperiod --runs all_s0`.
+
 **Deliverable.** One figure: PINN vs LBM vorticity at the same `t*`, showing a
 symmetric steady wake where the reference has a Kármán street —
 `figures/ablation_cpu_fields.png`, from `experiments/plot_fields.py`.
@@ -652,6 +669,22 @@ transposed metric still prints a plausible number.
   configuration, benchmark ~0.23). Do not quote it as a validation metric
   without longer averaging.
 * **float64 is the wrong default on GPU** (1/32 rate on a T4).
+* **A per-config window length is not a per-config *span*.** The Re sweep
+  passed one `--window-len` to every config, but `baseline` trains 1 window
+  where `all` trains 4 -- so baseline covered a quarter period and scored
+  55-158 % "shedding retained" against 10.6 % at Re = 100. Over a quarter
+  period the IC alone carries the solution. Scale the window *per config* so
+  the spans match.
+* **Two scripts, one key name, silent overwrite.** `shedding_accuracy` reports
+  `St_error_pct` (network vs LBM) and `run_re_sweep.validate` reported
+  `St_error_pct` (dataset vs correlation). Merging both into one row kept the
+  second silently. Prefix keys when merging dicts from different sources.
+* **Near onset the wake needs a far longer warmup.** Growth rate scales with
+  (Re - 47), so 15 periods that saturate Re = 100 leave Re = 60 still
+  amplifying: lift r.m.s. rising 1.44x across the record, half-period spacing
+  scattering 33 % (4.9 % at Re = 150), and St reading 25 % high. The sweep now
+  scales warmup by 53/(Re - 47) and refuses to train on an unsaturated
+  dataset.
 * **An under-trained ablation gives the wrong qualitative answer, not just a
   worse number.** At 1000–4000 epochs `march` scored 3.7 % and only `all`
   worked, which reads as "the mechanisms are complementary". At 20 000 epochs
