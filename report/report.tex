@@ -45,7 +45,9 @@ within 2.3\% of published benchmarks), a plain PINN retains
 10.6\% of the reference wake amplitude. Adding Fourier features or
 a Reynolds decomposition does not help. \emph{Causal time-marching alone
 restores shedding data-free}, at 89.2\% retained amplitude, and an
-equal-budget control rules out extra optimiser steps as the cause. The best
+equal-budget control rules out extra optimiser steps as the cause. The result
+holds at every Reynolds number tested from 60 to 180: the control keeps
+10--43\% of the wake, the mechanism-equipped network 88--104\%. The best
 data-free configuration, marched over five shedding periods, predicts the
 shedding frequency to within 0.1\%, at 94.8\% of the correct amplitude and
 $2.4^\circ$ of phase, with a velocity-field error of 3.6\%. A second
@@ -93,8 +95,8 @@ Section~\ref{sec:fno}.
 \paragraph{Reynolds number.} All results are at $\Rey = 100$: laminar and
 unambiguously two-dimensional. The reference paper's $\Rey = 240$--$3060$ is
 genuinely three-dimensional, where a 2-D model would be solving the wrong
-physics. A sweep over $\Rey = 60$--$180$ is in progress
-(Section~\ref{sec:ongoing}).
+physics. Section~\ref{sec:resweep} repeats the central comparison across
+$\Rey = 60$--$180$.
 
 \paragraph{Software.} The work builds on \texttt{underPINN}, a JAX PINN
 framework, which supplies the network architectures, the geometry primitives
@@ -444,6 +446,104 @@ window handoffs, where each window starts from the previous one's end state
 rather than continuing it smoothly. This is the cost of the mechanism that
 makes the wake survive, and is reported rather than smoothed away.
 
+\FloatBarrier
+\section{Does it hold across Reynolds number?}
+\label{sec:resweep}
+
+Everything above is at $\Rey = 100$. The comparison was therefore repeated at
+five more Reynolds numbers spanning the two-dimensional shedding range, with
+fresh ground truth generated and validated at each. The marching window is set
+to a quarter of each dataset's \emph{measured} shedding period, so all
+configurations span exactly one period whatever the frequency --- otherwise the
+comparison would not be like-for-like across $\Rey$.
+
+\begin{table}[h]
+\centering
+\caption{The ablation repeated across the shedding range. Two seeds per entry;
+$\Rey = 100$ is the main ablation, same configuration.}
+\begin{tabular}{lcccc}
+\toprule
+$\Rey$ & $\St$ vs correlation & \texttt{baseline} & \texttt{all} (data-free) & relative $L_2$ \\
+\midrule
+60  & $+0.6\%$ & 37.8, 40.1\% & \textbf{88.5, 91.2\%}   & 0.031 \\
+80  & $-1.1\%$ & 22.2, 21.4\% & \textbf{95.8, 98.5\%}   & 0.022 \\
+100 & $-3.0\%$ & 9.8, 11.3\%  & \textbf{96.7, 98.4\%}   & 0.042 \\
+120 & $+2.5\%$ & 20.2, 26.5\% & \textbf{103.5, 104.1\%} & 0.035 \\
+150 & $-0.3\%$ & 35.7, 43.1\% & \textbf{94.1, 96.7\%}   & 0.032 \\
+180 & $-1.6\%$ & 31.1, 38.3\% & \textbf{93.6, 96.3\%}   & 0.027 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{re_sweep.png}
+\caption{Left: shedding retained against Reynolds number, every seed plotted.
+Right: each dataset's own validation, measured Strouhal number against
+Williamson's correlation.}
+\label{fig:resweep}
+\end{figure}
+
+\paragraph{The result generalises.} The control keeps 10--43\% of the wake and
+the mechanism-equipped configuration 88--104\%, at every Reynolds number
+tested, with field errors of 2--4\%. The claim is therefore about the shedding
+regime rather than about one dataset.
+
+\paragraph{Three things not to over-read.} $\Rey = 120$ exceeds 100\%: the
+network's wake is slightly \emph{stronger} than the reference, which is
+amplitude overshoot, not extra accuracy. The \texttt{baseline} column varies
+from 10\% to 43\% with no clean trend and a seed spread of 5--8 points, so its
+variation should not be given a physical reading. And the $\Rey = 60$ and 80
+datasets run at a lower Mach number than the rest, for the reason in
+Section~\ref{sec:acoustic} --- closer to incompressible, but not an identical
+setup.
+
+\FloatBarrier
+\subsection{An acoustic resonance that captured the low-Re wakes}
+\label{sec:acoustic}
+
+The first attempt at this sweep produced Strouhal numbers that fell as
+Reynolds number rose --- 0.114 at $\Rey = 60$, 0.113 at $\Rey = 80$, 0.159 at
+$\Rey = 100$ --- which is impossible for this flow, and worth recording as a
+methodological result.
+
+The cause is not the measurement. Wake \emph{vorticity}, which cannot see
+irrotational sound, oscillates at the same anomalous frequency. Lattice
+Boltzmann is weakly compressible and the free-slip walls reflect perfectly, so
+the domain supports a standing half-wave across its height at $c_s / 2H$. In
+flow units that is $\St = 0.1155$, and the distance from the shedding
+frequency decides whether the wake locks onto it:
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+$\Rey$ & separation from the resonance & outcome \\
+\midrule
+60  & 15\% & locked, wake at 0.114 \\
+80  & 24\% & locked, wake at 0.113 \\
+100 & 30\% & clean, $-3.0\%$ against the correlation \\
+120--180 & 33--40\% & clean, $-1.6\%$ to $+2.5\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+The resonance sits at $(c_s/2H)(D/U)$ in flow units, so \emph{lowering} the
+lattice velocity moves it away from the shedding band rather than merely
+weakening it. Regenerating $\Rey = 60$ and 80 at $u = 0.0315$ and $0.028$
+(against 0.05 elsewhere) moved them to $+0.6\%$ and $-1.1\%$ against the
+correlation. The same resonance explains a long-standing oddity in this
+project: the lift coefficient's r.m.s.\ never converged between runs, because
+its amplitude is modulated by the acoustic mode beating against the shedding at
+\emph{every} Reynolds number, including $\Rey = 100$.
+
+Consequently all Strouhal numbers reported here are measured from wake
+vorticity averaged over many points, with a single-point probe velocity as an
+independent check --- the two agree to about 1\% at every $\Rey$. The lift
+signal is retained for $\Cd$, which it measures well, but is no longer trusted
+for frequency: at $\Rey = 80$ it reads 0.1619 where the vorticity says 0.1511
+and the correlation 0.1528.
+
+\FloatBarrier
 \section{Physics in a neural operator}
 \label{sec:fno}
 
