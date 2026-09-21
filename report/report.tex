@@ -46,9 +46,9 @@ within 2.3\% of published benchmarks), a plain PINN retains
 a Reynolds decomposition does not help. \emph{Causal time-marching alone
 restores shedding data-free}, at 89.2\% retained amplitude, and an
 equal-budget control rules out extra optimiser steps as the cause. The best
-data-free configuration predicts the shedding frequency to within
-0.9\%, at 96.5\% of the correct amplitude and
-$3^\circ$ of phase, with a velocity-field error of 4.3\%. A second
+data-free configuration, marched over five shedding periods, predicts the
+shedding frequency to within 0.1\%, at 94.8\% of the correct amplitude and
+$2.4^\circ$ of phase, with a velocity-field error of 3.6\%. A second
 contribution adds a pressure-free physics residual to a Fourier Neural Operator
 trained after the method of Renn et al.; the physics term lowers forecast error
 by 20--28\% out to one shedding period, after which both
@@ -399,20 +399,30 @@ probe signal directly.
 
 \begin{table}[h]
 \centering
-\caption{Prediction accuracy of the best data-free run (\texttt{all},
-$\sigma = 8$) at $\Rey = 100$.}
+\caption{Prediction accuracy of the best data-free configuration (\texttt{all},
+$\sigma = 8$) at $\Rey = 100$, over one shedding period and over five.}
 \begin{tabular}{lccc}
 \toprule
-quantity & PINN & LBM & error \\
+quantity & 1 period (4 windows) & 5 periods (20 windows) & reference \\
 \midrule
-shedding frequency $\St$ & 0.1565 & 0.1578 & $-0.9\%$ \\
-wake amplitude           & \multicolumn{2}{c}{ratio} & 96.5\% \\
-phase lag                & \multicolumn{2}{c}{cross-correlation} & $+0.008$ periods ($3^\circ$) \\
-phase drift across span  & \multicolumn{2}{c}{first half vs second} & $-0.000$ periods \\
-velocity-field error     & \multicolumn{2}{c}{relative $L_2$} & 0.043 \\
+shedding frequency $\St$ & 0.1565 ($-0.9\%$) & \textbf{0.1622 ($+0.1\%$)} & 0.1621 (LBM) \\
+wake amplitude           & 96.5\% & 94.8\% & LBM probe r.m.s. \\
+phase lag                & $+2.9^\circ$ & $+2.4^\circ$ & --- \\
+phase drift across span  & $-0.000$ periods & $-0.005$ periods & --- \\
+velocity-field error     & 0.043 & \textbf{0.036} & relative $L_2$ \\
+zero crossings available & 2 & 10 & 12+ for the LBM's own $\St$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Extending the run from four windows to twenty --- from one shedding period to
+five --- \emph{improves} every quantity that matters. The frequency error falls
+to $+0.1\%$ on ten zero crossings rather than two, the field error drops from
+0.043 to 0.036, and the phase drifts by $0.005$ of a period (about $2^\circ$)
+across the entire five-period span. The marching chain therefore does not
+accumulate error in any visible way over the horizon tested: the wake stays
+locked to the reference in both frequency and phase, and only the amplitude
+gives up a little (96.5\% to 94.8\%).
 
 \begin{figure}[h]
 \centering
@@ -423,12 +433,11 @@ time-marching window handoffs.}
 \label{fig:fields}
 \end{figure}
 
-\paragraph{Caveat, and it is a real one.} This span is 0.95 shedding periods
-and contains two zero crossings. A frequency inferred from so short a record is
-a consistency check, not a validated measurement like the LBM's own
-$\St$ (averaged over $\sim$12 periods). A multi-period run is in progress to
-make this number quotable, and the phase-drift figure meaningful over several
-periods rather than one.
+\paragraph{Caveat.} Ten zero crossings is enough to state $\St$ to about a
+percent, but it is still a shorter record than the LBM's own validation
+(${\sim}12$ periods of a signal that is not itself being predicted). The
+frequency agreement to $+0.1\%$ should be read as ``within the resolution of
+this measurement'', not as a claim of three-digit accuracy.
 
 \paragraph{Visible artefact.} The probe trace shows small discontinuities at
 window handoffs, where each window starts from the previous one's end state
@@ -552,10 +561,11 @@ only claim supported is that the reproduction works.
         marching window scaled to each dataset's measured shedding period so
         the configurations stay comparable. The upper limit is set by the
         three-dimensional transition near $\Rey \approx 190$.
-  \item \textbf{One shedding period of PINN evaluation.} The accuracy figures
-        of Section~\ref{sec:accuracy} cover 0.95 periods. A 20-window run over
-        approximately five periods is in progress to put $\St$ and phase drift
-        on a firmer footing.
+  \item \textbf{Five shedding periods of PINN evaluation.}
+        Section~\ref{sec:accuracy} covers five periods, over which the accuracy
+        improves rather than decays. Behaviour over tens of periods, where a
+        marching chain might accumulate phase error, is untested --- and the
+        cost grows linearly with the horizon, one window per quarter period.
   \item \textbf{$\Cl$ r.m.s.\ is not converged} across configurations
         (0.18--0.54 against a benchmark of $\sim$0.23) and is deliberately not
         quoted as a validation metric.
