@@ -1,0 +1,42 @@
+{
+  "Re": 100.0,
+  "D_lattice": 16,
+  "U_lattice": 0.08,
+  "nu_lattice": 0.0128,
+  "tau_p": 0.5384,
+  "tau_m": 5.382812500000001,
+  "Lambda": 0.18749999999999997,
+  "scheme": "TRT",
+  "Ma": 0.13856406460551018,
+  "grid": [
+    400,
+    320
+  ],
+  "steps": 28000,
+  "warmup_steps": 14545,
+  "n_snapshots": 0,
+  "snapshot_grid": [
+    161,
+    81
+  ],
+  "dx_over_D": 0.125,
+  "crop": [
+    -5.0,
+    15.0,
+    -5.0,
+    5.0
+  ],
+  "dt_star_per_step": 0.005,
+  "snapshot_dt_star": 0.15,
+  "St": 0.17120670173329777,
+  "Cd_mean": 1.656150460243225,
+  "Cl_rms": 0.5247412919998169,
+  "St_target": 0.165,
+  "Cd_target": [
+    1.37,
+    1.38
+  ],
+  "runtime_s": 215.35038089752197,
+  "dtype": "float32",
+  "blockage": 0.05
+}

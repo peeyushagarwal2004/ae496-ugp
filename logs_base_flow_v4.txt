@@ -1,0 +1,17 @@
+  epoch      0  mse 3.897e-01  (  1.2s)
+  epoch   2500  mse 1.888e-05  (133.7s)
+  epoch   5000  mse 1.156e-05  (269.7s)
+  epoch   7500  mse 3.136e-06  (404.2s)
+  epoch  10000  mse 1.394e-06  (542.4s)
+  epoch  12500  mse 1.379e-06  (679.3s)
+  epoch  15000  mse 1.127e-06  (813.6s)
+  epoch  17500  mse 5.156e-07  (945.7s)
+  epoch  20000  mse 6.578e-07  (1076.1s)
+  epoch  22500  mse 6.376e-07  (1212.8s)
+  epoch  24999  mse 6.101e-07  (1347.6s)
+
+  relative L2 on (u0, v0) = 1.1032e-03
+    u0: max abs err 2.9193e-02   rms 7.2234e-04
+    v0: max abs err 4.4809e-02   rms 8.0587e-04
+    p0: max abs err 3.3723e-02   rms 6.8611e-04
+FINAL v4 base-flow rel L2 = 1.1032e-03
