@@ -360,10 +360,10 @@
     {
       "id": "operator.speedup",
       "tex": 282,
-      "literal": "speed-up of the fast backend & $2.5\\times$",
+      "literal": "speed-up of the fast backend & ${\\approx}2.5\\times$",
       "printed": 2.5,
-      "tol": 0.05,
-      "note": "Now measured by benchmark_backends() in tests/test_ns2d_unsteady.py rather than remembered. HARDWARE DEPENDENT: the recorded JSON also stores the JAX backend and device list, and the report should say which machine the ratio was measured on.",
+      "tol": 0.25,
+      "note": "TOLERANCE IS MEASUREMENT VARIANCE, NOT PRINTED PRECISION. Unlike every other entry here, this is a wall-clock ratio: repeated runs on the same machine gave 2.52 and 2.58, so a half-last-digit tolerance would fail at random. Measured by benchmark_backends() in tests/test_ns2d_unsteady.py, which also records the JAX backend and device list alongside the value. The report states the figure as approximate for the same reason.",
       "src": {
         "kind": "path",
         "file": "runs/operator_verification.json",

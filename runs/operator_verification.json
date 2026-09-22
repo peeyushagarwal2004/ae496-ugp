@@ -14,9 +14,9 @@
     "value": 1.5785983631388945e-16
   },
   "benchmark_backends": {
-    "value": 2.5246617550808788,
-    "fast_seconds": 0.027960299979895353,
-    "slow_seconds": 0.07059030001983047,
+    "value": 2.57757335673948,
+    "fast_seconds": 0.0488428000244312,
+    "slow_seconds": 0.12589590001152828,
     "n_points": 4096,
     "repeats": 20,
     "network": "MLP([3, 128, 128, 128, 3])",
