@@ -1,0 +1,29 @@
+{
+  "test_backends_agree_on_a_network": {
+    "value": 2.7755575615628914e-17,
+    "residual_scale": 1.0304448416891832
+  },
+  "test_steady_limit_matches_shipped_operator": {
+    "value": 5.551115123125783e-17
+  },
+  "test_taylor_green_is_annihilated": {
+    "fast": 1.5785983631388945e-16,
+    "fast_continuity": 0.0,
+    "slow": 1.5785983631388945e-16,
+    "slow_continuity": 0.0,
+    "value": 1.5785983631388945e-16
+  },
+  "benchmark_backends": {
+    "value": 2.5246617550808788,
+    "fast_seconds": 0.027960299979895353,
+    "slow_seconds": 0.07059030001983047,
+    "n_points": 4096,
+    "repeats": 20,
+    "network": "MLP([3, 128, 128, 128, 3])",
+    "backend": "cpu",
+    "devices": [
+      "cpu:0"
+    ],
+    "_caveat": "Best-of-N wall clock on whatever machine ran this. A timing ratio is hardware dependent; quote it with the backend recorded here."
+  }
+}

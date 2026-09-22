@@ -1,0 +1,572 @@
+% Bibliography for the AE496 UGP report.
+%
+% VERIFICATION CONVENTION -- read this before citing anything below.
+%
+% Each entry carries a status line. Checks were made on 2026-09-22.
+%   VERIFIED         title/authors/venue read off the publisher or arXiv page.
+%   VERIFIED (READ)  the paper itself was opened and the stated contents were
+%                    read from it, not recalled.
+%   UNVERIFIED       recalled, inferred, or known only through another paper's
+%                    citation of it. Yours to confirm before submission.
+%
+% Do not add an entry without a status line. Do not cite an UNVERIFIED entry in
+% a submitted manuscript.
+
+
+% ==========================================================================
+% The papers this project is a direct response to
+% ==========================================================================
+
+% VERIFIED (READ) -- full text read 2026-09-22.
+% report.tex currently cites this arXiv ID under the title "Can physics-
+% informed neural networks beat the finite element method?", which is a
+% DIFFERENT paper (grossmann2024fem below). Fix that.
+%
+% CONTENTS THAT MATTER, read from the paper:
+%  * The cylinder case study is Re = 200, NOT Re = 100. Domain [-8,25]x[-8,8],
+%    t in [0,200], nu = 0.005. Re = 40 is used for validation (steady) and a
+%    Taylor-Green vortex at Re = 100 for verification.
+%  * Their "unsteady PINN" solves ONE time window spanning t in [0,200] --
+%    roughly 40 shedding periods in a single optimisation. No time-marching,
+%    sequential training or causal scheme is tested anywhere in the paper.
+%  * MLP 6 x 512, Adam, 1,000,000 iterations, ~31 h on an A100. Built on
+%    NVIDIA Modulus; reference solver is PetIBM (their own code), not OpenFOAM.
+%  * Cd at Re = 200: PetIBM 1.38, steady PINN 0.95, unsteady PINN 0.95.
+%  * Data-driven variant replaces the three IC losses with 16 PetIBM snapshots
+%    covering ~3 shedding periods in t in [125,140]; shedding stops once the
+%    data does. "the perturbation is not the primary factor responsible for
+%    the steady-state behavior."
+%  * Spectral-bias attribution is supported by Koopman/DMD analysis showing
+%    damped modes inside the unit circle and extra frequencies absent from the
+%    data, i.e. a claim about learned dynamic modes, not about input encoding.
+%    Be precise when contradicting it -- see literature.md.
+@article{chuang2023limitations,
+  author  = {Chuang, Pi-Yueh and Barba, Lorena A.},
+  title   = {Predictive Limitations of Physics-Informed Neural Networks in
+             Vortex Shedding},
+  journal = {arXiv preprint},
+  volume  = {arXiv:2306.00230},
+  year    = {2023},
+  url     = {https://arxiv.org/abs/2306.00230}
+}
+
+% VERIFIED title/authors/abstract at arxiv.org/abs/2301.08290.
+% VERIFIED contents relevant to the report: Re = 240 to 3060, PIV
+% measurements, ten non-dimensionalised forecast steps, L2 error < 0.1. The
+% report's description of this paper is accurate.
+@article{renn2023fno,
+  author  = {Renn, Peter I. and Wang, Cong and Lale, Sahin and Li, Zongyi and
+             Anandkumar, Anima and Gharib, Morteza},
+  title   = {Forecasting subcritical cylinder wakes with Fourier Neural
+             Operators},
+  journal = {arXiv preprint},
+  volume  = {arXiv:2301.08290},
+  year    = {2023},
+  url     = {https://arxiv.org/abs/2301.08290}
+}
+
+% VERIFIED title/authors/venue at arxiv.org/abs/2302.04107 and Oxford
+% Academic. The paper report.tex meant to cite by title but attached to the
+% wrong arXiv ID.
+@article{grossmann2024fem,
+  author  = {Grossmann, Tamara G. and Komorowska, Urszula Julia and
+             Latz, Jonas and Sch{\"o}nlieb, Carola-Bibiane},
+  title   = {Can physics-informed neural networks beat the finite element
+             method?},
+  journal = {IMA Journal of Applied Mathematics},
+  volume  = {89},
+  number  = {1},
+  pages   = {143--174},
+  year    = {2024},
+  note    = {arXiv:2302.04107}
+}
+
+
+% ==========================================================================
+% The closest competing work -- read this one first
+% ==========================================================================
+
+% VERIFIED (READ) -- HTML full text queried 2026-09-22. Single-author
+% preprint submitted 20 August 2026, NOT peer reviewed at time of checking.
+%
+% CONTENTS THAT MATTER, and they are better for this project than the
+% abstract suggests:
+%  * Six techniques ablated: Fourier feature encoding, causal weighting, hard
+%    BC enforcement, periodic (SIREN) activations, self-adaptive loss weights,
+%    post-hoc L-BFGS fine-tuning.
+%  * Causal weighting is implemented as LOSS REWEIGHTING over M = 20 bins.
+%    They do NOT test hard time-window marching with a separate network per
+%    window and the end state as the next initial condition. This project's
+%    mechanism is untested by them.
+%  * No equal-compute or matched-optimiser-step control.
+%  * No random seeds -- single deterministic run per configuration.
+%  * Two Reynolds numbers: Re = 20 (steady) and Re = 100 (shedding).
+%  * They DO report wake-probe amplitude ratio, wake-probe correlation and
+%    Strouhal number alongside L2, so the report must not claim they use
+%    field L2 alone.
+%  * CRUCIAL: the 4.1 % result REQUIRES DATA SUPERVISION. Data-free, none of
+%    their configurations escapes the collapse at Re = 100, and they conclude
+%    "consistent with [Chuang and Barba (2023)], some form of data supervision
+%    proves necessary for learning this problem at all." Their best
+%    configuration reaches St = 0.300 against a reference of 0.300 and a wake
+%    amplitude ratio of 0.983. This project's data-free result contradicts
+%    that conclusion directly.
+@article{shah2026complementary,
+  author  = {Shah, Devesh},
+  title   = {Complementary, Not Cumulative: Interaction Effects in
+             Physics-Informed Neural Networks for {N}avier--{S}tokes Vortex
+             Shedding},
+  journal = {arXiv preprint},
+  volume  = {arXiv:2608.19632},
+  year    = {2026},
+  url     = {https://arxiv.org/abs/2608.19632}
+}
+
+
+% ==========================================================================
+% Causality and time-marching -- prior art for this project's headline
+% mechanism
+% ==========================================================================
+
+% VERIFIED (READ) -- sections 5.1, 5.2 and Figure 5 read 2026-09-22.
+% Origin of "pose the problem as a sequence-to-sequence learning task rather
+% than learning to predict the entire space-time at once", plus curriculum
+% regularisation. Argues the failure is an optimisation / loss-landscape
+% problem, not an expressivity one -- the same conclusion this project's
+% equal-budget control reaches by a different route.
+%
+% ON THE CONTROL QUESTION, which decides this project's novelty:
+% they control COLLOCATION POINTS, not optimiser steps. Figure 5 caption:
+% "To allow fair comparison, we keep the total number of collocation points
+% to be exactly the same in either approach." Footnote 4: "for T = [0, 1], if
+% we use 1000 collocation points to predict the entire state space, then for
+% dt = 0.1 we use 100 collocation points per section." Nothing matches total
+% optimiser iterations or wall-clock time between seq2seq and single-shot.
+% This project's optimiser-step-matched control is therefore a DIFFERENT and
+% complementary control, not a duplicate.
+%
+% seq2seq is tested on 1D convection (beta 30-40), 1D reaction (rho 5-10) and
+% 1D reaction-diffusion (rho = 5, nu 2-6). No Navier-Stokes, no vortex
+% shedding.
+@inproceedings{krishnapriyan2021failure,
+  author    = {Krishnapriyan, Aditi S. and Gholami, Amir and Zhe, Shandian and
+               Kirby, Robert M. and Mahoney, Michael W.},
+  title     = {Characterizing possible failure modes in physics-informed
+               neural networks},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2021},
+  note      = {arXiv:2109.01050}
+}
+
+% VERIFIED title/authors/journal/DOI via the arXiv listing and the OSTI
+% record. Causal weighting of the loss so earlier times converge first --
+% a soft counterpart to hard window marching.
+@article{wang2024causality,
+  author  = {Wang, Sifan and Sankaran, Shyam and Perdikaris, Paris},
+  title   = {Respecting causality is all you need for training
+             physics-informed neural networks},
+  journal = {Computer Methods in Applied Mechanics and Engineering},
+  year    = {2024},
+  doi     = {10.1016/j.cma.2024.116813},
+  note    = {arXiv:2203.07404. VOLUME AND ARTICLE NUMBER UNVERIFIED --
+             journal and DOI confirmed; fill these from the publisher page.}
+}
+
+% VERIFIED title/authors/venue via the arXiv listing and Global Science Press.
+% Adaptively divides the time domain and trains an independent network per
+% segment -- the same construction as this project's marching windows, on
+% Allen-Cahn / Cahn-Hilliard.
+@article{wight2021allencahn,
+  author  = {Wight, Colby L. and Zhao, Jia},
+  title   = {Solving Allen-Cahn and Cahn-Hilliard equations using the adaptive
+             physics informed neural networks},
+  journal = {Communications in Computational Physics},
+  volume  = {29},
+  number  = {3},
+  pages   = {930--954},
+  year    = {2021},
+  note    = {arXiv:2007.04542}
+}
+
+% VERIFIED title/authors/abstract at arxiv.org/abs/2403.03223.
+% Directly relevant to the report's "visible artefact" paragraph: existing
+% sequential PINNs enforce continuity between windows only softly, via a loss
+% term, which is why this project's probe trace steps at the handoffs. They
+% enforce it EXACTLY through a solution ansatz (HCS-PINN).
+% VERIFIED that they test advection, Allen-Cahn, KdV, wave and jerky dynamics
+% -- NOT Navier-Stokes and NOT vortex shedding. That gap is the cleanest
+% extension available to this project.
+@article{roy2024hcspinn,
+  author  = {Roy, Pratanu and Castonguay, Stephen},
+  title   = {Exact Enforcement of Temporal Continuity in Sequential
+             Physics-Informed Neural Networks},
+  journal = {arXiv preprint},
+  volume  = {arXiv:2403.03223},
+  year    = {2024},
+  url     = {https://arxiv.org/abs/2403.03223}
+}
+
+
+% ==========================================================================
+% Spectral bias and Fourier features
+% ==========================================================================
+
+% VERIFIED title/authors/venue/arXiv ID via the NeurIPS 2020 proceedings page.
+% Source of random Fourier feature embeddings with a TUNABLE BANDWIDTH, which
+% is the sigma this project sweeps from 2 to 8.
+@inproceedings{tancik2020fourier,
+  author    = {Tancik, Matthew and Srinivasan, Pratul P. and
+               Mildenhall, Ben and Fridovich-Keil, Sara and
+               Raghavan, Nithin and Singhal, Utkarsh and
+               Ramamoorthi, Ravi and Barron, Jonathan T. and Ng, Ren},
+  title     = {Fourier features let networks learn high frequency functions
+               in low dimensional domains},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2020},
+  note      = {arXiv:2006.10739}
+}
+
+% VERIFIED title/authors/volume/article number/DOI via the arXiv listing and
+% the ADS record. The PINN-specific treatment: NTK analysis of the bias
+% towards dominant eigendirections, and multi-scale Fourier feature
+% architectures. Cite THIS rather than tancik2020fourier in a PINN context.
+@article{wang2021eigenvector,
+  author  = {Wang, Sifan and Wang, Hanwen and Perdikaris, Paris},
+  title   = {On the eigenvector bias of {F}ourier feature networks: From
+             regression to solving multi-scale {PDE}s with physics-informed
+             neural networks},
+  journal = {Computer Methods in Applied Mechanics and Engineering},
+  volume  = {384},
+  pages   = {113938},
+  year    = {2021},
+  doi     = {10.1016/j.cma.2021.113938},
+  note    = {arXiv:2012.10047}
+}
+
+
+% ==========================================================================
+% Neural operators -- prior art for the FNO section
+% ==========================================================================
+
+% VERIFIED title/authors/venue via the arXiv listing and DBLP (ICLR 2021).
+@inproceedings{li2021fno,
+  author    = {Li, Zongyi and Kovachki, Nikola and Azizzadenesheli, Kamyar and
+               Liu, Burigede and Bhattacharya, Kaushik and Stuart, Andrew and
+               Anandkumar, Anima},
+  title     = {Fourier Neural Operator for Parametric Partial Differential
+               Equations},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2021},
+  note      = {arXiv:2010.08895}
+}
+
+% VERIFIED title/authors/arXiv ID at arxiv.org/abs/2111.03794; journal DOI
+% 10.1145/3648506 confirmed via the ACM listing.
+% THE prior art for adding a physics residual to a neural operator. Any claim
+% that this project "adds physics to a neural operator" must be positioned
+% against PINO, which already does that. The differentiators are the specific
+% pressure-free curl formulation for a velocity-only output and the choice of
+% residual normalisation, not the idea.
+@article{li2024pino,
+  author  = {Li, Zongyi and Zheng, Hongkai and Kovachki, Nikola and
+             Jin, David and Chen, Haoxuan and Liu, Burigede and
+             Azizzadenesheli, Kamyar and Anandkumar, Anima},
+  title   = {Physics-Informed Neural Operator for Learning Partial
+             Differential Equations},
+  journal = {ACM / IMS Journal of Data Science},
+  year    = {2024},
+  doi     = {10.1145/3648506},
+  note    = {VOLUME AND PAGES UNVERIFIED.}
+}
+
+
+% ==========================================================================
+% Foundations
+% ==========================================================================
+
+% VERIFIED journal/volume/pages via multiple independent citing sources.
+@article{raissi2019pinn,
+  author  = {Raissi, Maziar and Perdikaris, Paris and Karniadakis, George E.},
+  title   = {Physics-informed neural networks: A deep learning framework for
+             solving forward and inverse problems involving nonlinear partial
+             differential equations},
+  journal = {Journal of Computational Physics},
+  volume  = {378},
+  pages   = {686--707},
+  year    = {2019}
+}
+
+% VERIFIED author list, journal, volume, issue, pages and DOI via the
+% Springer listing.
+@article{cai2021review,
+  author  = {Cai, Shengze and Mao, Zhiping and Wang, Zhicheng and
+             Yin, Minglang and Karniadakis, George Em},
+  title   = {Physics-informed neural networks ({PINNs}) for fluid mechanics:
+             A review},
+  journal = {Acta Mechanica Sinica},
+  volume  = {37},
+  number  = {12},
+  pages   = {1727--1738},
+  year    = {2021},
+  doi     = {10.1007/s10409-021-01148-1}
+}
+
+
+% ==========================================================================
+% Cylinder wake reference data. THE REPORT CURRENTLY CITES NONE OF THIS,
+% and one of its validation claims is wrong as a result -- see qu2013.
+% ==========================================================================
+
+% VERIFIED (READ) -- Tables 1, 2 and 3 read from the accepted manuscript on
+% 2026-09-22. THIS IS THE REFERENCE THE REPORT NEEDS MOST.
+%
+% Page range: the Chalmers cover page gives vol. 39, pp. 347--370 with DOI
+% 10.1016/j.jfluidstructs.2013.02.007. Some indexes list 500--511; trust the
+% cover page but confirm once on ScienceDirect.
+%
+% WHY IT MATTERS -- three things, all read from the paper:
+%
+% 1. Their Table 1 compiles EIGHT independent studies at Re = 100 with
+%    comparable large domains. Cd values: Park et al. (1998) 1.33,
+%    Kravchenko and Moin (1998) 1.32, Shi et al. (2004) 1.318,
+%    Mittal (2005) 1.322, Stalberg et al. (2006) 1.32, Posdziech and
+%    Grundmann (2007) 1.325, Li et al. (2009) 1.336, present 1.319.
+%    St values cluster at 0.164--0.166 and Cl' (r.m.s. lift) at 0.222--0.235.
+%    So the Re = 100 consensus is Cd ~ 1.32, NOT the "1.37--1.38" the report
+%    asserts without a citation. The report's Cd validation claim of +0.3 %
+%    is really about +4.8 %. The St benchmark of 0.165 and the Cl' benchmark
+%    of ~0.23 are both correct and now citable from here.
+%
+% 2. Their Table 3 gives Cd, Cl', -Cpb, Lc, separation angle and St at
+%    Re = 50, 60, 80, 100, 120, 150, 180, 200 at large domains (H = 100-200):
+%      Re    H     Cd      Cl'     -Cpb    Lc    theta_s   St
+%      50   200   1.397   0.0399   0.511   2.46   124.0   0.1240
+%      60   160   1.377   0.0871   0.560   2.11   123.0   0.1354
+%      80   160   1.336   0.1616   0.640   1.67   120.3   0.1528
+%     100   120   1.317   0.2224   0.707   1.42   118.0   0.1649
+%     120   120   1.306   0.2776   0.764   1.25   116.4   0.1739
+%     150   100   1.305   0.3546   0.846   1.06   114.7   0.1841
+%     150   160   1.301   0.3529   0.840   1.06   114.7   0.1837
+%     180   100   1.310   0.4251   0.921   0.93   113.5   0.1919
+%     200   100   1.316   0.4678   0.966   0.86   112.9   0.1958
+%    That covers EVERY Reynolds number in this project's sweep. Use it to
+%    validate the whole sweep, not just Re = 100.
+%
+% 3. Confinement is their explicit subject and their lateral condition
+%    (u = 1, v = 0, called the free stream condition) is this project's
+%    free-slip setup. They report, via Kumar and Mittal (2006), that blockage
+%    effects are negligible only for H > 100, and via Posdziech and Grundmann
+%    (2007) that "the force coefficient and the base suction coefficient are
+%    strongly dependent on the resolution and even more on the size of the
+%    computational domain" while St is not. This project's H = 50 (2 %
+%    blockage) is below that threshold and below every domain in their tables,
+%    which explains a systematic Cd overshoot and supports the report's
+%    headline blockage finding with a citation.
+@article{qu2013,
+  author  = {Qu, Lixia and Norberg, Christoffer and Davidson, Lars and
+             Peng, Shia-Hui and Wang, Fujun},
+  title   = {Quantitative numerical analysis of flow past a circular cylinder
+             at Reynolds number between 50 and 200},
+  journal = {Journal of Fluids and Structures},
+  volume  = {39},
+  pages   = {347--370},
+  year    = {2013},
+  doi     = {10.1016/j.jfluidstructs.2013.02.007}
+}
+
+% VERIFIED title/author/volume/page/year via the ADS record and the AIP
+% listing (Phys. Fluids 31(10), 2742, 1988).
+% This is almost certainly the source of the correlation implemented in
+% src/cfd/lbm_cylinder.py, St = -3.3265/Re + 0.1816 + 1.6e-4 Re: the title,
+% year and subject (the universal, continuous parallel-shedding Strouhal
+% curve for laminar shedding) all match, and the code docstring already says
+% "Williamson (1988)".
+% STILL TO DO: the coefficients themselves were NOT read from the paper. It
+% is a three-page Letter -- open it and confirm the fit and its stated
+% Reynolds range. Independent support meanwhile: the correlation agrees with
+% qu2013's Table 3 St values to within 0.5 % at Re = 60, 80, 100, 120, 150
+% and 180, which is strong evidence the implementation is right whatever the
+% attribution turns out to be.
+@article{williamson1988,
+  author  = {Williamson, Charles H. K.},
+  title   = {Defining a universal and continuous Strouhal--Reynolds number
+             relationship for the laminar vortex shedding of a circular
+             cylinder},
+  journal = {Physics of Fluids},
+  volume  = {31},
+  number  = {10},
+  pages   = {2742},
+  year    = {1988},
+  note    = {PAGE RANGE AND THE FIT COEFFICIENTS UNVERIFIED.}
+}
+
+% VERIFIED journal/volume/pages via the Annual Reviews listing. The standard
+% review of laminar and transitional cylinder wake dynamics.
+@article{williamson1996annrev,
+  author  = {Williamson, Charles H. K.},
+  title   = {Vortex Dynamics in the Cylinder Wake},
+  journal = {Annual Review of Fluid Mechanics},
+  volume  = {28},
+  pages   = {477--539},
+  year    = {1996}
+}
+
+% VERIFIED title/author/volume/pages/DOI at the Cambridge Core listing.
+@article{williamson1996jfm,
+  author  = {Williamson, Charles H. K.},
+  title   = {Three-dimensional wake transition},
+  journal = {Journal of Fluid Mechanics},
+  volume  = {328},
+  pages   = {345--407},
+  year    = {1996},
+  doi     = {10.1017/S0022112096008750}
+}
+
+% VERIFIED title/authors/volume/pages. The critical value Re_c = 188.5 +/- 1.0
+% with a spanwise wavelength of 3.96 diameters was reported consistently
+% across sources but NOT read from the paper itself.
+% THIS is the correct citation for the report's claim that the sweep's upper
+% limit is set by the three-dimensional transition near Re = 190. It is far
+% more precise than citing Williamson, and it justifies Re = 180 as the top
+% point exactly.
+@article{barkley1996floquet,
+  author  = {Barkley, Dwight and Henderson, Ronald D.},
+  title   = {Three-dimensional {F}loquet stability analysis of the wake of a
+             circular cylinder},
+  journal = {Journal of Fluid Mechanics},
+  volume  = {322},
+  pages   = {215--241},
+  year    = {1996}
+}
+
+% VERIFIED title/authors/volume/issue/pages/DOI via the ADS record.
+% CAUTION: this fits a series in 1/sqrt(Re), a DIFFERENT functional form from
+% the correlation in src/cfd/lbm_cylinder.py. Do not cite it for that
+% formula; cite williamson1988.
+@article{williamsonbrown1998,
+  author  = {Williamson, Charles H. K. and Brown, G. L.},
+  title   = {A series in $1/\sqrt{Re}$ to represent the Strouhal--Reynolds
+             number relationship of the cylinder wake},
+  journal = {Journal of Fluids and Structures},
+  volume  = {12},
+  number  = {8},
+  pages   = {1073--1085},
+  year    = {1998},
+  doi     = {10.1006/jfls.1998.0184}
+}
+
+% UNVERIFIED -- known only through qu2013's discussion of it, which reports
+% that they used a rectangular domain with slip walls at the lateral
+% boundaries over H = 8-200 and found blockage effects negligible only for
+% H > 100 (with Xu = Xd = 50). That threshold is the single most useful
+% number for this project's blockage section, so confirm it at the source.
+@article{kumar2006,
+  author  = {Kumar, B. and Mittal, S.},
+  title   = {Effect of blockage on critical parameters for flow past a
+             circular cylinder},
+  journal = {International Journal for Numerical Methods in Fluids},
+  year    = {2006},
+  note    = {ALL FIELDS UNVERIFIED -- title, journal, volume and pages are
+             reconstructed. Cited by qu2013 as Kumar and Mittal (2006).}
+}
+
+% UNVERIFIED -- known only through qu2013, which reports that they used a
+% spectral code with lateral distances from 20 to 4000, concluded Xu > 20 is
+% needed, showed force and base suction coefficients depend more on domain
+% size than on resolution while St does not, and published high-order
+% polynomial fits for Cd(Re), -Cpb(Re), St(Re) and lift amplitude in the
+% laminar shedding regime. Those polynomial fits would be the ideal benchmark
+% for this project's whole sweep -- worth chasing.
+@article{posdziech2007,
+  author  = {Posdziech, O. and Grundmann, R.},
+  title   = {A systematic approach to the numerical calculation of
+             fundamental quantities of the two-dimensional flow over a
+             circular cylinder},
+  journal = {Journal of Fluids and Structures},
+  year    = {2007},
+  note    = {ALL FIELDS UNVERIFIED -- reconstructed. Cited by qu2013 as
+             Posdziech and Grundmann (2007).}
+}
+
+% UNVERIFIED -- known only through qu2013, which reports this is a
+% lattice-Boltzmann study with H = 100, Xu = Xd = 50, free stream conditions
+% upstream and downstream and periodicity on the lateral boundaries, giving
+% Cd = 1.336 and St = 0.164 at Re = 100. The closest methodological match in
+% the literature to this project's solver, so the most directly comparable
+% benchmark point available.
+@article{li2009lbm,
+  author  = {Li, Y. and Shock, R. and Zhang, R. and Chen, H.},
+  title   = {Numerical study of flow past a circular cylinder using the
+             lattice Boltzmann method},
+  year    = {2009},
+  note    = {ALL FIELDS UNVERIFIED -- author list, title, journal, volume and
+             pages are reconstructed and the author list is a guess. Cited by
+             qu2013 as Li et al. (2009). Find the real reference in qu2013's
+             bibliography.}
+}
+
+% VERIFIED journal/volume/pages exist with this title and author list via the
+% ScienceDirect listing. Superseded as this project's Re = 100 benchmark by
+% qu2013, which compiles eight studies rather than one. Keep only if cited
+% for something specific.
+@article{liu1998multigrid,
+  author  = {Liu, C. and Zheng, X. and Sung, C. H.},
+  title   = {Preconditioned Multigrid Methods for Unsteady Incompressible
+             Flows},
+  journal = {Journal of Computational Physics},
+  volume  = {139},
+  number  = {1},
+  pages   = {35--57},
+  year    = {1998},
+  note    = {Re = 100 VALUES NOT VERIFIED.}
+}
+
+
+% ==========================================================================
+% Acoustic lock-in -- the literature that explains Section sec:acoustic
+% ==========================================================================
+
+% VERIFIED (READ) -- first page read 2026-09-22. J. Fluid Mech. (1985),
+% vol. 161, pp. 217-237. DOI 10.1017/S0022112085002890.
+% The experimental anchor for the acoustic section. From the abstract:
+% a TRANSVERSE sound wave acting on a rigid circular cylinder IN A DUCT;
+% "The frequency of vortex shedding can be shifted by sound applied either
+% above or below the nominal vortex-shedding frequency. This entrainment is
+% produced by the velocity induced by the sound wave rather than by the sound
+% pressure." The introduction states that the resonant acoustic modes in such
+% systems are transverse to both the mean flow and the cylinder axis, which
+% is exactly the c_s/2H mode this project identifies.
+% CAVEAT to state if cited: Re = 20 000 to 40 000, far above this project's
+% range. Use hong2020lockin for the low-Re mechanism and this for the
+% experimental precedent that sound entrains shedding at all.
+@article{blevins1985sound,
+  author  = {Blevins, Robert D.},
+  title   = {The effect of sound on vortex shedding from cylinders},
+  journal = {Journal of Fluid Mechanics},
+  volume  = {161},
+  pages   = {217--237},
+  year    = {1985},
+  doi     = {10.1017/S0022112085002890}
+}
+
+% VERIFIED title/authors/journal/volume/article number/year/DOI at Cambridge
+% Core, plus the following contents from the landing page: establishes
+% bidirectional vortex-sound coupling as the lock-in mechanism for a cylinder
+% in a flow duct with a transverse standing (beta) mode, and quantifies the
+% band -- synchronous region 0.98 <= f_s/f_a <= 1.02, beta-mode dominant
+% region 0.93 <= f_s/f_a < 0.98 and 1.02 < f_s/f_a <= 1.14, with the peak
+% resonant amplitude at the upper boundary of the synchronous region rather
+% than at perfect frequency matching.
+% NOTE THE TENSION: this project observes locking at 15 % and 24 %
+% separation, outside the 14 % outer bound here. See literature.md.
+@article{hong2020lockin,
+  author  = {Hong, Zhiliang and Wang, Xiaoyu and Jing, Xiaodong and
+             Sun, Xiaofeng},
+  title   = {Frequency lock-in mechanism in flow-induced acoustic resonance of
+             a cylinder in a flow duct},
+  journal = {Journal of Fluid Mechanics},
+  volume  = {884},
+  pages   = {A42},
+  year    = {2020},
+  doi     = {10.1017/jfm.2019.966}
+}

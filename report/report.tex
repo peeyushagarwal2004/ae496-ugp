@@ -1,4 +1,13 @@
 % AE496 UGP report.
+% Check:  python experiments/verify_report.py   -- must pass before building.
+%         Every number below is registered in report/numbers.json against the
+%         artifact that produces it. Do not edit a number here without editing
+%         its manifest entry, and do not regenerate a run without re-checking.
+%         Regenerate the derived artifacts first if runs/ has changed:
+%             python tests/test_ns2d_unsteady.py     -> runs/operator_verification.json
+%             python experiments/derived_metrics.py  -> runs/derived_metrics.json
+%         (the second needs data/cylinder_re100_v4.npz; pass --skip-dataset
+%          without it, which leaves the divergence figure unchecked).
 % Build:  cd report && pdflatex report.tex && pdflatex report.tex
 % Figures are read from ../figures, so the repository layout is the build
 % environment -- no copies to keep in sync.
@@ -40,8 +49,8 @@ solution: the steady field satisfies the governing equations exactly, and the
 training loss has no notion of its physical instability. This project
 reproduces that collapse on purpose-generated, validated ground truth, and then
 determines which of three candidate mechanisms defeats it. On a lattice
-Boltzmann dataset at $\Rey = 100$ ($\Cd$ within 0.3\% and $\St$
-within 2.3\% of published benchmarks), a plain PINN retains
+Boltzmann dataset at $\Rey = 100$ ($\St$ within 3.3\% of published benchmarks,
+with a $\Cd$ overshoot of 4.8\% traced to domain confinement), a plain PINN retains
 10.6\% of the reference wake amplitude. Adding Fourier features or
 a Reynolds decomposition does not help. \emph{Causal time-marching alone
 restores shedding data-free}, at 89.2\% retained amplitude, and an
@@ -53,7 +62,7 @@ shedding frequency to within 0.1\%, at 94.8\% of the correct amplitude and
 $2.4^\circ$ of phase, with a velocity-field error of 3.6\%. A second
 contribution adds a pressure-free physics residual to a Fourier Neural Operator
 trained after the method of Renn et al.; the physics term lowers forecast error
-by 20--28\% out to one shedding period, after which both
+by 21--28\% out to one shedding period, after which both
 variants have failed.
 \end{abstract}
 
@@ -78,12 +87,34 @@ is not merely a question of accuracy, because of a structural difficulty:
         PDE residual that fills it.
 \end{enumerate}
 
-The documented consequence\,\cite{pinnfail} is that a data-free PINN
+The documented consequence\,\cite{chuang2023} is that a data-free PINN
 ``behaves like a steady solver'', while a data-driven one sheds only where
-data is present. The objective of this project is to reproduce that failure on
-validated ground truth of our own, and then to establish \emph{which} mechanism
-defeats it, with an ablation controlled well enough that the answer is
-attributable.
+data is present. Two points of scope. Their cylinder case is at $\Rey = 200$,
+solved as a \emph{single} time window spanning forty shedding periods, whereas
+this project reproduces the phenomenon at $\Rey = 100$ --- and across
+$\Rey = 60$--$180$ in Section~\ref{sec:resweep} --- from a baseline that solves
+one window of one period and collapses anyway, which is a considerably more
+favourable configuration than theirs. And they attribute the collapse to
+spectral bias, on the evidence of a Koopman analysis showing damped modes; the
+ablation below finds that attacking spectral bias directly does not restore
+shedding, while enforcing causality does, without touching the spectrum.
+
+The objective is therefore to reproduce that failure on validated ground truth
+of our own, and then to establish \emph{which} mechanism defeats it, with an
+ablation controlled well enough that the answer is attributable. The
+mechanism that works, causal time-marching, is not new in itself --- it is the
+sequence-to-sequence formulation of Krishnapriyan et
+al.\,\cite{krishnapriyan2021}, demonstrated there on one-dimensional
+convection, reaction and reaction--diffusion problems, and a hard-window
+relative of the causal weighting of Wang et al.\,\cite{wang2024causality}.
+What is established here is that it suffices \emph{alone}, \emph{data-free},
+on two-dimensional wake shedding, and that the gain is causality rather than
+compute. That matters because two independent studies conclude the
+opposite: both Chuang and Barba\,\cite{chuang2023} and, more recently,
+Shah\,\cite{shah2026} --- who ablates six techniques on a confined cylinder
+benchmark and finds that only supervised combinations escape the collapse ---
+report that some form of data supervision is necessary to sustain shedding at
+all. Neither tests hard time-window marching.
 
 A second thread connects the work to its reference paper. Renn et
 al.\,\cite{renn2023} forecast subcritical cylinder wakes with a Fourier Neural
@@ -92,11 +123,12 @@ anywhere in it. Whether adding physics to such an operator improves forecast
 stability is the natural question joining the two topics, and is addressed in
 Section~\ref{sec:fno}.
 
-\paragraph{Reynolds number.} All results are at $\Rey = 100$: laminar and
-unambiguously two-dimensional. The reference paper's $\Rey = 240$--$3060$ is
-genuinely three-dimensional, where a 2-D model would be solving the wrong
-physics. Section~\ref{sec:resweep} repeats the central comparison across
-$\Rey = 60$--$180$.
+\paragraph{Reynolds number.} The ablation and the accuracy study are at
+$\Rey = 100$: laminar and unambiguously two-dimensional. Renn et al.'s
+$\Rey = 240$--$3060$ is genuinely three-dimensional, where a 2-D model would be
+solving the wrong physics. Section~\ref{sec:resweep} repeats the central
+comparison across $\Rey = 60$--$180$, the upper limit set by the
+three-dimensional transition at $\Rey_c = 188.5 \pm 1.0$\,\cite{barkley1996}.
 
 \paragraph{Software.} The work builds on \texttt{underPINN}, a JAX PINN
 framework, which supplies the network architectures, the geometry primitives
@@ -139,26 +171,59 @@ reference paper's PIV resolution so that the later comparison is like-for-like.
 
 \begin{table}[h]
 \centering
-\caption{Validation of the ground truth at $\Rey = 100$.}
+\caption{Validation of the ground truth at $\Rey = 100$. The benchmarks are
+the compilation of eight independent large-domain studies in Qu et
+al.\,\cite{qu2013}, whose own values (used as the reference for the errors quoted) are $\Cd = 1.317$, $\St = 0.1649$ and
+$\Cl'= 0.2224$ at $H = 120$.}
 \begin{tabular}{lccc}
 \toprule
-quantity & computed & benchmark & error \\
+quantity & computed & benchmark\,\cite{qu2013} & error \\
 \midrule
-$\Cd$ (mean drag coefficient) & 1.3798 & 1.37--1.38 & $+0.3\%$ \\
-$\St$ (Strouhal number)       & 0.1611 & 0.165      & $-2.3\%$ \\
-divergence error & \multicolumn{3}{l}{0.55\% of $|\nabla \mathbf{u}|$, tracking $O(\mathrm{Ma}^2)$} \\
+$\Cd$ (mean drag coefficient) & 1.3798 & 1.318--1.336 & $+4.8\%$ \\
+$\St$ (Strouhal number)       & 0.1595 & 0.164--0.166 & $-3.3\%$ \\
+divergence error & \multicolumn{3}{l}{1.35\% of $|\nabla \mathbf{u}|$, against $\mathrm{Ma}^2 = 0.75\%$} \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+Three points about this table, because each of them was got wrong at some
+stage of this project.
+
+First, $\Cd$ is \emph{not} within a fraction of a percent of the literature, as
+an earlier draft claimed against an uncited benchmark of 1.37--1.38. The
+large-domain consensus at $\Rey = 100$ is $\Cd \approx 1.32$, and the
+overshoot here is $+4.8\%$. It is systematic rather than incidental: the same
+comparison across the whole sweep of Section~\ref{sec:resweep} gives $+2.7\%$
+to $+7.9\%$ at every Reynolds number. Section~\ref{sec:resweep} attributes it
+to confinement, and the convergence study below is the direct evidence.
+
+Second, the $\St$ quoted is measured from wake vorticity, not from the lift
+signal, for the reason given in Section~\ref{sec:acoustic}. The lift-derived
+value for this dataset is 0.1611, which would read as a $-2.3\%$ error and
+flatter the solver by a point.
+
+Third, the divergence error depends on the evaluation mask to within an order
+of magnitude, because centred stencils adjacent to the cylinder straddle the
+wall and measure a stencil artefact rather than compressibility. The figure
+quoted uses this project's own \texttt{interior\_mask} with a two-cell halo and
+an r.m.s. norm; widening the halo to eight cells gives $0.53\%$, and a
+mean-absolute norm gives $0.71\%$. The claim worth making is that the residual
+divergence is of order $\mathrm{Ma}^2$, not that it takes any particular value.
+
 \paragraph{Convergence study.} Two candidate error sources were separated
 (Figure~\ref{fig:convergence}). Varying resolution from $D = 16$ to $D = 40$ at
 fixed blockage moves $\Cd$ by only 2.4\%: the grid is converged.
-Varying blockage at fixed resolution moves it far more, $\Cd = 1.627$, $1.459$
-and $1.431$ at 5.0\%, 3.3\% and 2.5\%,
-extrapolating to $1.348$ at zero blockage ($-2.0\%$ against the benchmark).
-\emph{The apparent $+18\%$ error at 5\% blockage is domain
-confinement, not a solver defect} --- the headline validation result.
+Varying blockage at fixed resolution moves it far more, $\Cd = 1.627$, $1.458$
+and $1.431$ at 5.0\%, 3.3\% and 2.5\%, extrapolating linearly through the two
+least confined cases to $1.348$ at zero blockage --- still $+2.3\%$ against the
+benchmark, since the production dataset's $H = 50$ is itself well inside the
+confined regime.
+\emph{The apparent $+24\%$ error at 5\% blockage is domain
+confinement, not a solver defect} --- the headline validation result, and one
+the literature supports directly: Qu et al.\,\cite{qu2013} report that force
+and base-suction coefficients depend more strongly on domain size than on
+resolution while $\St$ does not, and that blockage effects become negligible
+only for $H > 100$.
 
 \begin{figure}[h]
 \centering
@@ -176,10 +241,13 @@ extrapolation to zero blockage.}
 \end{figure}
 
 \paragraph{A methodological note.} An early estimate of $\St$ taken from an FFT
-peak gave a $+0.3\%$ agreement that was pure luck: with $\sim$12 recorded
-periods the FFT bin width (0.014) exceeds the discrepancy being measured. All
-$\St$ values reported here come from a zero-crossing estimator, which resolves
-the period to a fraction of a time step; the honest error is $-2.3\%$.
+peak gave a fraction-of-a-percent agreement that was pure luck: over a record
+of this length a single FFT bin is wider than the discrepancy being measured,
+so the peak cannot resolve the quantity the agreement was claimed for. The
+$\St$ values reported here are measured instead in the time domain, from a
+zero-crossing estimator that resolves the period to a fraction of a time step,
+cross-checked spectrally where the signal is clean enough
+(Section~\ref{sec:acoustic}); the honest error is $-3.3\%$.
 
 \section{An unsteady Navier--Stokes operator}
 \label{sec:operator}
@@ -247,7 +315,7 @@ reference. Near 0\% means collapse to steady flow;
 
 The wake keeps about a tenth of the reference amplitude --- the PINN is
 effectively solving the steady problem. Quadrupling the budget to $80\,000$
-epochs moves this only to 21.9\%, so the collapse is not an
+epochs moves this only to 21.8\%, so the collapse is not an
 artefact of under-training.
 
 \section{Defeating the collapse}
@@ -334,8 +402,8 @@ settles it:
 \toprule
 configuration & $20\,000$ ep, 1 window & $80\,000$ ep, 1 window & $4\times 20\,000$ ep, 4 windows \\
 \midrule
-\texttt{baseline}  & 10.6\% & 21.9\% & --- \\
-\texttt{decompose} & 7.0\%  & 23.8\% & --- \\
+\texttt{baseline}  & 10.6\% & 21.8\% & --- \\
+\texttt{decompose} & 7.0\%  & 23.7\% & --- \\
 \texttt{march}     & ---                 & ---                 & \textbf{89.2\%} \\
 \bottomrule
 \end{tabular}
@@ -355,8 +423,8 @@ longer''.
 change & applied to & shedding retained & relative $L_2$ \\
 \midrule
 $\sigma = 8$ (from 2) & \texttt{all}     & 90.2\% $\rightarrow$ \textbf{97.6\%} & 0.047 $\rightarrow$ \textbf{0.042} \\
-$\sigma = 8$          & \texttt{fourier} & 9.7\% $\rightarrow$ 11.9\% & 0.167 $\rightarrow$ 0.147 \\
-$w_{ic} = 100$ (from 10) & \texttt{all}  & 90.2\% $\rightarrow$ 89.8\% & no change \\
+$\sigma = 8$          & \texttt{fourier} & 9.7\% $\rightarrow$ 11.9\% & 0.167 $\rightarrow$ 0.148 \\
+$w_{ic} = 100$ (from 10) & \texttt{all}  & 90.2\% $\rightarrow$ 89.7\% & 0.047 $\rightarrow$ 0.046 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -379,7 +447,7 @@ data points per window & shedding retained & relative $L_2$ \\
 0    & 90.2\% & 0.047 \\
 100  & 96.2\% & 0.030 \\
 500  & 97.6\% & 0.021 \\
-2000 & 99.5\% & 0.016 \\
+2000 & 99.4\% & 0.016 \\
 4000 & 100.0\% & 0.015 \\
 \bottomrule
 \end{tabular}
@@ -407,15 +475,20 @@ $\sigma = 8$) at $\Rey = 100$, over one shedding period and over five.}
 \toprule
 quantity & 1 period (4 windows) & 5 periods (20 windows) & reference \\
 \midrule
-shedding frequency $\St$ & 0.1565 ($-0.9\%$) & \textbf{0.1622 ($+0.1\%$)} & 0.1621 (LBM) \\
+shedding frequency $\St$ & 0.1565 ($-0.9\%$) & \textbf{0.1627 ($+0.1\%$)} & LBM over the same span \\
 wake amplitude           & 96.5\% & 94.8\% & LBM probe r.m.s. \\
-phase lag                & $+2.9^\circ$ & $+2.4^\circ$ & --- \\
+phase lag                & $+3.0^\circ$ & $+2.4^\circ$ & --- \\
 phase drift across span  & $-0.000$ periods & $-0.005$ periods & --- \\
 velocity-field error     & 0.043 & \textbf{0.036} & relative $L_2$ \\
 zero crossings available & 2 & 10 & 12+ for the LBM's own $\St$ \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+Each column is scored against the LBM signal over its \emph{own} span, which
+is why no single reference value is quoted: the one-period window covers
+$\St_{\mathrm{LBM}} = 0.1578$ and the five-period window $0.1625$, the
+difference being what ten zero crossings buy over two.
 
 Extending the run from four windows to twenty --- from one shedding period to
 five --- \emph{improves} every quantity that matters. The frequency error falls
@@ -468,9 +541,9 @@ $\Rey$ & $\St$ vs correlation & \texttt{baseline} & \texttt{all} (data-free) & r
 60  & $+0.6\%$ & 37.8, 40.1\% & \textbf{88.5, 91.2\%}   & 0.031 \\
 80  & $-1.1\%$ & 22.2, 21.4\% & \textbf{95.8, 98.5\%}   & 0.022 \\
 100 & $-3.0\%$ & 9.8, 11.3\%  & \textbf{96.7, 98.4\%}   & 0.042 \\
-120 & $+2.5\%$ & 20.2, 26.5\% & \textbf{103.5, 104.1\%} & 0.035 \\
+120 & $+2.5\%$ & 20.2, 26.5\% & \textbf{103.5, 104.1\%} & 0.034 \\
 150 & $-0.3\%$ & 35.7, 43.1\% & \textbf{94.1, 96.7\%}   & 0.032 \\
-180 & $-1.6\%$ & 31.1, 38.3\% & \textbf{93.6, 96.3\%}   & 0.027 \\
+180 & $-1.6\%$ & 31.1, 38.3\% & \textbf{93.6, 96.3\%}   & 0.026 \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -510,26 +583,46 @@ methodological result.
 The cause is not the measurement. Wake \emph{vorticity}, which cannot see
 irrotational sound, oscillates at the same anomalous frequency. Lattice
 Boltzmann is weakly compressible and the free-slip walls reflect perfectly, so
-the domain supports a standing half-wave across its height at $c_s / 2H$. In
-flow units that is $\St = 0.1155$, and the distance from the shedding
-frequency decides whether the wake locks onto it:
+the domain supports a standing half-wave across its height at $c_s / 2H$, with
+$c_s = 1/\sqrt{3}$ on the D2Q9 lattice. For the sweep geometry
+($H = 1200$, $D = 24$, $u = 0.05$) that is $\St_a = 0.1155$ in flow units, and
+the distance from the natural shedding frequency decides whether the wake
+locks onto it. Separation is measured as $(\St - \St_a)/\St$, with $\St$ taken
+from Williamson's correlation\,\cite{williamson1988} rather than from the
+measurement --- at the Reynolds numbers that locked, the measured value
+\emph{is} the locked one, so using it would define the anomaly away:
 
 \begin{center}
-\begin{tabular}{lcc}
+\begin{tabular}{lccc}
 \toprule
-$\Rey$ & separation from the resonance & outcome \\
+$\Rey$ & separation from the resonance & $\St/\St_a$ & outcome \\
 \midrule
-60  & 15\% & locked, wake at 0.114 \\
-80  & 24\% & locked, wake at 0.113 \\
-100 & 30\% & clean, $-3.0\%$ against the correlation \\
-120--180 & 33--40\% & clean, $-1.6\%$ to $+2.5\%$ \\
+60  & 15\% & 1.18 & locked, wake at 0.114 \\
+80  & 24\% & 1.32 & locked, wake at 0.113 \\
+100 & 30\% & 1.42 & clean, $-3.0\%$ against the correlation \\
+120--180 & 33--40\% & 1.50--1.66 & clean, $-1.6\%$ to $+2.5\%$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
+\paragraph{This is a known physical mechanism, not a numerical curiosity.}
+Free-slip lateral walls are perfectly reflecting duct walls, and lattice
+Boltzmann carries genuine sound, so the simulation is a duct that resonates.
+Blevins\,\cite{blevins1985} showed experimentally that a transverse acoustic
+wave shifts cylinder shedding to its own frequency, and that the entrainment
+is driven by the acoustic \emph{velocity} rather than the pressure; Hong et
+al.\,\cite{hong2020} model the bidirectional vortex--sound coupling for a
+cylinder in a flow duct and place the lock-in band at
+$\St/\St_a \le 1.14$. The ratios above are 1.18 and 1.32 for the two cases
+that locked --- outside that band, and the discrepancy is worth naming rather
+than hiding. The most likely explanation is that these walls are lossless
+where a physical duct is not, so the resonance is sustained at separations a
+real duct could not hold; confirming that would need a run with an absorbing
+lateral boundary, which is listed in Section~\ref{sec:ongoing} as outstanding.
+
 The resonance sits at $(c_s/2H)(D/U)$ in flow units, so \emph{lowering} the
 lattice velocity moves it away from the shedding band rather than merely
-weakening it. Regenerating $\Rey = 60$ and 80 at $u = 0.0315$ and $0.028$
+weakening it. Regenerating $\Rey = 60$ and 80 at $u = 0.0277$ and $0.0280$
 (against 0.05 elsewhere) moved them to $+0.6\%$ and $-1.1\%$ against the
 correlation. The same resonance explains a long-standing oddity in this
 project: the lift coefficient's r.m.s.\ never converged between runs, because
@@ -594,7 +687,7 @@ approximately one shedding period.}
 \label{fig:fno}
 \end{figure}
 
-\paragraph{Result.} Physics lowers forecast error by 20\% at the
+\paragraph{Result.} Physics lowers forecast error by 21\% at the
 trained horizon and 28\% at twice it, then \emph{crosses over} at
 step 27--32 across seeds and variants, which is 0.8--1.0 shedding
 periods. Continuity alone buys nearly all of the benefit, so the effect is not
@@ -612,7 +705,7 @@ reproducible. The defensible statement is that \emph{physics extends the useful
 forecast horizon, and neither model is usable beyond one shedding period}.
 
 \paragraph{A parity artefact worth naming.} Rollout error alternates between
-even and odd steps by 30--45\% in \emph{every} variant,
+even and odd steps by 24--44\% in \emph{every} variant,
 physics or not: a period-2 mode of the two-frame autoregressive map. A single
 step's error can therefore read 30\% better or worse purely by
 which parity it lands on, so all numbers above are pairwise means of adjacent
@@ -646,7 +739,7 @@ only claim supported is that the reproduction works.
         per window restores 96\% of the shedding, and further data
         buys accuracy only.
   \item Adding a pressure-free physics residual to a data-driven FNO lowers
-        forecast error by 20--28\% within one shedding
+        forecast error by 21--28\% within one shedding
         period, with continuity alone responsible for nearly all of it. Beyond
         one period both variants fail.
 \end{enumerate}
@@ -655,23 +748,47 @@ only claim supported is that the reproduction works.
 \label{sec:ongoing}
 
 \begin{itemize}
-  \item \textbf{One Reynolds number.} Every result above is at $\Rey = 100$. A
-        sweep over $\Rey = 60, 80, 120, 150, 180$ is running, repeating the
-        \texttt{baseline}-versus-\texttt{all} comparison at each, with the
-        marching window scaled to each dataset's measured shedding period so
-        the configurations stay comparable. The upper limit is set by the
-        three-dimensional transition near $\Rey \approx 190$.
+  \item \textbf{Confinement bias in $\Cd$.} The production datasets run at
+        $H = 50$, where Qu et al.\,\cite{qu2013} report blockage effects are
+        still significant ($H > 100$ is needed). $\Cd$ is correspondingly high
+        by $2.7$--$7.9\%$ at every Reynolds number in the sweep, while $\St$,
+        which the literature reports is far less sensitive to domain size, is
+        within $3.3\%$ throughout. Nothing in this report depends on $\Cd$ ---
+        every PINN and FNO result is scored against velocity fields and wake
+        probes --- but a single run at $H > 100$ would close the validation
+        question outright, and is the most valuable outstanding experiment.
+  \item \textbf{The shedding range, not the documented case.} The sweep covers
+        $\Rey = 60$--$180$, its upper limit set by the three-dimensional
+        transition at $\Rey_c = 188.5 \pm 1.0$\,\cite{barkley1996}. The
+        collapse this project responds to was documented at $\Rey =
+        200$\,\cite{chuang2023}, above that transition, so what is reproduced
+        here is the phenomenon rather than their specific case.
+  \item \textbf{Two seeds throughout.} Every table is a mean over two seeds,
+        and the spread is not always small: \texttt{decompose} gives $9.3\%$
+        and $4.6\%$ retained shedding, a factor of two, reported as $7.0\%$.
+        The conclusions rest on effects far larger than that spread, but three
+        to five seeds with a reported spread would remove the objection.
+  \item \textbf{Soft window continuity.} The marching chain enforces continuity
+        between windows only through the initial-condition loss, which is what
+        produces the visible handoff steps in Figure~\ref{fig:fields}. Roy and
+        Castonguay\,\cite{roy2024} enforce it exactly through a solution
+        ansatz, on one-dimensional problems; applying that here is the
+        clearest available extension.
   \item \textbf{Five shedding periods of PINN evaluation.}
         Section~\ref{sec:accuracy} covers five periods, over which the accuracy
         improves rather than decays. Behaviour over tens of periods, where a
         marching chain might accumulate phase error, is untested --- and the
         cost grows linearly with the horizon, one window per quarter period.
   \item \textbf{$\Cl$ r.m.s.\ is not converged} across configurations
-        (0.18--0.54 against a benchmark of $\sim$0.23) and is deliberately not
-        quoted as a validation metric.
+        (0.18--0.56 against a benchmark of 0.222--0.235\,\cite{qu2013}) and is
+        deliberately not quoted as a validation metric.
   \item \textbf{The resolution series was run at 5\% blockage},
         where blockage masks resolution. The blockage series is sound; a clean
         resolution answer would require repeating it at $H = 40D$.
+  \item \textbf{An absorbing lateral boundary} would confirm the acoustic
+        mechanism of Section~\ref{sec:acoustic} rather than sidestepping it.
+        Lowering the lattice velocity moves the resonance out of the shedding
+        band; damping it would remove it.
 \end{itemize}
 
 \paragraph{A note on method.} Estimates for each phase were recorded
@@ -683,16 +800,94 @@ helps within it and hurts beyond). An earlier CPU sweep at a fifth of the
 budget supported the first of those wrong conclusions --- \emph{an under-trained
 ablation produces the wrong qualitative answer, not merely a noisier one.}
 
-\begin{thebibliography}{9}
+% Full entries, with per-reference verification status, are kept in
+% report/references.bib. Every item below was checked against the publisher or
+% arXiv landing page; those marked there as read in full were opened.
+\begin{thebibliography}{99}
+
+\bibitem{chuang2023}
+P.-Y. Chuang and L.~A. Barba,
+\emph{Predictive Limitations of Physics-Informed Neural Networks in Vortex
+Shedding}, arXiv:2306.00230, 2023.
+
 \bibitem{renn2023}
 P.~J. Renn, C.~Wang, S.~Lale, Z.~Li, A.~Anandkumar and M.~Gharib,
 \emph{Forecasting subcritical cylinder wakes with Fourier Neural Operators},
 arXiv:2301.08290, 2023.
 
-\bibitem{pinnfail}
-\emph{Can physics-informed neural networks beat the finite element method?}
---- and related analyses of PINN failure modes in unsteady flow,
-arXiv:2306.00230, 2023.
+\bibitem{shah2026}
+D.~Shah, \emph{Complementary, Not Cumulative: Interaction Effects in
+Physics-Informed Neural Networks for Navier--Stokes Vortex Shedding},
+arXiv:2608.19632, 2026.
+
+\bibitem{krishnapriyan2021}
+A.~S. Krishnapriyan, A.~Gholami, S.~Zhe, R.~M. Kirby and M.~W. Mahoney,
+\emph{Characterizing possible failure modes in physics-informed neural
+networks}, Advances in Neural Information Processing Systems (NeurIPS), 2021.
+
+\bibitem{wang2024causality}
+S.~Wang, S.~Sankaran and P.~Perdikaris,
+\emph{Respecting causality is all you need for training physics-informed
+neural networks}, Computer Methods in Applied Mechanics and Engineering, 2024.
+doi:10.1016/j.cma.2024.116813.
+
+\bibitem{wang2021eigenvector}
+S.~Wang, H.~Wang and P.~Perdikaris,
+\emph{On the eigenvector bias of Fourier feature networks: From regression to
+solving multi-scale PDEs with physics-informed neural networks},
+Computer Methods in Applied Mechanics and Engineering \textbf{384}, 113938,
+2021.
+
+\bibitem{tancik2020}
+M.~Tancik et al.,
+\emph{Fourier features let networks learn high frequency functions in low
+dimensional domains}, NeurIPS, 2020.
+
+\bibitem{li2021fno}
+Z.~Li, N.~Kovachki, K.~Azizzadenesheli, B.~Liu, K.~Bhattacharya, A.~Stuart and
+A.~Anandkumar, \emph{Fourier Neural Operator for Parametric Partial
+Differential Equations}, ICLR, 2021.
+
+\bibitem{li2024pino}
+Z.~Li et al., \emph{Physics-Informed Neural Operator for Learning Partial
+Differential Equations}, ACM/IMS Journal of Data Science, 2024.
+doi:10.1145/3648506.
+
+\bibitem{roy2024}
+P.~Roy and S.~Castonguay,
+\emph{Exact Enforcement of Temporal Continuity in Sequential Physics-Informed
+Neural Networks}, arXiv:2403.03223, 2024.
+
+\bibitem{qu2013}
+L.~Qu, C.~Norberg, L.~Davidson, S.-H. Peng and F.~Wang,
+\emph{Quantitative numerical analysis of flow past a circular cylinder at
+Reynolds number between 50 and 200}, Journal of Fluids and Structures
+\textbf{39}, 347--370, 2013.
+
+\bibitem{williamson1988}
+C.~H.~K. Williamson,
+\emph{Defining a universal and continuous Strouhal--Reynolds number
+relationship for the laminar vortex shedding of a circular cylinder},
+Physics of Fluids \textbf{31}(10), 2742, 1988.
+
+\bibitem{barkley1996}
+D.~Barkley and R.~D. Henderson,
+\emph{Three-dimensional Floquet stability analysis of the wake of a circular
+cylinder}, Journal of Fluid Mechanics \textbf{322}, 215--241, 1996.
+
+\bibitem{hong2020}
+Z.~Hong, X.~Wang, X.~Jing and X.~Sun,
+\emph{Frequency lock-in mechanism in flow-induced acoustic resonance of a
+cylinder in a flow duct}, Journal of Fluid Mechanics \textbf{884}, A42, 2020.
+
+\bibitem{blevins1985}
+R.~D. Blevins, \emph{The effect of sound on vortex shedding from cylinders},
+Journal of Fluid Mechanics \textbf{161}, 217--237, 1985.
+
+\bibitem{grossmann2024}
+T.~G. Grossmann, U.~J. Komorowska, J.~Latz and C.-B. Sch\"onlieb,
+\emph{Can physics-informed neural networks beat the finite element method?},
+IMA Journal of Applied Mathematics \textbf{89}(1), 143--174, 2024.
 
 \bibitem{underpinn}
 Aeroscience Computations and Analysis Lab, \texttt{underPINN}: a JAX framework

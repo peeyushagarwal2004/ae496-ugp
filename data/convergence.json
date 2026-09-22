@@ -1,0 +1,272 @@
+[
+  {
+    "Re": 100.0,
+    "D_lattice": 16,
+    "U_lattice": 0.08,
+    "nu_lattice": 0.0128,
+    "tau_p": 0.5384,
+    "tau_m": 5.382812500000001,
+    "Lambda": 0.18749999999999997,
+    "scheme": "TRT",
+    "Ma": 0.13856406460551018,
+    "grid": [
+      400,
+      320
+    ],
+    "steps": 28000,
+    "warmup_steps": 14545,
+    "n_snapshots": 0,
+    "snapshot_grid": [
+      161,
+      81
+    ],
+    "dx_over_D": 0.125,
+    "crop": [
+      -5.0,
+      15.0,
+      -5.0,
+      5.0
+    ],
+    "dt_star_per_step": 0.005,
+    "snapshot_dt_star": 0.15,
+    "St": 0.17120670173329777,
+    "Cd_mean": 1.656150460243225,
+    "Cl_rms": 0.5247412919998169,
+    "St_target": 0.165,
+    "Cd_target": [
+      1.37,
+      1.38
+    ],
+    "runtime_s": 215.35038089752197,
+    "dtype": "float32",
+    "blockage": 0.05,
+    "wall_time_s": 220.29121375083923,
+    "blockage_pct": 5.0,
+    "series": "resolution"
+  },
+  {
+    "Re": 100.0,
+    "D_lattice": 24,
+    "U_lattice": 0.08,
+    "nu_lattice": 0.0192,
+    "tau_p": 0.5576,
+    "tau_m": 3.7552083333333344,
+    "Lambda": 0.1875,
+    "scheme": "TRT",
+    "Ma": 0.13856406460551018,
+    "grid": [
+      600,
+      480
+    ],
+    "steps": 42000,
+    "warmup_steps": 21818,
+    "n_snapshots": 0,
+    "snapshot_grid": [
+      241,
+      121
+    ],
+    "dx_over_D": 0.08333333333333333,
+    "crop": [
+      -5.0,
+      15.0,
+      -5.0,
+      5.0
+    ],
+    "dt_star_per_step": 0.0033333333333333335,
+    "snapshot_dt_star": 0.15000000000000002,
+    "St": 0.17099580120128374,
+    "Cd_mean": 1.627402901649475,
+    "Cl_rms": 0.538849413394928,
+    "St_target": 0.165,
+    "Cd_target": [
+      1.37,
+      1.38
+    ],
+    "runtime_s": 1082.9448955059052,
+    "dtype": "float32",
+    "blockage": 0.05,
+    "wall_time_s": 1088.582757472992,
+    "blockage_pct": 5.0,
+    "series": "both"
+  },
+  {
+    "Re": 100.0,
+    "D_lattice": 24,
+    "U_lattice": 0.08,
+    "nu_lattice": 0.0192,
+    "tau_p": 0.5576,
+    "tau_m": 3.7552083333333344,
+    "Lambda": 0.1875,
+    "scheme": "TRT",
+    "Ma": 0.13856406460551018,
+    "grid": [
+      600,
+      720
+    ],
+    "steps": 42000,
+    "warmup_steps": 21818,
+    "n_snapshots": 0,
+    "snapshot_grid": [
+      241,
+      121
+    ],
+    "dx_over_D": 0.08333333333333333,
+    "crop": [
+      -5.0,
+      15.0,
+      -5.0,
+      5.0
+    ],
+    "dt_star_per_step": 0.0033333333333333335,
+    "snapshot_dt_star": 0.15000000000000002,
+    "St": 0.16657008716301852,
+    "Cd_mean": 1.458453893661499,
+    "Cl_rms": 0.2655908465385437,
+    "St_target": 0.165,
+    "Cd_target": [
+      1.37,
+      1.38
+    ],
+    "runtime_s": 1609.8339266777039,
+    "dtype": "float32",
+    "blockage": 0.03333333333333333,
+    "wall_time_s": 1629.5842344760895,
+    "blockage_pct": 3.3333333333333335,
+    "series": "blockage"
+  },
+  {
+    "Re": 100.0,
+    "D_lattice": 32,
+    "U_lattice": 0.08,
+    "nu_lattice": 0.0256,
+    "tau_p": 0.5768,
+    "tau_m": 2.9414062500000004,
+    "Lambda": 0.18749999999999997,
+    "scheme": "TRT",
+    "Ma": 0.13856406460551018,
+    "grid": [
+      800,
+      640
+    ],
+    "steps": 56000,
+    "warmup_steps": 29090,
+    "n_snapshots": 0,
+    "snapshot_grid": [
+      321,
+      161
+    ],
+    "dx_over_D": 0.0625,
+    "crop": [
+      -5.0,
+      15.0,
+      -5.0,
+      5.0
+    ],
+    "dt_star_per_step": 0.0025,
+    "snapshot_dt_star": 0.1525,
+    "St": 0.17124260497733818,
+    "Cd_mean": 1.6172566413879395,
+    "Cl_rms": 0.5578116178512573,
+    "St_target": 0.165,
+    "Cd_target": [
+      1.37,
+      1.38
+    ],
+    "runtime_s": 1556.814557313919,
+    "dtype": "float32",
+    "blockage": 0.05,
+    "wall_time_s": 1564.6089887619019,
+    "blockage_pct": 5.0,
+    "series": "resolution"
+  },
+  {
+    "Re": 100.0,
+    "D_lattice": 24,
+    "U_lattice": 0.08,
+    "nu_lattice": 0.0192,
+    "tau_p": 0.5576,
+    "tau_m": 3.7552083333333344,
+    "Lambda": 0.1875,
+    "scheme": "TRT",
+    "Ma": 0.13856406460551018,
+    "grid": [
+      600,
+      960
+    ],
+    "steps": 42000,
+    "warmup_steps": 21818,
+    "n_snapshots": 0,
+    "snapshot_grid": [
+      241,
+      121
+    ],
+    "dx_over_D": 0.08333333333333333,
+    "crop": [
+      -5.0,
+      15.0,
+      -5.0,
+      5.0
+    ],
+    "dt_star_per_step": 0.0033333333333333335,
+    "snapshot_dt_star": 0.15000000000000002,
+    "St": 0.17116707990343535,
+    "Cd_mean": 1.4307944774627686,
+    "Cl_rms": 0.3404254615306854,
+    "St_target": 0.165,
+    "Cd_target": [
+      1.37,
+      1.38
+    ],
+    "runtime_s": 1345.7768049240112,
+    "dtype": "float32",
+    "blockage": 0.025,
+    "wall_time_s": 1348.6232423782349,
+    "blockage_pct": 2.5,
+    "series": "blockage"
+  },
+  {
+    "Re": 100.0,
+    "D_lattice": 40,
+    "U_lattice": 0.08,
+    "nu_lattice": 0.032,
+    "tau_p": 0.596,
+    "tau_m": 2.4531250000000004,
+    "Lambda": 0.1875,
+    "scheme": "TRT",
+    "Ma": 0.13856406460551018,
+    "grid": [
+      1000,
+      800
+    ],
+    "steps": 70000,
+    "warmup_steps": 36363,
+    "n_snapshots": 0,
+    "snapshot_grid": [
+      401,
+      201
+    ],
+    "dx_over_D": 0.05,
+    "crop": [
+      -5.0,
+      15.0,
+      -5.0,
+      5.0
+    ],
+    "dt_star_per_step": 0.002,
+    "snapshot_dt_star": 0.152,
+    "St": 0.1709878153764778,
+    "Cd_mean": 1.623965859413147,
+    "Cl_rms": 0.5446259379386902,
+    "St_target": 0.165,
+    "Cd_target": [
+      1.37,
+      1.38
+    ],
+    "runtime_s": 3233.3713834285736,
+    "dtype": "float32",
+    "blockage": 0.05,
+    "wall_time_s": 3243.8634791374207,
+    "blockage_pct": 5.0,
+    "series": "resolution"
+  }
+]
