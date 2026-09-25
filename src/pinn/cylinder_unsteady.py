@@ -234,13 +234,50 @@ def evaluate(pde, segments, ds, t0, t1, n_times=8):
 # --------------------------------------------------------------------------
 # Training
 # --------------------------------------------------------------------------
-def train_window(pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
-                 t0, t1, epochs, log_every, label):
+def build_ic(pde, params, cfg, ds, rng, t0, from_network):
+    """The initial-condition target for a window, and where it came from.
+
+    Two sources, and the difference decides what "data-free" means here.
+
+    `from_network=False` (the default, and what every result before
+    2026-09-25 used) takes the target from the LBM snapshot nearest t0. For a
+    single-window run that is one exact initial condition, which is standard
+    practice for a forward PINN solve. For an N-window marched run it is N
+    separate ground-truth slices spanning the interval, so a marched run
+    consumes N times the reference information of the single-window runs it is
+    being compared against. The comparison is then not clean.
+
+    `from_network=True` is the chain the write-up describes: the target is the
+    PREVIOUS window's network evaluated at t0, so the whole run touches ground
+    truth exactly once, at the very first window. That is the version in which
+    "data-free" means what a reader assumes, and it is the honest test of
+    whether causality alone restores shedding.
+
+    The target is evaluated once here and frozen. Re-evaluating it inside the
+    training loop would make it a moving target the network could satisfy by
+    doing nothing.
+    """
     ic_k = ds.nearest_time_index(t0)
     ic_coords, ic_vals = ds.snapshot(ic_k)
     sub = rng.choice(ic_coords.shape[0], size=min(cfg["n_ic"], ic_coords.shape[0]),
                      replace=False)
-    ic = (jnp.asarray(ic_coords[sub]), jnp.asarray(ic_vals[sub]))
+    coords = ic_coords[sub]
+
+    if not from_network:
+        return (jnp.asarray(coords), jnp.asarray(ic_vals[sub])), "dataset"
+
+    # Constrain at exactly t0 rather than at the nearest snapshot time: the
+    # network can be evaluated anywhere, so there is no reason to inherit the
+    # snapshot grid's time quantisation here.
+    xyt = jnp.asarray(np.column_stack([coords[:, 0], coords[:, 1],
+                                       np.full(coords.shape[0], t0)]))
+    vals = jax.lax.stop_gradient(pde.u(params, xyt))
+    return (xyt, vals), "network"
+
+
+def train_window(pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
+                 t0, t1, epochs, log_every, label, ic_from_network=False):
+    ic, ic_source = build_ic(pde, params, cfg, ds, rng, t0, ic_from_network)
 
     data = None
     if cfg["n_data"] > 0:
@@ -261,7 +298,7 @@ def train_window(pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
             print(f"  [{label}] ep {ep:>6d}  loss {float(l):.3e}  "
                   f"pde {lp:.2e}  bc {lb:.2e}  ic {li:.2e}  dat {ld:.2e}"
                   f"  ({time.time() - t_start:5.1f}s)", flush=True)
-    return params, state, hist
+    return params, state, hist, ic_source
 
 
 def build(args, ds):
@@ -310,6 +347,13 @@ def main():
     ap.add_argument("--n-wake", type=int, default=4000)
     ap.add_argument("--n-bc", type=int, default=400)
     ap.add_argument("--n-ic", type=int, default=4000)
+    ap.add_argument("--ic-from-network", action="store_true",
+                    help="chain the windows properly: every window after the "
+                         "first takes its initial condition from the previous "
+                         "window's network, not from a fresh LBM snapshot. "
+                         "Without this flag an N-window run consumes N "
+                         "ground-truth slices and is not comparable with a "
+                         "single-window run on equal information.")
     ap.add_argument("--n-data", type=int, default=0,
                     help="supervised samples per window (0 = data free)")
     ap.add_argument("--w-pde", type=float, default=1.0)
@@ -381,13 +425,17 @@ def main():
         # window 2 at lr 3e-5 and window 4 at 3e-8 -- frozen, which would read
         # as time-marching failing rather than as an optimiser artefact.
         state = opt.init(params)
-        params, state, hist = train_window(
+        # Window 0 has no predecessor, so its initial condition always comes
+        # from the dataset -- that single slice is the one piece of ground
+        # truth a data-free forward solve is entitled to.
+        params, state, hist, ic_source = train_window(
             pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
-            a, b, args.epochs, args.log_every, f"win {wdw + 1}/{args.windows}")
+            a, b, args.epochs, args.log_every, f"win {wdw + 1}/{args.windows}",
+            ic_from_network=(args.ic_from_network and wdw > 0))
         all_hist.append(hist)
         segments.append((a, b, params))
         m = evaluate(pde, [(a, b, params)], ds, a, b)
-        results.append(dict(window=wdw, **m))
+        results.append(dict(window=wdw, ic_source=ic_source, **m))
         print(f"  -> rel L2 {m['rel_l2_mean']:.4f}   "
               f"probe v rms: PINN {m['probe_v_rms_pinn']:.4f} vs "
               f"LBM {m['probe_v_rms_lbm']:.4f}   "
@@ -401,6 +449,16 @@ def main():
     # the window network that trained on it.
     overall = evaluate(pde, segments, ds, t_start,
                        min(t_start + span, t_hi), n_times=24) if results else {}
+
+    # How much reference data this run actually consumed. Without it, a marched
+    # run and a single-window run look equally "data-free" in the summary while
+    # differing by a factor of N in ground-truth initial conditions, which is
+    # exactly the confound this flag exists to remove.
+    n_gt_ic = sum(1 for r in results if r.get("ic_source") == "dataset")
+    overall["gt_ic_slices"] = n_gt_ic
+    overall["gt_ic_points"] = n_gt_ic * args.n_ic
+    overall["gt_data_points"] = args.n_data * len(results)
+    overall["ic_from_network"] = bool(args.ic_from_network)
 
     # ---- report ---------------------------------------------------------
     out = Path(args.out) if args.out else ROOT / "runs" / (
