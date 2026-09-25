@@ -1,0 +1,26 @@
+[
+  {
+    "config": "all",
+    "seed": 0,
+    "shedding": 0.623167827606637,
+    "rel_l2": 0.07991847493415817,
+    "probe_pinn": 0.25664240580518216,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--ic-from-network --sigma 8",
+    "minutes": 15.769757537047068
+  },
+  {
+    "config": "all",
+    "seed": 1,
+    "shedding": 0.6800724819605561,
+    "rel_l2": 0.0827491363403351,
+    "probe_pinn": 0.2800777417579245,
+    "probe_lbm": 0.4118351340293884,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--ic-from-network --sigma 8",
+    "minutes": 15.802305722236634
+  }
+]

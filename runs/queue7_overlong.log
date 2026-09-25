@@ -1,0 +1,41 @@
+### conf_H50 start Fri Sep 25 09:58:53 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 87625 steps
+recording every 73 steps after warmup
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   51200/200000  rho[0.9956,1.0046]    1687 steps/s  snaps=0
+  step  101625/200000  rho[0.9866,1.0155]    1690 steps/s  snaps=0
+  step  153425/200000  rho[0.9700,1.0307]    1702 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1132   (target 0.165)
+  Cd_mean = 1.3740   (target 1.37-1.38)
+  Cl_rms  = 0.1241
+  snapshots: 0  ->  data/cylinder_conf_H50.npz
+### conf_H50 exit 0 (Fri Sep 25 10:00:52 IST 2026)
+### conf_H80 start Fri Sep 25 10:00:52 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1920   cylinder centre (192.0, 959.5)   dtype=float32
+blockage D/H = 0.013   force window (177, 208, 944, 976)
+expected shedding period ~2921 steps; warmup 87625 steps
+recording every 73 steps after warmup
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   28000/200000  rho[0.9954,1.0055]     914 steps/s  snaps=0
+  step   56200/200000  rho[0.9948,1.0057]     932 steps/s  snaps=0
+  step   84800/200000  rho[0.9910,1.0112]     939 steps/s  snaps=0
+  step  112825/200000  rho[0.9795,1.0256]     936 steps/s  snaps=0
+  step  141425/200000  rho[0.9768,1.0383]     938 steps/s  snaps=0
+  step  170025/200000  rho[0.9763,1.0483]     940 steps/s  snaps=0
+  step  198625/200000  rho[0.8873,1.0795]     941 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.0571   (target 0.165)
+  Cd_mean = 1.9843   (target 1.37-1.38)
+  Cl_rms  = 2.9139
+  snapshots: 0  ->  data/cylinder_conf_H80.npz
+### conf_H80 exit 0 (Fri Sep 25 10:04:27 IST 2026)
+### conf_H120 start Fri Sep 25 10:04:27 IST 2026
