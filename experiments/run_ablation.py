@@ -112,6 +112,15 @@ def main():
                 "windows": len(res),
                 "epochs_per_window": args.epochs,
                 "extra": args.extra,
+                # How much reference data the run actually used. Two configs
+                # can both be "data-free" in the sense of carrying no
+                # supervised loss term and still differ fourfold in
+                # ground-truth initial conditions, which is what made the
+                # original marching comparison unequal.
+                "gt_ic_slices": overall.get("gt_ic_slices"),
+                "gt_ic_points": overall.get("gt_ic_points"),
+                "gt_data_points": overall.get("gt_data_points"),
+                "ic_from_network": overall.get("ic_from_network"),
                 "minutes": (time.time() - t0) / 60.0,
             })
             summary_path.write_text(json.dumps(summary, indent=2))
