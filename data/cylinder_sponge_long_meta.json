@@ -1,0 +1,47 @@
+{
+  "Re": 100.0,
+  "D_lattice": 24,
+  "U_lattice": 0.05,
+  "nu_lattice": 0.012000000000000002,
+  "tau_p": 0.536,
+  "tau_m": 5.708333333333329,
+  "Lambda": 0.1875,
+  "scheme": "TRT",
+  "sponge_d": 8.0,
+  "sponge_cells": 192,
+  "sponge_strength": 20.0,
+  "sponge_outlet_d": 0.0,
+  "Ma": 0.08660254037844387,
+  "grid": [
+    720,
+    1200
+  ],
+  "steps": 200000,
+  "warmup_steps": 87625,
+  "n_snapshots": 384,
+  "snapshot_grid": [
+    241,
+    121
+  ],
+  "dx_over_D": 0.08333333333333333,
+  "crop": [
+    -5.0,
+    15.0,
+    -5.0,
+    5.0
+  ],
+  "dt_star_per_step": 0.0020833333333333333,
+  "snapshot_dt_star": 0.6083333333333333,
+  "St": 0.11313949094127547,
+  "St_zero_crossing": 0.27157936083284556,
+  "Cd_mean": 1.368255853652954,
+  "Cl_rms": 0.11990457028150558,
+  "St_target": 0.164335,
+  "Cd_target": [
+    1.37,
+    1.38
+  ],
+  "runtime_s": 140.8524100780487,
+  "dtype": "float32",
+  "blockage": 0.02
+}
