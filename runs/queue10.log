@@ -1,0 +1,101 @@
+### starting Fri Sep 25 17:59:17 IST 2026
+### acoustic_short start Fri Sep 25 17:59:17 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 292 steps after warmup
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   48192/102000  rho[0.9939,1.0069]    1597 steps/s  snaps=15
+  step   96956/102000  rho[0.9874,1.0138]    1611 steps/s  snaps=182
+
+--- validation -------------------------------------------
+  St      = 0.1609   (target 0.165)
+  Cd_mean = 1.3815   (target 1.37-1.38)
+  Cl_rms  = 0.1719
+  snapshots: 199  ->  data/cylinder_acoustic_short.npz
+### acoustic_short exit 0 (Fri Sep 25 18:00:26 IST 2026)
+### acoustic_long start Fri Sep 25 18:00:26 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 87625 steps
+recording every 292 steps after warmup
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   46400/200000  rho[0.9920,1.0086]    1535 steps/s  snaps=0
+  step   77200/200000  rho[0.9846,1.0163]    1283 steps/s  snaps=0
+  step  106021/200000  rho[0.9850,1.0174]    1175 steps/s  snaps=63
+  step  136097/200000  rho[0.9732,1.0308]    1130 steps/s  snaps=166
+  step  166173/200000  rho[0.9717,1.0296]    1102 steps/s  snaps=269
+  step  195957/200000  rho[0.9746,1.0259]    1084 steps/s  snaps=371
+
+--- validation -------------------------------------------
+  St      = 0.1132   (target 0.165)
+  Cd_mean = 1.3740   (target 1.37-1.38)
+  Cl_rms  = 0.1241
+  snapshots: 384  ->  data/cylinder_acoustic_long.npz
+### acoustic_long exit 0 (Fri Sep 25 18:03:40 IST 2026)
+### upstream25 start Fri Sep 25 18:03:40 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 1440 x 1200   cylinder centre (600.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (585, 616, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   21000/102000  rho[0.9968,1.0041]     685 steps/s  snaps=0
+  step   42200/102000  rho[0.9921,1.0089]     699 steps/s  snaps=0
+  step   57412/102000  rho[0.9953,1.0045]     634 steps/s  snaps=0
+  step   69612/102000  rho[0.9946,1.0069]     577 steps/s  snaps=0
+  step   81812/102000  rho[0.9961,1.0049]     543 steps/s  snaps=0
+  step   94012/102000  rho[0.9963,1.0050]     520 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1632   (target 0.165)
+  Cd_mean = 1.3658   (target 1.37-1.38)
+  Cl_rms  = 0.2776
+  snapshots: 0  ->  data/cylinder_upstream25.npz
+### upstream25 exit 0 (Fri Sep 25 18:07:02 IST 2026)
+### upstream25_H120 start Fri Sep 25 18:07:02 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 1440 x 2880   cylinder centre (600.0, 1439.5)   dtype=float32
+blockage D/H = 0.008   force window (585, 616, 1424, 1456)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step    6800/102000  rho[0.9967,1.0040]     220 steps/s  snaps=0
+  step   13600/102000  rho[0.9969,1.0041]     225 steps/s  snaps=0
+  step   20600/102000  rho[0.9966,1.0040]     226 steps/s  snaps=0
+  step   28600/102000  rho[0.9957,1.0042]     236 steps/s  snaps=0
+  step   38000/102000  rho[0.9956,1.0045]     250 steps/s  snaps=0
+  step   47212/102000  rho[0.9960,1.0043]     259 steps/s  snaps=0
+  step   56612/102000  rho[0.9953,1.0045]     266 steps/s  snaps=0
+  step   66012/102000  rho[0.9963,1.0046]     271 steps/s  snaps=0
+  step   75412/102000  rho[0.9954,1.0046]     276 steps/s  snaps=0
+  step   84812/102000  rho[0.9961,1.0051]     279 steps/s  snaps=0
+  step   92412/102000  rho[0.9961,1.0049]     276 steps/s  snaps=0
+  step   99412/102000  rho[0.9965,1.0056]     272 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1654   (target 0.165)
+  Cd_mean = 1.3825   (target 1.37-1.38)
+  Cl_rms  = 0.3084
+  snapshots: 0  ->  data/cylinder_upstream25_H120.npz
+### upstream25_H120 exit 0 (Fri Sep 25 18:13:22 IST 2026)
+### measuring Fri Sep 25 18:13:22 IST 2026
+tag                H/D   warm    rec     lift    probe     vort   St_res       Cd
+----------------------------------------------------------------------------------
+acoustic_short      50   15.0   19.9   0.1609   0.1594   0.1600   0.1155   1.3815
+acoustic_long       50   30.0   38.5   0.1132   0.1130   0.1132   0.1155   1.3740
+confm_H50           50   15.0   19.9  0.1609*       --       --   0.1155   1.3815
+upstream25          50   15.0   19.9  0.1632*       --       --   0.1155   1.3658
+upstream25_H120    120   15.0   19.9  0.1654*       --       --   0.0481   1.3825
+
+* lift value from metadata (no snapshots saved)
+vorticity is the instrument that decides lock-in: it cannot see irrotational sound.
+
+wrote runs/st_instruments.json
+QUEUE10_DONE Fri Sep 25 18:13:25 IST 2026
