@@ -99,7 +99,8 @@ def macroscopic(f):
 # One LBM time step
 # --------------------------------------------------------------------------
 @partial(jax.jit, static_argnames=("win",))
-def step(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, win):
+def step(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, win,
+         sigma=0.0, f_target=None):
     """Advance the distribution `f` by one lattice time step.
 
     `links[i]` marks fluid nodes whose neighbour in direction i is solid.
@@ -120,6 +121,22 @@ def step(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, win):
     d_sym = 0.5 * ((f + f_o) - (feq + feq_o))
     d_asym = 0.5 * ((f - f_o) - (feq - feq_o))
     fpost = f - d_sym / tau_p - d_asym / tau_m
+
+    # --- absorbing layer: relaxation toward the free stream --------------
+    # A viscosity ramp alone cannot touch the mode that matters here. The
+    # transverse standing wave has a wavelength of twice the domain height,
+    # and viscous absorption scales as nu * omega^2, so at H = 50 D an
+    # eight-diameter layer at twenty times the viscosity absorbs about 0.04 %
+    # per pass -- measured, not estimated: it left St at 0.1131 against
+    # 0.1132 with no layer at all.
+    #
+    # Relaxing the populations toward a fixed free-stream equilibrium instead
+    # damps at a rate set by sigma per step, independent of frequency, which
+    # is what a long-wavelength mode needs. In the band next to the wall the
+    # physical flow IS the free stream, so the target is the correct state to
+    # pull toward and the hydrodynamics of the interior are untouched.
+    if f_target is not None:
+        fpost = fpost - sigma * (fpost - f_target)
 
     # Solid nodes carry no meaningful physics; keep them finite.
     fpost = jnp.where(solid[None, :, :], f, fpost)
@@ -169,12 +186,14 @@ def step(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, win):
 
 
 @partial(jax.jit, static_argnames=("n", "win"))
-def run_chunk(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, n, win):
+def run_chunk(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, n, win,
+              sigma=0.0, f_target=None):
     """Run `n` steps inside one XLA program (avoids Python-loop overhead)."""
 
     def body(carry, _):
         f, = carry
-        f, Fx, Fy = step(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, win)
+        f, Fx, Fy = step(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, win,
+                         sigma, f_target)
         return (f,), jnp.array([Fx, Fy])
 
     (f,), forces = jax.lax.scan(body, (f,), None, length=n)
@@ -241,7 +260,25 @@ def sponge_tau(nx, ny, tau_p, tau_m, width, strength, magic, bgk=False,
     tp = 0.5 + m * (tau_p - 0.5)
     tm = np.full_like(tp, tau_m) if bgk else 0.5 + magic / (tp - 0.5)
     return (jnp.asarray(tp[None, :, :], dtype=DTYPE),
-            jnp.asarray(tm[None, :, :], dtype=DTYPE))
+            jnp.asarray(tm[None, :, :], dtype=DTYPE),
+            s)
+
+
+def sponge_sigma(s, sigma_max):
+    """Per-step relaxation rate toward the free stream, on the same ramp.
+
+    `s` is the normalised depth returned by `sponge_tau`, 0 in the interior
+    and 1 at the wall. The rate follows the same cubic so the two mechanisms
+    switch on together and the interior still sees no discontinuity.
+
+    Sizing it: a wave crosses a layer of L cells in about L / c_s steps, so
+    the amplitude leaving the layer is exp(-sigma_bar * L / c_s) with
+    sigma_bar the mean rate over the ramp, which for a cubic is sigma_max / 4.
+    At L = 192 and c_s = 1/sqrt(3) that is 333 steps, so sigma_max = 0.05
+    attenuates by exp(-4.2), about 99 %, per pass. Larger is not better: an
+    abrupt rate is itself an impedance mismatch and reflects.
+    """
+    return jnp.asarray((sigma_max * s**3)[None, :, :], dtype=DTYPE)
 
 
 def build_geometry(nx, ny, cx, cy, radius):
@@ -350,7 +387,15 @@ def main():
                          "otherwise entrains the wake on long runs.")
     ap.add_argument("--sponge-strength", type=float, default=20.0,
                     help="peak viscosity multiplier at the wall inside the "
-                         "absorbing layer")
+                         "absorbing layer. Damps short waves only: viscous "
+                         "absorption goes as nu*omega^2, so it does nothing "
+                         "to the transverse duct mode. Use --sponge-target "
+                         "for that.")
+    ap.add_argument("--sponge-target", type=float, default=0.05,
+                    help="peak per-step relaxation toward the free stream "
+                         "inside the absorbing layer. Frequency independent, "
+                         "so unlike the viscosity ramp it damps the "
+                         "long-wavelength duct mode. 0 disables it.")
     ap.add_argument("--sponge-outlet", type=float, default=0.0,
                     help="absorbing layer at the outlet too, in diameters")
     ap.add_argument("--magic", type=float, default=3.0 / 16.0,
@@ -427,19 +472,35 @@ def main():
             raise SystemExit(
                 f"--sponge {args.sponge} D leaves no interior: 2 x {sponge_w} "
                 f">= {ny} cells. Lower it or raise --height.")
-        tau_p_f, tau_m_f = sponge_tau(nx, ny, tau_p, tau_m, sponge_w,
-                                      args.sponge_strength, args.magic,
-                                      bgk=args.bgk, outlet_width=sponge_out)
+        tau_p_f, tau_m_f, ramp = sponge_tau(
+            nx, ny, tau_p, tau_m, sponge_w, args.sponge_strength, args.magic,
+            bgk=args.bgk, outlet_width=sponge_out)
         nu_max = (float(jnp.max(tau_p_f)) - 0.5) / 3.0
         print(f"sponge: {args.sponge:g} D ({sponge_w} cells) at each free-slip "
               f"wall" + (f", {args.sponge_outlet:g} D at the outlet"
                          if sponge_out else "")
               + f"; nu {nu:.5f} -> {nu_max:.5f} at the wall "
                 f"({args.sponge_strength:g}x), cubic ramp")
+        if args.sponge_target > 0:
+            sigma = sponge_sigma(ramp, args.sponge_target)
+            f_target = equilibrium(
+                jnp.ones((nx, ny), dtype=DTYPE),
+                jnp.full((nx, ny), U, dtype=DTYPE),
+                jnp.zeros((nx, ny), dtype=DTYPE))
+            cross = sponge_w * (3.0 ** 0.5)          # steps to cross at c_s
+            atten = float(np.exp(-0.25 * args.sponge_target * cross))
+            print(f"        free-stream relaxation sigma_max="
+                  f"{args.sponge_target:g}/step -> ~{100 * (1 - atten):.1f} % "
+                  f"absorbed per pass ({cross:.0f} steps to cross)")
+        else:
+            sigma, f_target = 0.0, None
+            print("        WARNING: --sponge-target 0, so only the viscosity "
+                  "ramp is active, which does not damp the duct mode")
         clear = (ny - 2 * sponge_w) / D
         print(f"        interior left clear: {clear:.1f} D of the {args.height:g} D height")
     else:
         tau_p_f, tau_m_f = tau_p, tau_m
+        sigma, f_target = 0.0, None
 
     # --- initial condition: uniform free stream --------------------------
     rho0 = jnp.ones((nx, ny), dtype=DTYPE)
@@ -484,7 +545,8 @@ def main():
             n = min(snap_every, args.steps - done)
 
         uy_in = pert_amp if pert_start <= done < pert_end else 0.0
-        f, F = run_chunk(f, solid, links, tau_p_f, tau_m_f, U, uy_in, n, win)
+        f, F = run_chunk(f, solid, links, tau_p_f, tau_m_f, U, uy_in, n, win,
+                         sigma, f_target)
         forces.append(np.asarray(F))
         done += n
 
@@ -562,6 +624,7 @@ def main():
         "sponge_d": args.sponge,
         "sponge_cells": sponge_w,
         "sponge_strength": args.sponge_strength if sponge_w or sponge_out else 0.0,
+        "sponge_target": args.sponge_target if sponge_w or sponge_out else 0.0,
         "sponge_outlet_d": args.sponge_outlet,
         "Ma": U * 3 ** 0.5,
         "grid": [nx, ny],
