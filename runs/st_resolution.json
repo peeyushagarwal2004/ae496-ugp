@@ -1,0 +1,54 @@
+[
+  {
+    "tag": "res_D24",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 50.0,
+    "St_lift_meta": 0.16938477285764833,
+    "Cd_mean": 1.4333515167236328,
+    "Cl_rms": 0.26946067810058594,
+    "warmup_periods": 14.999677125,
+    "record_periods": 60.32053120833333,
+    "St_resonance": 0.11547005383792518,
+    "note": "no usable snapshots: lift only"
+  },
+  {
+    "tag": "res_D32",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 50.0,
+    "St_lift_meta": 0.16983898653483973,
+    "Cd_mean": 1.413877010345459,
+    "Cl_rms": 0.25880491733551025,
+    "warmup_periods": 14.999933898437499,
+    "record_periods": 60.234683289062495,
+    "St_resonance": 0.11547005383792518,
+    "note": "no usable snapshots: lift only"
+  },
+  {
+    "tag": "res_D48",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 50.0,
+    "St_lift_meta": 0.16983525188941692,
+    "Cd_mean": 1.4146654605865479,
+    "Cl_rms": 0.2600018382072449,
+    "warmup_periods": 14.999848307291666,
+    "record_periods": 60.149177734374994,
+    "St_resonance": 0.11547005383792518,
+    "note": "no usable snapshots: lift only"
+  },
+  {
+    "tag": "tsponge_conv",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 50.0,
+    "St_lift_meta": 0.1693848012602884,
+    "Cd_mean": 1.4333596229553223,
+    "Cl_rms": 0.26926687359809875,
+    "warmup_periods": 14.999677125,
+    "record_periods": 119.89196870833332,
+    "St_resonance": 0.11547005383792518,
+    "note": "no usable snapshots: lift only"
+  }
+]
