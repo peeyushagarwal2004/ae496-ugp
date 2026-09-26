@@ -184,6 +184,66 @@ def run_chunk(f, solid, links, tau_p, tau_m, u_in_x, u_in_y, n, win):
 # --------------------------------------------------------------------------
 # Geometry
 # --------------------------------------------------------------------------
+def sponge_tau(nx, ny, tau_p, tau_m, width, strength, magic, bgk=False,
+               outlet_width=0):
+    """Relaxation-time fields with an absorbing layer at the free-slip walls.
+
+    The specular top and bottom walls reflect perfectly, and lattice Boltzmann
+    carries real sound, so the domain is a duct: it supports a transverse
+    standing half-wave at c_s / 2H with nothing to damp it. Measured on this
+    project's own datasets, that mode grows until it entrains the wake --
+    vorticity, which cannot see irrotational sound, shifts from St = 0.1600 to
+    0.1132 between a 20-period and a 38-period run at Re = 100. The practical
+    consequence is that force statistics cannot be averaged over the 80-odd
+    shedding cycles the literature uses, because the flow stops being the flow
+    first.
+
+    An absorbing layer fixes that the way computational aeroacoustics
+    normally does: raise the viscosity smoothly over a band next to the wall,
+    so an acoustic wave entering the band is attenuated before it reflects and
+    attenuated again on the way back. Nothing is absorbed perfectly; the
+    profile is ramped rather than stepped because a discontinuity in viscosity
+    is itself a reflector.
+
+    The ramp is cubic in the normalised depth s, giving zero value AND zero
+    slope where the layer meets the interior, so the interior sees no kink:
+
+        m(s) = 1 + (strength - 1) * s^3,   s = depth into the layer / width
+
+    and the viscosity multiplier m acts through nu = c_s^2 (tau_p - 1/2):
+
+        tau_p(s) = 1/2 + m(s) * (tau_p - 1/2)
+
+    tau_m is then recomputed pointwise to hold Lambda = (tau_p - 1/2)
+    (tau_m - 1/2) fixed. That matters: Lambda is what pins the bounce-back
+    wall at the cylinder, and letting it drift inside the layer would change
+    the effective geometry as a side effect of damping sound. The cylinder is
+    nowhere near the layer, but keeping the invariant exact costs nothing and
+    removes the question.
+
+    Returns (tau_p_field, tau_m_field), both shaped (1, nx, ny) so they
+    broadcast against the (9, nx, ny) populations.
+    """
+    s = np.zeros((nx, ny), dtype=np.float64)
+
+    if width > 0:
+        d = np.arange(ny)
+        depth = np.minimum(d, ny - 1 - d).astype(np.float64)      # cells to wall
+        prof = np.clip(1.0 - depth / float(width), 0.0, 1.0)      # 1 at wall
+        s = np.maximum(s, prof[None, :] * np.ones((nx, 1)))
+
+    if outlet_width > 0:
+        d = np.arange(nx).astype(np.float64)
+        prof = np.clip(1.0 - (nx - 1 - d) / float(outlet_width), 0.0, 1.0)
+        s = np.maximum(s, prof[:, None] * np.ones((1, ny)))
+
+    m = 1.0 + (strength - 1.0) * s**3
+    tp = 0.5 + m * (tau_p - 0.5)
+    tm = np.full_like(tp, tau_m) if bgk else 0.5 + magic / (tp - 0.5)
+    return (jnp.asarray(tp[None, :, :], dtype=DTYPE),
+            jnp.asarray(tm[None, :, :], dtype=DTYPE))
+
+
 def build_geometry(nx, ny, cx, cy, radius):
     """Solid mask for the cylinder plus the per-direction link masks."""
     xs = np.arange(nx)[:, None]
@@ -283,6 +343,16 @@ def main():
     ap.add_argument("--height", type=float, default=20.0, help="domain height, diameters")
     ap.add_argument("--upstream", type=float, default=8.0,
                     help="inlet-to-cylinder distance, diameters")
+    ap.add_argument("--sponge", type=float, default=0.0,
+                    help="absorbing layer at the free-slip walls, in diameters "
+                         "(0 = off, the behaviour of every dataset before "
+                         "2026-09-26). Damps the transverse standing wave that "
+                         "otherwise entrains the wake on long runs.")
+    ap.add_argument("--sponge-strength", type=float, default=20.0,
+                    help="peak viscosity multiplier at the wall inside the "
+                         "absorbing layer")
+    ap.add_argument("--sponge-outlet", type=float, default=0.0,
+                    help="absorbing layer at the outlet too, in diameters")
     ap.add_argument("--magic", type=float, default=3.0 / 16.0,
                     help="TRT magic parameter Lambda; 3/16 puts the bounce-back "
                          "wall exactly halfway between nodes")
@@ -346,6 +416,31 @@ def main():
     print(f"expected shedding period ~{period:.0f} steps; warmup {warmup} steps")
     print(f"recording every {snap_every} steps after warmup")
 
+    # --- absorbing layer --------------------------------------------------
+    # Scalars unless a sponge is requested, in which case the relaxation times
+    # become fields. The collision broadcasts either way, so nothing else in
+    # `step` changes.
+    sponge_w = int(round(args.sponge * D))
+    sponge_out = int(round(args.sponge_outlet * D))
+    if sponge_w > 0 or sponge_out > 0:
+        if 2 * sponge_w >= ny:
+            raise SystemExit(
+                f"--sponge {args.sponge} D leaves no interior: 2 x {sponge_w} "
+                f">= {ny} cells. Lower it or raise --height.")
+        tau_p_f, tau_m_f = sponge_tau(nx, ny, tau_p, tau_m, sponge_w,
+                                      args.sponge_strength, args.magic,
+                                      bgk=args.bgk, outlet_width=sponge_out)
+        nu_max = (float(jnp.max(tau_p_f)) - 0.5) / 3.0
+        print(f"sponge: {args.sponge:g} D ({sponge_w} cells) at each free-slip "
+              f"wall" + (f", {args.sponge_outlet:g} D at the outlet"
+                         if sponge_out else "")
+              + f"; nu {nu:.5f} -> {nu_max:.5f} at the wall "
+                f"({args.sponge_strength:g}x), cubic ramp")
+        clear = (ny - 2 * sponge_w) / D
+        print(f"        interior left clear: {clear:.1f} D of the {args.height:g} D height")
+    else:
+        tau_p_f, tau_m_f = tau_p, tau_m
+
     # --- initial condition: uniform free stream --------------------------
     rho0 = jnp.ones((nx, ny), dtype=DTYPE)
     ux0 = jnp.full((nx, ny), U, dtype=DTYPE)
@@ -389,7 +484,7 @@ def main():
             n = min(snap_every, args.steps - done)
 
         uy_in = pert_amp if pert_start <= done < pert_end else 0.0
-        f, F = run_chunk(f, solid, links, tau_p, tau_m, U, uy_in, n, win)
+        f, F = run_chunk(f, solid, links, tau_p_f, tau_m_f, U, uy_in, n, win)
         forces.append(np.asarray(F))
         done += n
 
@@ -461,6 +556,13 @@ def main():
         "tau_m": tau_m,
         "Lambda": lam,
         "scheme": scheme,
+        # Absorbing layer, recorded whether or not it was used: a dataset that
+        # does not say which acoustic treatment produced it cannot be compared
+        # with one that does.
+        "sponge_d": args.sponge,
+        "sponge_cells": sponge_w,
+        "sponge_strength": args.sponge_strength if sponge_w or sponge_out else 0.0,
+        "sponge_outlet_d": args.sponge_outlet,
         "Ma": U * 3 ** 0.5,
         "grid": [nx, ny],
         "steps": args.steps,
