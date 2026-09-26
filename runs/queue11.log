@@ -1,0 +1,124 @@
+### starting Sat Sep 26 08:48:59 IST 2026
+### sponge_long start Sat Sep 26 08:48:59 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 87625 steps
+recording every 292 steps after warmup
+sponge: 8 D (192 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   46600/200000  rho[0.9923,1.0083]    1540 steps/s  snaps=0
+  step   91129/200000  rho[0.9847,1.0201]    1517 steps/s  snaps=12
+  step  135513/200000  rho[0.9878,1.0155]    1504 steps/s  snaps=164
+  step  179897/200000  rho[0.9889,1.0173]    1498 steps/s  snaps=316
+
+--- validation -------------------------------------------
+  St      = 0.1131   (target 0.165)
+  Cd_mean = 1.3683   (target 1.37-1.38)
+  Cl_rms  = 0.1199
+  snapshots: 384  ->  data/cylinder_sponge_long.npz
+### sponge_long exit 0 (Sat Sep 26 08:51:21 IST 2026)
+### sponge_conv start Sat Sep 26 08:51:21 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+sponge: 8 D (192 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   45012/394000  rho[0.9936,1.0074]    1489 steps/s  snaps=0
+  step   92012/394000  rho[0.9853,1.0149]    1533 steps/s  snaps=0
+  step  139212/394000  rho[0.9821,1.0193]    1546 steps/s  snaps=0
+  step  186412/394000  rho[0.9826,1.0214]    1552 steps/s  snaps=0
+  step  233612/394000  rho[0.9722,1.0333]    1557 steps/s  snaps=0
+  step  280812/394000  rho[0.9745,1.0275]    1559 steps/s  snaps=0
+  step  328212/394000  rho[0.9851,1.0202]    1561 steps/s  snaps=0
+  step  375412/394000  rho[0.9907,1.0208]    1563 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1131   (target 0.165)
+  Cd_mean = 1.3737   (target 1.37-1.38)
+  Cl_rms  = 0.1335
+  snapshots: 0  ->  data/cylinder_sponge_conv.npz
+### sponge_conv exit 0 (Sat Sep 26 08:55:36 IST 2026)
+### nosponge_conv start Sat Sep 26 08:55:36 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   49412/394000  rho[0.9954,1.0046]    1628 steps/s  snaps=0
+  step  100812/394000  rho[0.9830,1.0177]    1677 steps/s  snaps=0
+  step  152612/394000  rho[0.9799,1.0239]    1693 steps/s  snaps=0
+  step  204412/394000  rho[0.9743,1.0262]    1701 steps/s  snaps=0
+  step  256212/394000  rho[0.9854,1.0225]    1706 steps/s  snaps=0
+  step  308012/394000  rho[0.9720,1.0342]    1709 steps/s  snaps=0
+  step  359812/394000  rho[0.9816,1.0244]    1711 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1131   (target 0.165)
+  Cd_mean = 1.3769   (target 1.37-1.38)
+  Cl_rms  = 0.1373
+  snapshots: 0  ->  data/cylinder_nosponge_conv.npz
+### nosponge_conv exit 0 (Sat Sep 26 08:59:29 IST 2026)
+### sponge_conv_H120 start Sat Sep 26 08:59:29 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 2880   cylinder centre (192.0, 1439.5)   dtype=float32
+blockage D/H = 0.008   force window (177, 208, 1424, 1456)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+sponge: 8 D (192 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        interior left clear: 104.0 D of the 120 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   16400/394000  rho[0.9961,1.0043]     532 steps/s  snaps=0
+  step   32800/394000  rho[0.9956,1.0044]     543 steps/s  snaps=0
+  step   49212/394000  rho[0.9901,1.0104]     542 steps/s  snaps=0
+  step   66012/394000  rho[0.9933,1.0089]     545 steps/s  snaps=0
+  step   82812/394000  rho[0.9935,1.0085]     547 steps/s  snaps=0
+  step   99612/394000  rho[0.9889,1.0124]     548 steps/s  snaps=0
+  step  116412/394000  rho[0.9679,1.0363]     549 steps/s  snaps=0
+  step  133212/394000  rho[0.9699,1.0246]     550 steps/s  snaps=0
+  step  149812/394000  rho[0.9828,1.0189]     550 steps/s  snaps=0
+  step  166612/394000  rho[0.9625,1.0429]     550 steps/s  snaps=0
+  step  183212/394000  rho[0.9212,1.0627]     551 steps/s  snaps=0
+  step  200012/394000  rho[0.9674,1.0470]     551 steps/s  snaps=0
+  step  216612/394000  rho[0.9640,1.0479]     551 steps/s  snaps=0
+  step  233412/394000  rho[0.8462,1.1114]     551 steps/s  snaps=0
+  step  250012/394000  rho[0.9373,1.0681]     551 steps/s  snaps=0
+  step  266612/394000  rho[0.8839,1.1545]     551 steps/s  snaps=0
+  step  283212/394000  rho[0.8621,1.1221]     552 steps/s  snaps=0
+  step  299812/394000  rho[0.9130,1.1491]     552 steps/s  snaps=0
+  step  316412/394000  rho[0.8777,1.0995]     552 steps/s  snaps=0
+  step  333212/394000  rho[0.9620,1.0791]     552 steps/s  snaps=0
+  step  349812/394000  rho[0.8477,1.1748]     552 steps/s  snaps=0
+  step  366412/394000  rho[0.8833,1.0620]     552 steps/s  snaps=0
+  step  383012/394000  rho[0.8795,1.1502]     552 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.0491   (target 0.165)
+  Cd_mean = 2.3590   (target 1.37-1.38)
+  Cl_rms  = 4.1408
+  snapshots: 0  ->  data/cylinder_sponge_conv_H120.npz
+### sponge_conv_H120 exit 0 (Sat Sep 26 09:11:25 IST 2026)
+### measuring Sat Sep 26 09:11:25 IST 2026
+tag                H/D   warm    rec     lift    probe     vort   St_res       Cd
+----------------------------------------------------------------------------------
+acoustic_short      50   15.0   19.9   0.1609   0.1594   0.1600   0.1155   1.3815
+acoustic_long       50   30.0   38.5   0.1132   0.1130   0.1132   0.1155   1.3740
+sponge_long         50   30.0   38.5   0.1131   0.1129   0.1131   0.1155   1.3683
+sponge_conv         50   15.0  119.9  0.1131*       --       --   0.1155   1.3737
+nosponge_conv       50   15.0  119.9  0.1131*       --       --   0.1155   1.3769
+sponge_conv_H120   120   15.0  119.9  0.0491*       --       --   0.0481   2.3590
+
+* lift value from metadata (no snapshots saved)
+vorticity is the instrument that decides lock-in: it cannot see irrotational sound.
+
+wrote runs/st_sponge.json
+QUEUE11_DONE Sat Sep 26 09:11:31 IST 2026

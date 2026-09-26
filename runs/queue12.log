@@ -1,0 +1,149 @@
+### starting Sat Sep 26 09:11:40 IST 2026
+### tsponge_long start Sat Sep 26 09:11:40 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 87625 steps
+recording every 292 steps after warmup
+sponge: 8 D (192 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.05/step -> ~98.4 % absorbed per pass (333 steps to cross)
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   40200/200000  rho[0.9948,1.0042]    1324 steps/s  snaps=0
+  step   81000/200000  rho[0.9947,1.0042]    1346 steps/s  snaps=0
+  step  118577/200000  rho[0.9954,1.0041]    1313 steps/s  snaps=106
+  step  157705/200000  rho[0.9947,1.0042]    1310 steps/s  snaps=240
+  step  196833/200000  rho[0.9950,1.0045]    1309 steps/s  snaps=374
+
+--- validation -------------------------------------------
+  St      = 0.1694   (target 0.165)
+  Cd_mean = 1.4334   (target 1.37-1.38)
+  Cl_rms  = 0.2694
+  snapshots: 384  ->  data/cylinder_tsponge_long.npz
+### tsponge_long exit 0 (Sat Sep 26 09:14:22 IST 2026)
+### tsponge_conv start Sat Sep 26 09:14:22 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+sponge: 8 D (192 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.05/step -> ~98.4 % absorbed per pass (333 steps to cross)
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   40000/394000  rho[0.9947,1.0042]    1322 steps/s  snaps=0
+  step   79812/394000  rho[0.9947,1.0042]    1328 steps/s  snaps=0
+  step  121012/394000  rho[0.9948,1.0042]    1341 steps/s  snaps=0
+  step  162212/394000  rho[0.9949,1.0042]    1347 steps/s  snaps=0
+  step  203412/394000  rho[0.9951,1.0041]    1351 steps/s  snaps=0
+  step  244612/394000  rho[0.9953,1.0041]    1354 steps/s  snaps=0
+  step  285812/394000  rho[0.9955,1.0041]    1356 steps/s  snaps=0
+  step  327012/394000  rho[0.9953,1.0041]    1357 steps/s  snaps=0
+  step  368212/394000  rho[0.9951,1.0042]    1359 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1694   (target 0.165)
+  Cd_mean = 1.4334   (target 1.37-1.38)
+  Cl_rms  = 0.2693
+  snapshots: 0  ->  data/cylinder_tsponge_conv.npz
+### tsponge_conv exit 0 (Sat Sep 26 09:19:15 IST 2026)
+### tsponge_narrow start Sat Sep 26 09:19:15 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+sponge: 4 D (96 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.05/step -> ~87.5 % absorbed per pass (166 steps to cross)
+        interior left clear: 42.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   40000/394000  rho[0.9948,1.0042]    1320 steps/s  snaps=0
+  step   79812/394000  rho[0.9947,1.0042]    1327 steps/s  snaps=0
+  step  121012/394000  rho[0.9947,1.0042]    1341 steps/s  snaps=0
+  step  162212/394000  rho[0.9948,1.0042]    1348 steps/s  snaps=0
+  step  203412/394000  rho[0.9948,1.0042]    1352 steps/s  snaps=0
+  step  244612/394000  rho[0.9948,1.0042]    1354 steps/s  snaps=0
+  step  285812/394000  rho[0.9948,1.0042]    1356 steps/s  snaps=0
+  step  327012/394000  rho[0.9949,1.0042]    1358 steps/s  snaps=0
+  step  368212/394000  rho[0.9949,1.0042]    1359 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1691   (target 0.165)
+  Cd_mean = 1.4319   (target 1.37-1.38)
+  Cl_rms  = 0.2627
+  snapshots: 0  ->  data/cylinder_tsponge_narrow.npz
+### tsponge_narrow exit 0 (Sat Sep 26 09:24:07 IST 2026)
+### tsponge_weak start Sat Sep 26 09:24:07 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+sponge: 8 D (192 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.02/step -> ~81.0 % absorbed per pass (333 steps to cross)
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   40000/394000  rho[0.9948,1.0042]    1321 steps/s  snaps=0
+  step   79812/394000  rho[0.9947,1.0042]    1327 steps/s  snaps=0
+  step  120812/394000  rho[0.9947,1.0042]    1340 steps/s  snaps=0
+  step  162012/394000  rho[0.9947,1.0042]    1347 steps/s  snaps=0
+  step  203212/394000  rho[0.9947,1.0042]    1351 steps/s  snaps=0
+  step  244412/394000  rho[0.9948,1.0042]    1354 steps/s  snaps=0
+  step  285612/394000  rho[0.9948,1.0042]    1356 steps/s  snaps=0
+  step  326812/394000  rho[0.9948,1.0042]    1357 steps/s  snaps=0
+  step  368012/394000  rho[0.9949,1.0042]    1358 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1692   (target 0.165)
+  Cd_mean = 1.4325   (target 1.37-1.38)
+  Cl_rms  = 0.2647
+  snapshots: 0  ->  data/cylinder_tsponge_weak.npz
+### tsponge_weak exit 0 (Sat Sep 26 09:28:59 IST 2026)
+### tsponge_strong start Sat Sep 26 09:28:59 IST 2026
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 720 x 1200   cylinder centre (192.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (177, 208, 584, 616)
+expected shedding period ~2921 steps; warmup 43812 steps
+recording every 73 steps after warmup
+sponge: 8 D (192 cells) at each free-slip wall; nu 0.01200 -> 0.24000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.1/step -> ~100.0 % absorbed per pass (333 steps to cross)
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step   40000/394000  rho[0.9947,1.0042]    1321 steps/s  snaps=0
+  step   79812/394000  rho[0.9948,1.0042]    1327 steps/s  snaps=0
+  step  121012/394000  rho[0.9948,1.0042]    1341 steps/s  snaps=0
+  step  162212/394000  rho[0.9950,1.0042]    1347 steps/s  snaps=0
+  step  203412/394000  rho[0.9951,1.0041]    1351 steps/s  snaps=0
+  step  244612/394000  rho[0.9953,1.0041]    1354 steps/s  snaps=0
+  step  285812/394000  rho[0.9954,1.0041]    1356 steps/s  snaps=0
+  step  327012/394000  rho[0.9952,1.0042]    1358 steps/s  snaps=0
+  step  368212/394000  rho[0.9950,1.0045]    1359 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1694   (target 0.165)
+  Cd_mean = 1.4333   (target 1.37-1.38)
+  Cl_rms  = 0.2698
+  snapshots: 0  ->  data/cylinder_tsponge_strong.npz
+### tsponge_strong exit 0 (Sat Sep 26 09:33:52 IST 2026)
+### measuring Sat Sep 26 09:33:52 IST 2026
+tag                H/D   warm    rec     lift    probe     vort   St_res       Cd
+----------------------------------------------------------------------------------
+acoustic_long       50   30.0   38.5   0.1132   0.1130   0.1132   0.1155   1.3740
+sponge_long         50   30.0   38.5   0.1131   0.1129   0.1131   0.1155   1.3683
+tsponge_long        50   30.0   38.5   0.1694   0.1694   0.1694   0.1155   1.4334
+tsponge_conv        50   15.0  119.9  0.1694*       --       --   0.1155   1.4334
+tsponge_narrow      50   15.0  119.9  0.1691*       --       --   0.1155   1.4319
+tsponge_weak        50   15.0  119.9  0.1692*       --       --   0.1155   1.4325
+tsponge_strong      50   15.0  119.9  0.1694*       --       --   0.1155   1.4333
+nosponge_conv       50   15.0  119.9  0.1131*       --       --   0.1155   1.3769
+
+* lift value from metadata (no snapshots saved)
+vorticity is the instrument that decides lock-in: it cannot see irrotational sound.
+
+wrote runs/st_tsponge.json
+QUEUE12_DONE Sat Sep 26 09:33:58 IST 2026
