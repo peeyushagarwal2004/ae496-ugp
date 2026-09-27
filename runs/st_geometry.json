@@ -1,0 +1,67 @@
+[
+  {
+    "tag": "res_D32",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 50.0,
+    "St_lift_meta": 0.16983898653483973,
+    "Cd_mean": 1.413877010345459,
+    "Cl_rms": 0.25880491733551025,
+    "warmup_periods": 14.999933898437499,
+    "record_periods": 60.234683289062495,
+    "St_resonance": 0.11547005383792518,
+    "note": "no usable snapshots: lift only"
+  },
+  {
+    "tag": "geo_base",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 50.0,
+    "St_lift_meta": 0.1698390080316001,
+    "Cd_mean": 1.4138767719268799,
+    "Cl_rms": 0.25889790058135986,
+    "warmup_periods": 14.999933898437499,
+    "record_periods": 39.9495817265625,
+    "St_resonance": 0.11547005383792518,
+    "note": "no usable snapshots: lift only"
+  },
+  {
+    "tag": "geo_tall",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 120.0,
+    "St_lift_meta": 0.1692533259377781,
+    "Cd_mean": 1.4087399244308472,
+    "Cl_rms": 0.24350768327713013,
+    "warmup_periods": 14.999933898437499,
+    "record_periods": 39.9495817265625,
+    "St_resonance": 0.04811252243246882,
+    "note": "no usable snapshots: lift only"
+  },
+  {
+    "tag": "geo_long",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 50.0,
+    "St_lift_meta": 0.16546205659570404,
+    "Cd_mean": 1.3469486236572266,
+    "Cl_rms": 0.2305249720811844,
+    "warmup_periods": 14.999933898437499,
+    "record_periods": 39.9495817265625,
+    "St_resonance": 0.11547005383792518,
+    "note": "no usable snapshots: lift only"
+  },
+  {
+    "tag": "geo_tall_long",
+    "Re": 100.0,
+    "U_lattice": 0.05,
+    "H_over_D": 120.0,
+    "St_lift_meta": 0.16525611087605377,
+    "Cd_mean": 1.3460273742675781,
+    "Cl_rms": 0.2402927130460739,
+    "warmup_periods": 14.999933898437499,
+    "record_periods": 39.9495817265625,
+    "St_resonance": 0.04811252243246882,
+    "note": "no usable snapshots: lift only"
+  }
+]
