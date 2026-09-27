@@ -1,0 +1,190 @@
+### starting Sat Sep 26 10:36:15 IST 2026
+### geo_base start Sat Sep 26 10:36:15 IST 2026  (H=50 L=30 Xu=8)
+Re=100  D=32  U=0.05  nu=0.01600  Ma=0.0866
+TRT: tau_p=0.54800  tau_m=4.40625  Lambda=0.18750
+grid 960 x 1600   cylinder centre (256.0, 799.5)   dtype=float32
+blockage D/H = 0.020   force window (237, 276, 780, 820)
+expected shedding period ~3894 steps; warmup 58417 steps
+recording every 97 steps after warmup
+sponge: 8 D (256 cells) at each free-slip wall; nu 0.01600 -> 0.32000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.05/step -> ~99.6 % absorbed per pass (443 steps to cross)
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 321 x 161  dx=0.0625 D
+  step   19800/214000  rho[0.9962,1.0042]     644 steps/s  snaps=0
+  step   39600/214000  rho[0.9949,1.0047]     656 steps/s  snaps=0
+  step   59217/214000  rho[0.9949,1.0042]     655 steps/s  snaps=0
+  step   79417/214000  rho[0.9948,1.0043]     658 steps/s  snaps=0
+  step   99617/214000  rho[0.9951,1.0042]     660 steps/s  snaps=0
+  step  119817/214000  rho[0.9952,1.0042]     661 steps/s  snaps=0
+  step  140017/214000  rho[0.9948,1.0042]     662 steps/s  snaps=0
+  step  160217/214000  rho[0.9949,1.0047]     663 steps/s  snaps=0
+  step  180417/214000  rho[0.9954,1.0042]     663 steps/s  snaps=0
+  step  200617/214000  rho[0.9950,1.0042]     664 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1698   (target 0.165)
+  Cd_mean = 1.4139   (target 1.37-1.38)
+  Cl_rms  = 0.2589
+  snapshots: 0  ->  data/cylinder_geo_base.npz
+### geo_base exit 0 (Sat Sep 26 10:41:40 IST 2026)
+### geo_tall start Sat Sep 26 10:41:40 IST 2026  (H=120 L=30 Xu=8)
+Re=100  D=32  U=0.05  nu=0.01600  Ma=0.0866
+TRT: tau_p=0.54800  tau_m=4.40625  Lambda=0.18750
+grid 960 x 3840   cylinder centre (256.0, 1919.5)   dtype=float32
+blockage D/H = 0.008   force window (237, 276, 1900, 1940)
+expected shedding period ~3894 steps; warmup 58417 steps
+recording every 97 steps after warmup
+sponge: 8 D (256 cells) at each free-slip wall; nu 0.01600 -> 0.32000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.05/step -> ~99.6 % absorbed per pass (443 steps to cross)
+        interior left clear: 104.0 D of the 120 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 321 x 161  dx=0.0625 D
+  step    8400/214000  rho[0.9966,1.0043]     271 steps/s  snaps=0
+  step   16800/214000  rho[0.9964,1.0042]     276 steps/s  snaps=0
+  step   25400/214000  rho[0.9958,1.0043]     278 steps/s  snaps=0
+  step   34000/214000  rho[0.9949,1.0044]     279 steps/s  snaps=0
+  step   42600/214000  rho[0.9953,1.0042]     280 steps/s  snaps=0
+  step   51200/214000  rho[0.9949,1.0044]     280 steps/s  snaps=0
+  step   59617/214000  rho[0.9953,1.0042]     279 steps/s  snaps=0
+  step   68217/214000  rho[0.9949,1.0044]     280 steps/s  snaps=0
+  step   76817/214000  rho[0.9955,1.0042]     280 steps/s  snaps=0
+  step   85417/214000  rho[0.9949,1.0042]     280 steps/s  snaps=0
+  step   94017/214000  rho[0.9954,1.0042]     280 steps/s  snaps=0
+  step  102617/214000  rho[0.9949,1.0042]     280 steps/s  snaps=0
+  step  111217/214000  rho[0.9952,1.0044]     281 steps/s  snaps=0
+  step  119817/214000  rho[0.9950,1.0042]     281 steps/s  snaps=0
+  step  128417/214000  rho[0.9950,1.0048]     281 steps/s  snaps=0
+  step  137017/214000  rho[0.9951,1.0042]     281 steps/s  snaps=0
+  step  145617/214000  rho[0.9949,1.0046]     281 steps/s  snaps=0
+  step  154217/214000  rho[0.9953,1.0042]     281 steps/s  snaps=0
+  step  162817/214000  rho[0.9949,1.0042]     281 steps/s  snaps=0
+  step  171417/214000  rho[0.9955,1.0042]     281 steps/s  snaps=0
+  step  180017/214000  rho[0.9949,1.0042]     281 steps/s  snaps=0
+  step  188617/214000  rho[0.9953,1.0042]     281 steps/s  snaps=0
+  step  197217/214000  rho[0.9949,1.0042]     281 steps/s  snaps=0
+  step  205817/214000  rho[0.9951,1.0047]     281 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1693   (target 0.165)
+  Cd_mean = 1.4087   (target 1.37-1.38)
+  Cl_rms  = 0.2435
+  snapshots: 0  ->  data/cylinder_geo_tall.npz
+### geo_tall exit 0 (Sat Sep 26 10:54:24 IST 2026)
+### geo_long start Sat Sep 26 10:54:24 IST 2026  (H=50 L=60 Xu=25)
+Re=100  D=32  U=0.05  nu=0.01600  Ma=0.0866
+TRT: tau_p=0.54800  tau_m=4.40625  Lambda=0.18750
+grid 1920 x 1600   cylinder centre (800.0, 799.5)   dtype=float32
+blockage D/H = 0.020   force window (781, 820, 780, 820)
+expected shedding period ~3894 steps; warmup 58417 steps
+recording every 97 steps after warmup
+sponge: 8 D (256 cells) at each free-slip wall; nu 0.01600 -> 0.32000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.05/step -> ~99.6 % absorbed per pass (443 steps to cross)
+        interior left clear: 34.0 D of the 50 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 321 x 161  dx=0.0625 D
+  step   10000/214000  rho[0.9967,1.0041]     324 steps/s  snaps=0
+  step   20000/214000  rho[0.9969,1.0040]     331 steps/s  snaps=0
+  step   30200/214000  rho[0.9965,1.0040]     333 steps/s  snaps=0
+  step   40400/214000  rho[0.9957,1.0041]     334 steps/s  snaps=0
+  step   50600/214000  rho[0.9951,1.0040]     335 steps/s  snaps=0
+  step   60617/214000  rho[0.9953,1.0041]     334 steps/s  snaps=0
+  step   70817/214000  rho[0.9958,1.0041]     334 steps/s  snaps=0
+  step   81017/214000  rho[0.9953,1.0040]     335 steps/s  snaps=0
+  step   91217/214000  rho[0.9951,1.0040]     335 steps/s  snaps=0
+  step  101417/214000  rho[0.9954,1.0041]     335 steps/s  snaps=0
+  step  111617/214000  rho[0.9956,1.0040]     336 steps/s  snaps=0
+  step  121817/214000  rho[0.9952,1.0040]     336 steps/s  snaps=0
+  step  132017/214000  rho[0.9952,1.0041]     336 steps/s  snaps=0
+  step  142217/214000  rho[0.9956,1.0041]     336 steps/s  snaps=0
+  step  152417/214000  rho[0.9954,1.0040]     336 steps/s  snaps=0
+  step  162617/214000  rho[0.9951,1.0040]     336 steps/s  snaps=0
+  step  172817/214000  rho[0.9953,1.0041]     336 steps/s  snaps=0
+  step  183017/214000  rho[0.9958,1.0040]     336 steps/s  snaps=0
+  step  193217/214000  rho[0.9953,1.0040]     336 steps/s  snaps=0
+  step  203417/214000  rho[0.9951,1.0040]     337 steps/s  snaps=0
+  step  213617/214000  rho[0.9955,1.0041]     337 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1655   (target 0.165)
+  Cd_mean = 1.3469   (target 1.37-1.38)
+  Cl_rms  = 0.2305
+  snapshots: 0  ->  data/cylinder_geo_long.npz
+### geo_long exit 0 (Sat Sep 26 11:05:02 IST 2026)
+### geo_tall_long start Sat Sep 26 11:05:02 IST 2026  (H=120 L=60 Xu=25)
+Re=100  D=32  U=0.05  nu=0.01600  Ma=0.0866
+TRT: tau_p=0.54800  tau_m=4.40625  Lambda=0.18750
+grid 1920 x 3840   cylinder centre (800.0, 1919.5)   dtype=float32
+blockage D/H = 0.008   force window (781, 820, 1900, 1940)
+expected shedding period ~3894 steps; warmup 58417 steps
+recording every 97 steps after warmup
+sponge: 8 D (256 cells) at each free-slip wall; nu 0.01600 -> 0.32000 at the wall (20x), cubic ramp
+        free-stream relaxation sigma_max=0.05/step -> ~99.6 % absorbed per pass (443 steps to cross)
+        interior left clear: 104.0 D of the 120 D height
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 321 x 161  dx=0.0625 D
+  step    4200/214000  rho[0.9961,1.0041]     135 steps/s  snaps=0
+  step    8400/214000  rho[0.9966,1.0041]     138 steps/s  snaps=0
+  step   12800/214000  rho[0.9969,1.0040]     139 steps/s  snaps=0
+  step   17200/214000  rho[0.9969,1.0040]     140 steps/s  snaps=0
+  step   21600/214000  rho[0.9969,1.0040]     140 steps/s  snaps=0
+  step   26000/214000  rho[0.9968,1.0040]     140 steps/s  snaps=0
+  step   30400/214000  rho[0.9963,1.0040]     140 steps/s  snaps=0
+  step   34800/214000  rho[0.9959,1.0040]     140 steps/s  snaps=0
+  step   39200/214000  rho[0.9958,1.0040]     141 steps/s  snaps=0
+  step   43600/214000  rho[0.9957,1.0039]     141 steps/s  snaps=0
+  step   48000/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step   52400/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+  step   56800/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step   61017/214000  rho[0.9957,1.0040]     141 steps/s  snaps=0
+  step   65417/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+  step   69817/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step   74217/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step   78617/214000  rho[0.9956,1.0040]     141 steps/s  snaps=0
+  step   83017/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step   87417/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step   91817/214000  rho[0.9956,1.0040]     141 steps/s  snaps=0
+  step   96217/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step  100617/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  105017/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+  step  109417/214000  rho[0.9958,1.0040]     141 steps/s  snaps=0
+  step  113817/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+  step  118217/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  122617/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step  127017/214000  rho[0.9956,1.0040]     141 steps/s  snaps=0
+  step  131417/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  135817/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  140217/214000  rho[0.9956,1.0040]     141 steps/s  snaps=0
+  step  144617/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step  149017/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  153417/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+  step  157817/214000  rho[0.9957,1.0040]     141 steps/s  snaps=0
+  step  162217/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+  step  166617/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  171017/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step  175417/214000  rho[0.9956,1.0040]     141 steps/s  snaps=0
+  step  179817/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  184217/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  188617/214000  rho[0.9956,1.0040]     141 steps/s  snaps=0
+  step  193017/214000  rho[0.9954,1.0040]     141 steps/s  snaps=0
+  step  197417/214000  rho[0.9951,1.0040]     141 steps/s  snaps=0
+  step  201817/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+  step  206217/214000  rho[0.9957,1.0040]     141 steps/s  snaps=0
+  step  210617/214000  rho[0.9952,1.0040]     141 steps/s  snaps=0
+
+--- validation -------------------------------------------
+  St      = 0.1653   (target 0.165)
+  Cd_mean = 1.3460   (target 1.37-1.38)
+  Cl_rms  = 0.2403
+  snapshots: 0  ->  data/cylinder_geo_tall_long.npz
+### geo_tall_long exit 0 (Sat Sep 26 11:30:23 IST 2026)
+### measuring Sat Sep 26 11:30:23 IST 2026
+tag                H/D   warm    rec     lift    probe     vort   St_res       Cd
+----------------------------------------------------------------------------------
+res_D32             50   15.0   60.2  0.1698*       --       --   0.1155   1.4139
+geo_base            50   15.0   39.9  0.1698*       --       --   0.1155   1.4139
+geo_tall           120   15.0   39.9  0.1693*       --       --   0.0481   1.4087
+geo_long            50   15.0   39.9  0.1655*       --       --   0.1155   1.3469
+geo_tall_long      120   15.0   39.9  0.1653*       --       --   0.0481   1.3460
+
+* lift value from metadata (no snapshots saved)
+vorticity is the instrument that decides lock-in: it cannot see irrotational sound.
+
+wrote runs/st_geometry.json
+QUEUE14_DONE Sat Sep 26 11:30:24 IST 2026
