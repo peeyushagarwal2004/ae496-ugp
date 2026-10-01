@@ -23,8 +23,10 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
-ST_TARGET = 0.165
-CD_TARGET = (1.37, 1.38)
+# Qu, Norberg, Davidson, Peng and Wang (2013), J. Fluids Struct. 39, Table 3,
+# Re = 100. An earlier version used an uncited Cd of 1.37-1.38.
+ST_TARGET = 0.1649
+CD_TARGET = (1.317, 1.317)
 
 
 def vorticity(u, v, x, y):
@@ -104,7 +106,7 @@ def main():
     print()
     print("  quantity      computed     benchmark      error")
     print(f"  St            {st:8.4f}     {ST_TARGET:8.3f}   {st_err:+7.1f} %")
-    print(f"  Cd (mean)     {cd_mean:8.4f}   {CD_TARGET[0]:.2f}-{CD_TARGET[1]:.2f}   {cd_err:+7.1f} %")
+    print(f"  Cd (mean)     {cd_mean:8.4f}   {CD_TARGET[0]:8.3f}   {cd_err:+7.1f} %")
     print(f"  Cd (rms fluc) {cd_amp:8.4f}")
     print(f"  Cl (rms)      {cl_rms:8.4f}")
     print(f"  Cl (peak)     {cl_amp:8.4f}")

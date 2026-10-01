@@ -174,6 +174,25 @@ def src_path(s):
     return float(node)
 
 
+def src_ratio(s):
+    """A ratio of two other sources, or of a source and a constant.
+
+    {"kind": "ratio", "num": {<src>}, "den": {<src>} | <number>,
+     "mode": "pct" | "ratio"}
+
+    mode "pct" returns (num / den - 1) * 100 -- a percentage change, which is
+    how the report quotes effects like "moving the inlet removes 4.7 % of
+    drag". mode "ratio" returns num / den.
+    """
+    num = SOURCES[s["num"]["kind"]](s["num"])
+    den = s["den"]
+    if isinstance(den, dict):
+        den = SOURCES[den["kind"]](den)
+    if s.get("mode", "pct") == "pct":
+        return (num / den - 1.0) * 100.0
+    return num / den
+
+
 def src_logline(s):
     """A number printed into a committed log file, matched by regex group 1."""
     text = (ROOT / s["file"]).read_text(errors="replace")
@@ -185,6 +204,7 @@ def src_logline(s):
 
 SOURCES = {"list": src_list, "dict": src_dict, "item": src_item,
            "scalar": src_scalar, "fno": src_fno, "path": src_path,
+           "ratio": src_ratio,
            "convergence": src_convergence, "logline": src_logline}
 
 
@@ -244,9 +264,17 @@ def _untracked_sources(entries):
     along with the 400 MB of .npz it was meant to exclude.
     """
     wanted = {}
+
+    def files_of(src):
+        if not isinstance(src, dict):
+            return []
+        out = [src["file"]] if src.get("file") else []
+        for k in ("num", "den"):
+            out += files_of(src.get(k))
+        return out
+
     for e in entries:
-        f = e["src"].get("file")
-        if f:
+        for f in files_of(e["src"]):
             wanted[f] = wanted.get(f, 0) + 1
     if not wanted:
         return {}
