@@ -2,10 +2,16 @@
 D2Q9 lattice-Boltzmann solver for 2-D flow past a circular cylinder.
 
 Generates the ground-truth vortex-shedding dataset for the PINN study.
-Validation targets at Re = 100 (2-D, laminar, periodic shedding):
+Validation targets at Re = 100 (2-D, laminar, periodic shedding), from Qu,
+Norberg, Davidson, Peng and Wang (2013), J. Fluids Struct. 39, Table 3, H = 120:
 
-    St  = 0.165          (Strouhal number, from the C_l spectrum)
-    C_d = 1.37 - 1.38    (mean drag coefficient)
+    St  = 0.1649         (Strouhal number)
+    C_d = 1.317          (mean drag coefficient; 1.318-1.336 across the
+                          eight large-domain studies in their Table 1)
+
+An earlier version of this docstring gave C_d = 1.37-1.38, uncited and closer
+to the Re = 200 value. Every dataset made before 2026-10-01 carries that range
+in its Cd_target metadata field.
 
 Numerics
 --------
@@ -641,7 +647,7 @@ def main():
         "Cd_mean": cd_mean,
         "Cl_rms": cl_rms,
         "St_target": st_guess,
-        "Cd_target": [1.37, 1.38],
+        "Cd_target": 1.317,           # Qu et al. (2013), Re = 100
         "runtime_s": time.time() - t0,
         "dtype": str(DTYPE().dtype),
         "blockage": 1.0 / args.height,
@@ -649,8 +655,8 @@ def main():
     (outdir / f"cylinder_{args.tag}_meta.json").write_text(json.dumps(meta, indent=2))
 
     print("\n--- validation -------------------------------------------")
-    print(f"  St      = {st:.4f}   (target 0.165)")
-    print(f"  Cd_mean = {cd_mean:.4f}   (target 1.37-1.38)")
+    print(f"  St      = {st:.4f}   (Qu et al. 0.1649 at Re = 100)")
+    print(f"  Cd_mean = {cd_mean:.4f}   (Qu et al. 1.317 at Re = 100)")
     print(f"  Cl_rms  = {cl_rms:.4f}")
     print(f"  snapshots: {len(snaps)}  ->  {npz}")
 

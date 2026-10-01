@@ -279,6 +279,33 @@ def _sweep_meta(re_key):
     return None
 
 
+def viscous_layer_absorption(meta, width_d=8.0, strength=20.0):
+    """How much of the duct mode a viscosity-ramp absorbing layer removes.
+
+    Classical viscous absorption of a plane sound wave goes as
+    alpha = (2/3) nu omega^2 / c^3 per unit length. The mode in question is the
+    transverse half-wave, wavelength 2H, so omega is tiny and so is alpha. This
+    is the estimate that should have been made before the viscosity layer was
+    written; the layer was measured to change nothing (vorticity St 0.1131
+    with it, 0.1132 without), and this says why.
+    """
+    H = meta["grid"][1]
+    D = meta["D_lattice"]
+    nu_base = meta["nu_lattice"]
+    cs = 1.0 / math.sqrt(3.0)
+    omega = 2.0 * math.pi * cs / (2.0 * H)
+    nu_peak = nu_base * strength
+    width = width_d * D
+    alpha = (2.0 / 3.0) * nu_peak * omega ** 2 / cs ** 3
+    return {
+        "wavelength_cells": 2 * H, "layer_cells": width,
+        "layer_wavelengths": width / (2 * H),
+        "alpha_per_cell": alpha,
+        "fraction_absorbed_per_pass": 1.0 - math.exp(-alpha * width),
+        "pct_absorbed_per_pass": 100.0 * (1.0 - math.exp(-alpha * width)),
+    }
+
+
 def acoustic_resonance(meta):
     """Strouhal number of the transverse standing half-wave, in flow units.
 
@@ -431,6 +458,7 @@ def main():
                   "were previously computed by hand or read off a figure; "
                   "report/numbers.json sources them from this file.",
         "acoustic": acoustic_resonance(meta),
+        "viscous_layer": viscous_layer_absorption(meta),
         "fft_bin_width": fft_bin_width(meta),
     }
 
