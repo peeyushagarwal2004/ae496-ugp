@@ -1,0 +1,48 @@
+Re=100  D=24  U=0.05  nu=0.01200  Ma=0.0866
+TRT: tau_p=0.53600  tau_m=5.70833  Lambda=0.18750
+grid 1440 x 1200   cylinder centre (600.0, 599.5)   dtype=float32
+blockage D/H = 0.020   force window (585, 616, 584, 616)
+expected shedding period ~2912 steps; warmup 43681 steps
+recording every 91 steps after warmup
+2026-10-01 22:19:53.159791: W external/xla/xla/service/gpu/nvptx_compiler.cc:836] The NVIDIA driver's CUDA version is 12.2 which is older than the PTX compiler version (12.6.68). Because the driver is older than the PTX compiler version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
+saving crop x[-5.00,15.00] y[-4.98,5.02]  grid 241 x 121  dx=0.0833 D
+  step    7200/102230  rho[0.9967,1.0041]     230 steps/s  snaps=0
+  step   14400/102230  rho[0.9969,1.0041]     236 steps/s  snaps=0
+  step   21800/102230  rho[0.9966,1.0041]     238 steps/s  snaps=0
+  step   29200/102230  rho[0.9960,1.0042]     239 steps/s  snaps=0
+  step   36600/102230  rho[0.9917,1.0093]     239 steps/s  snaps=0
+  step   43681/102230  rho[0.9949,1.0059]     239 steps/s  snaps=0
+  step   50324/102230  rho[0.9955,1.0044]     236 steps/s  snaps=73
+  step   57149/102230  rho[0.9956,1.0044]     235 steps/s  snaps=148
+  step   63974/102230  rho[0.9962,1.0051]     234 steps/s  snaps=223
+  step   73256/102230  rho[0.9930,1.0081]     241 steps/s  snaps=325
+  step   81082/102230  rho[0.9937,1.0084]     243 steps/s  snaps=411
+  step   87998/102230  rho[0.9930,1.0089]     242 steps/s  snaps=487
+  step   95005/102230  rho[0.9887,1.0133]     241 steps/s  snaps=564
+  step  102012/102230  rho[0.9928,1.0090]     240 steps/s  snaps=641
+
+--- validation -------------------------------------------
+  St      = 0.1632   (target 0.165)
+  Cd_mean = 1.3661   (target 1.37-1.38)
+  Cl_rms  = 0.2780
+  snapshots: 643  ->  data/cylinder_nosponge_v5geom.npz
+
+=== nosponge_v5geom   shedding St (lift meta) 0.1632
+    candidate mode transverse c_s/2H    St 0.1155
+    candidate mode streamwise c_s/2L    St 0.0962
+    time-mean div rms 2.022e-02   fluctuating div rms 8.711e-03
+    near wake (2, 0)   rms 7.232e-03  peak at St 0.3281  (13 % of power in that bin)
+    far wake (12, 0)   rms 7.296e-03  peak at St 1.0254  (2 % of power in that bin)
+    off-axis (5, 4)    rms 8.628e-03  peak at St 1.9114  (3 % of power in that bin)
+    upstream (-4, 0)   rms 9.371e-03  peak at St 0.0410  (16 % of power in that bin)
+    side (0, 4.5)      rms 9.693e-03  peak at St 0.4512  (2 % of power in that bin)
+
+=== re100_v5   shedding St (lift meta) 0.1648
+    candidate mode transverse c_s/2H    St 0.1155
+    candidate mode streamwise c_s/2L    St 0.0962
+    time-mean div rms 2.051e-02   fluctuating div rms 8.273e-03
+    near wake (2, 0)   rms 7.724e-03  peak at St 0.3292  (22 % of power in that bin)
+    far wake (12, 0)   rms 7.156e-03  peak at St 2.3041  (9 % of power in that bin)
+    off-axis (5, 4)    rms 9.446e-03  peak at St 1.9749  (10 % of power in that bin)
+    upstream (-4, 0)   rms 4.251e-03  peak at St 0.3292  (13 % of power in that bin)
+    side (0, 4.5)      rms 9.716e-03  peak at St 0.1646  (27 % of power in that bin)
