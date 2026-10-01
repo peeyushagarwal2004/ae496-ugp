@@ -1,0 +1,10 @@
+{
+  "tag": "re100_v5",
+  "rel_l2": 0.0022453032433986664,
+  "net": "fourier_mlp",
+  "width": 128,
+  "depth": 5,
+  "epochs": 25000,
+  "sigma": 8.0,
+  "n_fourier": 64
+}

@@ -1,0 +1,18 @@
+{
+  "100": {
+    "St": 0.16483199175205812,
+    "St_lift_metadata": 0.16483345414555828,
+    "St_correlation": 0.164335,
+    "St_dataset_error_pct": 0.3024259908468144,
+    "Cd_mean": 1.3634164333343506,
+    "blockage": 0.02,
+    "n_snapshots": 641,
+    "probe_growth": 0.9882258565773678,
+    "St_vorticity": 0.16483199175205812,
+    "St_probe": 0.16482935254861922,
+    "St_lift": 0.16483345414555828,
+    "St_instrument_disagreement_pct": 0.0016011732122316377,
+    "saturated": true,
+    "minutes": 5.996776914596557
+  }
+}
