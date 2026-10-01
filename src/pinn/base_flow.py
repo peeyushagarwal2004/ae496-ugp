@@ -171,6 +171,14 @@ def main():
     obj.save(out)
     print(f"\nsaved -> {out}")
 
+    # The report quotes this error. Until now it reached the page only by being
+    # read off stdout; a sidecar next to the .pkl makes it a checkable artifact.
+    import json as _json
+    out.with_suffix(".json").write_text(_json.dumps({
+        "tag": args.tag, "rel_l2": float(rel), "net": args.net,
+        "width": args.width, "depth": args.depth, "epochs": args.epochs,
+        "sigma": args.sigma, "n_fourier": args.n_fourier}, indent=2) + "\n")
+
     # Derivatives must be smooth for the residual to be meaningful: report the
     # magnitude of the Laplacian the PDE will actually see.
     def single(z):

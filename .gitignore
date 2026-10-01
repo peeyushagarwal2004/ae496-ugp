@@ -13,6 +13,7 @@ data/
 data/*
 !data/*_meta.json
 !data/convergence.json
+!data/base_flow_*.json
 
 # underPINN is cloned separately (see COLAB.md / KAGGLE.md)
 upinn/
