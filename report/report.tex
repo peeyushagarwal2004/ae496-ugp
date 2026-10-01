@@ -152,11 +152,16 @@ lattice Boltzmann method written in JAX.
         parameter $\Lambda = (\tau^+ - 1/2)(\tau^- - 1/2)$ to be pinned at
         $3/16$, which fixes the wall location.
   \item \textbf{Half-way bounce-back} for the no-slip cylinder, placing the
-        wall midway between nodes.
-  \item \textbf{Momentum-exchange} for the surface force, which is what makes
-        $\Cd$ accurate enough to validate against published values.
+        wall midway between nodes, and \textbf{momentum exchange} for the
+        surface force.
   \item \textbf{Specular (free-slip) top and bottom walls}, enforcing $v = 0$
         exactly and matching the symmetry condition used on the PINN side.
+  \item \textbf{An absorbing layer} of $8D$ at each free-slip wall, relaxing
+        the populations toward the free-stream equilibrium at a peak rate of
+        $0.05$ per step on a cubic ramp, with $\tau^-$ recomputed pointwise so
+        that $\Lambda$ stays exactly $3/16$. Why it is needed is the subject of
+        the rest of this section.
+  \item \textbf{The inlet $25D$ ahead of the cylinder}, in a domain $60D$ long.
 \end{itemize}
 
 Shedding is triggered by a brief transverse inlet perturbation; without it the
@@ -164,90 +169,124 @@ symmetric base flow persists indefinitely --- the same degeneracy that the PINN
 later falls into, appearing here in the reference solver.
 
 \paragraph{Production dataset.} $\Rey = 100$, $D = 24$ lattice units,
-$\mathrm{Ma} = 0.087$, grid $720 \times 1200$, blockage $D/H = 2\%$. The saved
-record is 641 snapshots spanning $\tstar = 91$--$212$ on a $241 \times 121$
+$\mathrm{Ma} = 0.087$, grid $1440 \times 1200$, blockage $D/H = 2\%$. The saved
+record is 641 snapshots covering 20 shedding periods, on a $241 \times 121$
 grid at $\Delta x = 0.083D$ and $\Delta \tstar = 0.19$, chosen near the
 reference paper's PIV resolution so that the later comparison is like-for-like.
 
 \begin{table}[h]
 \centering
-\caption{Validation of the ground truth at $\Rey = 100$. The benchmarks are
-the compilation of eight independent large-domain studies in Qu et
-al.\,\cite{qu2013}, whose own values (used as the reference for the errors quoted) are $\Cd = 1.317$, $\St = 0.1649$ and
-$\Cl'= 0.2224$ at $H = 120$.}
+\caption{Validation of the ground truth at $\Rey = 100$. Benchmarks are Qu et
+al.\,\cite{qu2013}: the range is their compilation of eight independent
+large-domain studies, and the errors are taken against their own values,
+$\Cd = 1.317$, $\St = 0.1649$ and $\Cl' = 0.2224$.}
 \begin{tabular}{lccc}
 \toprule
 quantity & computed & benchmark\,\cite{qu2013} & error \\
 \midrule
-$\Cd$ (mean drag coefficient) & 1.3798 & 1.318--1.336 & $+4.8\%$ \\
-$\St$ (Strouhal number)       & 0.1595 & 0.164--0.166 & $-3.3\%$ \\
-divergence error & \multicolumn{3}{l}{1.35\% of $|\nabla \mathbf{u}|$, against $\mathrm{Ma}^2 = 0.75\%$} \\
+$\Cd$ (mean drag coefficient)  & 1.3634 & 1.318--1.336 & $+3.5\%$ \\
+$\St$ (Strouhal number)        & 0.1648 & 0.164--0.166 & $-0.04\%$ \\
+$\Cl'$ (r.m.s.\ lift)          & 0.2362 & 0.222--0.235 & $+6.2\%$ \\
 \bottomrule
 \end{tabular}
+\label{tab:validation}
 \end{table}
 
-Three points about this table, because each of them was got wrong at some
-stage of this project.
+$\St$ is measured from wake vorticity, which cannot see irrotational sound; the
+lift and a single wake probe give the same value to within $0.002\%$. The
+remaining $\Cd$ offset is resolution, quantified below: at $D = 32$ the same
+geometry gives $+2.3\%$.
 
-First, $\Cd$ is \emph{not} within a fraction of a percent of the literature, as
-an earlier draft claimed against an uncited benchmark of 1.37--1.38. The
-large-domain consensus at $\Rey = 100$ is $\Cd \approx 1.32$, and the
-overshoot here is $+4.8\%$. It is systematic rather than incidental: the same
-comparison across the whole sweep of Section~\ref{sec:resweep} gives $+2.7\%$
-to $+7.9\%$ at every Reynolds number. Section~\ref{sec:resweep} attributes it
-to confinement, and the convergence study below is the direct evidence.
+\subsection{How the ground truth was validated}
+\label{sec:acoustic}
 
-Second, the $\St$ quoted is measured from wake vorticity, not from the lift
-signal, for the reason given in Section~\ref{sec:acoustic}. The lift-derived
-value for this dataset is 0.1611, which would read as a $-2.3\%$ error and
-flatter the solver by a point.
+An earlier version of this dataset put the inlet $8D$ ahead of the cylinder and
+had no absorbing layer. It read $\St = 0.1595$ ($-3.3\%$) and $\Cd = 1.3798$,
+and was reported as agreeing with a benchmark of 1.37--1.38 to $0.3\%$; that
+benchmark was uncited and closer to the $\Rey = 200$ value. Three problems
+were found and fixed, each by a controlled test (Figure~\ref{fig:validation}).
 
-Third, the divergence error depends on the evaluation mask to within an order
-of magnitude, because centred stencils adjacent to the cylinder straddle the
-wall and measure a stencil artefact rather than compressibility. The figure
-quoted uses this project's own \texttt{interior\_mask} with a two-cell halo and
-an r.m.s. norm; widening the halo to eight cells gives $0.53\%$, and a
-mean-absolute norm gives $0.71\%$. The claim worth making is that the residual
-divergence is of order $\mathrm{Ma}^2$, not that it takes any particular value.
+\paragraph{The domain is a duct, and the duct resonates.} Free-slip walls
+reflect sound perfectly and lattice Boltzmann carries real sound, so the domain
+supports a transverse standing half-wave at $c_s/2H$ --- in flow units
+$\St_a = (c_s/2H)(D/U) = 0.1155$. Given time it captures the wake itself: with
+no absorbing layer, wake vorticity sheds at $\St = 0.1600$ over 20 recorded
+periods and at $0.1132$ over 38, on the resonance. A viscosity ramp, the
+textbook absorbing layer, does nothing here (0.1131): viscous absorption scales
+as $\nu\omega^2$ and this mode's wavelength is twice the domain height, so an
+$8D$ layer at twenty times the viscosity removes about $0.04\%$ of the
+amplitude per pass. Relaxing toward the free stream damps at a rate set per
+step, independent of frequency, and releases the wake ($0.1694$ over the same
+38 periods). The result does not depend on the layer: across a twofold change
+in its width and a fivefold change in its rate, $\Cd$ moves by $0.1\%$ and
+$\St$ by $0.2\%$, and 38 and 120 recorded periods agree to four figures.
 
-\paragraph{Convergence study.} Two candidate error sources were separated
-(Figure~\ref{fig:convergence}). Varying resolution from $D = 16$ to $D = 40$ at
-fixed blockage moves $\Cd$ by only 2.4\%: the grid is converged.
-Varying blockage at fixed resolution moves it far more, $\Cd = 1.627$, $1.458$
-and $1.431$ at 5.0\%, 3.3\% and 2.5\%, extrapolating linearly through the two
-least confined cases to $1.348$ at zero blockage --- still $+2.3\%$ against the
-benchmark, since the production dataset's $H = 50$ is itself well inside the
-confined regime.
-\emph{The apparent $+24\%$ error at 5\% blockage is domain
-confinement, not a solver defect} --- the headline validation result, and one
-the literature supports directly: Qu et al.\,\cite{qu2013} report that force
-and base-suction coefficients depend more strongly on domain size than on
-resolution while $\St$ does not, and that blockage effects become negligible
-only for $H > 100$.
+This is a known physical mechanism rather than a numerical curiosity.
+Blevins\,\cite{blevins1985} showed experimentally that a transverse acoustic
+wave shifts cylinder shedding to its own frequency through the acoustic
+velocity rather than the pressure, and Hong et al.\,\cite{hong2020} model the
+coupling for a cylinder in a duct, placing the lock-in band at
+$\St/\St_a \le 1.14$. At $\Rey = 100$ the ratio here is $1.43$, well outside
+that band, and the wake still locks given enough time --- plausibly because
+lossless walls sustain the mode at separations a physical duct could not. The
+practical consequence was that no dataset could be recorded for long enough to
+average force coefficients over the 80-odd cycles the literature uses.
+
+\paragraph{The inlet distance, not the blockage.} With the absorbing layer in
+place and the grid converged, crossing domain height ($H = 50D$, $120D$) with
+inlet distance ($8D$, $25D$) separates the two geometric suspects cleanly.
+Moving the inlet from $8D$ to $25D$ ahead of the cylinder lowers $\Cd$ by
+$4.7\%$, from $+7.4\%$ to $+2.3\%$ against Qu et al., and takes $\St$ from
+$+3.0\%$ to $+0.3\%$; raising the height from
+$50D$ to $120D$ moves $\Cd$ by $0.36\%$, and by $0.07\%$ once the inlet is far
+enough upstream. Posdziech and Grundmann, as reported by Qu et
+al.\,\cite{qu2013}, require more than $20D$. Blockage, which an earlier draft
+of this report blamed, was never the dominant error.
+
+\paragraph{Resolution.} At fixed geometry, $\Cd = 1.4334$, $1.4139$ and $1.4147$
+at $D = 24$, $32$ and $48$: converged at $D = 32$, with $D = 24$ about $1.4\%$
+high in $\Cd$ and within $0.3\%$ in $\St$. The production dataset keeps
+$D = 24$ so that its snapshot grid matches the PIV-like resolution the networks
+are trained on; the price is the $\Cd$ offset in Table~\ref{tab:validation}.
+
+\paragraph{Residual divergence.} Lattice Boltzmann is weakly compressible, so
+$\nabla\cdot\mathbf{u}$ is never zero. Over the snapshot grid, excluding the
+cylinder and a two-cell halo, its r.m.s.\ is $2.47\%$ of $|\nabla\mathbf{u}|$,
+against $\mathrm{Ma}^2 = 0.75\%$. A spectral decomposition separates two parts.
+The time-mean part, the steady compressibility of the mean flow, is unchanged
+from the earlier dataset. The fluctuating part is broadband and strongest in
+the far wake; it is a property of the longer domain, not of the absorbing layer
+--- the same geometry without the layer carries the same level --- and the
+coherent duct mode that dominated it before is gone.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.92\textwidth]{convergence.png}
-\caption{Solver validation: resolution series, blockage series, and the
-extrapolation to zero blockage.}
-\label{fig:convergence}
+\includegraphics[width=\textwidth]{validation.png}
+\caption{How the ground truth was validated. (a) Wake-vorticity $\St$: without
+an absorbing layer the wake locks onto the transverse duct mode given enough
+time; a viscous layer does not prevent it; relaxation toward the free stream
+does. (b) $\Cd$ error at $D = 32$ with the layer: the inlet distance, not the
+domain height, was the dominant geometric error. (c) Grid convergence at the
+original inlet distance.}
+\label{fig:validation}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.92\textwidth]{re100_v4_vorticity.png}
+\includegraphics[width=0.92\textwidth]{re100_v5_vorticity.png}
 \caption{The reference K\'arm\'an street over one shedding period.}
 \label{fig:vorticity}
 \end{figure}
 
 \paragraph{A methodological note.} An early estimate of $\St$ taken from an FFT
 peak gave a fraction-of-a-percent agreement that was pure luck: over a record
-of this length a single FFT bin is wider than the discrepancy being measured,
-so the peak cannot resolve the quantity the agreement was claimed for. The
-$\St$ values reported here are measured instead in the time domain, from a
-zero-crossing estimator that resolves the period to a fraction of a time step,
-cross-checked spectrally where the signal is clean enough
-(Section~\ref{sec:acoustic}); the honest error is $-3.3\%$.
+of this length a single FFT bin is wider than the discrepancy being measured.
+The $\St$ values reported here are measured from wake vorticity averaged over
+many points, cross-checked against a single wake probe and the lift; on the
+production dataset the three agree to $0.002\%$, where on the earlier one they
+disagreed by about $1\%$ because the lift carried the duct mode.
+
+\FloatBarrier
 
 \section{An unsteady Navier--Stokes operator}
 \label{sec:operator}
