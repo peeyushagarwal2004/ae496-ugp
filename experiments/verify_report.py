@@ -225,10 +225,23 @@ def compute(entry):
 
 # --------------------------------------------------------------------------
 
+def find_literal(literal, lines):
+    """1-based line numbers where `literal` occurs.
+
+    TeX source wraps sentences, so a literal may contain one newline; it is
+    then matched against each line joined to the next and reported at the
+    first of the two. report/build_manifest.py uses the same rule.
+    """
+    if "\n" in literal:
+        return [i + 1 for i in range(len(lines) - 1)
+                if literal in lines[i] + "\n" + lines[i + 1]]
+    return [i for i, ln in enumerate(lines, 1) if literal in ln]
+
+
 def check(entry, lines):
     literal = entry["literal"]
     want = entry["tex"]
-    found = [i for i, ln in enumerate(lines, 1) if literal in ln]
+    found = find_literal(literal, lines)
 
     tex_status, tex_msg = PASS, ""
     if not found:
@@ -316,7 +329,7 @@ def main():
         counts[status] = counts.get(status, 0) + 1
         # A line hint can be stale on an entry that also MISMATCHes, so decide
         # resyncability from the literal alone rather than from the status.
-        found = [i for i, ln in enumerate(lines, 1) if e["literal"] in ln]
+        found = find_literal(e["literal"], lines)
         if found and e["tex"] not in found:
             moved.append(e)
         if status != PASS or args.verbose:
@@ -328,8 +341,7 @@ def main():
 
     if args.resync and moved:
         for e in moved:
-            e["tex"] = [i for i, ln in enumerate(lines, 1)
-                        if e["literal"] in ln][0]
+            e["tex"] = find_literal(e["literal"], lines)[0]
         MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n")
         print("\nresynced %d line hint(s) in %s" % (len(moved), MANIFEST.name))
 
