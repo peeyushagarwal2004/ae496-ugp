@@ -231,6 +231,46 @@ QU2013_TABLE3 = {
 QU2013_RE100_CD_RANGE = (1.318, 1.336)
 RE_C_3D = 188.5          # Barkley and Henderson (1996), JFM 322, 215-241
 
+# Thresholds the report quotes from the literature. Transcribed once here so a
+# typo in the report is caught like any other mismatch.
+LITERATURE = {
+    # Hong, Wang, Jing and Sun (2020), JFM 884 A42: outer edge of the
+    # beta-mode-dominant lock-in band, f_s / f_a
+    "hong2020_lockin_ratio_max": 1.14,
+    # Posdziech and Grundmann (2007), as reported by Qu et al. (2013):
+    # minimum inlet distance, diameters
+    "posdziech2007_upstream_min_d": 20.0,
+    # Kumar and Mittal (2006), as reported by Qu et al. (2013): domain height
+    # above which blockage effects become negligible, diameters
+    "kumar2006_height_min_d": 100.0,
+}
+
+
+def sponge_sensitivity():
+    """Spread of Cd and St across the absorbing-layer variants.
+
+    Four runs at Re = 100, D = 24, H = 50, inlet 8 D, 120 recorded periods,
+    differing only in the layer: 8 D or 4 D wide, peak rate 0.02, 0.05 or 0.10
+    per step. If the layer were setting the answer rather than revealing it,
+    these would differ.
+    """
+    tags = ["tsponge_conv", "tsponge_narrow", "tsponge_weak", "tsponge_strong"]
+    rows = {}
+    for t in tags:
+        p = ROOT / "data" / f"cylinder_{t}_meta.json"
+        if p.exists():
+            m = json.loads(p.read_text())
+            rows[t] = {"Cd": m["Cd_mean"], "St": m["St"],
+                       "width_d": m.get("sponge_d"),
+                       "rate": m.get("sponge_target")}
+    if len(rows) < 2:
+        return None
+    cd = [r["Cd"] for r in rows.values()]
+    st = [r["St"] for r in rows.values()]
+    return {"runs": rows,
+            "Cd_spread_pct": (max(cd) - min(cd)) / min(cd) * 100.0,
+            "St_spread_pct": (max(st) - min(st)) / min(st) * 100.0}
+
 
 def benchmark_comparison(sweep):
     """Score every sweep dataset against Qu et al. (2013) Table 3."""
@@ -254,6 +294,7 @@ def benchmark_comparison(sweep):
     out = {"qu2013": QU2013_TABLE3,
            "qu2013_Re100_Cd_range": list(QU2013_RE100_CD_RANGE),
            "Re_c_3d": RE_C_3D,
+           "literature": LITERATURE,
            "per_Re": rows}
     if cd_over:
         out["cd_overshoot_pct"] = {"min": float(min(cd_over.values())),
@@ -459,6 +500,7 @@ def main():
                   "report/numbers.json sources them from this file.",
         "acoustic": acoustic_resonance(meta),
         "viscous_layer": viscous_layer_absorption(meta),
+        "sponge_sensitivity": sponge_sensitivity(),
         "fft_bin_width": fft_bin_width(meta),
     }
 

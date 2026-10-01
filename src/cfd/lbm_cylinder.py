@@ -636,6 +636,12 @@ def main():
         "grid": [nx, ny],
         "steps": args.steps,
         "warmup_steps": warmup,
+        # Domain geometry in diameters. The inlet distance turned out to be
+        # the dominant geometric error (4.7 % of Cd between 8 and 25 D), and
+        # datasets made before 2026-10-01 do not record it.
+        "length_d": args.length,
+        "height_d": args.height,
+        "upstream_d": args.upstream,
         "n_snapshots": len(snaps),
         "snapshot_grid": [int(x_out.size), int(y_out.size)],
         "dx_over_D": st_ / D,
