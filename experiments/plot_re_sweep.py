@@ -38,10 +38,10 @@ def strouhal_correlation(re):
     return -3.3265 / re + 0.1816 + 1.6e-4 * re
 
 
-def collect():
+def collect(sweep_dir="re_sweep"):
     """{Re: {'baseline': [...], 'all': [...], 'St': float}} across all sources."""
     out = {}
-    sweep = json.loads((ROOT / "runs" / "re_sweep" / "summary.json").read_text())
+    sweep = json.loads((ROOT / "runs" / sweep_dir / "summary.json").read_text())
     for re, row in sweep.items():
         out[float(re)] = {
             "baseline": [100 * v for k, v in sorted(row.items())
@@ -51,7 +51,10 @@ def collect():
             "St": row.get("St"),
         }
 
-    # Re = 100: same configurations, run before the sweep existed.
+    # Re = 100: the v1 sweep reused runs made before the sweep existed. The
+    # v5 sweep runs Re = 100 itself, so only graft when it is missing.
+    if out.get(100.0, {}).get("all"):
+        return out
     for name, cfg in (("ablation", "baseline"), ("ablation_sigma8", "all")):
         path = ROOT / "runs" / name / "summary.json"
         if path.exists():
@@ -75,9 +78,10 @@ def style(ax):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=None)
+    ap.add_argument("--sweep-dir", default="re_sweep")
     args = ap.parse_args()
 
-    data = collect()
+    data = collect(args.sweep_dir)
     res = sorted(data)
 
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(11, 4.3),
