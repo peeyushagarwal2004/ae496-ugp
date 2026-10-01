@@ -63,12 +63,36 @@ def run(*cmd, **kw):
 
 
 # Re = 100 was generated before this script existed, under its own tag; reuse
-# that dataset rather than spending an hour reproducing it.
+# that dataset rather than spending an hour reproducing it. Applies to the
+# original v1 sweep only.
 TAG_OVERRIDE = {100: "re100_v4"}
+
+# Generation settings, set from the command line in main(). The defaults
+# reproduce the original v1 sweep exactly, so its committed results stay
+# regenerable. The v5 sweep differs in three ways, each measured before it
+# was adopted (see report/report.tex, Section 2):
+#
+#   upstream 25 D instead of 8 -- the dominant error. At D = 32 with the
+#     absorbing layer, moving the inlet from 8 to 25 diameters ahead of the
+#     cylinder took Cd from +7.4 % to +2.3 % and St from +3.0 % to +0.3 %
+#     against Qu et al. (2013); raising the domain height from 50 to 120 D
+#     moved Cd by 0.07 %.
+#   absorbing layer at the free-slip walls -- without it the transverse duct
+#     mode entrains the wake given enough time (vorticity St 0.1600 over 20
+#     recorded periods, 0.1132 over 38, at Re = 100).
+#   u = 0.05 at every Re -- the v1 sweep lowered the lattice velocity at
+#     Re = 60 and 80 to move the resonance away, which changed the Mach
+#     number between datasets. With the mode damped there is nothing to
+#     dodge, so every dataset now shares one Mach number.
+CFG = {"suffix": "v1", "sponge": 0.0, "sponge_target": 0.05,
+       "upstream": 8.0, "length": 30.0, "ic_from_network": False,
+       "run_root": "re_sweep"}
 
 
 def tag_for(re):
-    return TAG_OVERRIDE.get(int(re), f"re{int(re)}_v1")
+    if CFG["suffix"] == "v1":
+        return TAG_OVERRIDE.get(int(re), f"re{int(re)}_v1")
+    return f"re{int(re)}_{CFG['suffix']}"
 
 
 RE_CRIT = 47.0  # onset of shedding for a 2-D circular cylinder
@@ -114,6 +138,8 @@ def lattice_velocity(st_shedding, separation=0.35, u_default=0.05, u_min=0.02):
     resonance. Keeping them `separation` apart avoids the lock-in; the cost is
     runtime, since a smaller u needs proportionally more steps per t*.
     """
+    if CFG["sponge"] > 0:
+        return u_default        # the mode is damped; one Mach number for all Re
     if abs(acoustic_strouhal(u_default) - st_shedding) / st_shedding >= separation:
         return u_default
     # Push the resonance above the shedding band rather than below it: the
@@ -131,12 +157,17 @@ def _lbm(re, tag, st, args):
     print(f"[Re {re:g}] St assumed {st:.4f}: u {u:g} (acoustic mode at St "
           f"{acoustic_strouhal(u):.4f}), warmup {wp:.0f} periods, "
           f"{steps} steps total")
+    geometry = ["--length", CFG["length"], "--upstream", CFG["upstream"]]
+    if CFG["sponge"] > 0:
+        geometry += ["--sponge", CFG["sponge"],
+                     "--sponge-target", CFG["sponge_target"]]
     run(PY, "-u", "src/cfd/lbm_cylinder.py", "--re", re,
-        # Same domain and resolution as re100_v4 -- 2 % blockage, D = 24
-        # lattice units -- so datasets differ only in Re and in the lattice
-        # velocity, which sets the Mach number and the acoustic resonance.
+        # One domain and resolution for every Re -- 2 % blockage, D = 24
+        # lattice units -- so datasets differ only in Re (and, in the v1
+        # sweep only, in the lattice velocity).
         "--u", u, "--height", "50", "--steps", steps, "--st", round(st, 5),
-        "--warmup-periods", round(wp, 2), "--snaps-per-period", 32, "--tag", tag)
+        "--warmup-periods", round(wp, 2), "--snaps-per-period", 32,
+        *geometry, "--tag", tag)
     return json.loads((ROOT / "data" / f"cylinder_{tag}_meta.json").read_text())
 
 
@@ -300,23 +331,30 @@ def ablate(re, meta, args):
     a property of the flow.
     """
     tag = tag_for(re)
-    period = 1.0 / float(meta["St"])
-    run_name = f"re_sweep/{int(re)}"
+    # The period comes from the trusted instrument. meta["St"] is the lift,
+    # which the v1 sweep used here and which validate() itself documents as
+    # acoustically contaminated -- on a locked dataset it would size the
+    # windows from the duct mode instead of the wake.
+    period = 1.0 / float(meta.get("St_vorticity", meta["St"]))
+    run_name = f"{CFG['run_root']}/{int(re)}"
+    chain = " --ic-from-network" if CFG["ic_from_network"] else ""
     print(f"[Re {re:g}] shedding period {period:.2f} t*: "
-          f"baseline 1 x {period:.3f}, all 4 x {period / 4:.3f}")
+          f"baseline 1 x {period:.3f}, all 4 x {period / 4:.3f}"
+          f"{'  (chained ICs)' if chain else ''}")
     for only, window in (("baseline", period), ("all", period / 4.0)):
         run(PY, "-u", "experiments/run_ablation.py", "--tag", tag,
             "--epochs", args.epochs, "--seeds", args.seeds,
             "--only", only, "--run-name", run_name,
-            "--extra", f"--sigma 8 --window-len {window:.4f} --save-params")
+            "--extra", f"--sigma 8 --window-len {window:.4f} --save-params{chain}")
 
 
 def accuracy(re, args):
     run(PY, "-u", "experiments/shedding_accuracy.py",
-        "--run-name", f"re_sweep/{int(re)}", "--runs", "all_s0",
+        "--run-name", f"{CFG['run_root']}/{int(re)}", "--runs", "all_s0",
         "--tag", tag_for(re))
     rows = json.loads(
-        (ROOT / "runs" / "re_sweep" / str(int(re)) / "shedding_accuracy.json").read_text())
+        (ROOT / "runs" / CFG["run_root"] / str(int(re))
+         / "shedding_accuracy.json").read_text())
     return rows[0]
 
 
@@ -333,11 +371,28 @@ def main():
     ap.add_argument("--record-periods", type=float, default=15.0,
                     help="shedding periods to record after warmup")
     ap.add_argument("--base-epochs", type=int, default=25000)
+    ap.add_argument("--suffix", default="v1",
+                    help="dataset tag suffix; v1 reproduces the original sweep")
+    ap.add_argument("--sponge", type=float, default=0.0,
+                    help="absorbing layer at the free-slip walls, diameters")
+    ap.add_argument("--sponge-target", type=float, default=0.05)
+    ap.add_argument("--upstream", type=float, default=8.0,
+                    help="inlet distance ahead of the cylinder, diameters")
+    ap.add_argument("--length", type=float, default=30.0,
+                    help="domain length, diameters")
+    ap.add_argument("--ic-from-network", action="store_true",
+                    help="chain the marching windows (one ground-truth slice)")
+    ap.add_argument("--run-root", default="re_sweep",
+                    help="results go under runs/<run-root>/<Re>")
     args = ap.parse_args()
+    CFG.update(suffix=args.suffix, sponge=args.sponge,
+               sponge_target=args.sponge_target, upstream=args.upstream,
+               length=args.length, ic_from_network=args.ic_from_network,
+               run_root=args.run_root)
 
     res = [float(r) for r in args.res.split(",")]
     last = STAGES.index(args.stage) if args.stage else len(STAGES) - 1
-    out = ROOT / "runs" / "re_sweep"
+    out = ROOT / "runs" / CFG["run_root"]
     out.mkdir(parents=True, exist_ok=True)
     summary_path = out / "summary.json"
     summary = json.loads(summary_path.read_text()) if summary_path.exists() else {}
@@ -348,7 +403,12 @@ def main():
         row = dict(summary.get(str(int(re)), {}))
 
         meta = generate(re, args)
-        row.update(validate(re, meta))
+        val = validate(re, meta)
+        row.update(val)
+        if CFG["suffix"] != "v1":
+            # Size the marching windows from the vorticity St, not the lift.
+            # The v1 sweep used the lift; kept that way so it stays faithful.
+            meta = {**meta, "St_vorticity": val["St_vorticity"]}
         if last >= STAGES.index("base"):
             fit_base_flow(re, args)
         if last >= STAGES.index("ablation"):
