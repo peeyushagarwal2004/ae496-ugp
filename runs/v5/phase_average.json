@@ -74,19 +74,41 @@
       ]
     },
     "baseline80k": {
-      "n_runs": 2,
+      "n_runs": 4,
       "phases_covered": [
-        0
+        0,
+        1
       ],
       "shedding_by_phase": {
-        "0": 0.616403378968992
+        "0": 0.616403378968992,
+        "1": 0.33935544796710004
       },
-      "shedding_mean": 0.616403378968992,
-      "shedding_min": 0.6082453208638393,
+      "shedding_mean": 0.4778794134680461,
+      "shedding_min": 0.33367244961086057,
       "shedding_max": 0.6245614370741448,
-      "shedding_phase_mean_min": 0.616403378968992,
+      "shedding_phase_mean_min": 0.33935544796710004,
       "shedding_phase_mean_max": 0.616403378968992,
-      "rel_l2_mean": 0.11500878069980555,
+      "rel_l2_mean": 0.11274871391569014,
+      "gt_ic_slices": [
+        1
+      ]
+    },
+    "fd8_80k": {
+      "n_runs": 4,
+      "phases_covered": [
+        0,
+        1
+      ],
+      "shedding_by_phase": {
+        "0": 0.5293168019862,
+        "1": 0.37767645488962864
+      },
+      "shedding_mean": 0.4534966284379144,
+      "shedding_min": 0.3546748098490959,
+      "shedding_max": 0.5718584773118898,
+      "shedding_phase_mean_min": 0.37767645488962864,
+      "shedding_phase_mean_max": 0.5293168019862,
+      "rel_l2_mean": 0.055089092386133784,
       "gt_ic_slices": [
         1
       ]
@@ -94,16 +116,23 @@
   },
   "paired": {
     "causality (march vs baseline80k)": {
-      "n": 2,
-      "mean_pts": 10.518081618237336,
+      "n": 4,
+      "mean_pts": 9.3585117730333,
       "min_pts": 7.243144243564636,
       "max_pts": 13.793018992910033,
       "all_positive": true
     },
+    "causality with the other two mechanisms (all vs fd8_80k)": {
+      "n": 4,
+      "mean_pts": 29.263496685395722,
+      "min_pts": 22.593097842392307,
+      "max_pts": 36.049056473805905,
+      "all_positive": true
+    },
     "compute (baseline80k vs baseline)": {
-      "n": 2,
-      "mean_pts": 20.585621412766127,
-      "min_pts": 19.09980797393431,
+      "n": 4,
+      "mean_pts": 17.593706468034924,
+      "min_pts": 12.786619920700806,
       "max_pts": 22.07143485159794,
       "all_positive": true
     }
@@ -264,6 +293,42 @@
       "rel_l2": 0.11827716011078777,
       "gt_ic_slices": 1,
       "path": "runs/v5/ctrl_budget80k/baseline_s1"
+    },
+    "baseline80k_k1_s0": {
+      "shedding": 0.3450384463233396,
+      "rel_l2": 0.10902539161156409,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline80k_k1_s0"
+    },
+    "baseline80k_k1_s1": {
+      "shedding": 0.33367244961086057,
+      "rel_l2": 0.11195190265158533,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline80k_k1_s1"
+    },
+    "fd8_80k_k0_s0": {
+      "shedding": 0.4867751266605103,
+      "rel_l2": 0.0579527189902333,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/fd8_80k_k0_s0"
+    },
+    "fd8_80k_k0_s1": {
+      "shedding": 0.5718584773118898,
+      "rel_l2": 0.05217770443333858,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/fd8_80k_k0_s1"
+    },
+    "fd8_80k_k1_s0": {
+      "shedding": 0.3546748098490959,
+      "rel_l2": 0.05534812271746931,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/fd8_80k_k1_s0"
+    },
+    "fd8_80k_k1_s1": {
+      "shedding": 0.40067809993016146,
+      "rel_l2": 0.05487782340349395,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/fd8_80k_k1_s1"
     }
   }
 }

@@ -1,0 +1,20 @@
+[
+  {
+    "run": "all",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/multiperiod/all_s0",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.1476188755495175,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -10.41969397851163,
+    "zero_crossings_pinn": 9,
+    "amplitude_ratio": 0.6384200334160541,
+    "phase_lag_periods": -0.8313787251054815,
+    "phase_drift_periods": 0.2839261388198313,
+    "rel_l2_saved": 0.15628544251604284,
+    "shedding_saved": 0.6372338606672019
+  }
+]

@@ -1,0 +1,25 @@
+### fd8_80k phase 0/4 seed 0  t_start=91.4625  Fri Oct  2 10:00:49 IST 2026
+  -> rel L2 0.0575   probe v rms: PINN 0.1960 vs LBM 0.4027   shedding retained 48.7 %
+    relative L2       0.0580
+    shedding retained 48.7 %
+### fd8_80k phase 0/4 seed 1  t_start=91.4625  Fri Oct  2 10:46:19 IST 2026
+  -> rel L2 0.0521   probe v rms: PINN 0.2303 vs LBM 0.4027   shedding retained 57.2 %
+    relative L2       0.0522
+    shedding retained 57.2 %
+### baseline80k phase 1/4 seed 0  t_start=92.9792  Fri Oct  2 11:26:08 IST 2026
+  -> rel L2 0.1081   probe v rms: PINN 0.1407 vs LBM 0.4077   shedding retained 34.5 %
+    relative L2       0.1090
+    shedding retained 34.5 %
+### fd8_80k phase 1/4 seed 0  t_start=92.9792  Fri Oct  2 11:54:03 IST 2026
+  -> rel L2 0.0549   probe v rms: PINN 0.1446 vs LBM 0.4077   shedding retained 35.5 %
+    relative L2       0.0553
+    shedding retained 35.5 %
+### baseline80k phase 1/4 seed 1  t_start=92.9792  Fri Oct  2 12:32:42 IST 2026
+  -> rel L2 0.1112   probe v rms: PINN 0.1360 vs LBM 0.4077   shedding retained 33.4 %
+    relative L2       0.1120
+    shedding retained 33.4 %
+### fd8_80k phase 1/4 seed 1  t_start=92.9792  Fri Oct  2 12:59:05 IST 2026
+  -> rel L2 0.0546   probe v rms: PINN 0.1633 vs LBM 0.4077   shedding retained 40.1 %
+    relative L2       0.0549
+    shedding retained 40.1 %
+### baseline80k phase 2/4 seed 0  t_start=94.4959  Fri Oct  2 13:36:08 IST 2026
