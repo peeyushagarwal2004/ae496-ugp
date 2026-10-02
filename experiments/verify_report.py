@@ -188,8 +188,13 @@ def src_ratio(s):
     den = s["den"]
     if isinstance(den, dict):
         den = SOURCES[den["kind"]](den)
-    if s.get("mode", "pct") == "pct":
+    mode = s.get("mode", "pct")
+    if mode == "pct":
         return (num / den - 1.0) * 100.0
+    if mode == "product":
+        # e.g. a frequency error times the number of periods it acted over
+        # gives the phase error accumulated across a run
+        return num * den
     return num / den
 
 
