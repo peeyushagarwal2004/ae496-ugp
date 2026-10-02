@@ -646,8 +646,8 @@
     },
     {
       "id": "res.D24_cd_high",
-      "tex": 0,
-      "literal": "about $1.4\\%$ high in",
+      "tex": 247,
+      "literal": "with $D = 24$ about $1.4\\%$",
       "printed": 1.4,
       "tol": 0.05,
       "src": {

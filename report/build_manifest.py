@@ -199,7 +199,7 @@ def section2():
       meta("res_D32", "Cd_mean"))
     E("res.D48", "$" + BS + "Cd = 1.4334$, $1.4139$ and $1.4147$", 1.4147, 0.00005,
       meta("res_D48", "Cd_mean"))
-    E("res.D24_cd_high", "about $1.4" + PCT + "$ high in", 1.4, 0.05,
+    E("res.D24_cd_high", "with $D = 24$ about $1.4" + PCT + "$", 1.4, 0.05,
       ratio(meta("res_D24", "Cd_mean"), meta("res_D32", "Cd_mean")))
     E("res.D24_st", "within $0.3" + PCT + "$ in $" + BS + "St$", -0.3, 0.05,
       ratio(meta("res_D24", "St"), meta("res_D32", "St")),
