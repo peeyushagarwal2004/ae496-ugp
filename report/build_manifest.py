@@ -206,7 +206,7 @@ def section2():
       note="'Within 0.3 %': the signed change is -0.27 %.")
 
     # divergence
-    E("div.rms", "its r.m.s.\\ is $2.47" + PCT + "$ of", 2.47, 0.005,
+    E("div.rms", "its r.m.s.\\ is $2.46" + PCT + "$ of", 2.46, 0.005,
       path(DM, "dataset.div_over_grad_pct"))
     E("div.ma2", "against $" + BS + "mathrm{Ma}^2 = 0.75" + PCT + "$.", 0.75, 0.005,
       path(DM, "dataset.ma_squared_pct"))
@@ -267,6 +267,20 @@ def section4():
           path(PH, f"re100_v4.runs.{k}.shedding"), unit="pct")
     E("collapse.v4_phase3", "34.9" + PCT + " at the four phases", 34.9, 0.05,
       path(PH, "re100_v4.runs.3.shedding"), unit="pct")
+    # equal-budget control: the plain PINN at 80 000 epochs
+    b80 = "summary.baseline80k."
+    E("ctrl.b80.mean", "the same network keeps 47.4" + PCT + " on average", 47.4,
+      0.05, path(PA, b80 + "shedding_mean"), unit="pct")
+    E("ctrl.b80.l2", "field error of 0.116.", 0.116, 0.0005,
+      path(PA, b80 + "rel_l2_mean"))
+    E("ctrl.compute_gain", "by 17.3 points phase-averaged", 17.3, 0.05,
+      path(PA, "paired.compute (baseline80k vs baseline).mean_pts"))
+    for k, v, lit in ((0, 61.6, "the half-cycle swing survives it: 61.6" + PCT),
+                      (2, 59.8, "and 59.8" + PCT + " at phases 0 and"),
+                      (1, 33.9, "33.9" + PCT + " and 34.4" + PCT + " at the other two"),
+                      (3, 34.4, "33.9" + PCT + " and 34.4" + PCT + " at the other two")):
+        E(f"ctrl.b80.phase{k}", lit, v, 0.05,
+          path(PA, b80 + f"shedding_by_phase.{k}"), unit="pct")
     E("collapse.old_claim", "``10.6" + PCT + " of the wake''", 10.6, 0.05,
       lst("runs/ablation/summary.json", "shedding", config="baseline"), unit="pct",
       note="The earlier report's figure, from the v4 dataset at one phase.")
@@ -280,9 +294,10 @@ def section5():
             ("decompose", "36.1", "0.086"), ("march", "72.2", "0.156"),
             ("all", "77.3", "0.052")]
     for cfg, sh, l2 in rows:
-        E(f"abl.{cfg}.shedding", f"& {sh}{PCT} & {l2}", float(sh), 0.05,
+        lit = BS + "texttt{" + cfg + "}" + " " * (10 - len(cfg)) + f"& {sh}{PCT} & {l2}"
+        E(f"abl.{cfg}.shedding", lit, float(sh), 0.05,
           lst(AB, "shedding", config=cfg), unit="pct")
-        E(f"abl.{cfg}.l2", f"& {sh}{PCT} & {l2}", float(l2), 0.0005,
+        E(f"abl.{cfg}.l2", lit, float(l2), 0.0005,
           lst(AB, "rel_l2", config=cfg))
     E("abl.all+data.shedding", "& 99.1" + PCT + " & " + BS + "textbf{0.006}", 99.1,
       0.05, lst(AB, "shedding", config="all+data"), unit="pct")
@@ -337,6 +352,37 @@ def section5():
       72.2, 0.05, lst(AB, "shedding", config="march"), unit="pct")
     E("dsic.all_chained", "against 72.2" + PCT + " and 77.3" + PCT + " chained",
       77.3, 0.05, lst(AB, "shedding", config="all"), unit="pct")
+
+    # equal compute
+    CM = "paired.causality (march vs baseline80k)."
+    CA = "paired.causality with the other two mechanisms (all vs fd8_80k)."
+    r1 = ("& 56.7" + PCT + " & 47.4" + PCT + " & $+9.3$ & $+3.7$ to $+13.8$")
+    E("budget.march", r1, 56.7, 0.05, path(PA, "summary.march.shedding_mean"),
+      unit="pct")
+    E("budget.b80", r1, 47.4, 0.05, path(PA, "summary.baseline80k.shedding_mean"),
+      unit="pct")
+    E("budget.march_gain", r1, 9.3, 0.05, path(PA, CM + "mean_pts"))
+    E("budget.march_min", r1, 3.7, 0.05, path(PA, CM + "min_pts"))
+    E("budget.march_max", r1, 13.8, 0.05, path(PA, CM + "max_pts"))
+    r2 = ("& 75.1" + PCT + " & 46.6" + PCT + " & $+28.4$ & $+20.0$ to $+37.2$")
+    E("budget.all", r2, 75.1, 0.05, path(PA, "summary.all.shedding_mean"),
+      unit="pct")
+    E("budget.fd8", r2, 46.6, 0.05, path(PA, "summary.fd8_80k.shedding_mean"),
+      unit="pct")
+    E("budget.all_gain", r2, 28.4, 0.05, path(PA, CA + "mean_pts"))
+    E("budget.all_min", r2, 20.0, 0.05, path(PA, CA + "min_pts"))
+    E("budget.all_max", r2, 37.2, 0.05, path(PA, CA + "max_pts"))
+    E("budget.text.compute", "17.3 points against 9.3", 17.3, 0.05,
+      path(PA, "paired.compute (baseline80k vs baseline).mean_pts"))
+    E("budget.text.causal", "17.3 points against 9.3", 9.3, 0.05,
+      path(PA, CM + "mean_pts"))
+    E("budget.text.fd8", "window keep 46.6" + PCT + " at", 46.6, 0.05,
+      path(PA, "summary.fd8_80k.shedding_mean"), unit="pct")
+    E("budget.text.all_gain", "lifts them by 28.4 points", 28.4, 0.05,
+      path(PA, CA + "mean_pts"))
+    E("budget.text.three_times", "Causality is worth three times", 3.0, 0.5,
+      ratio(path(PA, CA + "mean_pts"), path(PA, CM + "mean_pts"), mode="ratio"),
+      note="28.4 / 9.3 paired-mean points; printed as a round multiple.")
 
     # knobs
     S8 = "runs/v5/ablation_sigma8/summary.json"
@@ -438,7 +484,48 @@ def section6():
       note="The earlier report's figure, from the per-window-snapshot run on v4.")
 
 
-SECTIONS = [section2, section3, section4, section5, section6]
+# ---------------------------------------------------------------------------
+# Framing -- introduction, limitations, note on method
+# ---------------------------------------------------------------------------
+
+def framing():
+    FIVE = "runs/v5/multiperiod/shedding_accuracy.json"
+
+    def it(key):
+        return {"kind": "item", "file": FIVE, "index": 0, "key": key}
+
+    half_cycle = ratio(ratio(it("St_error_pct"), it("periods_covered"),
+                             mode="product"), -100.0, mode="ratio")
+    AB = "runs/v5/ablation/summary.json"
+
+    E("intro.three_quarters", "at three-quarters of its amplitude", 75.0, 2.5,
+      path(PA, "summary.all.shedding_mean"), unit="pct",
+      note="75.1 % phase-averaged, printed in words.")
+    E("intro.half_cycle", "it drifts about half a", 0.5, 0.05, half_cycle,
+      note="Same estimate as acc5.phase_err.")
+    E("lim.three_quarters", "three-quarters of the wake amplitude over a period",
+      75.0, 2.5, path(PA, "summary.all.shedding_mean"), unit="pct")
+    E("lim.slow", "five periods it runs 10" + PCT + " slow", -10.0, 0.5,
+      it("St_error_pct"), note="Printed as a magnitude.")
+    E("lim.half_cycle", "ends half a cycle out of phase", 0.5, 0.05, half_cycle)
+    E("lim.seed0", "gives 69.7" + PCT + " and", 69.7, 0.05,
+      lst(AB, "shedding", config="march", seed=0), unit="pct")
+    E("lim.seed1", "74.6" + PCT + " on its two seeds", 74.6, 0.05,
+      lst(AB, "shedding", config="march", seed=1), unit="pct")
+    E("lim.swing_lo", "against a swing from 40" + PCT + " to 72" + PCT, 40.0, 0.5,
+      path(PA, "summary.march.shedding_phase_mean_min"), unit="pct")
+    E("lim.swing_hi", "against a swing from 40" + PCT + " to 72" + PCT, 72.0, 0.5,
+      path(PA, "summary.march.shedding_phase_mean_max"), unit="pct")
+    E("lim.lockin", "$" + BS + "St/" + BS + "St_a = 1.43$, outside", 1.43, 0.005,
+      ratio(dct(SWEEP5, "100", "St_vorticity"),
+            path(DM, "acoustic.St_resonance"), mode="ratio"))
+    E("method.old_march", "causal marching alone retains 89.2" + PCT, 89.2, 0.05,
+      lst("runs/ablation/summary.json", "shedding", config="march"), unit="pct",
+      note="The earlier report's headline, v4 dataset, per-window snapshots, "
+           "phase 0.")
+
+
+SECTIONS = [section2, section3, section4, section5, section6, framing]
 
 
 def resolve_lines(entries, lines):

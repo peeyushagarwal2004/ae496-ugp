@@ -93,11 +93,12 @@ data is present. Two points of scope. Their cylinder case is at $\Rey = 200$,
 solved as a \emph{single} time window spanning forty shedding periods, whereas
 this project reproduces the phenomenon at $\Rey = 100$ --- and across
 $\Rey = 60$--$180$ in Section~\ref{sec:resweep} --- from a baseline that solves
-one window of one period and collapses anyway, which is a considerably more
-favourable configuration than theirs. And they attribute the collapse to
-spectral bias, on the evidence of a Koopman analysis showing damped modes; the
-ablation below finds that attacking spectral bias directly does not restore
-shedding, while enforcing causality does, without touching the spectrum.
+one window of one period and still loses most of the wake, which is a
+considerably more favourable configuration than theirs. And they attribute the
+collapse to spectral bias, on the evidence of a Koopman analysis showing damped
+modes; the ablation below finds that attacking spectral bias directly does not,
+on its own, keep more of the wake, while enforcing causality does --- and does
+most in combination with the other two mechanisms.
 
 The objective is therefore to reproduce that failure on validated ground truth
 of our own, and then to establish \emph{which} mechanism defeats it, with an
@@ -107,14 +108,17 @@ sequence-to-sequence formulation of Krishnapriyan et
 al.\,\cite{krishnapriyan2021}, demonstrated there on one-dimensional
 convection, reaction and reaction--diffusion problems, and a hard-window
 relative of the causal weighting of Wang et al.\,\cite{wang2024causality}.
-What is established here is that it suffices \emph{alone}, \emph{data-free},
-on two-dimensional wake shedding, and that the gain is causality rather than
-compute. That matters because two independent studies conclude the
-opposite: both Chuang and Barba\,\cite{chuang2023} and, more recently,
-Shah\,\cite{shah2026} --- who ablates six techniques on a confined cylinder
-benchmark and finds that only supervised combinations escape the collapse ---
-report that some form of data supervision is necessary to sustain shedding at
-all. Neither tests hard time-window marching.
+What is measured here is how much it contributes on two-dimensional wake
+shedding without data, separated from the extra training a marched run
+receives, and how it interacts with the other two mechanisms. Both Chuang and
+Barba\,\cite{chuang2023} and, more recently, Shah\,\cite{shah2026} --- who
+ablates six techniques on a confined cylinder benchmark and finds that only
+supervised combinations escape the collapse --- report that some form of data
+supervision is necessary to sustain shedding at all. Neither tests hard
+time-window marching. The answer found here sits between: a data-free marched
+chain does sustain a wake, at three-quarters of its amplitude, but only with
+all three mechanisms together, and over five periods it drifts about half a
+cycle out of phase with the reference.
 
 A second thread connects the work to its reference paper. Renn et
 al.\,\cite{renn2023} forecast subcritical cylinder wakes with a Fourier Neural
@@ -251,7 +255,7 @@ are trained on; the price is the $\Cd$ offset in Table~\ref{tab:validation}.
 
 \paragraph{Residual divergence.} Lattice Boltzmann is weakly compressible, so
 $\nabla\cdot\mathbf{u}$ is never zero. Over the snapshot grid, excluding the
-cylinder and a two-cell halo, its r.m.s.\ is $2.47\%$ of $|\nabla\mathbf{u}|$,
+cylinder and a two-cell halo, its r.m.s.\ is $2.46\%$ of $|\nabla\mathbf{u}|$,
 against $\mathrm{Ma}^2 = 0.75\%$. A spectral decomposition separates two parts.
 The time-mean part, the steady compressibility of the mean flow, is unchanged
 from the earlier dataset. The fluctuating part is broadband and strongest in
@@ -274,7 +278,9 @@ original inlet distance.}
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.92\textwidth]{re100_v5_vorticity.png}
-\caption{The reference K\'arm\'an street over one shedding period.}
+\caption{The reference K\'arm\'an street at quarter-period intervals, the
+start of the record. These four instants are the four start phases of
+Section~\ref{sec:collapse}.}
 \label{fig:vorticity}
 \end{figure}
 
@@ -332,30 +338,51 @@ merely looks correct.
 
 A plain multilayer perceptron $[3, 128^{\times 6}, 3]$ is trained on physics,
 boundary and initial conditions with \emph{no data}, over a single time window
-of one shedding period, for $20\,000$ epochs.
-
-\begin{table}[h]
-\centering
-\caption{The documented failure, reproduced. Two seeds.}
-\begin{tabular}{lcc}
-\toprule
-quantity & seed 0 & seed 1 \\
-\midrule
-shedding retained & 9.8\% & 11.3\% \\
-relative $L_2$ on $(u,v)$ & 0.184 & 0.183 \\
-\bottomrule
-\end{tabular}
-\end{table}
+of one shedding period, for $20\,000$ epochs. Its initial condition is the
+reference field at the start of the window --- the one piece of ground truth
+that any forward solve needs.
 
 \emph{Shedding retained} is this project's own metric: the ratio of
 transverse-velocity r.m.s.\ at a fixed wake probe between the PINN and the LBM
-reference. Near 0\% means collapse to steady flow;
-100\% means the wake amplitude matches.
+reference over the run. Near 0\% means collapse to steady flow; 100\% means
+the wake amplitude matches.
 
-The wake keeps about a tenth of the reference amplitude --- the PINN is
-effectively solving the steady problem. Quadrupling the budget to $80\,000$
-epochs moves this only to 21.8\%, so the collapse is not an
-artefact of under-training.
+\begin{table}[h]
+\centering
+\caption{The plain PINN, by the phase of the shedding cycle at which it is
+started. Quarter-period steps, two seeds each, seed means.}
+\begin{tabular}{lccccc}
+\toprule
+start phase & 0 & $\tfrac14$ & $\tfrac12$ & $\tfrac34$ & mean \\
+\midrule
+shedding retained & 41.1\% & 19.3\% & 42.5\% & 17.5\% & \textbf{30.1\%} \\
+\bottomrule
+\end{tabular}
+\label{tab:baseline_phase}
+\end{table}
+
+The plain PINN keeps between 17\% and 42\% of the reference amplitude,
+with a field error of 0.17: it does not reproduce the wake, though
+within one period it does not collapse fully onto the steady solution either.
+Which of those it looks like depends on \emph{when it starts}. Retention
+alternates every quarter period, so it repeats every half cycle --- the half
+period over which the transverse velocity at the probe changes sign. Released
+at a peak of the wake signal the network carries more of it through the window
+than released at a zero crossing.
+
+This matters for everything that follows, and an earlier version of this
+report got it wrong. It quoted ``10.6\% of the wake'' from a single starting
+instant; on that dataset the same configuration gives 9.1\%, 25.6\%, 13.1\% and
+34.9\% at the four phases. A comparison between configurations at one starting
+instant is a comparison at that phase only, so every retention figure below is
+either averaged over the four phases or labelled with its phase.
+
+\paragraph{Is it under-trained?} Trained for $80\,000$ epochs instead of
+$20\,000$ --- the budget a four-window marched run spends in
+Section~\ref{sec:ablation} --- the same network keeps 47.4\% on average, at a
+field error of 0.116. Training longer helps, by 17.3 points phase-averaged, but
+the half-cycle swing survives it: 61.6\% and 59.8\% at phases 0 and
+$\tfrac12$, 33.9\% and 34.4\% at the other two.
 
 \section{Defeating the collapse}
 \label{sec:ablation}
@@ -381,120 +408,166 @@ configuration & mechanism & obstacle attacked \\
 \end{tabular}
 \end{table}
 
-Two implementation points matter. First, the Reynolds decomposition requires a
+Three implementation points matter. First, the Reynolds decomposition requires a
 \emph{differentiable} mean field, because the momentum residual contains
 $\nabla u_0$ and $\nabla^2 u_0$; bilinear interpolation of a grid gives
 piecewise-constant first derivatives and identically zero second derivatives.
 The mean is therefore fitted by a separate frozen network (relative
-$L_2 = 1.1\times 10^{-3}$). Second, that mean is obtained by \emph{regression on the
-measured mean}, not by a steady PINN solve, because the time mean of a shedding
-flow does not satisfy the steady equations --- it carries the divergence of the
-Reynolds stresses.
+$L_2 = 2.2\times 10^{-3}$). Second, that mean is obtained by \emph{regression
+on the measured mean}, not by a steady PINN solve, because the time mean of a
+shedding flow does not satisfy the steady equations --- it carries the
+divergence of the Reynolds stresses.
+
+Third, the marching chain. A marched run solves four windows of a quarter
+period in sequence. The first takes the reference initial condition, like every
+other configuration; each later window takes its initial condition from the
+\emph{previous window's network} at the shared instant, so the whole run
+touches ground truth exactly once. An earlier version of this project instead
+gave every window a fresh reference snapshot, so a marched run used four
+ground-truth slices spread across the period against one for the single-window
+runs it was compared with. The effect of that is measured below.
 
 \subsection{Result}
 
 \begin{table}[h]
 \centering
-\caption{Full-budget ablation at $\Rey = 100$: $20\,000$ epochs per window,
-two seeds, seed means. \emph{Time-marching alone is sufficient, data-free.}}
+\caption{The ablation at $\Rey = 100$, start phase 0: $20\,000$ epochs per
+window, two seeds, seed means, one ground-truth slice per run.}
 \begin{tabular}{lcc}
 \toprule
 configuration & shedding retained & relative $L_2$ \\
 \midrule
-\texttt{baseline}  & 10.6\% & 0.183 \\
-\texttt{fourier}   & 9.7\%  & 0.167 \\
-\texttt{decompose} & 7.0\%  & 0.110 \\
-\texttt{march}     & \textbf{89.2\%} & 0.078 \\
-\texttt{all}       & \textbf{90.2\%} & 0.047 \\
-\texttt{all+data}  & 100.0\% & \textbf{0.015} \\
+\texttt{baseline}  & 41.1\% & 0.173 \\
+\texttt{fourier}   & 36.9\% & 0.149 \\
+\texttt{decompose} & 36.1\% & 0.086 \\
+\texttt{march}     & 72.2\% & 0.156 \\
+\texttt{all}       & 77.3\% & 0.052 \\
+\texttt{all+data}  & 99.1\% & \textbf{0.006} \\
 \bottomrule
 \end{tabular}
+\label{tab:ablation}
+\end{table}
+
+\begin{table}[h]
+\centering
+\caption{The three configurations the conclusion rests on, at all four start
+phases (two seeds each). \texttt{all} uses $\sigma = 8$.}
+\begin{tabular}{lcccccc}
+\toprule
+configuration & 0 & $\tfrac14$ & $\tfrac12$ & $\tfrac34$ & mean & relative $L_2$ \\
+\midrule
+\texttt{baseline} & 41.1\% & 19.3\% & 42.5\% & 17.5\% & 30.1\% & 0.171 \\
+\texttt{march}    & 72.2\% & 42.1\% & 72.4\% & 40.1\% & 56.7\% & 0.158 \\
+\texttt{all}      & 76.4\% & 72.9\% & 77.8\% & 73.2\% & \textbf{75.1\%} & \textbf{0.031} \\
+\bottomrule
+\end{tabular}
+\label{tab:phase_core}
 \end{table}
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=\textwidth]{ablation.png}
-\caption{The ablation. Neither Fourier features nor the Reynolds decomposition
-escapes the collapse; causal time-marching does.}
-\label{fig:ablation}
+\includegraphics[width=\textwidth]{phase.png}
+\caption{Shedding retained by start phase, every run plotted. Marching lifts
+the wake at every phase but keeps the plain PINN's half-cycle swing; with
+Fourier features and the Reynolds decomposition added, the result no longer
+depends on when the run starts.}
+\label{fig:phase}
 \end{figure}
 
-Neither spectral bias nor conditioning was the binding constraint. Both
-mechanisms reduce the field error --- the decomposition notably, from 0.183 to
-0.110 --- while leaving the wake collapsed. What restores shedding is enforcing
-causality: solving a short window, then using its end state as the initial
-condition for the next, which strengthens the initial condition relative to the
-bulk residual and forbids information from flowing backwards in time.
+Neither spectral bias nor conditioning is the binding constraint on its own:
+Fourier features and the decomposition each leave retention slightly below the
+plain PINN's (37\% and 36\% against 41\% at phase 0), though the decomposition
+halves the field error. Causal
+time-marching roughly doubles the retained wake --- at every start phase, not
+only on average, though with four times the training (see \emph{Equal compute}
+below) --- but on its own it inherits the plain PINN's half-cycle
+swing, between 40\% and 72\%. Only with all three mechanisms does the result
+stop depending on when the run starts: 73--78\% at every phase, at a field
+error of 0.031, a fifth of either of the others. The mechanisms are
+complementary rather than one of them being sufficient, which is the reverse of
+what an earlier version of this report concluded and agrees with the
+interaction effects Shah\,\cite{shah2026} reports.
 
-\subsection{The equal-budget control}
+\paragraph{What the extra ground truth was worth.} The same marched
+configurations with a fresh reference snapshot at every window, as the earlier
+version ran them, retain 93.0\% (\texttt{march}) and 94.5\% (\texttt{all})
+at phase 0, against 72.2\% and 77.3\% chained. About twenty points of the
+earlier headline were three extra slices of the answer.
 
-A marched run of four windows takes four times the optimiser steps of a
-single-window run, so the comparison above is confounded by compute. Re-running
-the single-window configurations at $80\,000$ epochs --- the same total ---
-settles it:
+\paragraph{Equal compute.} A marched run trains four windows of $20\,000$
+epochs, four times what a single-window run gets, so part of its advantage
+could be training alone. Each marched configuration was therefore paired with a
+single-window run given $80\,000$ epochs, at every start phase and seed.
 
 \begin{table}[h]
 \centering
-\caption{Equal-budget control. Both improve; neither approaches
-89\%. \emph{The gain is causality, not compute.}}
-\begin{tabular}{lccc}
+\caption{Marching against single-window runs of equal training budget
+($80\,000$ epochs), averaged over four start phases and two seeds. Gains are
+paired by phase and seed.}
+\begin{tabular}{lcccc}
 \toprule
-configuration & $20\,000$ ep, 1 window & $80\,000$ ep, 1 window & $4\times 20\,000$ ep, 4 windows \\
+comparison & retained & retained & gain (points) & paired range \\
 \midrule
-\texttt{baseline}  & 10.6\% & 21.8\% & --- \\
-\texttt{decompose} & 7.0\%  & 23.7\% & --- \\
-\texttt{march}     & ---                 & ---                 & \textbf{89.2\%} \\
+\texttt{march} vs \texttt{baseline}, $80\,000$ & 56.7\% & 47.4\% & $+9.3$ & $+3.7$ to $+13.8$ \\
+\texttt{all} vs Fourier + decomposition, $80\,000$ & 75.1\% & 46.6\% & $+28.4$ & $+20.0$ to $+37.2$ \\
 \bottomrule
 \end{tabular}
+\label{tab:budget}
 \end{table}
 
-This control is essential to the claim and should be quoted with it; without
-it, ``time-marching wins'' is indistinguishable from ``time-marching trains
-longer''.
+Marching still wins in every pairing, but on its own it wins by less than the
+first table suggests: of its gain over the plain PINN, training longer accounts
+for more than causality does --- 17.3 points against 9.3. With Fourier features
+and the decomposition in place the picture changes. Those two mechanisms on one
+window keep 46.6\% at $80\,000$ epochs, no better than the plain PINN given the
+same budget, and they still swing with start phase; adding the marching chain
+lifts them by 28.4 points and removes the swing. Causality is worth three times
+as much in the combination as alone, which is what ``complementary'' means
+here.
 
-\subsection{Hyperparameters, and one that mattered only in combination}
+\subsection{Hyperparameters}
 
 \begin{table}[h]
 \centering
-\caption{Knobs, two seeds each.}
+\caption{Knobs, start phase 0, two seeds each.}
 \begin{tabular}{llcc}
 \toprule
 change & applied to & shedding retained & relative $L_2$ \\
 \midrule
-$\sigma = 8$ (from 2) & \texttt{all}     & 90.2\% $\rightarrow$ \textbf{97.6\%} & 0.047 $\rightarrow$ \textbf{0.042} \\
-$\sigma = 8$          & \texttt{fourier} & 9.7\% $\rightarrow$ 11.9\% & 0.167 $\rightarrow$ 0.148 \\
-$w_{ic} = 100$ (from 10) & \texttt{all}  & 90.2\% $\rightarrow$ 89.7\% & 0.047 $\rightarrow$ 0.046 \\
+$\sigma = 8$ (from 2) & \texttt{all}     & 77.3\% $\rightarrow$ 76.4\% & 0.052 $\rightarrow$ \textbf{0.031} \\
+$\sigma = 8$          & \texttt{fourier} & 36.9\% $\rightarrow$ 37.6\% & 0.149 $\rightarrow$ 0.136 \\
+$w_{ic} = 100$ (from 10) & \texttt{all}  & 77.3\% $\rightarrow$ 74.7\% & 0.052 $\rightarrow$ 0.065 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The Fourier bandwidth $\sigma$ is worth several points \emph{on top of} the
-mechanism that works, and nothing at all without it. The initial-condition
-weight, by contrast, changes nothing once marching supplies the causal chain
---- consistent with the interpretation that marching works by strengthening
-the initial condition, making further weighting redundant.
+The Fourier bandwidth no longer changes how much wake survives, but it lowers
+the field error by forty per cent once the other mechanisms are in place, and
+does little without them. A heavier initial-condition weight buys nothing.
 
 \subsection{How much supervision is actually needed}
 
 \begin{table}[h]
 \centering
-\caption{Supervised points per window, two seeds, seed means.}
+\caption{Supervised points per window on \texttt{all}, start phase 0, two
+seeds, seed means.}
 \begin{tabular}{lcc}
 \toprule
 data points per window & shedding retained & relative $L_2$ \\
 \midrule
-0    & 90.2\% & 0.047 \\
-100  & 96.2\% & 0.030 \\
-500  & 97.6\% & 0.021 \\
-2000 & 99.4\% & 0.016 \\
-4000 & 100.0\% & 0.015 \\
+0    & 77.3\% & 0.052 \\
+100  & 87.4\% & 0.020 \\
+500  & 96.9\% & 0.010 \\
+2000 & 98.1\% & 0.007 \\
+4000 & 99.1\% & 0.006 \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-Shedding saturates by 100 points per window; everything beyond that buys
-accuracy only. \emph{The physics buys the dynamics; the data buys the last
-factor of three in error.}
+A few hundred supervised points per window close most of the remaining gap in
+amplitude, and the field error keeps falling, ninefold by 4000 points.
+\emph{The physics buys most of the dynamics; a small amount of data buys the
+rest, and the accuracy.}
 
 \section{How accurately does it shed?}
 \label{sec:accuracy}
@@ -502,63 +575,73 @@ factor of three in error.}
 Shedding retained is an amplitude ratio: it answers ``is there a wake'', which
 is the right question for the collapse and the wrong one for prediction
 accuracy. A network could hold the right amplitude at the wrong frequency, or
-drift out of phase within the window, and the ablation table would not notice.
-The best data-free configuration was therefore compared against the reference
-probe signal directly.
+drift out of phase, and the ablation table would not notice. The best
+data-free configuration (\texttt{all}, $\sigma = 8$) was therefore compared
+against the reference probe signal directly, over one shedding period and,
+marched over twenty chained windows, over five.
 
 \begin{table}[h]
 \centering
-\caption{Prediction accuracy of the best data-free configuration (\texttt{all},
-$\sigma = 8$) at $\Rey = 100$, over one shedding period and over five.}
-\begin{tabular}{lccc}
+\caption{Prediction accuracy of \texttt{all} ($\sigma = 8$) at $\Rey = 100$,
+one ground-truth slice per run.}
+\begin{tabular}{lcc}
 \toprule
-quantity & 1 period (4 windows) & 5 periods (20 windows) & reference \\
+quantity & 1 period (4 windows) & 5 periods (20 windows) \\
 \midrule
-shedding frequency $\St$ & 0.1565 ($-0.9\%$) & \textbf{0.1627 ($+0.1\%$)} & LBM over the same span \\
-wake amplitude           & 96.5\% & 94.8\% & LBM probe r.m.s. \\
-phase lag                & $+3.0^\circ$ & $+2.4^\circ$ & --- \\
-phase drift across span  & $-0.000$ periods & $-0.005$ periods & --- \\
-velocity-field error     & 0.043 & \textbf{0.036} & relative $L_2$ \\
-zero crossings available & 2 & 10 & 12+ for the LBM's own $\St$ \\
+shedding frequency $\St$ & --- & 0.1476 ($-10.4\%$) \\
+reference $\St$ over the same span & --- & 0.1648 \\
+zero crossings available & 2 & 9 \\
+wake amplitude           & 73.5\% & 63.8\% \\
+phase lag                & $0.1^\circ$ & --- \\
+phase error by the end   & --- & ${\approx}\,0.5$ period \\
+velocity-field error     & 0.034 & 0.156 \\
 \bottomrule
 \end{tabular}
+\label{tab:accuracy}
 \end{table}
 
-Each column is scored against the LBM signal over its \emph{own} span, which
-is why no single reference value is quoted: the one-period window covers
-$\St_{\mathrm{LBM}} = 0.1578$ and the five-period window $0.1625$, the
-difference being what ten zero crossings buy over two.
+Over one period the network holds the phase of the reference to a tenth of a
+degree, at 73.5\% of its amplitude and a field error of 0.034. No frequency is
+quoted for that run: two zero crossings are not enough to measure one, and over
+the same window the estimator reads even the reference at 0.139 against the
+dataset's 0.1648.
 
-Extending the run from four windows to twenty --- from one shedding period to
-five --- \emph{improves} every quantity that matters. The frequency error falls
-to $+0.1\%$ on ten zero crossings rather than two, the field error drops from
-0.043 to 0.036, and the phase drifts by $0.005$ of a period (about $2^\circ$)
-across the entire five-period span. The marching chain therefore does not
-accumulate error in any visible way over the horizon tested: the wake stays
-locked to the reference in both frequency and phase, and only the amplitude
-gives up a little (96.5\% to 94.8\%).
+Over five periods the network keeps shedding --- nine zero crossings and a
+recognisable K\'arm\'an street (Figure~\ref{fig:fields}) --- but at a frequency
+10.4\% below the reference. The phase error that accumulates from that is
+about half a cycle by the end of the run, which is what the probe trace shows:
+the two signals start together and finish nearly in antiphase. Amplitude decays
+to 63.8\% and the field error grows to 0.156. A cross-correlation lag is not
+quoted for this run, because with the frequencies a tenth apart it is ambiguous
+modulo one period.
+
+An earlier version of this report found the opposite --- $\St$ within $0.1\%$
+over five periods and a negligible drift --- and concluded that the marching
+chain does not accumulate error. That run gave all twenty windows a fresh
+reference snapshot, so the phase was re-anchored to the truth at every handoff.
+A chain that genuinely carries its own state forward does not hold phase over
+five periods. Data-free marching sustains a wake; it does not, on this
+evidence, forecast one.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.85\textwidth]{fields_best.png}
-\caption{The data-free PINN against the reference. A K\'arm\'an street from a
-network that never saw data. The small steps in the probe trace are the
-time-marching window handoffs.}
+\includegraphics[width=0.85\textwidth]{fields_v5.png}
+\caption{The data-free PINN (\texttt{all}, $\sigma = 8$) marched over five
+shedding periods on one ground-truth slice, against the reference. Top: wake
+vorticity at the end of the run. Bottom: transverse velocity at the wake probe;
+grey lines are window boundaries. The network tracks the reference for about a
+period, then sheds slower and weaker, and ends nearly half a cycle behind.}
 \label{fig:fields}
 \end{figure}
 
-\paragraph{Caveat.} Ten zero crossings is enough to state $\St$ to about a
-percent, but it is still a shorter record than the LBM's own validation
-(${\sim}12$ periods of a signal that is not itself being predicted). The
-frequency agreement to $+0.1\%$ should be read as ``within the resolution of
-this measurement'', not as a claim of three-digit accuracy.
-
-\paragraph{Visible artefact.} The probe trace shows small discontinuities at
-window handoffs, where each window starts from the previous one's end state
-rather than continuing it smoothly. This is the cost of the mechanism that
-makes the wake survive, and is reported rather than smoothed away.
+\paragraph{Visible artefact.} The probe trace has small kinks at window
+handoffs, where continuity between windows is enforced only through the
+initial-condition loss. Roy and Castonguay\,\cite{roy2024} enforce it exactly
+through a solution ansatz; applying that here is listed in
+Section~\ref{sec:ongoing}.
 
 \FloatBarrier
+
 \section{Does it hold across Reynolds number?}
 \label{sec:resweep}
 
@@ -611,71 +694,7 @@ Section~\ref{sec:acoustic} --- closer to incompressible, but not an identical
 setup.
 
 \FloatBarrier
-\subsection{An acoustic resonance that captured the low-Re wakes}
-\label{sec:acoustic}
 
-The first attempt at this sweep produced Strouhal numbers that fell as
-Reynolds number rose --- 0.114 at $\Rey = 60$, 0.113 at $\Rey = 80$, 0.159 at
-$\Rey = 100$ --- which is impossible for this flow, and worth recording as a
-methodological result.
-
-The cause is not the measurement. Wake \emph{vorticity}, which cannot see
-irrotational sound, oscillates at the same anomalous frequency. Lattice
-Boltzmann is weakly compressible and the free-slip walls reflect perfectly, so
-the domain supports a standing half-wave across its height at $c_s / 2H$, with
-$c_s = 1/\sqrt{3}$ on the D2Q9 lattice. For the sweep geometry
-($H = 1200$, $D = 24$, $u = 0.05$) that is $\St_a = 0.1155$ in flow units, and
-the distance from the natural shedding frequency decides whether the wake
-locks onto it. Separation is measured as $(\St - \St_a)/\St$, with $\St$ taken
-from Williamson's correlation\,\cite{williamson1988} rather than from the
-measurement --- at the Reynolds numbers that locked, the measured value
-\emph{is} the locked one, so using it would define the anomaly away:
-
-\begin{center}
-\begin{tabular}{lccc}
-\toprule
-$\Rey$ & separation from the resonance & $\St/\St_a$ & outcome \\
-\midrule
-60  & 15\% & 1.18 & locked, wake at 0.114 \\
-80  & 24\% & 1.32 & locked, wake at 0.113 \\
-100 & 30\% & 1.42 & clean, $-3.0\%$ against the correlation \\
-120--180 & 33--40\% & 1.50--1.66 & clean, $-1.6\%$ to $+2.5\%$ \\
-\bottomrule
-\end{tabular}
-\end{center}
-
-\paragraph{This is a known physical mechanism, not a numerical curiosity.}
-Free-slip lateral walls are perfectly reflecting duct walls, and lattice
-Boltzmann carries genuine sound, so the simulation is a duct that resonates.
-Blevins\,\cite{blevins1985} showed experimentally that a transverse acoustic
-wave shifts cylinder shedding to its own frequency, and that the entrainment
-is driven by the acoustic \emph{velocity} rather than the pressure; Hong et
-al.\,\cite{hong2020} model the bidirectional vortex--sound coupling for a
-cylinder in a flow duct and place the lock-in band at
-$\St/\St_a \le 1.14$. The ratios above are 1.18 and 1.32 for the two cases
-that locked --- outside that band, and the discrepancy is worth naming rather
-than hiding. The most likely explanation is that these walls are lossless
-where a physical duct is not, so the resonance is sustained at separations a
-real duct could not hold; confirming that would need a run with an absorbing
-lateral boundary, which is listed in Section~\ref{sec:ongoing} as outstanding.
-
-The resonance sits at $(c_s/2H)(D/U)$ in flow units, so \emph{lowering} the
-lattice velocity moves it away from the shedding band rather than merely
-weakening it. Regenerating $\Rey = 60$ and 80 at $u = 0.0277$ and $0.0280$
-(against 0.05 elsewhere) moved them to $+0.6\%$ and $-1.1\%$ against the
-correlation. The same resonance explains a long-standing oddity in this
-project: the lift coefficient's r.m.s.\ never converged between runs, because
-its amplitude is modulated by the acoustic mode beating against the shedding at
-\emph{every} Reynolds number, including $\Rey = 100$.
-
-Consequently all Strouhal numbers reported here are measured from wake
-vorticity averaged over many points, with a single-point probe velocity as an
-independent check --- the two agree to about 1\% at every $\Rey$. The lift
-signal is retained for $\Cd$, which it measures well, but is no longer trusted
-for frequency: at $\Rey = 80$ it reads 0.1619 where the vorticity says 0.1511
-and the correlation 0.1528.
-
-\FloatBarrier
 \section{Physics in a neural operator}
 \label{sec:fno}
 
@@ -787,57 +806,56 @@ only claim supported is that the reproduction works.
 \label{sec:ongoing}
 
 \begin{itemize}
-  \item \textbf{Confinement bias in $\Cd$.} The production datasets run at
-        $H = 50$, where Qu et al.\,\cite{qu2013} report blockage effects are
-        still significant ($H > 100$ is needed). $\Cd$ is correspondingly high
-        by $2.7$--$7.9\%$ at every Reynolds number in the sweep, while $\St$,
-        which the literature reports is far less sensitive to domain size, is
-        within $3.3\%$ throughout. Nothing in this report depends on $\Cd$ ---
-        every PINN and FNO result is scored against velocity fields and wake
-        probes --- but a single run at $H > 100$ would close the validation
-        question outright, and is the most valuable outstanding experiment.
+  \item \textbf{No data-free configuration forecasts.} The best one holds
+        three-quarters of the wake amplitude over a period and sheds, but over
+        five periods it runs 10\% slow and ends half a cycle out of phase
+        (Section~\ref{sec:accuracy}). Whether a sparse, periodic
+        re-anchoring --- a few supervised points every few windows --- holds
+        the phase at a small fraction of the data that full supervision uses is
+        the most direct next experiment.
+  \item \textbf{Soft window continuity.} The marching chain enforces continuity
+        between windows only through the initial-condition loss, which is what
+        produces the small handoff kinks in Figure~\ref{fig:fields}. Roy and
+        Castonguay\,\cite{roy2024} enforce it exactly through a solution
+        ansatz, on one-dimensional problems; applying it here would remove one
+        source of the accumulated error.
+  \item \textbf{Two seeds per configuration and phase.} The seed spread is
+        small beside the effects reported --- \texttt{march} gives 69.7\% and
+        74.6\% on its two seeds at phase 0, against a swing from 40\% to 72\%
+        across start phases --- but three to five seeds would put a proper
+        interval on each mean.
+  \item \textbf{The equal-budget control has one budget.} Single-window runs
+        were given the marched runs' $80\,000$ epochs. Whether either kind keeps
+        improving beyond that, and whether marching still wins at a matched
+        budget much larger than both, is untested.
   \item \textbf{The shedding range, not the documented case.} The sweep covers
         $\Rey = 60$--$180$, its upper limit set by the three-dimensional
         transition at $\Rey_c = 188.5 \pm 1.0$\,\cite{barkley1996}. The
         collapse this project responds to was documented at $\Rey =
         200$\,\cite{chuang2023}, above that transition, so what is reproduced
         here is the phenomenon rather than their specific case.
-  \item \textbf{Two seeds throughout.} Every table is a mean over two seeds,
-        and the spread is not always small: \texttt{decompose} gives $9.3\%$
-        and $4.6\%$ retained shedding, a factor of two, reported as $7.0\%$.
-        The conclusions rest on effects far larger than that spread, but three
-        to five seeds with a reported spread would remove the objection.
-  \item \textbf{Soft window continuity.} The marching chain enforces continuity
-        between windows only through the initial-condition loss, which is what
-        produces the visible handoff steps in Figure~\ref{fig:fields}. Roy and
-        Castonguay\,\cite{roy2024} enforce it exactly through a solution
-        ansatz, on one-dimensional problems; applying that here is the
-        clearest available extension.
-  \item \textbf{Five shedding periods of PINN evaluation.}
-        Section~\ref{sec:accuracy} covers five periods, over which the accuracy
-        improves rather than decays. Behaviour over tens of periods, where a
-        marching chain might accumulate phase error, is untested --- and the
-        cost grows linearly with the horizon, one window per quarter period.
-  \item \textbf{$\Cl$ r.m.s.\ is not converged} across configurations
-        (0.18--0.56 against a benchmark of 0.222--0.235\,\cite{qu2013}) and is
-        deliberately not quoted as a validation metric.
-  \item \textbf{The resolution series was run at 5\% blockage},
-        where blockage masks resolution. The blockage series is sound; a clean
-        resolution answer would require repeating it at $H = 40D$.
-  \item \textbf{An absorbing lateral boundary} would confirm the acoustic
-        mechanism of Section~\ref{sec:acoustic} rather than sidestepping it.
-        Lowering the lattice velocity moves the resonance out of the shedding
-        band; damping it would remove it.
+  \item \textbf{$\Cd$ is a few per cent high.} %SWEEP_CD%
+        Nothing in this report depends on $\Cd$ --- every PINN and FNO
+        result is scored against velocity fields and wake probes.
+  \item \textbf{The lock-in band.} The wake locks onto the duct mode at
+        $\St/\St_a = 1.43$, outside the band Hong et al.\,\cite{hong2020}
+        predict. Lossless walls are the plausible reason; it has not been
+        tested, because the absorbing layer removes the mode rather than
+        explaining the band.
 \end{itemize}
 
-\paragraph{A note on method.} Estimates for each phase were recorded
-\emph{before} running it. Three were wrong in ways that changed conclusions:
-the collapse was expected to need all three mechanisms (it needs one); the
-Fourier bandwidth was expected to be the quick win (it does nothing alone); and
-the FNO physics term was expected to help only beyond the trained horizon (it
-helps within it and hurts beyond). An earlier CPU sweep at a fifth of the
-budget supported the first of those wrong conclusions --- \emph{an under-trained
-ablation produces the wrong qualitative answer, not merely a noisier one.}
+\paragraph{A note on method.} The instructive errors in this project were in
+its own earlier results rather than in its estimates. Its first headline ---
+causal marching alone retains 89.2\% of the wake, data-free --- rested on two
+comparisons that did not hold fixed what they appeared to: the marched runs saw
+four slices of ground truth to the baseline's one, and every configuration was
+scored at a single start phase of a quantity that swings with a half-cycle
+period. A five-period accuracy run that ``did not drift'' was being re-anchored
+to the truth at every window, and the ground truth itself was being pulled
+toward an acoustic mode of the domain. None of these was a bug in the usual
+sense. Each was found by asking of a comparison what it actually held fixed,
+and correcting them reversed the earlier conclusion that one mechanism
+suffices.
 
 % Full entries, with per-reference verification status, are kept in
 % report/references.bib. Every item below was checked against the publisher or
