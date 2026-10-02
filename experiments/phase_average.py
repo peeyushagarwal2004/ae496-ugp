@@ -116,7 +116,7 @@ def main():
                             "all_positive": all(x > 0 for x in d)}
             print(f"{name:58s} n={len(d)}  mean {100 * statistics.mean(d):+5.1f} pts"
                   f"  range {100 * min(d):+5.1f} .. {100 * max(d):+5.1f}")
-    print("\ncomplete (3 configs x 4 phases x 2 seeds):", complete)
+    print(f"\ncomplete ({len(CONFIGS)} configs x 4 phases x 2 seeds):", complete)
     Path(args.json).parent.mkdir(parents=True, exist_ok=True)
     Path(args.json).write_text(json.dumps(
         {"complete": complete, "summary": summ, "paired": paired,
