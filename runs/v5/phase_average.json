@@ -1,0 +1,223 @@
+{
+  "complete": true,
+  "summary": {
+    "baseline": {
+      "n_runs": 8,
+      "phases_covered": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "shedding_by_phase": {
+        "0": 0.4105471648413308,
+        "1": 0.1933375327340628,
+        "2": 0.4249291467829339,
+        "3": 0.17489588870418135
+      },
+      "shedding_mean": 0.3009274332656272,
+      "shedding_min": 0.16938290720859206,
+      "shedding_max": 0.43957283861406343,
+      "shedding_phase_mean_min": 0.17489588870418135,
+      "shedding_phase_mean_max": 0.4249291467829339,
+      "rel_l2_mean": 0.17149337634792597,
+      "gt_ic_slices": [
+        1
+      ]
+    },
+    "march": {
+      "n_runs": 8,
+      "phases_covered": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "shedding_by_phase": {
+        "0": 0.7215841951513654,
+        "1": 0.4213448672453927,
+        "2": 0.7241195342143869,
+        "3": 0.4012312182022104
+      },
+      "shedding_mean": 0.5670699537033389,
+      "shedding_min": 0.38356932679061506,
+      "shedding_max": 0.7564226300071976,
+      "shedding_phase_mean_min": 0.4012312182022104,
+      "shedding_phase_mean_max": 0.7241195342143869,
+      "rel_l2_mean": 0.15836683795484582,
+      "gt_ic_slices": [
+        1
+      ]
+    },
+    "all": {
+      "n_runs": 8,
+      "phases_covered": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "shedding_by_phase": {
+        "0": 0.7635723986583125,
+        "1": 0.7286907919254307,
+        "2": 0.7776830361128002,
+        "3": 0.7324753762410934
+      },
+      "shedding_mean": 0.7506054007344092,
+      "shedding_min": 0.6962129191826409,
+      "shedding_max": 0.7977894557358128,
+      "shedding_phase_mean_min": 0.7286907919254307,
+      "shedding_phase_mean_max": 0.7776830361128002,
+      "rel_l2_mean": 0.030877290504394445,
+      "gt_ic_slices": [
+        1
+      ]
+    }
+  },
+  "runs": {
+    "baseline_k0_s0": {
+      "shedding": 0.4038470885581654,
+      "rel_l2": 0.16969312589506522,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/ablation/baseline_s0"
+    },
+    "baseline_k0_s1": {
+      "shedding": 0.4172472411244962,
+      "rel_l2": 0.17657882546923345,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/ablation/baseline_s1"
+    },
+    "baseline_k1_s0": {
+      "shedding": 0.18086881506427308,
+      "rel_l2": 0.16924470978795828,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline_k1_s0"
+    },
+    "baseline_k1_s1": {
+      "shedding": 0.2058062504038525,
+      "rel_l2": 0.16978972673643614,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline_k1_s1"
+    },
+    "baseline_k2_s0": {
+      "shedding": 0.4102854549518044,
+      "rel_l2": 0.17723278984481103,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline_k2_s0"
+    },
+    "baseline_k2_s1": {
+      "shedding": 0.43957283861406343,
+      "rel_l2": 0.17268457297400255,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline_k2_s1"
+    },
+    "baseline_k3_s0": {
+      "shedding": 0.16938290720859206,
+      "rel_l2": 0.16670427073989114,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline_k3_s0"
+    },
+    "baseline_k3_s1": {
+      "shedding": 0.18040887019977064,
+      "rel_l2": 0.1700189893360099,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/baseline_k3_s1"
+    },
+    "march_k0_s0": {
+      "shedding": 0.6969928795097912,
+      "rel_l2": 0.15478648883539695,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/ablation/march_s0"
+    },
+    "march_k0_s1": {
+      "shedding": 0.7461755107929396,
+      "rel_l2": 0.15656227340958584,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/ablation/march_s1"
+    },
+    "march_k1_s0": {
+      "shedding": 0.4222585089234307,
+      "rel_l2": 0.15871890278801826,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/march_k1_s0"
+    },
+    "march_k1_s1": {
+      "shedding": 0.42043122556735474,
+      "rel_l2": 0.16437823552182282,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/march_k1_s1"
+    },
+    "march_k2_s0": {
+      "shedding": 0.6918164384215763,
+      "rel_l2": 0.15172193036374318,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/march_k2_s0"
+    },
+    "march_k2_s1": {
+      "shedding": 0.7564226300071976,
+      "rel_l2": 0.14906769666572778,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/march_k2_s1"
+    },
+    "march_k3_s0": {
+      "shedding": 0.4188931096138058,
+      "rel_l2": 0.17370422336148458,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/march_k3_s0"
+    },
+    "march_k3_s1": {
+      "shedding": 0.38356932679061506,
+      "rel_l2": 0.1579949526929871,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/march_k3_s1"
+    },
+    "all_k0_s0": {
+      "shedding": 0.729355341580812,
+      "rel_l2": 0.0335405098146144,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/ablation_sigma8/all_s0"
+    },
+    "all_k0_s1": {
+      "shedding": 0.7977894557358128,
+      "rel_l2": 0.028301225183716427,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/ablation_sigma8/all_s1"
+    },
+    "all_k1_s0": {
+      "shedding": 0.6962129191826409,
+      "rel_l2": 0.032114931516849396,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/all_k1_s0"
+    },
+    "all_k1_s1": {
+      "shedding": 0.7611686646682205,
+      "rel_l2": 0.03005162370104902,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/all_k1_s1"
+    },
+    "all_k2_s0": {
+      "shedding": 0.7723092880432985,
+      "rel_l2": 0.030364959933888037,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/all_k2_s0"
+    },
+    "all_k2_s1": {
+      "shedding": 0.7830567841823018,
+      "rel_l2": 0.030615029298431976,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/all_k2_s1"
+    },
+    "all_k3_s0": {
+      "shedding": 0.7081577591790151,
+      "rel_l2": 0.0328640145684514,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/all_k3_s0"
+    },
+    "all_k3_s1": {
+      "shedding": 0.7567929933031716,
+      "rel_l2": 0.029166030018154904,
+      "gt_ic_slices": 1,
+      "path": "runs/v5/phase_core/all_k3_s1"
+    }
+  }
+}

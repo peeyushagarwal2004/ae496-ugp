@@ -1,0 +1,74 @@
+t0 91.4625  period 6.0667834524757165
+### baseline phase 1/4 seed 0  t_start=92.9792  Thu Oct  1 23:29:02 IST 2026
+  -> rel L2 0.1664   probe v rms: PINN 0.0737 vs LBM 0.4077   shedding retained 18.1 %
+    relative L2       0.1692
+    shedding retained 18.1 %
+### march phase 1/4 seed 0  t_start=92.9792  Thu Oct  1 23:35:48 IST 2026
+  -> rel L2 0.2563   probe v rms: PINN 0.0474 vs LBM 0.0952   shedding retained 49.8 %
+    relative L2       0.1587
+    shedding retained 42.2 %
+### all phase 1/4 seed 0  t_start=92.9792  Fri Oct  2 00:01:43 IST 2026
+  -> rel L2 0.0451   probe v rms: PINN 0.0381 vs LBM 0.0952   shedding retained 40.0 %
+    relative L2       0.0321
+    shedding retained 69.6 %
+### baseline phase 1/4 seed 1  t_start=92.9792  Fri Oct  2 00:37:13 IST 2026
+  -> rel L2 0.1677   probe v rms: PINN 0.0839 vs LBM 0.4077   shedding retained 20.6 %
+    relative L2       0.1698
+    shedding retained 20.6 %
+### march phase 1/4 seed 1  t_start=92.9792  Fri Oct  2 00:44:24 IST 2026
+  -> rel L2 0.2638   probe v rms: PINN 0.0432 vs LBM 0.0952   shedding retained 45.3 %
+    relative L2       0.1644
+    shedding retained 42.0 %
+### all phase 1/4 seed 1  t_start=92.9792  Fri Oct  2 01:10:15 IST 2026
+  -> rel L2 0.0404   probe v rms: PINN 0.0415 vs LBM 0.0952   shedding retained 43.6 %
+    relative L2       0.0301
+    shedding retained 76.1 %
+### baseline phase 2/4 seed 0  t_start=94.4959  Fri Oct  2 01:45:33 IST 2026
+  -> rel L2 0.1747   probe v rms: PINN 0.1626 vs LBM 0.3963   shedding retained 41.0 %
+    relative L2       0.1772
+    shedding retained 41.0 %
+### march phase 2/4 seed 0  t_start=94.4959  Fri Oct  2 01:52:14 IST 2026
+  -> rel L2 0.2440   probe v rms: PINN 0.0183 vs LBM 0.2410   shedding retained 7.6 %
+    relative L2       0.1517
+    shedding retained 69.2 %
+### all phase 2/4 seed 0  t_start=94.4959  Fri Oct  2 02:18:06 IST 2026
+  -> rel L2 0.0413   probe v rms: PINN 0.1298 vs LBM 0.2410   shedding retained 53.9 %
+    relative L2       0.0304
+    shedding retained 77.2 %
+### baseline phase 2/4 seed 1  t_start=94.4959  Fri Oct  2 02:53:08 IST 2026
+  -> rel L2 0.1709   probe v rms: PINN 0.1742 vs LBM 0.3963   shedding retained 44.0 %
+    relative L2       0.1727
+    shedding retained 44.0 %
+### march phase 2/4 seed 1  t_start=94.4959  Fri Oct  2 02:59:55 IST 2026
+  -> rel L2 0.2395   probe v rms: PINN 0.0386 vs LBM 0.2410   shedding retained 16.0 %
+    relative L2       0.1491
+    shedding retained 75.6 %
+### all phase 2/4 seed 1  t_start=94.4959  Fri Oct  2 03:25:44 IST 2026
+  -> rel L2 0.0406   probe v rms: PINN 0.1209 vs LBM 0.2410   shedding retained 50.2 %
+    relative L2       0.0306
+    shedding retained 78.3 %
+### baseline phase 3/4 seed 0  t_start=96.0126  Fri Oct  2 04:01:08 IST 2026
+  -> rel L2 0.1648   probe v rms: PINN 0.0691 vs LBM 0.4077   shedding retained 16.9 %
+    relative L2       0.1667
+    shedding retained 16.9 %
+### march phase 3/4 seed 0  t_start=96.0126  Fri Oct  2 04:07:56 IST 2026
+  -> rel L2 0.2836   probe v rms: PINN 0.0488 vs LBM 0.0918   shedding retained 53.1 %
+    relative L2       0.1737
+    shedding retained 41.9 %
+### all phase 3/4 seed 0  t_start=96.0126  Fri Oct  2 04:34:01 IST 2026
+  -> rel L2 0.0439   probe v rms: PINN 0.0322 vs LBM 0.0918   shedding retained 35.1 %
+    relative L2       0.0329
+    shedding retained 70.8 %
+### baseline phase 3/4 seed 1  t_start=96.0126  Fri Oct  2 05:09:31 IST 2026
+  -> rel L2 0.1678   probe v rms: PINN 0.0736 vs LBM 0.4077   shedding retained 18.0 %
+    relative L2       0.1700
+    shedding retained 18.0 %
+### march phase 3/4 seed 1  t_start=96.0126  Fri Oct  2 05:16:23 IST 2026
+  -> rel L2 0.2519   probe v rms: PINN 0.0376 vs LBM 0.0918   shedding retained 41.0 %
+    relative L2       0.1580
+    shedding retained 38.4 %
+### all phase 3/4 seed 1  t_start=96.0126  Fri Oct  2 05:42:52 IST 2026
+  -> rel L2 0.0379   probe v rms: PINN 0.0530 vs LBM 0.0918   shedding retained 57.7 %
+    relative L2       0.0292
+    shedding retained 75.7 %
+QUEUE17_DONE Fri Oct 2 06:18:20 IST 2026
