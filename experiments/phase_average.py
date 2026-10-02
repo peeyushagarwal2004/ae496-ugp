@@ -22,10 +22,13 @@ import statistics
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-CONFIGS = ("baseline", "march", "all")
+CONFIGS = ("baseline", "march", "all", "baseline80k", "fd8_80k")
 PHASE0 = {"baseline": "runs/v5/ablation/baseline_s{s}",
           "march": "runs/v5/ablation/march_s{s}",
-          "all": "runs/v5/ablation_sigma8/all_s{s}"}
+          "all": "runs/v5/ablation_sigma8/all_s{s}",
+          # equal-budget controls (queue18): one window at 80k epochs
+          "baseline80k": "runs/v5/ctrl_budget80k/baseline_s{s}",
+          "fd8_80k": "runs/v5/phase_core/fd8_80k_k0_s{s}"}
 CORE = "runs/v5/phase_core/{c}_k{k}_s{s}"
 
 
@@ -96,10 +99,27 @@ def main():
               f"{r['rel_l2_mean']:8.4f}")
     complete = all(len(r["phases_covered"]) == 4 and r["n_runs"] == 8
                    for r in summ.values()) and len(summ) == len(CONFIGS)
+
+    # Paired by phase and seed: the effect of each mechanism at equal compute.
+    pairs = {"causality (march vs baseline80k)": ("march", "baseline80k"),
+             "causality with the other two mechanisms (all vs fd8_80k)":
+                 ("all", "fd8_80k"),
+             "compute (baseline80k vs baseline)": ("baseline80k", "baseline")}
+    paired = {}
+    for name, (a, b) in pairs.items():
+        d = [table[(a, k, s)]["shedding"] - table[(b, k, s)]["shedding"]
+             for k in range(4) for s in (0, 1)
+             if (a, k, s) in table and (b, k, s) in table]
+        if d:
+            paired[name] = {"n": len(d), "mean_pts": 100 * statistics.mean(d),
+                            "min_pts": 100 * min(d), "max_pts": 100 * max(d),
+                            "all_positive": all(x > 0 for x in d)}
+            print(f"{name:58s} n={len(d)}  mean {100 * statistics.mean(d):+5.1f} pts"
+                  f"  range {100 * min(d):+5.1f} .. {100 * max(d):+5.1f}")
     print("\ncomplete (3 configs x 4 phases x 2 seeds):", complete)
     Path(args.json).parent.mkdir(parents=True, exist_ok=True)
     Path(args.json).write_text(json.dumps(
-        {"complete": complete, "summary": summ,
+        {"complete": complete, "summary": summ, "paired": paired,
          "runs": {f"{c}_k{k}_s{s}": v for (c, k, s), v in table.items()}},
         indent=2) + "\n")
     print(f"wrote {args.json}")
