@@ -44,26 +44,24 @@ with physics-informed neural networks}}
 \begin{abstract}
 \noindent
 A data-free physics-informed neural network (PINN) applied to the unsteady
-wake of a circular cylinder is known to collapse onto the steady symmetric
-solution: the steady field satisfies the governing equations exactly, and the
-training loss has no notion of its physical instability. This project
-reproduces that collapse on purpose-generated, validated ground truth, and then
-determines which of three candidate mechanisms defeats it. On a lattice
-Boltzmann dataset at $\Rey = 100$ ($\St$ within 3.3\% of published benchmarks,
-with a $\Cd$ overshoot of 4.8\% traced to domain confinement), a plain PINN retains
-10.6\% of the reference wake amplitude. Adding Fourier features or
-a Reynolds decomposition does not help. \emph{Causal time-marching alone
-restores shedding data-free}, at 89.2\% retained amplitude, and an
-equal-budget control rules out extra optimiser steps as the cause. The result
-holds at every Reynolds number tested from 60 to 180: the control keeps
-10--43\% of the wake, the mechanism-equipped network 88--104\%. The best
-data-free configuration, marched over five shedding periods, predicts the
-shedding frequency to within 0.1\%, at 94.8\% of the correct amplitude and
-$2.4^\circ$ of phase, with a velocity-field error of 3.6\%. A second
-contribution adds a pressure-free physics residual to a Fourier Neural Operator
-trained after the method of Renn et al.; the physics term lowers forecast error
-by 21--28\% out to one shedding period, after which both
-variants have failed.
+wake of a circular cylinder is known to lose the wake and fall towards the
+steady symmetric solution, which satisfies the governing equations exactly.
+This project reproduces that failure on purpose-generated lattice Boltzmann
+ground truth, validated at $\Rey = 100$ against Qu et al.\ ($\St$ within
+$0.04\%$, $\Cd$ $3.5\%$ high), and measures what defeats it. Two confounds that
+inflated the project's own earlier results are controlled: how many slices of
+ground truth a run sees, and the phase of the shedding cycle at which it
+starts. With one slice and four start phases averaged, a plain PINN keeps
+30.1\% of the reference wake amplitude. Causal time-marching raises that to
+56.7\%, although at equal training budget it adds only 9.3 points, less than
+the 17.3 that training longer adds on its own. Only with Fourier features and a
+Reynolds decomposition as well does the result stop depending on the start
+phase: 75.1\% retained, at a velocity-field error of 0.031. Over five chained
+periods that configuration sheds 10.4\% slow and ends about half a cycle out of
+phase: data-free marching sustains a wake, but does not forecast one. A few
+hundred supervised points per window close most of the remaining gap.
+%SWEEP_ABSTRACT%
+%FNO_ABSTRACT%
 \end{abstract}
 
 \section{Introduction and objective}
@@ -780,26 +778,34 @@ only claim supported is that the reproduction works.
 \section{Conclusions}
 
 \begin{enumerate}
-  \item The documented collapse reproduces on validated ground truth: a
-        data-free PINN retains 10.6\% of the wake, and quadrupling
-        the training budget does not fix it.
-  \item \textbf{Causal time-marching alone restores shedding, data-free}
-        (89.2\% retained), and an equal-budget control attributes
-        the gain to causality rather than to compute. Fourier features and the
-        Reynolds decomposition do not escape the collapse on their own, but
-        improve accuracy substantially once marching is in place, taking the
-        field error from 0.078 to 0.042.
-  \item The best data-free configuration predicts the shedding frequency to
-        0.9\%, the amplitude to 96.5\% and the phase
-        to $3^\circ$, over one shedding period, with a velocity-field error of
-        4.3\%.
-  \item Supervision is needed in far smaller quantity than expected: 100 points
-        per window restores 96\% of the shedding, and further data
-        buys accuracy only.
-  \item Adding a pressure-free physics residual to a data-driven FNO lowers
-        forecast error by 21--28\% within one shedding
-        period, with continuity alone responsible for nearly all of it. Beyond
-        one period both variants fail.
+  \item The documented failure reproduces on validated ground truth, and how
+        badly depends on when the run starts: a data-free PINN keeps between
+        17\% and 42\% of the wake depending on the start phase, 30.1\% on
+        average. Four times the training raises that to 47.4\% and leaves the
+        dependence on phase in place.
+  \item \textbf{The three mechanisms are complementary.} Causal time-marching
+        on its own reaches 56.7\%, but beats an equal-budget single window by
+        only 9.3 points. Fourier features and the Reynolds decomposition on
+        their own do not help. All three together keep 75.1\% at every start
+        phase, at a field error of 0.031, and there marching is worth 28.4
+        points at equal budget.
+  \item \textbf{Two confounds inflate marching results}, and both affected this
+        project's earlier report: giving each window a fresh reference
+        snapshot (about twenty points here), and scoring every configuration at
+        a single start phase.
+  \item The best data-free configuration matches the phase of the reference to
+        $0.1^\circ$ over one period, but over five it sheds 10.4\% slow and ends
+        about half a cycle behind. It sustains a wake; it does not forecast one.
+  \item Supervision is needed in small quantity: 100 points per window take
+        retention to 87.4\% and 500 to 96.9\%, and further data buys accuracy.
+  \item The ground truth needed two corrections, both of which would affect
+        any lattice Boltzmann cylinder simulation with reflecting lateral
+        walls: an absorbing layer
+        that relaxes toward the free stream, because the domain is an acoustic
+        duct whose transverse mode captures the wake, and an inlet far enough
+        upstream, which mattered more for $\Cd$ than the domain height.
+%SWEEP_CONCL%
+%FNO_CONCL%
 \end{enumerate}
 
 \section{Limitations and ongoing work}

@@ -519,6 +519,61 @@ def framing():
     E("lim.lockin", "$" + BS + "St/" + BS + "St_a = 1.43$, outside", 1.43, 0.005,
       ratio(dct(SWEEP5, "100", "St_vorticity"),
             path(DM, "acoustic.St_resonance"), mode="ratio"))
+    # abstract
+    S = "summary."
+    CM = "paired.causality (march vs baseline80k).mean_pts"
+    CA = "paired.causality with the other two mechanisms (all vs fd8_80k).mean_pts"
+    CC = "paired.compute (baseline80k vs baseline).mean_pts"
+    E("abs.St", "$0.04" + PCT + "$, $" + BS + "Cd$ $3.5" + PCT + "$ high", -0.04, 0.005,
+      path(DM, "benchmark.per_Re.100.St_error_pct"), note="Printed as a magnitude.")
+    E("abs.Cd", "$0.04" + PCT + "$, $" + BS + "Cd$ $3.5" + PCT + "$ high", 3.5, 0.05,
+      path(DM, "benchmark.per_Re.100.Cd_error_pct"))
+    E("abs.baseline", "30.1" + PCT + " of the reference wake amplitude", 30.1, 0.05,
+      path(PA, S + "baseline.shedding_mean"), unit="pct")
+    E("abs.march", "56.7" + PCT + ", although at equal training budget it adds only 9.3",
+      56.7, 0.05, path(PA, S + "march.shedding_mean"), unit="pct")
+    E("abs.causal", "56.7" + PCT + ", although at equal training budget it adds only 9.3",
+      9.3, 0.05, path(PA, CM))
+    E("abs.compute", "the 17.3 that training longer adds", 17.3, 0.05, path(PA, CC))
+    E("abs.all", "phase: 75.1" + PCT + " retained, at a velocity-field error of 0.031",
+      75.1, 0.05, path(PA, S + "all.shedding_mean"), unit="pct")
+    E("abs.all_l2", "phase: 75.1" + PCT + " retained, at a velocity-field error of 0.031",
+      0.031, 0.0005, path(PA, S + "all.rel_l2_mean"))
+    E("abs.slow", "periods that configuration sheds 10.4" + PCT + " slow", -10.4, 0.05,
+      it("St_error_pct"), note="Printed as a magnitude.")
+    E("abs.half_cycle", "ends about half a cycle out of", 0.5, 0.05, half_cycle)
+
+    # conclusions
+    E("concl.lo", "17" + PCT + " and 42" + PCT + " of the wake depending", 17.0, 0.5,
+      path(PA, S + "baseline.shedding_phase_mean_min"), unit="pct")
+    E("concl.hi", "17" + PCT + " and 42" + PCT + " of the wake depending", 42.0, 0.5,
+      path(PA, S + "baseline.shedding_phase_mean_max"), unit="pct")
+    E("concl.baseline", "start phase, 30.1" + PCT + " on", 30.1, 0.05,
+      path(PA, S + "baseline.shedding_mean"), unit="pct")
+    E("concl.b80", "raises that to 47.4" + PCT + " and leaves", 47.4, 0.05,
+      path(PA, S + "baseline80k.shedding_mean"), unit="pct")
+    E("concl.march", "on its own reaches 56.7" + PCT, 56.7, 0.05,
+      path(PA, S + "march.shedding_mean"), unit="pct")
+    E("concl.causal", "only 9.3 points. Fourier", 9.3, 0.05, path(PA, CM))
+    E("concl.all", "keep 75.1" + PCT + " at every start", 75.1, 0.05,
+      path(PA, S + "all.shedding_mean"), unit="pct")
+    E("concl.all_l2", "phase, at a field error of 0.031, and there marching is worth 28.4",
+      0.031, 0.0005, path(PA, S + "all.rel_l2_mean"))
+    E("concl.all_gain", "phase, at a field error of 0.031, and there marching is worth 28.4",
+      28.4, 0.05, path(PA, CA))
+    E("concl.lag", "$0.1^" + BS + "circ$ over one period", 0.1, 0.05,
+      {"kind": "item", "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+       "index": 0, "key": "phase_lag_periods"}, unit="deg_from_periods")
+    E("concl.slow", "over five it sheds 10.4" + PCT + " slow", -10.4, 0.05,
+      it("St_error_pct"), note="Printed as a magnitude.")
+    E("concl.half_cycle", "about half a cycle behind", 0.5, 0.05, half_cycle)
+    E("concl.sup100", "retention to 87.4" + PCT + " and 500 to 96.9" + PCT, 87.4, 0.05,
+      lst("runs/v5/data_n100/summary.json", "shedding", config="all+data"),
+      unit="pct")
+    E("concl.sup500", "retention to 87.4" + PCT + " and 500 to 96.9" + PCT, 96.9, 0.05,
+      lst("runs/v5/data_n500/summary.json", "shedding", config="all+data"),
+      unit="pct")
+
     E("method.old_march", "causal marching alone retains 89.2" + PCT, 89.2, 0.05,
       lst("runs/ablation/summary.json", "shedding", config="march"), unit="pct",
       note="The earlier report's headline, v4 dataset, per-window snapshots, "
