@@ -238,7 +238,146 @@ def section3():
            "not printed precision.")
 
 
-SECTIONS = [section2, section3]
+# ---------------------------------------------------------------------------
+# Sections 4-5 -- the collapse and the ablation (re100_v5, chained ICs)
+# ---------------------------------------------------------------------------
+
+PA = "runs/v5/phase_average.json"
+PH = "runs/v5/phase/summary.json"
+
+
+def section4():
+    row = ("shedding retained & 41.1" + PCT + " & 19.3" + PCT + " & 42.5" + PCT
+           + " & 17.5" + PCT + " & " + BS + "textbf{30.1" + PCT + "}")
+    for k, v in enumerate((41.1, 19.3, 42.5, 17.5)):
+        E(f"collapse.phase{k}", row, v, 0.05,
+          path(PA, f"summary.baseline.shedding_by_phase.{k}"), unit="pct")
+    E("collapse.mean", row, 30.1, 0.05, path(PA, "summary.baseline.shedding_mean"),
+      unit="pct")
+    E("collapse.range_lo", "keeps between 17" + PCT + " and 42" + PCT, 17.0, 0.5,
+      path(PA, "summary.baseline.shedding_phase_mean_min"), unit="pct",
+      note="Range of the four phase means, 17.49 to 42.49 %.")
+    E("collapse.range_hi", "keeps between 17" + PCT + " and 42" + PCT, 42.0, 0.5,
+      path(PA, "summary.baseline.shedding_phase_mean_max"), unit="pct")
+    E("collapse.l2", "with a field error of 0.17:", 0.17, 0.005,
+      path(PA, "summary.baseline.rel_l2_mean"))
+    v4 = "the same configuration gives 9.1" + PCT + ", 25.6" + PCT + ", 13.1" + PCT
+    for k, v in enumerate((9.1, 25.6, 13.1)):
+        E(f"collapse.v4_phase{k}", v4, v, 0.05,
+          path(PH, f"re100_v4.runs.{k}.shedding"), unit="pct")
+    E("collapse.v4_phase3", "34.9" + PCT + " at the four phases", 34.9, 0.05,
+      path(PH, "re100_v4.runs.3.shedding"), unit="pct")
+    E("collapse.old_claim", "``10.6" + PCT + " of the wake''", 10.6, 0.05,
+      lst("runs/ablation/summary.json", "shedding", config="baseline"), unit="pct",
+      note="The earlier report's figure, from the v4 dataset at one phase.")
+
+
+def section5():
+    AB = "runs/v5/ablation/summary.json"
+    E("abl.baseflow", "$L_2 = 2.2" + BS + "times 10^{-3}$", 0.0022, 0.00005,
+      {"kind": "scalar", "file": "data/base_flow_re100_v5.json", "key": "rel_l2"})
+    rows = [("baseline", "41.1", "0.173"), ("fourier", "36.9", "0.149"),
+            ("decompose", "36.1", "0.086"), ("march", "72.2", "0.156"),
+            ("all", "77.3", "0.052")]
+    for cfg, sh, l2 in rows:
+        E(f"abl.{cfg}.shedding", f"& {sh}{PCT} & {l2}", float(sh), 0.05,
+          lst(AB, "shedding", config=cfg), unit="pct")
+        E(f"abl.{cfg}.l2", f"& {sh}{PCT} & {l2}", float(l2), 0.0005,
+          lst(AB, "rel_l2", config=cfg))
+    E("abl.all+data.shedding", "& 99.1" + PCT + " & " + BS + "textbf{0.006}", 99.1,
+      0.05, lst(AB, "shedding", config="all+data"), unit="pct")
+    E("abl.all+data.l2", "& 99.1" + PCT + " & " + BS + "textbf{0.006}", 0.006,
+      0.0005, lst(AB, "rel_l2", config="all+data"))
+
+    # the phase-averaged core table
+    core = {"baseline": (("41.1", "19.3", "42.5", "17.5"), "30.1", "0.171", False),
+            "march": (("72.2", "42.1", "72.4", "40.1"), "56.7", "0.158", False),
+            "all": (("76.4", "72.9", "77.8", "73.2"), "75.1", "0.031", True)}
+    for cfg, (phases, mean, l2, bold) in core.items():
+        if bold:
+            tail = (" & " + BS + "textbf{" + mean + PCT + "} & " + BS + "textbf{"
+                    + l2 + "}")
+        else:
+            tail = f" & {mean}{PCT} & {l2}"
+        lit = (BS + "texttt{" + cfg + "}" + " " * (8 - len(cfg)) + " & "
+               + " & ".join(p + PCT for p in phases) + tail)
+        for k, v in enumerate(phases):
+            E(f"core.{cfg}.phase{k}", lit, float(v), 0.05,
+              path(PA, f"summary.{cfg}.shedding_by_phase.{k}"), unit="pct")
+        E(f"core.{cfg}.mean", lit, float(mean), 0.05,
+          path(PA, f"summary.{cfg}.shedding_mean"), unit="pct")
+        E(f"core.{cfg}.l2", lit, float(l2), 0.0005,
+          path(PA, f"summary.{cfg}.rel_l2_mean"))
+
+    E("abl.text.fourier", "(37" + PCT + " and 36" + PCT + " against 41" + PCT, 37.0,
+      0.5, lst(AB, "shedding", config="fourier"), unit="pct")
+    E("abl.text.decompose", "(37" + PCT + " and 36" + PCT + " against 41" + PCT,
+      36.0, 0.5, lst(AB, "shedding", config="decompose"), unit="pct")
+    E("abl.text.baseline", "(37" + PCT + " and 36" + PCT + " against 41" + PCT,
+      41.0, 0.5, lst(AB, "shedding", config="baseline"), unit="pct")
+    E("abl.text.march_lo", "swing, between 40" + PCT + " and 72" + PCT, 40.0, 0.5,
+      path(PA, "summary.march.shedding_phase_mean_min"), unit="pct")
+    E("abl.text.march_hi", "swing, between 40" + PCT + " and 72" + PCT, 72.0, 0.5,
+      path(PA, "summary.march.shedding_phase_mean_max"), unit="pct")
+    E("abl.text.all_lo", "73--78" + PCT + " at every phase", 73.0, 0.5,
+      path(PA, "summary.all.shedding_phase_mean_min"), unit="pct")
+    E("abl.text.all_hi", "73--78" + PCT + " at every phase", 78.0, 0.5,
+      path(PA, "summary.all.shedding_phase_mean_max"), unit="pct")
+    E("abl.text.all_l2", "at a field\nerror of 0.031", 0.031, 0.0005,
+      path(PA, "summary.all.rel_l2_mean"))
+
+    # what the extra ground truth was worth
+    E("dsic.march", "retain 93.0" + PCT + " (" + BS + "texttt{march})", 93.0, 0.05,
+      lst("runs/v5/ablation_dsic/summary.json", "shedding", config="march"),
+      unit="pct")
+    E("dsic.all", "and 94.5" + PCT + " (" + BS + "texttt{all})", 94.5, 0.05,
+      lst("runs/v5/ablation_dsic/summary.json", "shedding", config="all"),
+      unit="pct")
+    E("dsic.march_chained", "against 72.2" + PCT + " and 77.3" + PCT + " chained",
+      72.2, 0.05, lst(AB, "shedding", config="march"), unit="pct")
+    E("dsic.all_chained", "against 72.2" + PCT + " and 77.3" + PCT + " chained",
+      77.3, 0.05, lst(AB, "shedding", config="all"), unit="pct")
+
+    # knobs
+    S8 = "runs/v5/ablation_sigma8/summary.json"
+    W1 = "runs/v5/ablation_wic100/summary.json"
+    arrow = " $" + BS + "rightarrow$ "
+    k1 = "& 77.3" + PCT + arrow + "76.4" + PCT
+    E("knob.s8.all.before", k1, 77.3, 0.05, lst(AB, "shedding", config="all"),
+      unit="pct")
+    E("knob.s8.all.after", k1, 76.4, 0.05, lst(S8, "shedding", config="all"),
+      unit="pct")
+    k2 = "& 0.052" + arrow + BS + "textbf{0.031}"
+    E("knob.s8.all.l2_before", k2, 0.052, 0.0005, lst(AB, "rel_l2", config="all"))
+    E("knob.s8.all.l2_after", k2, 0.031, 0.0005, lst(S8, "rel_l2", config="all"))
+    k3 = "& 36.9" + PCT + arrow + "37.6" + PCT + " & 0.149" + arrow + "0.136"
+    E("knob.s8.fourier.before", k3, 36.9, 0.05,
+      lst(AB, "shedding", config="fourier"), unit="pct")
+    E("knob.s8.fourier.after", k3, 37.6, 0.05,
+      lst(S8, "shedding", config="fourier"), unit="pct")
+    E("knob.s8.fourier.l2_before", k3, 0.149, 0.0005,
+      lst(AB, "rel_l2", config="fourier"))
+    E("knob.s8.fourier.l2_after", k3, 0.136, 0.0005,
+      lst(S8, "rel_l2", config="fourier"))
+    k4 = "& 77.3" + PCT + arrow + "74.7" + PCT + " & 0.052" + arrow + "0.065"
+    E("knob.wic.after", k4, 74.7, 0.05, lst(W1, "shedding", config="all"),
+      unit="pct")
+    E("knob.wic.l2_after", k4, 0.065, 0.0005, lst(W1, "rel_l2", config="all"))
+
+    # supervision
+    sup = [(0, "77.3", "0.052", AB, "all"),
+           (100, "87.4", "0.020", "runs/v5/data_n100/summary.json", "all+data"),
+           (500, "96.9", "0.010", "runs/v5/data_n500/summary.json", "all+data"),
+           (2000, "98.1", "0.007", "runs/v5/data_n2000/summary.json", "all+data"),
+           (4000, "99.1", "0.006", AB, "all+data")]
+    for n, sh, l2, f, cfg in sup:
+        lit = f"{n}" + " " * (5 - len(str(n))) + f"& {sh}{PCT} & {l2}"
+        E(f"sup.{n}.shedding", lit, float(sh), 0.05,
+          lst(f, "shedding", config=cfg), unit="pct")
+        E(f"sup.{n}.l2", lit, float(l2), 0.0005, lst(f, "rel_l2", config=cfg))
+
+
+SECTIONS = [section2, section3, section4, section5]
 
 
 def resolve_lines(entries, lines):
