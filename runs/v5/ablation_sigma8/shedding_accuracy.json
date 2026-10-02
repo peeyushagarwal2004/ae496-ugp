@@ -1,0 +1,20 @@
+[
+  {
+    "run": "all",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/ablation_sigma8/all_s0",
+    "t_span": [
+      91.4625,
+      97.4625
+    ],
+    "periods_covered": 0.8335866851069693,
+    "St_pinn": 0.1450210190126689,
+    "St_lbm": 0.13893111418449489,
+    "St_error_pct": 4.383398826044727,
+    "zero_crossings_pinn": 2,
+    "amplitude_ratio": 0.7348118934663915,
+    "phase_lag_periods": 0.00023157757806246824,
+    "phase_drift_periods": 0.00013683250667087144,
+    "rel_l2_saved": 0.0335405098146144,
+    "shedding_saved": 0.729355341580812
+  }
+]

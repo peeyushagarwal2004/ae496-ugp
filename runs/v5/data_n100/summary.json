@@ -1,0 +1,34 @@
+[
+  {
+    "config": "all+data",
+    "seed": 0,
+    "shedding": 0.8525641365302598,
+    "rel_l2": 0.02050426964978994,
+    "probe_pinn": 0.34332618625461686,
+    "probe_lbm": 0.4026983678340912,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--ic-from-network --n-data 100",
+    "gt_ic_slices": 1,
+    "gt_ic_points": 4000,
+    "gt_data_points": 400,
+    "ic_from_network": true,
+    "minutes": 15.839362227916718
+  },
+  {
+    "config": "all+data",
+    "seed": 1,
+    "shedding": 0.895022602769515,
+    "rel_l2": 0.01870145432120411,
+    "probe_pinn": 0.3604241413099038,
+    "probe_lbm": 0.4026983678340912,
+    "windows": 4,
+    "epochs_per_window": 20000,
+    "extra": "--ic-from-network --n-data 100",
+    "gt_ic_slices": 1,
+    "gt_ic_points": 4000,
+    "gt_data_points": 400,
+    "ic_from_network": true,
+    "minutes": 15.863570626576742
+  }
+]
