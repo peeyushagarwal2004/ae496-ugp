@@ -8,7 +8,7 @@
   "entries": [
     {
       "id": "gt.layer_width",
-      "tex": 159,
+      "tex": 163,
       "literal": "An absorbing layer} of $8D$",
       "printed": 8.0,
       "tol": 0.5,
@@ -20,7 +20,7 @@
     },
     {
       "id": "gt.layer_rate",
-      "tex": 160,
+      "tex": 164,
       "literal": "equilibrium at a peak rate of\n",
       "printed": 0.05,
       "tol": 0.005,
@@ -32,7 +32,7 @@
     },
     {
       "id": "gt.length",
-      "tex": 164,
+      "tex": 168,
       "literal": "in a domain $60D$ long",
       "printed": 60.0,
       "tol": 0.5,
@@ -53,7 +53,7 @@
     },
     {
       "id": "gt.upstream",
-      "tex": 164,
+      "tex": 168,
       "literal": "The inlet $25D$ ahead of the cylinder",
       "printed": 25.0,
       "tol": 0.5,
@@ -64,7 +64,7 @@
     },
     {
       "id": "gt.D",
-      "tex": 171,
+      "tex": 175,
       "literal": "$\\Rey = 100$, $D = 24$ lattice units",
       "printed": 24,
       "tol": 0.5,
@@ -76,7 +76,7 @@
     },
     {
       "id": "gt.Ma",
-      "tex": 172,
+      "tex": 176,
       "literal": "$\\mathrm{Ma} = 0.087$",
       "printed": 0.087,
       "tol": 0.0005,
@@ -88,7 +88,7 @@
     },
     {
       "id": "gt.grid_x",
-      "tex": 172,
+      "tex": 176,
       "literal": "grid $1440 \\times 1200$",
       "printed": 1440,
       "tol": 0.5,
@@ -100,7 +100,7 @@
     },
     {
       "id": "gt.grid_y",
-      "tex": 172,
+      "tex": 176,
       "literal": "grid $1440 \\times 1200$",
       "printed": 1200,
       "tol": 0.5,
@@ -112,7 +112,7 @@
     },
     {
       "id": "gt.blockage",
-      "tex": 172,
+      "tex": 176,
       "literal": "blockage $D/H = 2\\%$",
       "printed": 2.0,
       "unit": "pct",
@@ -125,7 +125,7 @@
     },
     {
       "id": "gt.n_snapshots",
-      "tex": 173,
+      "tex": 177,
       "literal": "record is 641 snapshots",
       "printed": 641,
       "tol": 0.5,
@@ -137,7 +137,7 @@
     },
     {
       "id": "gt.record_periods",
-      "tex": 173,
+      "tex": 177,
       "literal": "covering 20 shedding periods",
       "printed": 20,
       "tol": 0.5,
@@ -149,7 +149,7 @@
     },
     {
       "id": "gt.dx",
-      "tex": 174,
+      "tex": 178,
       "literal": "$\\Delta x = 0.083D$",
       "printed": 0.083,
       "tol": 0.0005,
@@ -161,7 +161,7 @@
     },
     {
       "id": "gt.dt",
-      "tex": 174,
+      "tex": 178,
       "literal": "$\\Delta \\tstar = 0.19$",
       "printed": 0.19,
       "tol": 0.005,
@@ -173,7 +173,7 @@
     },
     {
       "id": "gt.Cd",
-      "tex": 187,
+      "tex": 191,
       "literal": "& 1.3634 & 1.318--1.336",
       "printed": 1.3634,
       "tol": 5e-05,
@@ -185,7 +185,7 @@
     },
     {
       "id": "gt.Cd_err",
-      "tex": 187,
+      "tex": 191,
       "literal": "& 1.3634 & 1.318--1.336 & $+3.5\\%$",
       "printed": 3.5,
       "vs": 1.317,
@@ -198,7 +198,7 @@
     },
     {
       "id": "gt.St",
-      "tex": 188,
+      "tex": 192,
       "literal": "& 0.1648 & 0.164--0.166",
       "printed": 0.1648,
       "tol": 5e-05,
@@ -212,7 +212,7 @@
     },
     {
       "id": "gt.St_err",
-      "tex": 188,
+      "tex": 192,
       "literal": "& 0.1648 & 0.164--0.166 & $-0.04\\%$",
       "printed": -0.04,
       "vs": 0.1649,
@@ -227,7 +227,7 @@
     },
     {
       "id": "gt.Cl",
-      "tex": 189,
+      "tex": 193,
       "literal": "& 0.2362 & 0.222--0.235",
       "printed": 0.2362,
       "tol": 5e-05,
@@ -239,7 +239,7 @@
     },
     {
       "id": "gt.Cl_err",
-      "tex": 189,
+      "tex": 193,
       "literal": "& 0.2362 & 0.222--0.235 & $+6.2\\%$",
       "printed": 6.2,
       "vs": 0.2224,
@@ -252,7 +252,7 @@
     },
     {
       "id": "gt.instrument_agree",
-      "tex": 196,
+      "tex": 200,
       "literal": "give the same value to within $0.002\\%$",
       "printed": 0.002,
       "tol": 0.001,
@@ -267,7 +267,7 @@
     },
     {
       "id": "gt.Cd_D32",
-      "tex": 198,
+      "tex": 202,
       "literal": "geometry gives $+2.3\\%$",
       "printed": 2.3,
       "vs": 1.317,
@@ -280,7 +280,7 @@
     },
     {
       "id": "gt.v4_St",
-      "tex": 204,
+      "tex": 208,
       "literal": "It read $\\St = 0.1595$",
       "printed": 0.1595,
       "tol": 5e-05,
@@ -294,7 +294,7 @@
     },
     {
       "id": "gt.v4_St_err",
-      "tex": 204,
+      "tex": 208,
       "literal": "It read $\\St = 0.1595$ ($-3.3\\%$)",
       "printed": -3.3,
       "vs": 0.1649,
@@ -309,7 +309,7 @@
     },
     {
       "id": "gt.v4_Cd",
-      "tex": 204,
+      "tex": 208,
       "literal": "and $\\Cd = 1.3798$",
       "printed": 1.3798,
       "tol": 5e-05,
@@ -321,7 +321,7 @@
     },
     {
       "id": "gt.v4_claim",
-      "tex": 205,
+      "tex": 209,
       "literal": "1.37--1.38 to $0.3\\%$",
       "printed": 0.3,
       "vs": 1.375,
@@ -335,7 +335,7 @@
     },
     {
       "id": "ac.St_a",
-      "tex": 212,
+      "tex": 216,
       "literal": "$\\St_a = (c_s/2H)(D/U) = 0.1155$",
       "printed": 0.1155,
       "tol": 5e-05,
@@ -347,7 +347,7 @@
     },
     {
       "id": "ac.short",
-      "tex": 213,
+      "tex": 217,
       "literal": "sheds at $\\St = 0.1600$ over 20 recorded",
       "printed": 0.16,
       "tol": 5e-05,
@@ -363,7 +363,7 @@
     },
     {
       "id": "ac.long",
-      "tex": 214,
+      "tex": 218,
       "literal": "and at $0.1132$ over 38",
       "printed": 0.1132,
       "tol": 5e-05,
@@ -379,7 +379,7 @@
     },
     {
       "id": "ac.viscous",
-      "tex": 215,
+      "tex": 219,
       "literal": "does nothing here (0.1131)",
       "printed": 0.1131,
       "tol": 5e-05,
@@ -395,7 +395,7 @@
     },
     {
       "id": "ac.visc_absorb",
-      "tex": 217,
+      "tex": 221,
       "literal": "removes about $0.04\\%$ of the",
       "printed": 0.04,
       "tol": 0.005,
@@ -407,7 +407,7 @@
     },
     {
       "id": "ac.released",
-      "tex": 219,
+      "tex": 223,
       "literal": "releases the wake ($0.1694$ over the same",
       "printed": 0.1694,
       "tol": 5e-05,
@@ -423,7 +423,7 @@
     },
     {
       "id": "ac.spread_cd",
-      "tex": 221,
+      "tex": 225,
       "literal": "$\\Cd$ moves by $0.1\\%$ and",
       "printed": 0.1,
       "tol": 0.05,
@@ -435,7 +435,7 @@
     },
     {
       "id": "ac.spread_st",
-      "tex": 222,
+      "tex": 226,
       "literal": "$\\St$ by $0.2\\%$, and 38 and 120",
       "printed": 0.2,
       "tol": 0.05,
@@ -447,7 +447,7 @@
     },
     {
       "id": "ac.hong_band",
-      "tex": 229,
+      "tex": 233,
       "literal": "$\\St/\\St_a \\le 1.14$",
       "printed": 1.14,
       "tol": 0.005,
@@ -459,7 +459,7 @@
     },
     {
       "id": "ac.ratio_100",
-      "tex": 229,
+      "tex": 233,
       "literal": "At $\\Rey = 100$ the ratio here is $1.43$",
       "printed": 1.43,
       "tol": 0.005,
@@ -482,7 +482,7 @@
     },
     {
       "id": "geo.inlet_effect",
-      "tex": 238,
+      "tex": 242,
       "literal": "lowers $\\Cd$ by\n",
       "printed": -4.7,
       "tol": 0.05,
@@ -504,7 +504,7 @@
     },
     {
       "id": "geo.base_cd",
-      "tex": 239,
+      "tex": 243,
       "literal": "from $+7.4\\%$ to $+2.3\\%$ against",
       "printed": 7.4,
       "vs": 1.317,
@@ -517,7 +517,7 @@
     },
     {
       "id": "geo.long_cd",
-      "tex": 239,
+      "tex": 243,
       "literal": "from $+7.4\\%$ to $+2.3\\%$ against",
       "printed": 2.3,
       "vs": 1.317,
@@ -530,7 +530,7 @@
     },
     {
       "id": "geo.base_st",
-      "tex": 240,
+      "tex": 244,
       "literal": "$+3.0\\%$ to $+0.3\\%$; raising",
       "printed": 3.0,
       "vs": 0.1649,
@@ -543,7 +543,7 @@
     },
     {
       "id": "geo.long_st",
-      "tex": 240,
+      "tex": 244,
       "literal": "$+3.0\\%$ to $+0.3\\%$; raising",
       "printed": 0.3,
       "vs": 0.1649,
@@ -556,7 +556,7 @@
     },
     {
       "id": "geo.height_xu8",
-      "tex": 241,
+      "tex": 245,
       "literal": "moves $\\Cd$ by $0.36\\%$",
       "printed": -0.36,
       "tol": 0.005,
@@ -577,7 +577,7 @@
     },
     {
       "id": "geo.height_xu25",
-      "tex": 241,
+      "tex": 245,
       "literal": "and by $0.07\\%$ once the inlet",
       "printed": -0.07,
       "tol": 0.005,
@@ -598,7 +598,7 @@
     },
     {
       "id": "geo.posdziech",
-      "tex": 243,
+      "tex": 247,
       "literal": "require more than $20D$",
       "printed": 20,
       "tol": 0.5,
@@ -610,7 +610,7 @@
     },
     {
       "id": "res.D24",
-      "tex": 246,
+      "tex": 250,
       "literal": "$\\Cd = 1.4334$, $1.4139$ and $1.4147$",
       "printed": 1.4334,
       "tol": 5e-05,
@@ -622,7 +622,7 @@
     },
     {
       "id": "res.D32",
-      "tex": 246,
+      "tex": 250,
       "literal": "$\\Cd = 1.4334$, $1.4139$ and $1.4147$",
       "printed": 1.4139,
       "tol": 5e-05,
@@ -634,7 +634,7 @@
     },
     {
       "id": "res.D48",
-      "tex": 246,
+      "tex": 250,
       "literal": "$\\Cd = 1.4334$, $1.4139$ and $1.4147$",
       "printed": 1.4147,
       "tol": 5e-05,
@@ -646,7 +646,7 @@
     },
     {
       "id": "res.D24_cd_high",
-      "tex": 247,
+      "tex": 251,
       "literal": "with $D = 24$ about $1.4\\%$",
       "printed": 1.4,
       "tol": 0.05,
@@ -667,7 +667,7 @@
     },
     {
       "id": "res.D24_st",
-      "tex": 248,
+      "tex": 252,
       "literal": "within $0.3\\%$ in $\\St$",
       "printed": -0.3,
       "tol": 0.05,
@@ -689,9 +689,9 @@
     },
     {
       "id": "div.rms",
-      "tex": 254,
-      "literal": "its r.m.s.\\ is $2.47\\%$ of",
-      "printed": 2.47,
+      "tex": 258,
+      "literal": "its r.m.s.\\ is $2.46\\%$ of",
+      "printed": 2.46,
       "tol": 0.005,
       "src": {
         "kind": "path",
@@ -701,7 +701,7 @@
     },
     {
       "id": "div.ma2",
-      "tex": 255,
+      "tex": 259,
       "literal": "against $\\mathrm{Ma}^2 = 0.75\\%$.",
       "printed": 0.75,
       "tol": 0.005,
@@ -713,7 +713,7 @@
     },
     {
       "id": "gt.instrument_agree2",
-      "tex": 286,
+      "tex": 292,
       "literal": "the three agree to $0.002\\%$",
       "printed": 0.002,
       "tol": 0.001,
@@ -727,7 +727,7 @@
     },
     {
       "id": "gt.v4_disagree",
-      "tex": 287,
+      "tex": 293,
       "literal": "disagreed by about $1\\%$ because the lift",
       "printed": 1.0,
       "tol": 0.5,
@@ -751,7 +751,7 @@
     },
     {
       "id": "operator.taylor_green",
-      "tex": 318,
+      "tex": 324,
       "literal": "& $1.6\\times 10^{-16}$",
       "printed": 1.6e-16,
       "tol": 5e-18,
@@ -763,7 +763,7 @@
     },
     {
       "id": "operator.backends",
-      "tex": 319,
+      "tex": 325,
       "literal": "& $2.8\\times 10^{-17}$",
       "printed": 2.8e-17,
       "tol": 5e-19,
@@ -775,7 +775,7 @@
     },
     {
       "id": "operator.steady",
-      "tex": 320,
+      "tex": 326,
       "literal": "& $5.6\\times 10^{-17}$",
       "printed": 5.6e-17,
       "tol": 5e-19,
@@ -787,7 +787,7 @@
     },
     {
       "id": "operator.speedup",
-      "tex": 321,
+      "tex": 327,
       "literal": "speed-up of the fast backend & ${\\approx}2.5\\times$",
       "printed": 2.5,
       "tol": 0.25,
@@ -796,6 +796,1891 @@
         "kind": "path",
         "file": "runs/operator_verification.json",
         "path": "benchmark_backends.value"
+      }
+    },
+    {
+      "id": "collapse.phase0",
+      "tex": 358,
+      "literal": "shedding retained & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & \\textbf{30.1\\%}",
+      "printed": 41.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.0"
+      }
+    },
+    {
+      "id": "collapse.phase1",
+      "tex": 358,
+      "literal": "shedding retained & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & \\textbf{30.1\\%}",
+      "printed": 19.3,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.1"
+      }
+    },
+    {
+      "id": "collapse.phase2",
+      "tex": 358,
+      "literal": "shedding retained & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & \\textbf{30.1\\%}",
+      "printed": 42.5,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.2"
+      }
+    },
+    {
+      "id": "collapse.phase3",
+      "tex": 358,
+      "literal": "shedding retained & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & \\textbf{30.1\\%}",
+      "printed": 17.5,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.3"
+      }
+    },
+    {
+      "id": "collapse.mean",
+      "tex": 358,
+      "literal": "shedding retained & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & \\textbf{30.1\\%}",
+      "printed": 30.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_mean"
+      }
+    },
+    {
+      "id": "collapse.range_lo",
+      "tex": 364,
+      "literal": "keeps between 17\\% and 42\\%",
+      "printed": 17.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "note": "Range of the four phase means, 17.49 to 42.49 %.",
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_phase_mean_min"
+      }
+    },
+    {
+      "id": "collapse.range_hi",
+      "tex": 364,
+      "literal": "keeps between 17\\% and 42\\%",
+      "printed": 42.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_phase_mean_max"
+      }
+    },
+    {
+      "id": "collapse.l2",
+      "tex": 365,
+      "literal": "with a field error of 0.17:",
+      "printed": 0.17,
+      "tol": 0.005,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.rel_l2_mean"
+      }
+    },
+    {
+      "id": "collapse.v4_phase0",
+      "tex": 375,
+      "literal": "the same configuration gives 9.1\\%, 25.6\\%, 13.1\\%",
+      "printed": 9.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase/summary.json",
+        "path": "re100_v4.runs.0.shedding"
+      }
+    },
+    {
+      "id": "collapse.v4_phase1",
+      "tex": 375,
+      "literal": "the same configuration gives 9.1\\%, 25.6\\%, 13.1\\%",
+      "printed": 25.6,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase/summary.json",
+        "path": "re100_v4.runs.1.shedding"
+      }
+    },
+    {
+      "id": "collapse.v4_phase2",
+      "tex": 375,
+      "literal": "the same configuration gives 9.1\\%, 25.6\\%, 13.1\\%",
+      "printed": 13.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase/summary.json",
+        "path": "re100_v4.runs.2.shedding"
+      }
+    },
+    {
+      "id": "collapse.v4_phase3",
+      "tex": 376,
+      "literal": "34.9\\% at the four phases",
+      "printed": 34.9,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase/summary.json",
+        "path": "re100_v4.runs.3.shedding"
+      }
+    },
+    {
+      "id": "ctrl.b80.mean",
+      "tex": 382,
+      "literal": "the same network keeps 47.4\\% on average",
+      "printed": 47.4,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline80k.shedding_mean"
+      }
+    },
+    {
+      "id": "ctrl.b80.l2",
+      "tex": 383,
+      "literal": "field error of 0.116.",
+      "printed": 0.116,
+      "tol": 0.0005,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline80k.rel_l2_mean"
+      }
+    },
+    {
+      "id": "ctrl.compute_gain",
+      "tex": 383,
+      "literal": "by 17.3 points phase-averaged",
+      "printed": 17.3,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.compute (baseline80k vs baseline).mean_pts"
+      }
+    },
+    {
+      "id": "ctrl.b80.phase0",
+      "tex": 384,
+      "literal": "the half-cycle swing survives it: 61.6\\%",
+      "printed": 61.6,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline80k.shedding_by_phase.0"
+      }
+    },
+    {
+      "id": "ctrl.b80.phase2",
+      "tex": 384,
+      "literal": "and 59.8\\% at phases 0 and",
+      "printed": 59.8,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline80k.shedding_by_phase.2"
+      }
+    },
+    {
+      "id": "ctrl.b80.phase1",
+      "tex": 385,
+      "literal": "33.9\\% and 34.4\\% at the other two",
+      "printed": 33.9,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline80k.shedding_by_phase.1"
+      }
+    },
+    {
+      "id": "ctrl.b80.phase3",
+      "tex": 385,
+      "literal": "33.9\\% and 34.4\\% at the other two",
+      "printed": 34.4,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline80k.shedding_by_phase.3"
+      }
+    },
+    {
+      "id": "collapse.old_claim",
+      "tex": 374,
+      "literal": "``10.6\\% of the wake''",
+      "printed": 10.6,
+      "unit": "pct",
+      "tol": 0.05,
+      "note": "The earlier report's figure, from the v4 dataset at one phase.",
+      "src": {
+        "kind": "list",
+        "file": "runs/ablation/summary.json",
+        "where": {
+          "config": "baseline"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.baseflow",
+      "tex": 416,
+      "literal": "$L_2 = 2.2\\times 10^{-3}$",
+      "printed": 0.0022,
+      "tol": 5e-05,
+      "src": {
+        "kind": "scalar",
+        "file": "data/base_flow_re100_v5.json",
+        "key": "rel_l2"
+      }
+    },
+    {
+      "id": "abl.baseline.shedding",
+      "tex": 440,
+      "literal": "\\texttt{baseline}  & 41.1\\% & 0.173",
+      "printed": 41.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "baseline"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.baseline.l2",
+      "tex": 440,
+      "literal": "\\texttt{baseline}  & 41.1\\% & 0.173",
+      "printed": 0.173,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "baseline"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.fourier.shedding",
+      "tex": 441,
+      "literal": "\\texttt{fourier}   & 36.9\\% & 0.149",
+      "printed": 36.9,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "fourier"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.fourier.l2",
+      "tex": 441,
+      "literal": "\\texttt{fourier}   & 36.9\\% & 0.149",
+      "printed": 0.149,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "fourier"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.decompose.shedding",
+      "tex": 442,
+      "literal": "\\texttt{decompose} & 36.1\\% & 0.086",
+      "printed": 36.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "decompose"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.decompose.l2",
+      "tex": 442,
+      "literal": "\\texttt{decompose} & 36.1\\% & 0.086",
+      "printed": 0.086,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "decompose"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.march.shedding",
+      "tex": 443,
+      "literal": "\\texttt{march}     & 72.2\\% & 0.156",
+      "printed": 72.2,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "march"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.march.l2",
+      "tex": 443,
+      "literal": "\\texttt{march}     & 72.2\\% & 0.156",
+      "printed": 0.156,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "march"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.all.shedding",
+      "tex": 444,
+      "literal": "\\texttt{all}       & 77.3\\% & 0.052",
+      "printed": 77.3,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.all.l2",
+      "tex": 444,
+      "literal": "\\texttt{all}       & 77.3\\% & 0.052",
+      "printed": 0.052,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.all+data.shedding",
+      "tex": 445,
+      "literal": "& 99.1\\% & \\textbf{0.006}",
+      "printed": 99.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.all+data.l2",
+      "tex": 445,
+      "literal": "& 99.1\\% & \\textbf{0.006}",
+      "printed": 0.006,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "core.baseline.phase0",
+      "tex": 459,
+      "literal": "\\texttt{baseline} & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 0.171",
+      "printed": 41.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.0"
+      }
+    },
+    {
+      "id": "core.baseline.phase1",
+      "tex": 459,
+      "literal": "\\texttt{baseline} & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 0.171",
+      "printed": 19.3,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.1"
+      }
+    },
+    {
+      "id": "core.baseline.phase2",
+      "tex": 459,
+      "literal": "\\texttt{baseline} & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 0.171",
+      "printed": 42.5,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.2"
+      }
+    },
+    {
+      "id": "core.baseline.phase3",
+      "tex": 459,
+      "literal": "\\texttt{baseline} & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 0.171",
+      "printed": 17.5,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_by_phase.3"
+      }
+    },
+    {
+      "id": "core.baseline.mean",
+      "tex": 459,
+      "literal": "\\texttt{baseline} & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 0.171",
+      "printed": 30.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.shedding_mean"
+      }
+    },
+    {
+      "id": "core.baseline.l2",
+      "tex": 459,
+      "literal": "\\texttt{baseline} & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 0.171",
+      "printed": 0.171,
+      "tol": 0.0005,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline.rel_l2_mean"
+      }
+    },
+    {
+      "id": "core.march.phase0",
+      "tex": 460,
+      "literal": "\\texttt{march}    & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 0.158",
+      "printed": 72.2,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_by_phase.0"
+      }
+    },
+    {
+      "id": "core.march.phase1",
+      "tex": 460,
+      "literal": "\\texttt{march}    & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 0.158",
+      "printed": 42.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_by_phase.1"
+      }
+    },
+    {
+      "id": "core.march.phase2",
+      "tex": 460,
+      "literal": "\\texttt{march}    & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 0.158",
+      "printed": 72.4,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_by_phase.2"
+      }
+    },
+    {
+      "id": "core.march.phase3",
+      "tex": 460,
+      "literal": "\\texttt{march}    & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 0.158",
+      "printed": 40.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_by_phase.3"
+      }
+    },
+    {
+      "id": "core.march.mean",
+      "tex": 460,
+      "literal": "\\texttt{march}    & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 0.158",
+      "printed": 56.7,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_mean"
+      }
+    },
+    {
+      "id": "core.march.l2",
+      "tex": 460,
+      "literal": "\\texttt{march}    & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 0.158",
+      "printed": 0.158,
+      "tol": 0.0005,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.rel_l2_mean"
+      }
+    },
+    {
+      "id": "core.all.phase0",
+      "tex": 461,
+      "literal": "\\texttt{all}      & 76.4\\% & 72.9\\% & 77.8\\% & 73.2\\% & \\textbf{75.1\\%} & \\textbf{0.031}",
+      "printed": 76.4,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_by_phase.0"
+      }
+    },
+    {
+      "id": "core.all.phase1",
+      "tex": 461,
+      "literal": "\\texttt{all}      & 76.4\\% & 72.9\\% & 77.8\\% & 73.2\\% & \\textbf{75.1\\%} & \\textbf{0.031}",
+      "printed": 72.9,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_by_phase.1"
+      }
+    },
+    {
+      "id": "core.all.phase2",
+      "tex": 461,
+      "literal": "\\texttt{all}      & 76.4\\% & 72.9\\% & 77.8\\% & 73.2\\% & \\textbf{75.1\\%} & \\textbf{0.031}",
+      "printed": 77.8,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_by_phase.2"
+      }
+    },
+    {
+      "id": "core.all.phase3",
+      "tex": 461,
+      "literal": "\\texttt{all}      & 76.4\\% & 72.9\\% & 77.8\\% & 73.2\\% & \\textbf{75.1\\%} & \\textbf{0.031}",
+      "printed": 73.2,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_by_phase.3"
+      }
+    },
+    {
+      "id": "core.all.mean",
+      "tex": 461,
+      "literal": "\\texttt{all}      & 76.4\\% & 72.9\\% & 77.8\\% & 73.2\\% & \\textbf{75.1\\%} & \\textbf{0.031}",
+      "printed": 75.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_mean"
+      }
+    },
+    {
+      "id": "core.all.l2",
+      "tex": 461,
+      "literal": "\\texttt{all}      & 76.4\\% & 72.9\\% & 77.8\\% & 73.2\\% & \\textbf{75.1\\%} & \\textbf{0.031}",
+      "printed": 0.031,
+      "tol": 0.0005,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.rel_l2_mean"
+      }
+    },
+    {
+      "id": "abl.text.fourier",
+      "tex": 479,
+      "literal": "(37\\% and 36\\% against 41\\%",
+      "printed": 37.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "fourier"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.text.decompose",
+      "tex": 479,
+      "literal": "(37\\% and 36\\% against 41\\%",
+      "printed": 36.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "decompose"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.text.baseline",
+      "tex": 479,
+      "literal": "(37\\% and 36\\% against 41\\%",
+      "printed": 41.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "baseline"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "abl.text.march_lo",
+      "tex": 484,
+      "literal": "swing, between 40\\% and 72\\%",
+      "printed": 40.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_phase_mean_min"
+      }
+    },
+    {
+      "id": "abl.text.march_hi",
+      "tex": 484,
+      "literal": "swing, between 40\\% and 72\\%",
+      "printed": 72.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_phase_mean_max"
+      }
+    },
+    {
+      "id": "abl.text.all_lo",
+      "tex": 485,
+      "literal": "73--78\\% at every phase",
+      "printed": 73.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_phase_mean_min"
+      }
+    },
+    {
+      "id": "abl.text.all_hi",
+      "tex": 485,
+      "literal": "73--78\\% at every phase",
+      "printed": 78.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_phase_mean_max"
+      }
+    },
+    {
+      "id": "abl.text.all_l2",
+      "tex": 485,
+      "literal": "at a field\nerror of 0.031",
+      "printed": 0.031,
+      "tol": 0.0005,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.rel_l2_mean"
+      }
+    },
+    {
+      "id": "dsic.march",
+      "tex": 493,
+      "literal": "retain 93.0\\% (\\texttt{march})",
+      "printed": 93.0,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_dsic/summary.json",
+        "where": {
+          "config": "march"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "dsic.all",
+      "tex": 493,
+      "literal": "and 94.5\\% (\\texttt{all})",
+      "printed": 94.5,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_dsic/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "dsic.march_chained",
+      "tex": 494,
+      "literal": "against 72.2\\% and 77.3\\% chained",
+      "printed": 72.2,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "march"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "dsic.all_chained",
+      "tex": 494,
+      "literal": "against 72.2\\% and 77.3\\% chained",
+      "printed": 77.3,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "budget.march",
+      "tex": 511,
+      "literal": "& 56.7\\% & 47.4\\% & $+9.3$ & $+3.7$ to $+13.8$",
+      "printed": 56.7,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_mean"
+      }
+    },
+    {
+      "id": "budget.b80",
+      "tex": 511,
+      "literal": "& 56.7\\% & 47.4\\% & $+9.3$ & $+3.7$ to $+13.8$",
+      "printed": 47.4,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.baseline80k.shedding_mean"
+      }
+    },
+    {
+      "id": "budget.march_gain",
+      "tex": 511,
+      "literal": "& 56.7\\% & 47.4\\% & $+9.3$ & $+3.7$ to $+13.8$",
+      "printed": 9.3,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality (march vs baseline80k).mean_pts"
+      }
+    },
+    {
+      "id": "budget.march_min",
+      "tex": 511,
+      "literal": "& 56.7\\% & 47.4\\% & $+9.3$ & $+3.7$ to $+13.8$",
+      "printed": 3.7,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality (march vs baseline80k).min_pts"
+      }
+    },
+    {
+      "id": "budget.march_max",
+      "tex": 511,
+      "literal": "& 56.7\\% & 47.4\\% & $+9.3$ & $+3.7$ to $+13.8$",
+      "printed": 13.8,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality (march vs baseline80k).max_pts"
+      }
+    },
+    {
+      "id": "budget.all",
+      "tex": 512,
+      "literal": "& 75.1\\% & 46.6\\% & $+28.4$ & $+20.0$ to $+37.2$",
+      "printed": 75.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_mean"
+      }
+    },
+    {
+      "id": "budget.fd8",
+      "tex": 512,
+      "literal": "& 75.1\\% & 46.6\\% & $+28.4$ & $+20.0$ to $+37.2$",
+      "printed": 46.6,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.fd8_80k.shedding_mean"
+      }
+    },
+    {
+      "id": "budget.all_gain",
+      "tex": 512,
+      "literal": "& 75.1\\% & 46.6\\% & $+28.4$ & $+20.0$ to $+37.2$",
+      "printed": 28.4,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality with the other two mechanisms (all vs fd8_80k).mean_pts"
+      }
+    },
+    {
+      "id": "budget.all_min",
+      "tex": 512,
+      "literal": "& 75.1\\% & 46.6\\% & $+28.4$ & $+20.0$ to $+37.2$",
+      "printed": 20.0,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality with the other two mechanisms (all vs fd8_80k).min_pts"
+      }
+    },
+    {
+      "id": "budget.all_max",
+      "tex": 512,
+      "literal": "& 75.1\\% & 46.6\\% & $+28.4$ & $+20.0$ to $+37.2$",
+      "printed": 37.2,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality with the other two mechanisms (all vs fd8_80k).max_pts"
+      }
+    },
+    {
+      "id": "budget.text.compute",
+      "tex": 520,
+      "literal": "17.3 points against 9.3",
+      "printed": 17.3,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.compute (baseline80k vs baseline).mean_pts"
+      }
+    },
+    {
+      "id": "budget.text.causal",
+      "tex": 520,
+      "literal": "17.3 points against 9.3",
+      "printed": 9.3,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality (march vs baseline80k).mean_pts"
+      }
+    },
+    {
+      "id": "budget.text.fd8",
+      "tex": 522,
+      "literal": "window keep 46.6\\% at",
+      "printed": 46.6,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.fd8_80k.shedding_mean"
+      }
+    },
+    {
+      "id": "budget.text.all_gain",
+      "tex": 524,
+      "literal": "lifts them by 28.4 points",
+      "printed": 28.4,
+      "tol": 0.05,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "paired.causality with the other two mechanisms (all vs fd8_80k).mean_pts"
+      }
+    },
+    {
+      "id": "budget.text.three_times",
+      "tex": 524,
+      "literal": "Causality is worth three times",
+      "printed": 3.0,
+      "tol": 0.5,
+      "note": "28.4 / 9.3 paired-mean points; printed as a round multiple.",
+      "src": {
+        "kind": "ratio",
+        "num": {
+          "kind": "path",
+          "file": "runs/v5/phase_average.json",
+          "path": "paired.causality with the other two mechanisms (all vs fd8_80k).mean_pts"
+        },
+        "den": {
+          "kind": "path",
+          "file": "runs/v5/phase_average.json",
+          "path": "paired.causality (march vs baseline80k).mean_pts"
+        },
+        "mode": "ratio"
+      }
+    },
+    {
+      "id": "knob.s8.all.before",
+      "tex": 537,
+      "literal": "& 77.3\\% $\\rightarrow$ 76.4\\%",
+      "printed": 77.3,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.s8.all.after",
+      "tex": 537,
+      "literal": "& 77.3\\% $\\rightarrow$ 76.4\\%",
+      "printed": 76.4,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_sigma8/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.s8.all.l2_before",
+      "tex": 537,
+      "literal": "& 0.052 $\\rightarrow$ \\textbf{0.031}",
+      "printed": 0.052,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.s8.all.l2_after",
+      "tex": 537,
+      "literal": "& 0.052 $\\rightarrow$ \\textbf{0.031}",
+      "printed": 0.031,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_sigma8/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.s8.fourier.before",
+      "tex": 538,
+      "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
+      "printed": 36.9,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "fourier"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.s8.fourier.after",
+      "tex": 538,
+      "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
+      "printed": 37.6,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_sigma8/summary.json",
+        "where": {
+          "config": "fourier"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.s8.fourier.l2_before",
+      "tex": 538,
+      "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
+      "printed": 0.149,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "fourier"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.s8.fourier.l2_after",
+      "tex": 538,
+      "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
+      "printed": 0.136,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_sigma8/summary.json",
+        "where": {
+          "config": "fourier"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.wic.after",
+      "tex": 539,
+      "literal": "& 77.3\\% $\\rightarrow$ 74.7\\% & 0.052 $\\rightarrow$ 0.065",
+      "printed": 74.7,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_wic100/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "knob.wic.l2_after",
+      "tex": 539,
+      "literal": "& 77.3\\% $\\rightarrow$ 74.7\\% & 0.052 $\\rightarrow$ 0.065",
+      "printed": 0.065,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation_wic100/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.0.shedding",
+      "tex": 558,
+      "literal": "0    & 77.3\\% & 0.052",
+      "printed": 77.3,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.0.l2",
+      "tex": 558,
+      "literal": "0    & 77.3\\% & 0.052",
+      "printed": 0.052,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.100.shedding",
+      "tex": 559,
+      "literal": "100  & 87.4\\% & 0.020",
+      "printed": 87.4,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/data_n100/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.100.l2",
+      "tex": 559,
+      "literal": "100  & 87.4\\% & 0.020",
+      "printed": 0.02,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/data_n100/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.500.shedding",
+      "tex": 560,
+      "literal": "500  & 96.9\\% & 0.010",
+      "printed": 96.9,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/data_n500/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.500.l2",
+      "tex": 560,
+      "literal": "500  & 96.9\\% & 0.010",
+      "printed": 0.01,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/data_n500/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.2000.shedding",
+      "tex": 561,
+      "literal": "2000 & 98.1\\% & 0.007",
+      "printed": 98.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/data_n2000/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.2000.l2",
+      "tex": 561,
+      "literal": "2000 & 98.1\\% & 0.007",
+      "printed": 0.007,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/data_n2000/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.4000.shedding",
+      "tex": 562,
+      "literal": "4000 & 99.1\\% & 0.006",
+      "printed": 99.1,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "sup.4000.l2",
+      "tex": 562,
+      "literal": "4000 & 99.1\\% & 0.006",
+      "printed": 0.006,
+      "tol": 0.0005,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "all+data"
+        },
+        "key": "rel_l2",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "acc5.St",
+      "tex": 591,
+      "literal": "& --- & 0.1476 ($-10.4\\%$)",
+      "printed": 0.1476,
+      "tol": 5e-05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "St_pinn"
+      }
+    },
+    {
+      "id": "acc5.St_err",
+      "tex": 591,
+      "literal": "& --- & 0.1476 ($-10.4\\%$)",
+      "printed": -10.4,
+      "tol": 0.05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "St_error_pct"
+      }
+    },
+    {
+      "id": "acc5.St_ref",
+      "tex": 592,
+      "literal": "reference $\\St$ over the same span & --- & 0.1648",
+      "printed": 0.1648,
+      "tol": 5e-05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "St_lbm"
+      }
+    },
+    {
+      "id": "acc.crossings1",
+      "tex": 593,
+      "literal": "zero crossings available & 2 & 9",
+      "printed": 2,
+      "tol": 0.5,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+        "index": 0,
+        "key": "zero_crossings_pinn"
+      }
+    },
+    {
+      "id": "acc.crossings5",
+      "tex": 593,
+      "literal": "zero crossings available & 2 & 9",
+      "printed": 9,
+      "tol": 0.5,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "zero_crossings_pinn"
+      }
+    },
+    {
+      "id": "acc1.amp",
+      "tex": 594,
+      "literal": "wake amplitude           & 73.5\\% & 63.8\\%",
+      "printed": 73.5,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+        "index": 0,
+        "key": "amplitude_ratio"
+      }
+    },
+    {
+      "id": "acc5.amp",
+      "tex": 594,
+      "literal": "wake amplitude           & 73.5\\% & 63.8\\%",
+      "printed": 63.8,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "amplitude_ratio"
+      }
+    },
+    {
+      "id": "acc1.lag",
+      "tex": 595,
+      "literal": "phase lag                & $0.1^\\circ$",
+      "printed": 0.1,
+      "unit": "deg_from_periods",
+      "tol": 0.05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+        "index": 0,
+        "key": "phase_lag_periods"
+      }
+    },
+    {
+      "id": "acc5.phase_err",
+      "tex": 596,
+      "literal": "phase error by the end   & --- & ${\\approx}\\,0.5$ period",
+      "printed": 0.5,
+      "tol": 0.05,
+      "note": "Frequency error times the periods covered: -10.42 % x 5.0 periods. Used instead of the cross-correlation drift, which is ambiguous modulo one period when the two frequencies differ by a tenth.",
+      "src": {
+        "kind": "ratio",
+        "num": {
+          "kind": "ratio",
+          "num": {
+            "kind": "item",
+            "file": "runs/v5/multiperiod/shedding_accuracy.json",
+            "index": 0,
+            "key": "St_error_pct"
+          },
+          "den": {
+            "kind": "item",
+            "file": "runs/v5/multiperiod/shedding_accuracy.json",
+            "index": 0,
+            "key": "periods_covered"
+          },
+          "mode": "product"
+        },
+        "den": -100.0,
+        "mode": "ratio"
+      }
+    },
+    {
+      "id": "acc1.l2",
+      "tex": 597,
+      "literal": "velocity-field error     & 0.034 & 0.156",
+      "printed": 0.034,
+      "tol": 0.0005,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+        "index": 0,
+        "key": "rel_l2_saved"
+      }
+    },
+    {
+      "id": "acc5.l2",
+      "tex": 597,
+      "literal": "velocity-field error     & 0.034 & 0.156",
+      "printed": 0.156,
+      "tol": 0.0005,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "rel_l2_saved"
+      }
+    },
+    {
+      "id": "acc1.text_amp",
+      "tex": 604,
+      "literal": "at 73.5\\% of its amplitude and a field error of 0.034",
+      "printed": 73.5,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+        "index": 0,
+        "key": "amplitude_ratio"
+      }
+    },
+    {
+      "id": "acc1.text_l2",
+      "tex": 604,
+      "literal": "at 73.5\\% of its amplitude and a field error of 0.034",
+      "printed": 0.034,
+      "tol": 0.0005,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+        "index": 0,
+        "key": "rel_l2_saved"
+      }
+    },
+    {
+      "id": "acc1.ref_misread",
+      "tex": 606,
+      "literal": "reads even the reference at 0.139 against the",
+      "printed": 0.139,
+      "tol": 0.0005,
+      "note": "The estimator over a two-crossing window, applied to the LBM signal.",
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
+        "index": 0,
+        "key": "St_lbm"
+      }
+    },
+    {
+      "id": "acc1.true_st",
+      "tex": 607,
+      "literal": "dataset's 0.1648.",
+      "printed": 0.1648,
+      "tol": 5e-05,
+      "src": {
+        "kind": "dict",
+        "file": "runs/re_sweep_v5/summary.json",
+        "at": "100",
+        "reduce": "mean",
+        "key": "St_vorticity"
+      }
+    },
+    {
+      "id": "acc5.text_err",
+      "tex": 611,
+      "literal": "10.4\\% below the reference",
+      "printed": -10.4,
+      "tol": 0.05,
+      "note": "Printed as a magnitude.",
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "St_error_pct"
+      }
+    },
+    {
+      "id": "acc5.text_amp",
+      "tex": 613,
+      "literal": "Amplitude decays\nto 63.8\\%",
+      "printed": 63.8,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "amplitude_ratio"
+      }
+    },
+    {
+      "id": "acc5.text_l2",
+      "tex": 614,
+      "literal": "and the field error grows to 0.156",
+      "printed": 0.156,
+      "tol": 0.0005,
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "rel_l2_saved"
+      }
+    },
+    {
+      "id": "acc5.old_claim",
+      "tex": 618,
+      "literal": "$\\St$ within $0.1\\%$\nover five periods",
+      "printed": 0.1,
+      "tol": 0.05,
+      "note": "The earlier report's figure, from the per-window-snapshot run on v4.",
+      "src": {
+        "kind": "item",
+        "file": "runs/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "St_error_pct"
+      }
+    },
+    {
+      "id": "intro.three_quarters",
+      "tex": 119,
+      "literal": "at three-quarters of its amplitude",
+      "printed": 75.0,
+      "unit": "pct",
+      "tol": 2.5,
+      "note": "75.1 % phase-averaged, printed in words.",
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_mean"
+      }
+    },
+    {
+      "id": "intro.half_cycle",
+      "tex": 120,
+      "literal": "it drifts about half a",
+      "printed": 0.5,
+      "tol": 0.05,
+      "note": "Same estimate as acc5.phase_err.",
+      "src": {
+        "kind": "ratio",
+        "num": {
+          "kind": "ratio",
+          "num": {
+            "kind": "item",
+            "file": "runs/v5/multiperiod/shedding_accuracy.json",
+            "index": 0,
+            "key": "St_error_pct"
+          },
+          "den": {
+            "kind": "item",
+            "file": "runs/v5/multiperiod/shedding_accuracy.json",
+            "index": 0,
+            "key": "periods_covered"
+          },
+          "mode": "product"
+        },
+        "den": -100.0,
+        "mode": "ratio"
+      }
+    },
+    {
+      "id": "lim.three_quarters",
+      "tex": 810,
+      "literal": "three-quarters of the wake amplitude over a period",
+      "printed": 75.0,
+      "unit": "pct",
+      "tol": 2.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.all.shedding_mean"
+      }
+    },
+    {
+      "id": "lim.slow",
+      "tex": 811,
+      "literal": "five periods it runs 10\\% slow",
+      "printed": -10.0,
+      "tol": 0.5,
+      "note": "Printed as a magnitude.",
+      "src": {
+        "kind": "item",
+        "file": "runs/v5/multiperiod/shedding_accuracy.json",
+        "index": 0,
+        "key": "St_error_pct"
+      }
+    },
+    {
+      "id": "lim.half_cycle",
+      "tex": 811,
+      "literal": "ends half a cycle out of phase",
+      "printed": 0.5,
+      "tol": 0.05,
+      "src": {
+        "kind": "ratio",
+        "num": {
+          "kind": "ratio",
+          "num": {
+            "kind": "item",
+            "file": "runs/v5/multiperiod/shedding_accuracy.json",
+            "index": 0,
+            "key": "St_error_pct"
+          },
+          "den": {
+            "kind": "item",
+            "file": "runs/v5/multiperiod/shedding_accuracy.json",
+            "index": 0,
+            "key": "periods_covered"
+          },
+          "mode": "product"
+        },
+        "den": -100.0,
+        "mode": "ratio"
+      }
+    },
+    {
+      "id": "lim.seed0",
+      "tex": 823,
+      "literal": "gives 69.7\\% and",
+      "printed": 69.7,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "march",
+          "seed": 0
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "lim.seed1",
+      "tex": 824,
+      "literal": "74.6\\% on its two seeds",
+      "printed": 74.6,
+      "unit": "pct",
+      "tol": 0.05,
+      "src": {
+        "kind": "list",
+        "file": "runs/v5/ablation/summary.json",
+        "where": {
+          "config": "march",
+          "seed": 1
+        },
+        "key": "shedding",
+        "reduce": "mean"
+      }
+    },
+    {
+      "id": "lim.swing_lo",
+      "tex": 824,
+      "literal": "against a swing from 40\\% to 72\\%",
+      "printed": 40.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_phase_mean_min"
+      }
+    },
+    {
+      "id": "lim.swing_hi",
+      "tex": 824,
+      "literal": "against a swing from 40\\% to 72\\%",
+      "printed": 72.0,
+      "unit": "pct",
+      "tol": 0.5,
+      "src": {
+        "kind": "path",
+        "file": "runs/v5/phase_average.json",
+        "path": "summary.march.shedding_phase_mean_max"
+      }
+    },
+    {
+      "id": "lim.lockin",
+      "tex": 841,
+      "literal": "$\\St/\\St_a = 1.43$, outside",
+      "printed": 1.43,
+      "tol": 0.005,
+      "src": {
+        "kind": "ratio",
+        "num": {
+          "kind": "dict",
+          "file": "runs/re_sweep_v5/summary.json",
+          "at": "100",
+          "reduce": "mean",
+          "key": "St_vorticity"
+        },
+        "den": {
+          "kind": "path",
+          "file": "runs/v5/derived_metrics.json",
+          "path": "acoustic.St_resonance"
+        },
+        "mode": "ratio"
+      }
+    },
+    {
+      "id": "method.old_march",
+      "tex": 849,
+      "literal": "causal marching alone retains 89.2\\%",
+      "printed": 89.2,
+      "unit": "pct",
+      "tol": 0.05,
+      "note": "The earlier report's headline, v4 dataset, per-window snapshots, phase 0.",
+      "src": {
+        "kind": "list",
+        "file": "runs/ablation/summary.json",
+        "where": {
+          "config": "march"
+        },
+        "key": "shedding",
+        "reduce": "mean"
       }
     }
   ]

@@ -558,10 +558,16 @@ def main():
         out["benchmark"] = benchmark_comparison(s)
 
     npz = ROOT / "data" / f"cylinder_{args.tag}.npz"
-    if args.skip_dataset:
-        print(f"skipping dataset section (--skip-dataset)")
-    elif not npz.exists():
-        print(f"skipping dataset section: {npz.name} not present")
+    if args.skip_dataset or not npz.exists():
+        why = "--skip-dataset" if args.skip_dataset else f"{npz.name} not present"
+        # The .npz lives only where the LBM ran. Rather than drop a section
+        # computed there, carry it over from the previous output, and say so.
+        prev = json.loads(OUT.read_text()).get("dataset") if OUT.exists() else None
+        if prev and abs(prev.get("ma_squared_pct", -1) - meta["Ma"] ** 2 * 100.0) < 1e-9:
+            out["dataset"] = prev
+            print(f"dataset section kept from the previous {OUT.name} ({why})")
+        else:
+            print(f"skipping dataset section ({why})")
     else:
         print(f"reading {npz.name} ...")
         out["dataset"] = divergence_error(npz)

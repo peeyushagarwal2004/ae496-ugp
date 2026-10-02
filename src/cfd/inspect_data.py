@@ -141,17 +141,20 @@ def main():
     period_snaps = max(1, int(round(1.0 / (st * (t[1] - t[0])))))
     idx = [min(snaps.shape[0] - 1, i * period_snaps // 4) for i in range(4)]
     vmax = 5.0
-    fig, axes = plt.subplots(4, 1, figsize=(9, 10), constrained_layout=True)
-    for a, i in zip(axes, idx):
+    fig, axes = plt.subplots(2, 2, figsize=(10, 4.6), sharex=True, sharey=True,
+                             constrained_layout=True)
+    for k, (a, i) in enumerate(zip(axes.flat, idx)):
         w = vorticity(snaps[i, 0], snaps[i, 1], x, y)
         w = np.where(solid, np.nan, w)
         im = a.pcolormesh(x, y, w.T, cmap="RdBu_r", vmin=-vmax, vmax=vmax, shading="auto")
         a.add_patch(plt.Circle((0, 0), 0.5, color="0.3", zorder=5))
         a.set_aspect("equal")
+        a.set_title(f"$t^* = {t[i]:.2f}$  ({k}/4 period)", fontsize=9)
+    for a in axes[:, 0]:
         a.set_ylabel("$y/D$")
-        a.set_title(f"$t^* = {t[i]:.2f}$", fontsize=9)
-        fig.colorbar(im, ax=a, label=r"$\omega_z D/U$", shrink=0.9)
-    axes[-1].set_xlabel("$x/D$")
+    for a in axes[-1, :]:
+        a.set_xlabel("$x/D$")
+    fig.colorbar(im, ax=axes, label=r"$\omega_z D/U$", shrink=0.8)
     fig.savefig(figdir / f"{args.tag}_vorticity.png", dpi=140)
     plt.close(fig)
 
