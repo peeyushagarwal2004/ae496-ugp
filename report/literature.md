@@ -14,7 +14,73 @@ Shah, Krishnapriyan et al. (§5), Qu et al. (Tables 1–3), and Blevins (p. 1).
 
 ---
 
-## 1. Headline: the competing paper does not achieve what you achieve
+## 0. Third pass (2026-10-02): what the regenerated results change
+
+Sections 1–13 below were written against the v4 results. The v4 headline did
+not survive the confound checks (report §4–§6), and several positions taken
+below are now wrong. They are left in place, marked **[superseded]**, so the
+history is readable; this section says what replaces them. Every number here is
+in `report/numbers.json` and checked by `experiments/verify_report.py`.
+
+**The Shah position reverses (§1, §9.1).** The v4 data-free result (89–90 %
+retained) was inflated twice: marched runs got a fresh reference snapshot at
+every window (four ground-truth slices against the baseline's one, worth about
+twenty points), and every configuration was scored at one start phase of a
+quantity that swings with a half-cycle period. With one ground-truth slice and
+four phases averaged: plain PINN 30.1 %, `march` 56.7 %, `all` (σ = 8) 75.1 %
+at L₂ 0.031. Over five chained periods `all` runs 10.4 % slow and ends about
+half a cycle out of phase. So:
+
+- Do **not** claim to contradict Shah or Chuang & Barba. A data-free chain
+  sustains a wake at three-quarters amplitude but does not forecast it.
+- Shah's title, *Complementary, Not Cumulative*, now **agrees** with the
+  finding here: only all three mechanisms together give a phase-independent
+  wake. Cite him in support of the interaction effect.
+- What remains distinct from Shah: hard window marching (he tests loss
+  reweighting over time bins), phase-averaged scoring, and the
+  optimiser-step-matched control.
+
+**The equal-budget control now cuts the other way (§3, §9.3).** At matched
+optimiser steps (80 000 epochs, four phases, two seeds), training budget
+accounts for more of `march`'s gain than causality does: +17.3 points from
+training alone, +9.3 from causality. Within the combination causality is worth
++28.4. The distinction from Krishnapriyan et al. (collocation-point matching
+vs optimiser-step matching) still stands; the claim "the gain is causality, not
+compute" does not.
+
+**The Cd story changes (§4 points 1–2, §9.4, §11.5).** The v4 overshoot was
+mostly the inlet 8D ahead of the cylinder, not the domain height. With the
+inlet at 25D and an absorbing layer: Re = 100 gives Cd +3.5 %, St −0.04 % vs Qu
+et al.; raising H from 50D to 120D moves Cd by only 0.07 % once the inlet is far
+enough upstream. Posdziech & Grundmann's >20D upstream requirement (via Qu) is
+the relevant citation, not the H > 100 blockage threshold. The resolution
+series (§11.7) has been redone at 2 % blockage: converged at D = 32.
+
+**The acoustic section moved and was resolved (§6, §11.3–4).** A target-state
+absorbing layer (relaxation toward free-stream equilibrium) removes the duct
+mode; a viscous layer does not, for a quantified reason (≈0.04 % per pass). At
+Re = 100 without the layer the wake locks at St/St_a = 1.43, well outside Hong
+et al.'s 1.14, given enough time. The band discrepancy remains open and is
+listed as such in the report; the lattice-velocity-lowering workaround is no
+longer used.
+
+**Novelty, re-ranked for the v5 evidence.**
+
+1. **A controlled, phase-averaged decomposition of what defeats the collapse**:
+   causality, compute and the two other mechanisms separated at matched
+   optimiser steps, with one ground-truth slice per run.
+2. **Two confounds that inflate PINN-marching results** — per-window
+   ground-truth ICs and single-phase scoring — each measured. Of methodological
+   interest beyond this problem.
+3. **The acoustic lock-in diagnosis** and the target-state layer fix.
+4. **Inlet distance, not blockage**, as the dominant Cd error for an LBM
+   cylinder in a free-slip duct, by a crossed geometry test.
+5. Reynolds-sweep generalisation (pending the v5 sweep), FNO physics residual,
+   supervision volume — supporting results.
+
+---
+
+## 1. Headline: the competing paper does not achieve what you achieve **[superseded — see §0]**
 
 **Shah, arXiv:2608.19632 (20 Aug 2026)** `[VR]` is not the threat it looked like
 on the abstract. Reading the paper changes the conclusion:
@@ -95,7 +161,7 @@ what Krishnapriyan et al. argue from loss-landscape analysis.
 
 ---
 
-## 3. Your equal-budget control is genuinely a different control
+## 3. Your equal-budget control is genuinely a different control **[conclusion superseded — see §0]**
 
 Read §5.1–5.2 and Figure 5 of **Krishnapriyan et al. (2021)** `[VR]`.
 
@@ -120,7 +186,7 @@ optimiser-matched control, across six Reynolds numbers.
 
 ---
 
-## 4. Your Cd validation claim is wrong, and the fix is a better result
+## 4. Your Cd validation claim is wrong, and the fix is a better result **[cause superseded — see §0]**
 
 This is the most consequential finding of the survey.
 
@@ -234,7 +300,7 @@ coefficients to "Williamson (1991)" `[U]`. Probably a slip; do not propagate it.
 
 ---
 
-## 6. The acoustic section: now properly anchored, with one real tension
+## 6. The acoustic section: now properly anchored, with one real tension **[partly superseded — see §0]**
 
 Two references turn this from an anecdote into a result.
 
@@ -321,7 +387,7 @@ pressure-elimination argument for a velocity-only output and this weight choice.
 
 ---
 
-## 9. Defensible novelty, re-ranked after reading the papers
+## 9. Defensible novelty, re-ranked after reading the papers **[superseded — see §0]**
 
 1. **Data-free vortex shedding via causal time-window marching, contradicting
    two independent published conclusions that data supervision is necessary.**
@@ -346,7 +412,7 @@ pressure-elimination argument for a velocity-only output and this weight choice.
 
 ---
 
-## 10. What changed in the report — status
+## 10. What changed in the report — status (second pass, v4)
 
 All of the following were applied on 2026-09-22. `experiments/verify_report.py`
 is green: **170 numbers, 168 pass, 0 mismatch, 2 unverifiable.** Every change
@@ -407,7 +473,7 @@ u = 0.05 would take minutes and would close the last gap.
 
 ---
 
-## 12. Venue
+## 12. Venue **[framing superseded — see §0]**
 
 With items 1–3 and 5 above: **Physics of Fluids**, **Computers & Fluids**, or
 **Machine Learning: Science and Technology** (IOP — best fit for the methods
