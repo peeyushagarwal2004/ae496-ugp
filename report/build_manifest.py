@@ -377,7 +377,68 @@ def section5():
         E(f"sup.{n}.l2", lit, float(l2), 0.0005, lst(f, "rel_l2", config=cfg))
 
 
-SECTIONS = [section2, section3, section4, section5]
+# ---------------------------------------------------------------------------
+# Section 6 -- accuracy over one period and five
+# ---------------------------------------------------------------------------
+
+def section6():
+    ONE = "runs/v5/ablation_sigma8/shedding_accuracy.json"
+    FIVE = "runs/v5/multiperiod/shedding_accuracy.json"
+
+    def it(f, key):
+        return {"kind": "item", "file": f, "index": 0, "key": key}
+
+    E("acc5.St", "& --- & 0.1476 ($-10.4" + PCT + "$)", 0.1476, 0.00005,
+      it(FIVE, "St_pinn"))
+    E("acc5.St_err", "& --- & 0.1476 ($-10.4" + PCT + "$)", -10.4, 0.05,
+      it(FIVE, "St_error_pct"))
+    E("acc5.St_ref", "reference $" + BS + "St$ over the same span & --- & 0.1648",
+      0.1648, 0.00005, it(FIVE, "St_lbm"))
+    E("acc.crossings1", "zero crossings available & 2 & 9", 2, 0.5,
+      it(ONE, "zero_crossings_pinn"))
+    E("acc.crossings5", "zero crossings available & 2 & 9", 9, 0.5,
+      it(FIVE, "zero_crossings_pinn"))
+    E("acc1.amp", "wake amplitude           & 73.5" + PCT + " & 63.8" + PCT, 73.5,
+      0.05, it(ONE, "amplitude_ratio"), unit="pct")
+    E("acc5.amp", "wake amplitude           & 73.5" + PCT + " & 63.8" + PCT, 63.8,
+      0.05, it(FIVE, "amplitude_ratio"), unit="pct")
+    E("acc1.lag", "phase lag                & $0.1^" + BS + "circ$", 0.1, 0.05,
+      it(ONE, "phase_lag_periods"), unit="deg_from_periods")
+    E("acc5.phase_err",
+      "phase error by the end   & --- & ${" + BS + "approx}" + BS + ",0.5$ period",
+      0.5, 0.05,
+      ratio(ratio(it(FIVE, "St_error_pct"), it(FIVE, "periods_covered"),
+                  mode="product"), -100.0, mode="ratio"),
+      note="Frequency error times the periods covered: -10.42 % x 5.0 periods. "
+           "Used instead of the cross-correlation drift, which is ambiguous "
+           "modulo one period when the two frequencies differ by a tenth.")
+    E("acc1.l2", "velocity-field error     & 0.034 & 0.156", 0.034, 0.0005,
+      it(ONE, "rel_l2_saved"))
+    E("acc5.l2", "velocity-field error     & 0.034 & 0.156", 0.156, 0.0005,
+      it(FIVE, "rel_l2_saved"))
+
+    E("acc1.text_amp", "at 73.5" + PCT + " of its amplitude and a field error of "
+      "0.034", 73.5, 0.05, it(ONE, "amplitude_ratio"), unit="pct")
+    E("acc1.text_l2", "at 73.5" + PCT + " of its amplitude and a field error of "
+      "0.034", 0.034, 0.0005, it(ONE, "rel_l2_saved"))
+    E("acc1.ref_misread", "reads even the reference at 0.139 against the",
+      0.139, 0.0005, it(ONE, "St_lbm"),
+      note="The estimator over a two-crossing window, applied to the LBM signal.")
+    E("acc1.true_st", "dataset's 0.1648.", 0.1648, 0.00005,
+      dct(SWEEP5, "100", "St_vorticity"))
+    E("acc5.text_err", "10.4" + PCT + " below the reference", -10.4, 0.05,
+      it(FIVE, "St_error_pct"), note="Printed as a magnitude.")
+    E("acc5.text_amp", "Amplitude decays\nto 63.8" + PCT, 63.8, 0.05,
+      it(FIVE, "amplitude_ratio"), unit="pct")
+    E("acc5.text_l2", "and the field error grows to 0.156", 0.156, 0.0005,
+      it(FIVE, "rel_l2_saved"))
+    E("acc5.old_claim", "$" + BS + "St$ within $0.1" + PCT + "$\nover five periods",
+      0.1, 0.05, {"kind": "item", "file": "runs/multiperiod/shedding_accuracy.json",
+                  "index": 0, "key": "St_error_pct"},
+      note="The earlier report's figure, from the per-window-snapshot run on v4.")
+
+
+SECTIONS = [section2, section3, section4, section5, section6]
 
 
 def resolve_lines(entries, lines):
