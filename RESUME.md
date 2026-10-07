@@ -471,7 +471,7 @@ artefact of under-training. Do not quote the CPU numbers as the result.
 
 ---
 
-### Phase 5 — The FNO comparison (code written, runs pending)
+### Phase 5 — The FNO comparison (done; current account in report §9)
 
 **Objective.** Two things: (a) reproduce the reference paper's method on our
 data, and (b) answer the question that unites the topic with the reference —
@@ -600,6 +600,15 @@ Beyond it the spread explodes exactly as expected of diverged rollouts --
 `physics` reads 0.63 and 0.92 at 50 steps -- which is why the late-horizon
 gap is reported as "both have failed" rather than as a measured ratio.
 
+**Later runs [MEASURED] — see report §9.** Everything above is on `re100_v4`.
+On the validated `re100_v5` (`runs/v5/fno`) the FNO forecasts to 0.0010 at the
+trained horizon and physics is 16–18 % *worse*: the record is a clean limit
+cycle, so held-out states repeat training phases. On v4 a U-Net
+(`runs/fno_unet`) and a ConvGRU (`runs/fno_convgru`) were run under the same
+protocol: physics is neutral for the U-Net and harmful for the ConvGRU, so
+"physics helps short, hurts long" is an FNO result. `experiments/arch_compare.py`
+tabulates both tracks.
+
 ---
 
 ### Phase 6 — Write-up
@@ -622,14 +631,16 @@ mechanisms and ablation (Phase 4) → FNO comparison (Phase 5) → conclusions.
 | `figures/ablation_cpu_fields.png` | PINN vs LBM vorticity — the collapsed baseline against the reference |
 | `figures/fields_best.png` | the *successful* data-free PINN: a Kármán street, and the probe trace against LBM |
 
-**Still to generate:** FNO rollout-error curve (Phase 5) — the script is
-`experiments/plot_rollout.py`, waiting on the runs.
+FNO and backbone figures are now generated too: `figures/fno.png`
+(`plot_rollout.py`), `figures/operators.png` (`plot_operators.py`) and the v5
+sweep `figures/re_sweep.png` (`plot_re_sweep.py`). The report itself is the
+current structure; the list above is historical.
 
 ---
 
 ## Part III — Practical
 
-### §7 Immediate blocker
+### §7 Immediate blocker (obsolete — runs moved to the IITK server, §11)
 
 Kaggle cannot clone the private GitHub repo — git prompts for a username and
 hangs. GPU, CUDA JAX and the pip install are all already confirmed working there.
