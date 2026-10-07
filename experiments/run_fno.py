@@ -75,6 +75,8 @@ def main():
             blob = json.loads((run_dir / "results.json").read_text())
             summary.append({
                 "variant": name, "seed": seed,
+                "arch": blob["config"].get("arch", "fno"),
+                "n_params": blob.get("n_params"),
                 **blob["headline"],
                 "epochs": args.epochs,
                 "trained_rollout": blob["config"]["rollout"],

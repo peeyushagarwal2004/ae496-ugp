@@ -49,6 +49,7 @@ sys.path.insert(0, str(ROOT / "src"))
 sys.path.insert(0, str(ROOT / "upinn"))
 
 from fno import physics as phys  # noqa: E402
+from fno.convnets import ConvGRUNet, UNet, count_params  # noqa: E402
 from pinn.data import load  # noqa: E402
 
 from underPINN.nn.operators import FNO2D  # noqa: E402
@@ -131,8 +132,22 @@ def rollout_starts(idx, rollout, stride=1):
 # ---------------------------------------------------------------------------
 
 def build(cfg, frames):
-    """FNO2D mapping two stacked frames (4 channels) to the next one (2)."""
+    """A forecaster mapping two stacked frames (4 channels) to the next one (2).
+
+    `arch` picks the backbone: the paper's FNO2D, or one of the CNN / RNN
+    rivals in `fno.convnets`. Everything downstream -- loss, rollout,
+    evaluation -- is shared, so the backbone is the only thing that differs.
+    """
     nx, ny = frames.grid
+    key = jax.random.PRNGKey(cfg["seed"])
+    x0 = jnp.zeros((1, nx, ny, 4), jnp.float32)
+    arch = cfg.get("arch", "fno")
+    if arch == "unet":
+        model = UNet(features=tuple(cfg["unet_features"]))
+        return model, model.init(key, x0)
+    if arch == "convgru":
+        model = ConvGRUNet(hidden=cfg["gru_hidden"], base=cfg["gru_base"])
+        return model, model.init(key, x0, model.init_hidden(1, (nx, ny)))
     model = FNO2D(
         modes1=min(cfg["modes"], nx // 2 + 1),
         modes2=min(cfg["modes"], ny // 2 + 1),
@@ -144,27 +159,40 @@ def build(cfg, frames):
         # convolution assumes it is; padding is the standard FNO remedy.
         padding=cfg["padding"],
     )
-    key = jax.random.PRNGKey(cfg["seed"])
-    params = model.init(key, jnp.zeros((1, nx, ny, 4), jnp.float32))
-    return model, params
+    return model, model.init(key, x0)
 
 
 def make_step_fn(model, frames):
-    """One forecast step: (prev, now) -> next, in normalised fluctuation units.
+    """One forecast step: (prev, now, h) -> (next, h), in normalised units.
 
     Normalising by the training r.m.s. (see `train`) keeps the network's inputs
     and outputs O(1) without touching the physics, which always runs on the
     rescaled field.
+
+    `h` is the recurrent state. Only the ConvGRU uses it; for the stateless
+    backbones it is a dummy scalar passed through unchanged, so one rollout
+    serves all of them. `init_hidden(batch)` gives the state a rollout starts
+    from -- zeros, i.e. no memory before the first input pair.
     """
     fluid = jnp.asarray(frames.fluid)
+    recurrent = isinstance(model, ConvGRUNet)
 
-    def step(params, prev, now):
+    def step(params, prev, now, h):
         x = jnp.concatenate([prev, now], axis=-1)
-        nxt = model.apply(params, x)
+        if recurrent:
+            nxt, h = model.apply(params, x, h)
+        else:
+            nxt = model.apply(params, x)
         # Nothing flows inside the cylinder; enforcing that here stops the
         # solid interior from feeding garbage back in during a rollout.
-        return nxt * fluid
+        return nxt * fluid, h
 
+    def init_hidden(batch):
+        if recurrent:
+            return model.init_hidden(batch, frames.grid)
+        return jnp.zeros((), jnp.float32)
+
+    step.init_hidden = init_hidden
     return step
 
 
@@ -179,11 +207,13 @@ def make_rollout_fn(step, remat=True):
 
     def rollout(params, prev, now, n):
         def body(carry, _):
-            p, c = carry
-            nxt = inner(params, p, c)
-            return (c, nxt), nxt
+            p, c, h = carry
+            nxt, h = inner(params, p, c, h)
+            return (c, nxt, h), nxt
 
-        _, preds = jax.lax.scan(body, (prev, now), None, length=n)
+        init = getattr(step, "init_hidden", lambda b: jnp.zeros((), prev.dtype))
+        h0 = init(prev.shape[0])
+        _, preds = jax.lax.scan(body, (prev, now, h0), None, length=n)
         return preds  # (n, batch, nx, ny, 2)
 
     return rollout
@@ -303,6 +333,9 @@ def train(cfg, frames, verbose=True):
     fluct_norm = frames.fluct / scale
 
     model, params = build(cfg, frames)
+    n_params = count_params(params)
+    if verbose:
+        print(f"  arch {cfg.get('arch', 'fno')}  params {n_params:,}")
     step = make_step_fn(model, frames)
     rollout = make_rollout_fn(step, remat=cfg["remat"])
     reference = reference_residuals(frames, train_idx)
@@ -347,7 +380,7 @@ def train(cfg, frames, verbose=True):
                   f"  div {row['div']:.3e}  vort {row['vort']:.3e}"
                   f"  ({row['seconds']:6.1f}s)", flush=True)
 
-    return dict(params=params, scale=scale, model=model, step=step,
+    return dict(params=params, scale=scale, model=model, step=step, n_params=n_params,
                 rollout=rollout, history=history, reference=reference,
                 train_idx=train_idx, test_idx=test_idx)
 
@@ -423,6 +456,14 @@ def parse_args(argv=None):
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="re100_v4")
     ap.add_argument("--variant", default="data", choices=sorted(VARIANTS))
+    ap.add_argument("--arch", default="fno", choices=["fno", "unet", "convgru"],
+                    help="backbone; the FNO flags below apply to fno only")
+    ap.add_argument("--unet-features", default="32,64,128,256",
+                    help="U-Net channels per level, comma-separated")
+    ap.add_argument("--gru-hidden", type=int, default=64,
+                    help="ConvGRU hidden channels (at 1/4 resolution)")
+    ap.add_argument("--gru-base", type=int, default=32,
+                    help="ConvGRU encoder/decoder channels at full resolution")
     # Paper's Table 1.
     ap.add_argument("--width", type=int, default=80)
     ap.add_argument("--modes", type=int, default=24)
@@ -462,6 +503,8 @@ def parse_args(argv=None):
         args.epochs, args.width, args.modes, args.depth = 2, 8, 6, 2
         args.batch, args.rollout, args.eval_steps = 2, 2, 6
         args.n_eval_ic, args.downsample, args.log_every = 2, 4, 1
+        args.unet_features, args.gru_hidden, args.gru_base = "4,8", 8, 4
+    args.unet_features = [int(f) for f in str(args.unet_features).split(",")]
     return args
 
 
@@ -484,7 +527,7 @@ def main(argv=None):
     nx, ny = frames.grid
     print(f"grid {nx} x {ny}   dt* {frames.dt:.4f}   Re {frames.Re:g}   "
           f"snapshots {frames.n_times}")
-    print(f"variant {args.variant}  w_div={cfg['w_div']}  w_vort={cfg['w_vort']}  "
+    print(f"arch {args.arch}  variant {args.variant}  w_div={cfg['w_div']}  w_vort={cfg['w_vort']}  "
           f"rollout {cfg['rollout']} -> eval {cfg['eval_steps']}\n")
 
     trained = train(cfg, frames)
@@ -503,6 +546,8 @@ def main(argv=None):
         "headline": marks,
         "history": trained["history"],
         "scale": trained["scale"],
+        "n_params": trained["n_params"],
+        "train_seconds": trained["history"][-1]["seconds"],
         "data_residuals": trained["reference"],
         "n_train": int(len(trained["train_idx"])),
         "n_test": int(len(trained["test_idx"])),

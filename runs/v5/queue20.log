@@ -1,0 +1,117 @@
+### starting Mon Oct  5 13:37:20 IST 2026
+t0 91.4625  period 6.0667834524757165
+skip runs/v5/phase_core/gru_k0_s0
+skip runs/v5/phase_core/gru_march_k0_s0
+### gru phase 1/4 seed 0  t_start=92.9792  Mon Oct  5 13:37:20 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 3.814e+01  pde 2.72e-02  bc 2.85e+00  ic 9.62e-01  dat 0.00e+00  ( 53.8s)
+  [win 1/1] ep   5000  loss 1.394e-01  pde 3.80e-03  bc 5.54e-04  ic 1.30e-02  dat 0.00e+00  (248.0s)
+  -> rel L2 0.3138   probe v rms: PINN 0.0481 vs LBM 0.4077   shedding retained 11.8 %
+    relative L2       0.3185
+    shedding retained 11.8 %
+### gru_march phase 1/4 seed 0  t_start=92.9792  Mon Oct  5 13:51:26 IST 2026
+  [win 3/4] ep      0  loss 9.420e-02  pde 6.27e-03  bc 8.79e-03  ic 3.93e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 1.070e-03  pde 9.13e-04  bc 8.11e-06  ic 7.57e-06  dat 0.00e+00  (194.2s)
+  -> rel L2 0.2658   probe v rms: PINN 0.0197 vs LBM 0.2395   shedding retained 8.2 %
+  [win 4/4] ep      0  loss 8.173e-03  pde 9.58e-04  bc 7.22e-04  ic 2.21e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 1.104e-03  pde 8.35e-04  bc 7.87e-06  ic 1.90e-05  dat 0.00e+00  (194.1s)
+  -> rel L2 0.3162   probe v rms: PINN 0.0250 vs LBM 0.0952   shedding retained 26.3 %
+    relative L2       0.2143
+    shedding retained 22.8 %
+### gru phase 2/4 seed 0  t_start=94.4959  Mon Oct  5 14:44:27 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 3.816e+01  pde 2.72e-02  bc 2.85e+00  ic 9.64e-01  dat 0.00e+00  ( 54.5s)
+  [win 1/1] ep   5000  loss 1.231e-01  pde 4.00e-03  bc 5.78e-04  ic 1.13e-02  dat 0.00e+00  (248.6s)
+  -> rel L2 0.3314   probe v rms: PINN 0.1062 vs LBM 0.3963   shedding retained 26.8 %
+    relative L2       0.3357
+    shedding retained 26.8 %
+### gru_march phase 2/4 seed 0  t_start=94.4959  Mon Oct  5 14:58:33 IST 2026
+  [win 3/4] ep      0  loss 6.051e-02  pde 6.13e-03  bc 5.44e-03  ic 3.82e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 1.128e-03  pde 9.57e-04  bc 8.95e-06  ic 8.19e-06  dat 0.00e+00  (194.4s)
+  -> rel L2 0.2812   probe v rms: PINN 0.0222 vs LBM 0.0952   shedding retained 23.3 %
+  [win 4/4] ep      0  loss 6.305e-03  pde 9.17e-04  bc 5.39e-04  ic 2.52e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 2.807e-03  pde 1.53e-03  bc 3.29e-05  ic 9.48e-05  dat 0.00e+00  (194.3s)
+  -> rel L2 0.3259   probe v rms: PINN 0.0098 vs LBM 0.2410   shedding retained 4.1 %
+    relative L2       0.2242
+    shedding retained 47.1 %
+### gru phase 3/4 seed 0  t_start=96.0126  Mon Oct  5 15:51:37 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 3.805e+01  pde 2.72e-02  bc 2.85e+00  ic 9.52e-01  dat 0.00e+00  ( 55.6s)
+  [win 1/1] ep   5000  loss 1.284e-01  pde 4.78e-03  bc 9.33e-04  ic 1.14e-02  dat 0.00e+00  (249.8s)
+  -> rel L2 0.3038   probe v rms: PINN 0.0541 vs LBM 0.4077   shedding retained 13.3 %
+    relative L2       0.3072
+    shedding retained 13.3 %
+### gru_march phase 3/4 seed 0  t_start=96.0126  Mon Oct  5 16:05:44 IST 2026
+  [win 3/4] ep      0  loss 6.681e-02  pde 5.68e-03  bc 6.11e-03  ic 4.29e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 3.337e-03  pde 1.78e-03  bc 2.04e-05  ic 1.35e-04  dat 0.00e+00  (194.8s)
+  -> rel L2 0.2779   probe v rms: PINN 0.0292 vs LBM 0.2410   shedding retained 12.1 %
+  [win 4/4] ep      0  loss 6.243e-03  pde 8.57e-04  bc 5.39e-04  ic 2.29e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 3.917e-03  pde 1.43e-03  bc 9.41e-05  ic 1.55e-04  dat 0.00e+00  (194.6s)
+  -> rel L2 0.3130   probe v rms: PINN 0.0314 vs LBM 0.0918   shedding retained 34.3 %
+    relative L2       0.2203
+    shedding retained 23.5 %
+### gru phase 0/4 seed 1  t_start=91.4625  Mon Oct  5 16:58:53 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 4.118e+01  pde 1.32e-02  bc 3.13e+00  ic 9.87e-01  dat 0.00e+00  ( 54.4s)
+  [win 1/1] ep   5000  loss 1.537e-01  pde 4.37e-03  bc 8.40e-04  ic 1.41e-02  dat 0.00e+00  (248.6s)
+  -> rel L2 0.3226   probe v rms: PINN 0.1298 vs LBM 0.4027   shedding retained 32.2 %
+    relative L2       0.3259
+    shedding retained 32.2 %
+### gru_march phase 0/4 seed 1  t_start=91.4625  Mon Oct  5 17:12:59 IST 2026
+  [win 3/4] ep      0  loss 1.263e-01  pde 9.23e-03  bc 1.17e-02  ic 5.42e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 1.466e-03  pde 1.10e-03  bc 8.15e-06  ic 2.89e-05  dat 0.00e+00  (194.6s)
+  -> rel L2 0.2780   probe v rms: PINN 0.0380 vs LBM 0.0924   shedding retained 41.1 %
+  [win 4/4] ep      0  loss 1.234e-02  pde 1.03e-03  bc 1.13e-03  ic 5.08e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 7.563e-04  pde 6.21e-04  bc 3.91e-06  ic 9.57e-06  dat 0.00e+00  (194.4s)
+  -> rel L2 0.3153   probe v rms: PINN 0.0229 vs LBM 0.2395   shedding retained 9.6 %
+    relative L2       0.2211
+    shedding retained 47.8 %
+### gru phase 1/4 seed 1  t_start=92.9792  Mon Oct  5 18:06:06 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 4.119e+01  pde 1.32e-02  bc 3.13e+00  ic 9.88e-01  dat 0.00e+00  ( 54.3s)
+  [win 1/1] ep   5000  loss 1.571e-01  pde 4.32e-03  bc 8.62e-04  ic 1.44e-02  dat 0.00e+00  (248.2s)
+  -> rel L2 0.3084   probe v rms: PINN 0.0578 vs LBM 0.4077   shedding retained 14.2 %
+    relative L2       0.3120
+    shedding retained 14.2 %
+### gru_march phase 1/4 seed 1  t_start=92.9792  Mon Oct  5 18:20:11 IST 2026
+  [win 3/4] ep      0  loss 4.990e-02  pde 7.73e-03  bc 4.22e-03  ic 4.74e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 1.395e-03  pde 1.14e-03  bc 1.07e-05  ic 1.50e-05  dat 0.00e+00  (194.4s)
+  -> rel L2 0.2980   probe v rms: PINN 0.0067 vs LBM 0.2395   shedding retained 2.8 %
+  [win 4/4] ep      0  loss 3.533e-03  pde 1.01e-03  bc 2.52e-04  ic 2.71e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 1.509e-03  pde 9.83e-04  bc 1.56e-05  ic 3.70e-05  dat 0.00e+00  (194.3s)
+  -> rel L2 0.3435   probe v rms: PINN 0.0193 vs LBM 0.0952   shedding retained 20.3 %
+    relative L2       0.2358
+    shedding retained 15.5 %
+### gru phase 2/4 seed 1  t_start=94.4959  Mon Oct  5 19:13:16 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 4.115e+01  pde 1.32e-02  bc 3.13e+00  ic 9.84e-01  dat 0.00e+00  ( 54.5s)
+  [win 1/1] ep   5000  loss 1.499e-01  pde 4.36e-03  bc 6.17e-04  ic 1.39e-02  dat 0.00e+00  (248.6s)
+  -> rel L2 0.3148   probe v rms: PINN 0.1142 vs LBM 0.3963   shedding retained 28.8 %
+    relative L2       0.3181
+    shedding retained 28.8 %
+### gru_march phase 2/4 seed 1  t_start=94.4959  Mon Oct  5 19:27:22 IST 2026
+  [win 3/4] ep      0  loss 2.360e-02  pde 4.39e-03  bc 1.92e-03  ic 4.71e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 1.201e-03  pde 9.34e-04  bc 9.42e-06  ic 1.72e-05  dat 0.00e+00  (194.3s)
+  -> rel L2 0.2764   probe v rms: PINN 0.0341 vs LBM 0.0952   shedding retained 35.9 %
+  [win 4/4] ep      0  loss 3.106e-03  pde 7.43e-04  bc 2.36e-04  ic 2.55e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 5.846e-04  pde 5.38e-04  bc 2.43e-06  ic 2.23e-06  dat 0.00e+00  (194.2s)
+  -> rel L2 0.3178   probe v rms: PINN 0.0196 vs LBM 0.2410   shedding retained 8.1 %
+    relative L2       0.2226
+    shedding retained 40.7 %
+### gru phase 3/4 seed 1  t_start=96.0126  Mon Oct  5 20:20:25 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 4.116e+01  pde 1.32e-02  bc 3.13e+00  ic 9.86e-01  dat 0.00e+00  ( 54.2s)
+  [win 1/1] ep   5000  loss 1.572e-01  pde 4.17e-03  bc 5.90e-04  ic 1.47e-02  dat 0.00e+00  (248.3s)
+  -> rel L2 0.3003   probe v rms: PINN 0.0558 vs LBM 0.4077   shedding retained 13.7 %
+    relative L2       0.3032
+    shedding retained 13.7 %
+### gru_march phase 3/4 seed 1  t_start=96.0126  Mon Oct  5 20:34:30 IST 2026
+  [win 3/4] ep      0  loss 2.553e-02  pde 3.94e-03  bc 2.16e-03  ic 4.34e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 9.495e-04  pde 8.64e-04  bc 4.23e-06  ic 4.35e-06  dat 0.00e+00  (194.4s)
+  -> rel L2 0.2862   probe v rms: PINN 0.0245 vs LBM 0.2410   shedding retained 10.2 %
+  [win 4/4] ep      0  loss 3.070e-03  pde 8.99e-04  bc 2.17e-04  ic 3.53e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 6.426e-04  pde 5.97e-04  bc 2.07e-06  ic 2.54e-06  dat 0.00e+00  (194.2s)
+  -> rel L2 0.3406   probe v rms: PINN 0.0349 vs LBM 0.0918   shedding retained 38.0 %
+    relative L2       0.2317
+    shedding retained 28.0 %
+QUEUE20_DONE Mon Oct 5 21:27:32 IST 2026
