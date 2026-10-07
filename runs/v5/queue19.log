@@ -1,0 +1,123 @@
+### starting Fri Oct  2 18:33:04 IST 2026
+t0 91.4625  period 6.0667834524757165
+### operator unet start Fri Oct  2 18:33:04 IST 2026
+arch unet  variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch unet  params 1,925,922
+  ep    0  loss 9.8545e+00  data 9.8545e+00  div 0.000e+00  vort 0.000e+00  (  61.4s)
+  ep  100  loss 2.8389e-01  data 2.8389e-01  div 0.000e+00  vort 0.000e+00  (2903.1s)
+  ep  199  loss 1.9824e-01  data 1.9824e-01  div 0.000e+00  vort 0.000e+00  (5487.8s)
+          eps_full@1  0.0133
+         eps_full@10  0.0585
+         eps_full@20  0.0849
+         eps_full@50  0.1484
+arch unet  variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch unet  params 1,925,922
+  ep    0  loss 9.0825e+00  data 9.0825e+00  div 0.000e+00  vort 0.000e+00  (  58.8s)
+  ep  100  loss 2.8222e-01  data 2.8222e-01  div 0.000e+00  vort 0.000e+00  (4069.9s)
+  ep  199  loss 1.9294e-01  data 1.9294e-01  div 0.000e+00  vort 0.000e+00  (8191.4s)
+          eps_full@1  0.0119
+         eps_full@10  0.0557
+         eps_full@20  0.0875
+         eps_full@50  0.1714
+arch unet  variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch unet  params 1,925,922
+  ep    0  loss 1.1330e+01  data 9.9772e+00  div 1.149e+00  vort 2.047e+01  (  97.9s)
+  ep  100  loss 8.0007e-01  data 6.2502e-01  div 1.546e-01  vort 2.041e+00  (4561.5s)
+  ep  199  loss 4.9372e-01  data 3.8394e-01  div 9.632e-02  vort 1.347e+00  (8915.2s)
+          eps_full@1  0.0108
+         eps_full@10  0.0574
+         eps_full@20  0.0812
+         eps_full@50  0.1338
+arch unet  variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch unet  params 1,925,922
+  ep    0  loss 1.1271e+01  data 9.9752e+00  div 1.092e+00  vort 2.039e+01  ( 101.8s)
+  ep  100  loss 1.2177e+00  data 9.3535e-01  div 2.449e-01  vort 3.747e+00  (4735.0s)
+  ep  199  loss 6.8587e-01  data 5.3526e-01  div 1.301e-01  vort 2.053e+00  (9292.7s)
+          eps_full@1  0.0113
+         eps_full@10  0.0591
+         eps_full@20  0.0883
+         eps_full@50  0.1645
+variant        seed   eps_full@1  eps_full@10  eps_full@20  eps_full@50     min
+eps_full@N: relative L2 on (u, v) after N recursive steps, held-out ICs.
+### operator unet exit 0 (Sat Oct  3 03:26:31 IST 2026)
+### operator convgru start Sat Oct  3 03:26:31 IST 2026
+arch convgru  variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch convgru  params 450,402
+  ep    0  loss 8.7345e+00  data 8.7345e+00  div 0.000e+00  vort 0.000e+00  (  79.4s)
+  ep  100  loss 4.2375e-01  data 4.2375e-01  div 0.000e+00  vort 0.000e+00  (4240.6s)
+  ep  199  loss 3.5946e-01  data 3.5946e-01  div 0.000e+00  vort 0.000e+00  (8396.9s)
+          eps_full@1  0.0077
+         eps_full@10  0.0451
+         eps_full@20  0.0940
+         eps_full@50  0.2593
+arch convgru  variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch convgru  params 450,402
+  ep    0  loss 8.0736e+00  data 8.0736e+00  div 0.000e+00  vort 0.000e+00  (  87.9s)
+  ep  100  loss 4.4647e-01  data 4.4647e-01  div 0.000e+00  vort 0.000e+00  (4464.7s)
+  ep  199  loss 3.8051e-01  data 3.8051e-01  div 0.000e+00  vort 0.000e+00  (8795.3s)
+          eps_full@1  0.0086
+         eps_full@10  0.0439
+         eps_full@20  0.0938
+         eps_full@50  0.1836
+arch convgru  variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch convgru  params 450,402
+  ep    0  loss 1.1256e+01  data 9.9774e+00  div 1.074e+00  vort 2.044e+01  (  87.9s)
+  ep  100  loss 2.1304e+00  data 1.6908e+00  div 3.983e-01  vort 4.129e+00  (4489.5s)
+  ep  199  loss 1.3910e+00  data 1.0679e+00  div 2.834e-01  vort 3.967e+00  (8921.2s)
+          eps_full@1  0.0250
+         eps_full@10  0.0571
+         eps_full@20  0.1362
+         eps_full@50  0.3097
+arch convgru  variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch convgru  params 450,402
+  ep    0  loss 1.1544e+01  data 9.9438e+00  div 1.396e+00  vort 2.043e+01  (  86.3s)
+  ep  100  loss 2.7935e+00  data 1.6750e+00  div 1.079e+00  vort 3.977e+00  (4590.5s)
+  ep  199  loss 1.9350e+00  data 1.0835e+00  div 8.073e-01  vort 4.429e+00  (9043.2s)
+          eps_full@1  0.0214
+         eps_full@10  0.0570
+         eps_full@20  0.1339
+         eps_full@50  0.2254
+variant        seed   eps_full@1  eps_full@10  eps_full@20  eps_full@50     min
+eps_full@N: relative L2 on (u, v) after N recursive steps, held-out ICs.
+### operator convgru exit 0 (Sat Oct  3 13:14:34 IST 2026)
+### tf phase 0/4 seed 0  t_start=91.4625  Sat Oct  3 13:14:34 IST 2026
+Re=100  mode=pinnsformer  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=454,619
+  [win 1/1] ep      0  loss 1.152e+02  pde 4.73e-01  bc 1.02e+01  ic 1.29e+00  dat 0.00e+00  (205.5s)
+  [win 1/1] ep   5000  loss 1.072e-02  pde 4.85e-03  bc 1.76e-04  ic 4.11e-04  dat 0.00e+00  (4451.9s)
+  -> rel L2 0.2021   probe v rms: PINN 0.1406 vs LBM 0.4027   shedding retained 34.9 %
+    relative L2       0.2062
+    shedding retained 34.9 %
+### tf_march phase 0/4 seed 0  t_start=91.4625  Sat Oct  3 17:30:15 IST 2026
+  [win 3/4] ep      0  loss 1.325e-01  pde 1.10e-02  bc 1.21e-02  ic 7.69e-08  dat 0.00e+00  (  0.2s)
+  [win 3/4] ep   5000  loss 1.380e-03  pde 1.18e-03  bc 5.77e-06  ic 1.39e-05  dat 0.00e+00  (1137.1s)
+  -> rel L2 0.1340   probe v rms: PINN 0.0717 vs LBM 0.0924   shedding retained 77.6 %
+  [win 4/4] ep      0  loss 1.333e-01  pde 7.32e-03  bc 1.26e-02  ic 6.35e-08  dat 0.00e+00  (  0.2s)
+  [win 4/4] ep   5000  loss 2.911e-03  pde 2.72e-03  bc 6.07e-06  ic 1.27e-05  dat 0.00e+00  (1137.1s)
+  -> rel L2 0.1582   probe v rms: PINN 0.0681 vs LBM 0.2395   shedding retained 28.4 %
+    relative L2       0.1181
+    shedding retained 77.5 %
+### gru phase 0/4 seed 0  t_start=91.4625  Sat Oct  3 22:37:00 IST 2026
+Re=100  mode=pinns_gru  windows=1 x 6.0 t*  data=0  epochs/window=20000  params=287,497
+  [win 1/1] ep      0  loss 3.803e+01  pde 2.72e-02  bc 2.85e+00  ic 9.50e-01  dat 0.00e+00  ( 54.2s)
+  [win 1/1] ep   5000  loss 1.229e-01  pde 4.72e-03  bc 7.34e-04  ic 1.11e-02  dat 0.00e+00  (248.4s)
+  -> rel L2 0.2938   probe v rms: PINN 0.1366 vs LBM 0.4027   shedding retained 33.9 %
+    relative L2       0.2972
+    shedding retained 33.9 %
+### gru_march phase 0/4 seed 0  t_start=91.4625  Sat Oct  3 22:51:05 IST 2026
+  [win 3/4] ep      0  loss 1.899e-01  pde 8.16e-03  bc 1.82e-02  ic 3.82e-08  dat 0.00e+00  (  0.0s)
+  [win 3/4] ep   5000  loss 5.361e-03  pde 2.05e-03  bc 3.34e-05  ic 2.97e-04  dat 0.00e+00  (194.3s)
+  -> rel L2 0.2650   probe v rms: PINN 0.0358 vs LBM 0.0924   shedding retained 38.8 %
+  [win 4/4] ep      0  loss 1.220e-02  pde 1.06e-03  bc 1.11e-03  ic 2.42e-08  dat 0.00e+00  (  0.0s)
+  [win 4/4] ep   5000  loss 7.102e-04  pde 6.39e-04  bc 3.47e-06  ic 3.66e-06  dat 0.00e+00  (194.2s)
+  -> rel L2 0.3008   probe v rms: PINN 0.0141 vs LBM 0.2395   shedding retained 5.9 %
+    relative L2       0.2115
+    shedding retained 43.1 %
+QUEUE19_DONE Sat Oct 3 23:44:07 IST 2026

@@ -56,6 +56,7 @@ sys.path.insert(0, str(ROOT / "upinn"))
 from pinn.base_flow import BaseFlowNet  # noqa: E402
 from pinn.data import load  # noqa: E402
 from pinn.ns2d_unsteady import NavierStokes2DUnsteadyPDE  # noqa: E402
+from pinn.seqnets import SEQ_NETS, build_seqnet  # noqa: E402
 
 from underPINN.geometry.cylinder import Cylinder2D  # noqa: E402
 from underPINN.nn.factory import build_model  # noqa: E402
@@ -294,7 +295,8 @@ def train_window(pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
         params, state, l, parts = step_fn(params, state, pts, ic, data)
         if ep % log_every == 0 or ep == epochs - 1:
             lp, lb, li, ld = (float(x) for x in parts)
-            hist.append(dict(epoch=ep, loss=float(l), pde=lp, bc=lb, ic=li, data=ld))
+            hist.append(dict(epoch=ep, loss=float(l), pde=lp, bc=lb, ic=li, data=ld,
+                             seconds=time.time() - t_start))
             print(f"  [{label}] ep {ep:>6d}  loss {float(l):.3e}  "
                   f"pde {lp:.2e}  bc {lb:.2e}  ic {li:.2e}  dat {ld:.2e}"
                   f"  ({time.time() - t_start:5.1f}s)", flush=True)
@@ -307,10 +309,14 @@ def build(args, ds):
     t_lo, _ = ds.t_range
     t_start = args.t_start if args.t_start is not None else t_lo
 
-    net_cfg = {"type": args.net, "layers": [3] + [args.width] * args.depth + [3]}
-    if args.net in ("fourier_mlp", "fourier"):
-        net_cfg.update(n_fourier=args.n_fourier, sigma=args.sigma)
-    base_net = build_model(net_cfg)
+    if args.net in SEQ_NETS:
+        base_net = build_seqnet(args.net, args.d_model, args.d_hidden,
+                                args.seq_k, args.seq_dt, heads=args.heads)
+    else:
+        net_cfg = {"type": args.net, "layers": [3] + [args.width] * args.depth + [3]}
+        if args.net in ("fourier_mlp", "fourier"):
+            net_cfg.update(n_fourier=args.n_fourier, sigma=args.sigma)
+        base_net = build_model(net_cfg)
 
     span = args.windows * args.window_len
     shift = np.array([0.5 * (xmin + xmax), 0.5 * (ymin + ymax), t_start + 0.5 * span])
@@ -330,11 +336,18 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--tag", default="re100_v3")
     ap.add_argument("--net", default="mlp",
-                    choices=["mlp", "gated_mlp", "fourier_mlp", "siren"])
+                    choices=["mlp", "gated_mlp", "fourier_mlp", "siren", *SEQ_NETS])
     ap.add_argument("--width", type=int, default=128)
     ap.add_argument("--depth", type=int, default=6)
     ap.add_argument("--n-fourier", type=int, default=32)
     ap.add_argument("--sigma", type=float, default=2.0)
+    # pinnsformer / pinns_gru only; defaults are PINNsFormer's published ones
+    ap.add_argument("--d-model", type=int, default=32)
+    ap.add_argument("--d-hidden", type=int, default=512)
+    ap.add_argument("--heads", type=int, default=2)
+    ap.add_argument("--seq-k", type=int, default=5, help="pseudo-sequence length")
+    ap.add_argument("--seq-dt", type=float, default=1e-4,
+                    help="pseudo-sequence step, in the network's normalised time")
     ap.add_argument("--decompose", action="store_true",
                     help="learn u' on top of the frozen mean flow")
     ap.add_argument("--epochs", type=int, default=20000)
@@ -375,6 +388,7 @@ def main():
         args.epochs, args.n_interior, args.n_wake = 300, 800, 400
         args.n_bc, args.n_ic, args.log_every = 100, 500, 50
         args.width, args.depth = 32, 3
+        args.d_model, args.d_hidden = 16, 32
 
     ds = load(args.tag)
     xmin, xmax, ymin, ymax = ds.bounds
@@ -391,6 +405,7 @@ def main():
 
     key = jax.random.PRNGKey(args.seed)
     params = model.init(key, jnp.zeros((1, 3)))
+    n_params = sum(int(np.prod(x.shape)) for x in jax.tree_util.tree_leaves(params))
 
     sched = optax.exponential_decay(args.lr, transition_steps=max(args.epochs // 5, 1),
                                     decay_rate=0.5, staircase=True)
@@ -409,7 +424,7 @@ def main():
     # ---- run ------------------------------------------------------------
     mode = ("decomposed " if args.decompose else "") + args.net
     print(f"Re={ds.Re:g}  mode={mode}  windows={args.windows} x {args.window_len} t*"
-          f"  data={args.n_data}  epochs/window={args.epochs}")
+          f"  data={args.n_data}  epochs/window={args.epochs}  params={n_params:,}")
     print(f"domain x[{xmin:g},{xmax:g}] y[{ymin:g},{ymax:g}]  "
           f"t* {t_start:.2f} .. {min(t_start + span, t_hi):.2f}\n")
 
@@ -459,6 +474,8 @@ def main():
     overall["gt_ic_points"] = n_gt_ic * args.n_ic
     overall["gt_data_points"] = args.n_data * len(results)
     overall["ic_from_network"] = bool(args.ic_from_network)
+    overall["n_params"] = n_params
+    overall["train_seconds"] = sum(h[-1]["seconds"] for h in all_hist if h)
 
     # ---- report ---------------------------------------------------------
     out = Path(args.out) if args.out else ROOT / "runs" / (

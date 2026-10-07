@@ -1,0 +1,300 @@
+
+======================================================================
+[data seed 0]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+arch fno  variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+
+2026-10-02 20:18:51.605338: W external/xla/xla/service/gpu/nvptx_compiler.cc:836] The NVIDIA driver's CUDA version is 12.2 which is older than the PTX compiler version (12.6.68). Because the driver is older than the PTX compiler version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch fno  params 59,019,506
+  data's own residuals: div 9.609e-05  vort 1.462e-02  (physics terms are relative to these)
+2026-10-02 20:19:06.389104: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-02 20:19:09.039660: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 3.650691657s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 4.6897e+00  data 4.6897e+00  div 0.000e+00  vort 0.000e+00  (  79.6s)
+  ep   10  loss 1.8596e-01  data 1.8596e-01  div 0.000e+00  vort 0.000e+00  ( 713.1s)
+  ep   20  loss 1.6107e-01  data 1.6107e-01  div 0.000e+00  vort 0.000e+00  (1347.6s)
+  ep   30  loss 1.2208e-01  data 1.2208e-01  div 0.000e+00  vort 0.000e+00  (1983.8s)
+  ep   40  loss 9.8960e-02  data 9.8960e-02  div 0.000e+00  vort 0.000e+00  (2619.1s)
+  ep   50  loss 9.5298e-02  data 9.5298e-02  div 0.000e+00  vort 0.000e+00  (3241.3s)
+  ep   60  loss 8.5574e-02  data 8.5574e-02  div 0.000e+00  vort 0.000e+00  (3874.2s)
+  ep   70  loss 7.7777e-02  data 7.7777e-02  div 0.000e+00  vort 0.000e+00  (4510.8s)
+  ep   80  loss 7.6730e-02  data 7.6730e-02  div 0.000e+00  vort 0.000e+00  (5146.3s)
+  ep   90  loss 7.3343e-02  data 7.3343e-02  div 0.000e+00  vort 0.000e+00  (5775.3s)
+  ep  100  loss 7.1948e-02  data 7.1948e-02  div 0.000e+00  vort 0.000e+00  (6388.8s)
+  ep  110  loss 7.1080e-02  data 7.1080e-02  div 0.000e+00  vort 0.000e+00  (6924.2s)
+  ep  120  loss 7.0647e-02  data 7.0647e-02  div 0.000e+00  vort 0.000e+00  (7358.7s)
+  ep  130  loss 6.9511e-02  data 6.9511e-02  div 0.000e+00  vort 0.000e+00  (7913.7s)
+  ep  140  loss 6.9590e-02  data 6.9590e-02  div 0.000e+00  vort 0.000e+00  (8532.9s)
+  ep  150  loss 6.9100e-02  data 6.9100e-02  div 0.000e+00  vort 0.000e+00  (9151.8s)
+  ep  160  loss 6.8451e-02  data 6.8451e-02  div 0.000e+00  vort 0.000e+00  (9780.7s)
+  ep  170  loss 6.8953e-02  data 6.8953e-02  div 0.000e+00  vort 0.000e+00  (10411.0s)
+  ep  180  loss 6.8355e-02  data 6.8355e-02  div 0.000e+00  vort 0.000e+00  (11042.4s)
+  ep  190  loss 6.8209e-02  data 6.8209e-02  div 0.000e+00  vort 0.000e+00  (11672.8s)
+  ep  199  loss 6.8007e-02  data 6.8007e-02  div 0.000e+00  vort 0.000e+00  (12224.9s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.0061
+        eps_fluct@10  0.0064
+        eps_fluct@20  0.0065
+        eps_fluct@50  0.0240
+          eps_full@1  0.0010
+         eps_full@10  0.0010
+         eps_full@20  0.0011
+         eps_full@50  0.0039
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/v5/fno/data_s0/results.json
+
+======================================================================
+[data seed 1]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+arch fno  variant data  w_div=0.0  w_vort=0.0  rollout 10 -> eval 50
+
+2026-10-02 23:42:51.745659: W external/xla/xla/service/gpu/nvptx_compiler.cc:836] The NVIDIA driver's CUDA version is 12.2 which is older than the PTX compiler version (12.6.68). Because the driver is older than the PTX compiler version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch fno  params 59,019,506
+  data's own residuals: div 9.609e-05  vort 1.462e-02  (physics terms are relative to these)
+2026-10-02 23:43:06.082327: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-02 23:43:08.631128: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 3.548901519s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 3.9588e+00  data 3.9588e+00  div 0.000e+00  vort 0.000e+00  (  78.5s)
+  ep   10  loss 3.8477e-01  data 3.8477e-01  div 0.000e+00  vort 0.000e+00  ( 708.9s)
+  ep   20  loss 1.8235e-01  data 1.8235e-01  div 0.000e+00  vort 0.000e+00  (1341.2s)
+  ep   30  loss 1.1695e-01  data 1.1695e-01  div 0.000e+00  vort 0.000e+00  (1973.1s)
+  ep   40  loss 1.0196e-01  data 1.0196e-01  div 0.000e+00  vort 0.000e+00  (2604.6s)
+  ep   50  loss 9.4065e-02  data 9.4065e-02  div 0.000e+00  vort 0.000e+00  (3221.2s)
+  ep   60  loss 7.8504e-02  data 7.8504e-02  div 0.000e+00  vort 0.000e+00  (3851.1s)
+  ep   70  loss 8.0672e-02  data 8.0672e-02  div 0.000e+00  vort 0.000e+00  (4450.4s)
+  ep   80  loss 7.5514e-02  data 7.5514e-02  div 0.000e+00  vort 0.000e+00  (5086.9s)
+  ep   90  loss 7.4208e-02  data 7.4208e-02  div 0.000e+00  vort 0.000e+00  (5723.8s)
+  ep  100  loss 7.1846e-02  data 7.1846e-02  div 0.000e+00  vort 0.000e+00  (6360.8s)
+  ep  110  loss 7.1524e-02  data 7.1524e-02  div 0.000e+00  vort 0.000e+00  (6996.6s)
+  ep  120  loss 7.0377e-02  data 7.0377e-02  div 0.000e+00  vort 0.000e+00  (7632.7s)
+  ep  130  loss 7.0593e-02  data 7.0593e-02  div 0.000e+00  vort 0.000e+00  (8270.1s)
+  ep  140  loss 6.9922e-02  data 6.9922e-02  div 0.000e+00  vort 0.000e+00  (8907.2s)
+  ep  150  loss 6.9467e-02  data 6.9467e-02  div 0.000e+00  vort 0.000e+00  (9543.5s)
+  ep  160  loss 6.8651e-02  data 6.8651e-02  div 0.000e+00  vort 0.000e+00  (10179.8s)
+  ep  170  loss 6.8501e-02  data 6.8501e-02  div 0.000e+00  vort 0.000e+00  (10816.0s)
+  ep  180  loss 6.8249e-02  data 6.8249e-02  div 0.000e+00  vort 0.000e+00  (11452.6s)
+  ep  190  loss 6.7862e-02  data 6.7862e-02  div 0.000e+00  vort 0.000e+00  (12088.5s)
+  ep  199  loss 6.7778e-02  data 6.7778e-02  div 0.000e+00  vort 0.000e+00  (12660.4s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.0061
+        eps_fluct@10  0.0062
+        eps_fluct@20  0.0063
+        eps_fluct@50  0.1763
+          eps_full@1  0.0010
+         eps_full@10  0.0010
+         eps_full@20  0.0010
+         eps_full@50  0.0287
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/v5/fno/data_s1/results.json
+
+======================================================================
+[physics seed 0]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+arch fno  variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+
+2026-10-03 03:14:07.533207: W external/xla/xla/service/gpu/nvptx_compiler.cc:836] The NVIDIA driver's CUDA version is 12.2 which is older than the PTX compiler version (12.6.68). Because the driver is older than the PTX compiler version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch fno  params 59,019,506
+  data's own residuals: div 9.609e-05  vort 1.462e-02  (physics terms are relative to these)
+2026-10-03 03:14:21.898899: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-03 03:14:24.487680: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 3.588866469s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 9.6159e+00  data 8.9477e+00  div 6.024e-01  vort 6.585e+00  (  73.6s)
+  ep   10  loss 2.5260e-01  data 1.9933e-01  div 4.885e-02  vort 4.415e-01  ( 641.9s)
+  ep   20  loss 1.7652e-01  data 1.4330e-01  div 2.887e-02  vort 4.349e-01  (1178.5s)
+  ep   30  loss 1.4842e-01  data 1.2208e-01  div 2.224e-02  vort 4.098e-01  (1738.5s)
+  ep   40  loss 1.2848e-01  data 1.0750e-01  div 1.699e-02  vort 3.995e-01  (2300.0s)
+  ep   50  loss 1.1635e-01  data 9.7743e-02  div 1.464e-02  vort 3.971e-01  (2875.4s)
+  ep   60  loss 1.0678e-01  data 9.0203e-02  div 1.260e-02  vort 3.972e-01  (3450.5s)
+  ep   70  loss 1.0033e-01  data 8.4864e-02  div 1.149e-02  vort 3.970e-01  (4025.9s)
+  ep   80  loss 9.9551e-02  data 8.4847e-02  div 1.074e-02  vort 3.963e-01  (4601.4s)
+  ep   90  loss 9.6312e-02  data 8.2077e-02  div 1.028e-02  vort 3.959e-01  (5176.1s)
+  ep  100  loss 9.4343e-02  data 8.0569e-02  div 9.820e-03  vort 3.954e-01  (5751.3s)
+  ep  110  loss 9.3331e-02  data 7.9924e-02  div 9.457e-03  vort 3.949e-01  (6326.0s)
+  ep  120  loss 9.2737e-02  data 7.9666e-02  div 9.125e-03  vort 3.946e-01  (6901.4s)
+  ep  130  loss 9.1735e-02  data 7.8997e-02  div 8.794e-03  vort 3.944e-01  (7476.9s)
+  ep  140  loss 9.1768e-02  data 7.9221e-02  div 8.606e-03  vort 3.941e-01  (8052.7s)
+  ep  150  loss 9.0926e-02  data 7.8534e-02  div 8.451e-03  vort 3.940e-01  (8628.6s)
+  ep  160  loss 9.0253e-02  data 7.8054e-02  div 8.260e-03  vort 3.940e-01  (9192.0s)
+  ep  170  loss 9.0620e-02  data 7.8515e-02  div 8.166e-03  vort 3.938e-01  (9761.8s)
+  ep  180  loss 9.0126e-02  data 7.8173e-02  div 8.015e-03  vort 3.938e-01  (10343.9s)
+  ep  190  loss 8.9832e-02  data 7.7945e-02  div 7.950e-03  vort 3.937e-01  (10925.7s)
+  ep  199  loss 8.9615e-02  data 7.7805e-02  div 7.874e-03  vort 3.936e-01  (11449.2s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.0072
+        eps_fluct@10  0.0074
+        eps_fluct@20  0.0074
+        eps_fluct@50  0.2901
+          eps_full@1  0.0012
+         eps_full@10  0.0012
+         eps_full@20  0.0012
+         eps_full@50  0.0473
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/v5/fno/physics_s0/results.json
+
+======================================================================
+[physics seed 1]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+arch fno  variant physics  w_div=1.0  w_vort=0.01  rollout 10 -> eval 50
+
+2026-10-03 06:25:11.955139: W external/xla/xla/service/gpu/nvptx_compiler.cc:836] The NVIDIA driver's CUDA version is 12.2 which is older than the PTX compiler version (12.6.68). Because the driver is older than the PTX compiler version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch fno  params 59,019,506
+  data's own residuals: div 9.609e-05  vort 1.462e-02  (physics terms are relative to these)
+2026-10-03 06:25:26.683777: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-03 06:25:29.381373: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 3.697624402s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-03 06:25:31.888937: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng23{k2=6,k13=0,k14=2,k18=1,k23=0} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[16,80,248,128]{3,2,1,0}, f32[16,80,248,128]{3,2,1,0}), window={size=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-03 06:25:32.221514: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 1.33267496s
+Trying algorithm eng23{k2=6,k13=0,k14=2,k18=1,k23=0} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[16,80,248,128]{3,2,1,0}, f32[16,80,248,128]{3,2,1,0}), window={size=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBackwardFilter", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":0,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 8.6920e+00  data 7.9291e+00  div 7.020e-01  vort 6.095e+00  (  75.7s)
+  ep   10  loss 4.2666e-01  data 3.7441e-01  div 4.770e-02  vort 4.551e-01  ( 654.7s)
+  ep   20  loss 2.0045e-01  data 1.5959e-01  div 3.658e-02  vort 4.276e-01  (1233.9s)
+  ep   30  loss 1.5789e-01  data 1.2568e-01  div 2.806e-02  vort 4.152e-01  (1813.2s)
+  ep   40  loss 1.2853e-01  data 1.0459e-01  div 1.987e-02  vort 4.075e-01  (2392.3s)
+  ep   50  loss 1.2815e-01  data 1.0758e-01  div 1.653e-02  vort 4.043e-01  (2958.7s)
+  ep   60  loss 1.0897e-01  data 9.0074e-02  div 1.487e-02  vort 4.025e-01  (3537.4s)
+  ep   70  loss 1.0581e-01  data 8.8617e-02  div 1.318e-02  vort 4.017e-01  (4116.1s)
+  ep   80  loss 9.9184e-02  data 8.2641e-02  div 1.253e-02  vort 4.010e-01  (4694.7s)
+  ep   90  loss 9.8922e-02  data 8.3300e-02  div 1.162e-02  vort 4.003e-01  (5273.2s)
+  ep  100  loss 9.6428e-02  data 8.1413e-02  div 1.102e-02  vort 3.996e-01  (5851.5s)
+  ep  110  loss 9.6104e-02  data 8.1482e-02  div 1.063e-02  vort 3.992e-01  (6429.8s)
+  ep  120  loss 9.4523e-02  data 8.0327e-02  div 1.020e-02  vort 3.991e-01  (6981.8s)
+  ep  130  loss 9.4260e-02  data 8.0138e-02  div 1.013e-02  vort 3.988e-01  (7558.9s)
+  ep  140  loss 9.3706e-02  data 7.9845e-02  div 9.877e-03  vort 3.984e-01  (8136.5s)
+  ep  150  loss 9.3128e-02  data 7.9450e-02  div 9.695e-03  vort 3.983e-01  (8713.7s)
+  ep  160  loss 9.2206e-02  data 7.8823e-02  div 9.400e-03  vort 3.982e-01  (9291.2s)
+  ep  170  loss 9.1841e-02  data 7.8575e-02  div 9.286e-03  vort 3.980e-01  (9868.7s)
+  ep  180  loss 9.1626e-02  data 7.8498e-02  div 9.149e-03  vort 3.979e-01  (10446.0s)
+  ep  190  loss 9.1264e-02  data 7.8229e-02  div 9.057e-03  vort 3.978e-01  (11023.3s)
+  ep  199  loss 9.1006e-02  data 7.8052e-02  div 8.976e-03  vort 3.977e-01  (11543.0s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.0072
+        eps_fluct@10  0.0073
+        eps_fluct@20  0.0074
+        eps_fluct@50  0.1900
+          eps_full@1  0.0012
+         eps_full@10  0.0012
+         eps_full@20  0.0012
+         eps_full@50  0.0310
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/v5/fno/physics_s1/results.json
+
+======================================================================
+[physics_div seed 0]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+arch fno  variant physics_div  w_div=1.0  w_vort=0.0  rollout 10 -> eval 50
+
+2026-10-03 09:37:50.147246: W external/xla/xla/service/gpu/nvptx_compiler.cc:836] The NVIDIA driver's CUDA version is 12.2 which is older than the PTX compiler version (12.6.68). Because the driver is older than the PTX compiler version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch fno  params 59,019,506
+  data's own residuals: div 9.609e-05  vort 1.462e-02  (physics terms are relative to these)
+2026-10-03 09:38:04.503423: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-03 09:38:07.189740: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 3.686494353s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 9.6033e+00  data 9.0063e+00  div 5.970e-01  vort 0.000e+00  (  80.6s)
+  ep   10  loss 2.5361e-01  data 2.1014e-01  div 4.347e-02  vort 0.000e+00  ( 726.8s)
+  ep   20  loss 1.7743e-01  data 1.4709e-01  div 3.034e-02  vort 0.000e+00  (1373.1s)
+  ep   30  loss 1.4278e-01  data 1.2229e-01  div 2.050e-02  vort 0.000e+00  (2018.9s)
+  ep   40  loss 1.2450e-01  data 1.0827e-01  div 1.624e-02  vort 0.000e+00  (2664.6s)
+  ep   50  loss 1.1181e-01  data 9.7653e-02  div 1.416e-02  vort 0.000e+00  (3310.8s)
+  ep   60  loss 1.0382e-01  data 9.1524e-02  div 1.229e-02  vort 0.000e+00  (3944.3s)
+  ep   70  loss 9.6864e-02  data 8.5468e-02  div 1.140e-02  vort 0.000e+00  (4564.2s)
+  ep   80  loss 9.4405e-02  data 8.3923e-02  div 1.048e-02  vort 0.000e+00  (5212.0s)
+  ep   90  loss 9.2467e-02  data 8.2411e-02  div 1.006e-02  vort 0.000e+00  (5859.5s)
+  ep  100  loss 8.9787e-02  data 8.0148e-02  div 9.639e-03  vort 0.000e+00  (6507.6s)
+  ep  110  loss 8.8802e-02  data 7.9548e-02  div 9.254e-03  vort 0.000e+00  (7155.1s)
+  ep  120  loss 8.8397e-02  data 7.9453e-02  div 8.943e-03  vort 0.000e+00  (7803.4s)
+  ep  130  loss 8.7397e-02  data 7.8788e-02  div 8.609e-03  vort 0.000e+00  (8451.7s)
+  ep  140  loss 8.7311e-02  data 7.8875e-02  div 8.436e-03  vort 0.000e+00  (9099.5s)
+  ep  150  loss 8.6578e-02  data 7.8285e-02  div 8.293e-03  vort 0.000e+00  (9747.5s)
+  ep  160  loss 8.5906e-02  data 7.7799e-02  div 8.107e-03  vort 0.000e+00  (10395.6s)
+  ep  170  loss 8.6245e-02  data 7.8230e-02  div 8.015e-03  vort 0.000e+00  (11043.4s)
+  ep  180  loss 8.5741e-02  data 7.7871e-02  div 7.870e-03  vort 0.000e+00  (11691.3s)
+  ep  190  loss 8.5434e-02  data 7.7631e-02  div 7.802e-03  vort 0.000e+00  (12339.2s)
+  ep  199  loss 8.5214e-02  data 7.7486e-02  div 7.728e-03  vort 0.000e+00  (12921.7s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.0071
+        eps_fluct@10  0.0073
+        eps_fluct@20  0.0074
+        eps_fluct@50  0.2977
+          eps_full@1  0.0012
+         eps_full@10  0.0012
+         eps_full@20  0.0012
+         eps_full@50  0.0485
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/v5/fno/physics_div_s0/results.json
+
+======================================================================
+[physics_div seed 1]
+======================================================================
+grid 240 x 120   dt* 0.1896   Re 100   snapshots 641
+arch fno  variant physics_div  w_div=1.0  w_vort=0.0  rollout 10 -> eval 50
+
+2026-10-03 13:13:27.414601: W external/xla/xla/service/gpu/nvptx_compiler.cc:836] The NVIDIA driver's CUDA version is 12.2 which is older than the PTX compiler version (12.6.68). Because the driver is older than the PTX compiler version, XLA is disabling parallel compilation, which may slow down compilation. You should update your NVIDIA driver or use the NVIDIA-provided CUDA forward compatibility packages.
+Could not load symbol cuFuncGetName. Error: /lib64/libcuda.so.1: undefined symbol: cuFuncGetName
+  arch fno  params 59,019,506
+  data's own residuals: div 9.609e-05  vort 1.462e-02  (physics terms are relative to these)
+2026-10-03 13:13:42.636638: E external/xla/xla/service/slow_operation_alarm.cc:65] Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+2026-10-03 13:13:45.331078: E external/xla/xla/service/slow_operation_alarm.cc:133] The operation took 3.694560566s
+Trying algorithm eng0{} for conv (f32[80,80,1,1]{3,2,1,0}, u8[0]{0}) custom-call(f32[80,16,240,120]{3,2,1,0}, f32[80,16,240,120]{3,2,1,0}, f32[80]{0}, f32[80,80,1,1]{3,2,1,0}), window={size=240x120 rhs_reversal=1x1}, dim_labels=bf01_oi01->bf01, custom_call_target="__cudnn$convBiasActivationForward", backend_config={"operation_queue_id":"0","wait_on_operation_queues":[],"cudnn_conv_backend_config":{"conv_result_scale":1,"activation_mode":"kNone","side_input_scale":1,"leakyrelu_alpha":0},"force_earliest_schedule":false} is taking a while...
+  ep    0  loss 8.9828e+00  data 8.3224e+00  div 6.603e-01  vort 0.000e+00  (  69.3s)
+  ep   10  loss 4.2269e-01  data 3.4993e-01  div 7.276e-02  vort 0.000e+00  ( 556.8s)
+  ep   20  loss 2.0287e-01  data 1.6521e-01  div 3.766e-02  vort 0.000e+00  (1150.2s)
+  ep   30  loss 1.6041e-01  data 1.3317e-01  div 2.724e-02  vort 0.000e+00  (1743.4s)
+  ep   40  loss 1.2788e-01  data 1.0844e-01  div 1.943e-02  vort 0.000e+00  (2337.0s)
+  ep   50  loss 1.2032e-01  data 1.0327e-01  div 1.706e-02  vort 0.000e+00  (2930.6s)
+  ep   60  loss 1.0315e-01  data 8.8774e-02  div 1.438e-02  vort 0.000e+00  (3524.1s)
+  ep   70  loss 1.0236e-01  data 8.9369e-02  div 1.299e-02  vort 0.000e+00  (4106.0s)
+  ep   80  loss 9.6246e-02  data 8.3894e-02  div 1.235e-02  vort 0.000e+00  (4698.8s)
+  ep   90  loss 9.4088e-02  data 8.2716e-02  div 1.137e-02  vort 0.000e+00  (5291.4s)
+  ep  100  loss 9.2034e-02  data 8.1267e-02  div 1.077e-02  vort 0.000e+00  (5884.0s)
+  ep  110  loss 9.1870e-02  data 8.1446e-02  div 1.042e-02  vort 0.000e+00  (6476.7s)
+  ep  120  loss 9.0053e-02  data 8.0048e-02  div 1.001e-02  vort 0.000e+00  (7069.3s)
+  ep  130  loss 8.9973e-02  data 8.0020e-02  div 9.953e-03  vort 0.000e+00  (7661.8s)
+  ep  140  loss 8.9291e-02  data 7.9631e-02  div 9.660e-03  vort 0.000e+00  (8254.1s)
+  ep  150  loss 8.8817e-02  data 7.9348e-02  div 9.469e-03  vort 0.000e+00  (8846.5s)
+  ep  160  loss 8.8056e-02  data 7.8850e-02  div 9.206e-03  vort 0.000e+00  (9438.9s)
+  ep  170  loss 8.7592e-02  data 7.8477e-02  div 9.116e-03  vort 0.000e+00  (10031.5s)
+  ep  180  loss 8.7427e-02  data 7.8445e-02  div 8.982e-03  vort 0.000e+00  (10624.0s)
+  ep  190  loss 8.7017e-02  data 7.8118e-02  div 8.899e-03  vort 0.000e+00  (11216.6s)
+  ep  199  loss 8.6798e-02  data 7.7982e-02  div 8.816e-03  vort 0.000e+00  (11749.8s)
+
+  rollout error (relative L2, held-out initial conditions)
+         eps_fluct@1  0.0071
+        eps_fluct@10  0.0072
+        eps_fluct@20  0.0074
+        eps_fluct@50  0.2137
+          eps_full@1  0.0012
+         eps_full@10  0.0012
+         eps_full@20  0.0012
+         eps_full@50  0.0348
+
+results -> /data/rajeshr/peeyush/AE496_UGP/runs/v5/fno/physics_div_s1/results.json
+
+======================================================================
+variant        seed   eps_full@1  eps_full@10  eps_full@20  eps_full@50     min
+----------------------------------------------------------------------
+data              0       0.0010       0.0010       0.0011       0.0039   204.0
+data              1       0.0010       0.0010       0.0010       0.0287   211.3
+physics           0       0.0012       0.0012       0.0012       0.0473   191.1
+physics           1       0.0012       0.0012       0.0012       0.0310   192.6
+physics_div       0       0.0012       0.0012       0.0012       0.0485   215.6
+physics_div       1       0.0012       0.0012       0.0012       0.0348   196.1
+======================================================================
+eps_full@N: relative L2 on (u, v) after N recursive steps, held-out ICs.
+The trained horizon is 10 steps -- the columns beyond it are the point.
+
+summary -> /data/rajeshr/peeyush/AE496_UGP/runs/v5/fno/summary.json

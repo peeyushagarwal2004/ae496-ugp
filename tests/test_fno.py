@@ -115,8 +115,8 @@ def test_rollout_feeds_its_own_prediction_forward():
 
     With a step that returns `now + 1`, the n-th prediction must be `now + n`.
     """
-    def step(params, prev, now):
-        return now + 1.0
+    def step(params, prev, now, h):
+        return now + 1.0, h
 
     rollout = make_rollout_fn(step, remat=False)
     prev = jnp.zeros((2, 4, 4, 2))
@@ -132,8 +132,8 @@ def test_rollout_matches_hand_composition():
     key = jax.random.PRNGKey(0)
     w = jax.random.normal(key, (2, 2)) * 0.1
 
-    def step(params, prev, now):
-        return jnp.tanh(now @ w) + 0.1 * prev
+    def step(params, prev, now, h):
+        return jnp.tanh(now @ w) + 0.1 * prev, h
 
     rollout = make_rollout_fn(step, remat=True)
     prev = jax.random.normal(jax.random.PRNGKey(1), (3, 5, 5, 2))
@@ -141,7 +141,7 @@ def test_rollout_matches_hand_composition():
 
     manual, p, c = [], prev, now
     for _ in range(4):
-        nxt = step({}, p, c)
+        nxt, _ = step({}, p, c, None)
         manual.append(nxt)
         p, c = c, nxt
     manual = jnp.stack(manual)
@@ -150,6 +150,45 @@ def test_rollout_matches_hand_composition():
     worst = float(jnp.abs(got - manual).max())
     print(f"  max |scan - hand-composed| = {worst:.3e}")
     assert worst < 1e-6, worst
+
+
+def test_rollout_threads_the_recurrent_state():
+    """The ConvGRU's memory must survive from one step to the next.
+
+    A step that adds its state to the output and then increments the state
+    gives 0, 1, 3, 6, 10 if the state is carried; a rollout that reset it each
+    step would give 0, 0, 0, ... and still look like a working forecaster.
+    """
+    def step(params, prev, now, h):
+        return now + h, h + 1.0
+
+    step.init_hidden = lambda batch: jnp.zeros(())
+    rollout = make_rollout_fn(step, remat=True)
+    z = jnp.zeros((2, 4, 4, 2))
+    got = [float(x.mean()) for x in rollout({}, z, z, 5)]
+    print(f"  recursive means: {got}  (want 0, 1, 3, 6, 10)")
+    assert got == [0.0, 1.0, 3.0, 6.0, 10.0], got
+
+
+def test_conv_backbones_keep_the_grid_and_the_gru_uses_its_memory():
+    """Odd grids are padded inside the model and cropped back, and the GRU's
+    output must depend on its hidden state (else it is a CNN in disguise)."""
+    from fno.convnets import ConvGRUNet, UNet
+
+    x = jax.random.normal(jax.random.PRNGKey(0), (2, 30, 15, 4))
+    unet = UNet(features=(4, 8, 16))
+    y = unet.apply(unet.init(jax.random.PRNGKey(1), x), x)
+    assert y.shape == (2, 30, 15, 2), y.shape
+
+    gru = ConvGRUNet(hidden=8, base=4)
+    h0 = gru.init_hidden(2, (30, 15))
+    params = gru.init(jax.random.PRNGKey(2), x, h0)
+    y0, h1 = gru.apply(params, x, h0)
+    assert y0.shape == (2, 30, 15, 2) and h1.shape == h0.shape, (y0.shape, h1.shape)
+    y1, _ = gru.apply(params, x, h1)
+    diff = float(jnp.abs(y1 - y0).max())
+    print(f"  same input, different memory: max |dy| = {diff:.3e}")
+    assert diff > 1e-6, diff
 
 
 def test_relative_l2_agrees_with_the_project_metric():
