@@ -75,8 +75,10 @@ longer used.
 3. **The acoustic lock-in diagnosis** and the target-state layer fix.
 4. **Inlet distance, not blockage**, as the dominant Cd error for an LBM
    cylinder in a free-slip duct, by a crossed geometry test.
-5. Reynolds-sweep generalisation (pending the v5 sweep), FNO physics residual,
-   supervision volume — supporting results.
+5. Reynolds-sweep generalisation (v5 sweep done: 63–79 % vs 24–45 % at
+   Re 60–180), FNO physics residual (backbone-dependent, report §9), sequence
+   PINNs (no substitute for marching, report §8), supervision volume —
+   supporting results.
 
 ---
 

@@ -99,9 +99,10 @@ def section2():
       ratio(path(f"data/cylinder_{V5}_meta.json", "grid.0"),
             meta(V5, "D_lattice"), mode="ratio"))
     E("gt.upstream", "The inlet $25D$ ahead of the cylinder", 25.0, 0.5,
-      manual("Not recorded in the v5 metadata -- lbm_cylinder.py began writing "
-             "upstream_d after this dataset was made. Set by --upstream 25 in "
-             "the SWEEP flags of queue15.sh, which generated re100_v5."))
+      {"kind": "logline", "file": "queue15.sh", "pattern": r"--upstream (\d+)"},
+      note="Not recorded in the v5 metadata -- lbm_cylinder.py began writing "
+           "upstream_d after this dataset was made. Read from the SWEEP flags of "
+           "queue15.sh, which generated re100_v5.")
     E("gt.D", "$" + BS + "Rey = 100$, $D = 24$ lattice units", 24, 0.5,
       meta(V5, "D_lattice"))
     E("gt.Ma", "$" + BS + "mathrm{Ma} = 0.087$", 0.087, 0.0005, meta(V5, "Ma"))
@@ -580,7 +581,364 @@ def framing():
            "phase 0.")
 
 
-SECTIONS = [section2, section3, section4, section5, section6, framing]
+# ---------------------------------------------------------------------------
+# Section 7 -- the Reynolds sweep (runs/re_sweep_v5)
+# ---------------------------------------------------------------------------
+
+QU_ST_BY_RE = {"60": 0.1354, "80": 0.1528, "100": 0.1649, "120": 0.1739,
+               "150": 0.1837, "180": 0.1919}   # Qu et al. (2013), Table 3
+RG = "runs/re_sweep_v5/ranges.json"
+
+
+def section7():
+    rows = {"60": ("+0.51", "29.8", "33.5", "62.8", "69.1", "0.163", "0.028"),
+            "80": ("+0.60", "40.2", "44.6", "75.5", "76.9", "0.173", "0.028"),
+            "100": ("-0.04", "38.8", "41.5", "71.8", "78.5", "0.173", "0.031"),
+            "120": ("+0.03", "23.9", "24.1", "71.5", "78.6", "0.170", "0.036"),
+            "150": ("-0.28", "38.0", "41.4", "69.7", "75.1", "0.174", "0.039"),
+            "180": ("-0.45", "24.1", "27.7", "77.5", "76.6", "0.171", "0.040")}
+    for re_, (st, b0, b1, a0, a1, lb, la) in rows.items():
+        lit = (f"{re_}" + " " * (4 - len(re_)) + f"& ${st}{PCT}$ & {b0}, {b1}{PCT} & "
+               + BS + f"textbf{{{a0}, {a1}{PCT}}} & {lb} & " + BS + f"textbf{{{la}}}")
+        E(f"sweep.{re_}.St", lit, float(st), 0.005,
+          dct(SWEEP5, re_, "St_vorticity"), vs=QU_ST_BY_RE[re_])
+        for c, s, v in (("baseline", 0, b0), ("baseline", 1, b1), ("all", 0, a0),
+                        ("all", 1, a1)):
+            E(f"sweep.{re_}.{c}_s{s}", lit, float(v), 0.05,
+              dct(SWEEP5, re_, f"{c}_shedding_s{s}"), unit="pct")
+        E(f"sweep.{re_}.baseline_l2", lit, float(lb), 0.0005,
+          dct(SWEEP5, re_, keys=["baseline_rel_l2_s0", "baseline_rel_l2_s1"]))
+        E(f"sweep.{re_}.all_l2", lit, float(la), 0.0005,
+          dct(SWEEP5, re_, keys=["all_rel_l2_s0", "all_rel_l2_s1"]))
+
+    gen = "network keeps 24--45" + PCT + " of the wake and the three mechanisms together 63--79" + PCT
+    E("sweep.text.base_lo", gen, 24.0, 0.5, path(RG, "baseline_shedding_min"), unit="pct")
+    E("sweep.text.base_hi", gen, 45.0, 0.5, path(RG, "baseline_shedding_max"), unit="pct")
+    E("sweep.text.all_lo", gen, 63.0, 0.5, path(RG, "all_shedding_min"), unit="pct")
+    E("sweep.text.all_hi", gen, 79.0, 0.5, path(RG, "all_shedding_max"), unit="pct")
+    l2 = "from about 0.17 to 0.028--0.040"
+    E("sweep.text.base_l2", l2, 0.17, 0.005, path(RG, "baseline_rel_l2_mean"))
+    E("sweep.text.all_l2_lo", l2, 0.028, 0.0005, path(RG, "all_rel_l2_min"))
+    E("sweep.text.all_l2_hi", l2, 0.040, 0.0005, path(RG, "all_rel_l2_max"))
+    E("sweep.text.st_bound", "every dataset's $" + BS + "St$ is within $0.6" + PCT + "$",
+      0.6, 0.05, path(RG, "St_vs_qu_abs_max_pct"),
+      note="A bound ('within'): the largest is +0.60 % at Re = 80.")
+    rep = "first start phase, whose two configurations it shares: 38.8 and 41.5"
+    E("sweep.text.re100_s0", rep, 38.8, 0.05,
+      dct(SWEEP5, "100", "baseline_shedding_s0"), unit="pct")
+    E("sweep.text.re100_s1", rep, 41.5, 0.05,
+      dct(SWEEP5, "100", "baseline_shedding_s1"), unit="pct")
+    there = "here against 40.4 and 41.7" + PCT + " there"
+    E("sweep.text.abl_s0", there, 40.4, 0.05,
+      lst("runs/v5/ablation/summary.json", "shedding", config="baseline", seed=0),
+      unit="pct")
+    E("sweep.text.abl_s1", there, 41.7, 0.05,
+      lst("runs/v5/ablation/summary.json", "shedding", config="baseline", seed=1),
+      unit="pct")
+    E("sweep.text.factor_two", "swings by\na factor of two with start phase", 2.0, 0.5,
+      ratio(path(PA, "summary.baseline.shedding_phase_mean_max"),
+            path(PA, "summary.baseline.shedding_phase_mean_min"), mode="ratio"),
+      note="42.5 / 17.5 = 2.4, printed in words.")
+    var = ("--- 24--28" + PCT + " at $" + BS + "Rey = 120$ and 180, 40--45" + PCT
+           + " at $" + BS + "Rey = 80$")
+    E("sweep.text.var_lo", var, 24.0, 0.5,
+      dct(SWEEP5, "120", keys=["baseline_shedding_s0", "baseline_shedding_s1"],
+          reduce="min"), unit="pct")
+    E("sweep.text.var_hi", var, 28.0, 0.5,
+      dct(SWEEP5, "180", keys=["baseline_shedding_s0", "baseline_shedding_s1"],
+          reduce="max"), unit="pct")
+    E("sweep.text.var80_lo", var, 40.0, 0.5,
+      dct(SWEEP5, "80", keys=["baseline_shedding_s0", "baseline_shedding_s1"],
+          reduce="min"), unit="pct")
+    E("sweep.text.var80_hi", var, 45.0, 0.5,
+      dct(SWEEP5, "80", keys=["baseline_shedding_s0", "baseline_shedding_s1"],
+          reduce="max"), unit="pct")
+    ins = "(between 73" + PCT + " and 78" + PCT + " at each phase)"
+    E("sweep.text.all_phase_lo", ins, 73.0, 0.5,
+      path(PA, "summary.all.shedding_phase_mean_min"), unit="pct")
+    E("sweep.text.all_phase_hi", ins, 78.0, 0.5,
+      path(PA, "summary.all.shedding_phase_mean_max"), unit="pct")
+
+
+# ---------------------------------------------------------------------------
+# Section 8 -- sequence architectures (experiments/arch_compare.py)
+# ---------------------------------------------------------------------------
+
+AC = "runs/v5/arch_compare.json"
+
+
+def section_arch():
+    rows = {
+        ("baseline", "single & MLP         & 83" + BS + ",459  & "): (
+            83459, ("41.1", "19.3", "42.5", "17.5"), "30.1", "6.8"),
+        ("gru", "window & GRU         & 287" + BS + ",497 & "): (
+            287497, ("33.1", "13.0", "27.8", "13.5"), "21.8", "14.1"),
+        ("march", "marched & MLP         & 83" + BS + ",459  & "): (
+            83459, ("72.2", "42.1", "72.4", "40.1"), "56.7", "25.9"),
+        ("gru_march", "        & GRU         & 287" + BS + ",497 & "): (
+            287497, ("45.4", "19.1", "43.9", "25.7"), "33.6", "53.1"),
+    }
+    for (cfg, head), (npar, phases, mean, wall) in rows.items():
+        lit = (head + " & ".join(p + PCT for p in phases) + f" & {mean}{PCT} & "
+               f"{wall} min")
+        E(f"arch.{cfg}.params", lit, npar, 0.5, path(AC, f"pinn.{cfg}.n_params"))
+        for k, v in enumerate(phases):
+            E(f"arch.{cfg}.phase{k}", lit, float(v), 0.05,
+              path(AC, f"pinn.{cfg}.shedding_by_phase.{k}"), unit="pct")
+        E(f"arch.{cfg}.mean", lit, float(mean), 0.05,
+          path(AC, f"pinn.{cfg}.shedding_mean"), unit="pct")
+        E(f"arch.{cfg}.wall", lit, float(wall), 0.05,
+          path(AC, f"pinn.{cfg}.wall_minutes_median"),
+          note="Median wall-clock per run between consecutive queue-log headers.")
+    for cfg, lit, sh, wall in (
+            ("tf", "       & PINNsFormer & 454" + BS + ",619 & 34.9" + PCT
+             + " & --- & --- & --- & --- & 256 min", 34.9, 256),
+            ("tf_march", "        & PINNsFormer & 454" + BS + ",619 & 77.5" + PCT
+             + " & --- & --- & --- & --- & 307 min", 77.5, 307)):
+        E(f"arch.{cfg}.params", lit, 454619, 0.5, path(AC, f"pinn.{cfg}.n_params"))
+        E(f"arch.{cfg}.phase0", lit, sh, 0.05,
+          path(AC, f"pinn.{cfg}.shedding_by_phase.0"), unit="pct")
+        E(f"arch.{cfg}.wall", lit, wall, 0.5, path(AC, f"pinn.{cfg}.wall_minutes_median"))
+
+    t1 = "the GRU keeps 21.8" + PCT + " of the wake against the MLP's 30.1" + PCT
+    E("arch.text.gru", t1, 21.8, 0.05, path(AC, "pinn.gru.shedding_mean"), unit="pct")
+    E("arch.text.mlp", t1, 30.1, 0.05, path(AC, "pinn.baseline.shedding_mean"),
+      unit="pct")
+    t2 = "(by 3.7 to 15.1 points)"
+    E("arch.text.gap_small", t2, -3.7, 0.05, path(AC, "paired.gru vs baseline.max_pts"),
+      note="Printed as a magnitude: the GRU is below the MLP in every pair.")
+    E("arch.text.gap_large", t2, -15.1, 0.05, path(AC, "paired.gru vs baseline.min_pts"),
+      note="Printed as a magnitude.")
+    t3 = "field error is 0.315 against 0.171"
+    E("arch.text.gru_l2", t3, 0.315, 0.0005, path(AC, "pinn.gru.rel_l2_mean"))
+    E("arch.text.mlp_l2", t3, 0.171, 0.0005, path(AC, "pinn.baseline.rel_l2_mean"))
+    E("arch.text.tf", "PINNsFormer keeps 34.9" + PCT + " where the MLP", 34.9, 0.05,
+      path(AC, "pinn_runs.tf_k0_s0.shedding"), unit="pct")
+    E("arch.text.tf_mlp", "keeps 40.4" + PCT + " at the same phase and seed", 40.4, 0.05,
+      path(AC, "pinn_runs.baseline_k0_s0.shedding"), unit="pct")
+    t4 = "marching adds 26.6 points to the MLP and 11.7 to the GRU"
+    E("arch.text.march_mlp", t4, 26.6, 0.05, path(AC, "paired.march gain mlp.mean_pts"))
+    E("arch.text.march_gru", t4, 11.7, 0.05, path(AC, "paired.march gain gru.mean_pts"))
+    E("arch.text.gru_march_gap", "stays 23.2 points below the marched MLP", -23.2, 0.05,
+      path(AC, "paired.gru_march vs march.mean_pts"), note="Printed as a magnitude.")
+    sw = "(45" + PCT + " and 44" + PCT + " at phases 0 and 1/2, 19" + PCT + " and"
+    for k, v in ((0, 45.0), (2, 44.0), (1, 19.0)):
+        E(f"arch.text.gm_phase{k}", sw, v, 0.5,
+          path(AC, f"pinn.gru_march.shedding_by_phase.{k}"), unit="pct")
+    E("arch.text.gm_phase3", "26" + PCT + " at the other two)", 26.0, 0.5,
+      path(AC, "pinn.gru_march.shedding_by_phase.3"), unit="pct")
+    t5 = "77.5" + PCT + " against the marched MLP's 69.7" + PCT
+    E("arch.text.tfm", t5, 77.5, 0.05, path(AC, "pinn_runs.tf_march_k0_s0.shedding"),
+      unit="pct")
+    E("arch.text.tfm_mlp", t5, 69.7, 0.05, path(AC, "pinn_runs.march_k0_s0.shedding"),
+      unit="pct")
+    E("arch.text.cost", "11.8 times the marched MLP's wall-clock", 11.8, 0.05,
+      path(AC, "wall_clock_ratio.tf_march vs march"))
+    E("arch.text.hours", "about five hours a run", 5.0, 0.5,
+      ratio(path(AC, "pinn.tf_march.wall_minutes_median"), 60.0, mode="ratio"),
+      note="307 minutes, printed in words.")
+    sw2 = "marched MLP's swing from 40" + PCT + " to 72" + PCT + " across phases"
+    E("arch.text.swing_lo", sw2, 40.0, 0.5,
+      path(PA, "summary.march.shedding_phase_mean_min"), unit="pct")
+    E("arch.text.swing_hi", sw2, 72.0, 0.5,
+      path(PA, "summary.march.shedding_phase_mean_max"), unit="pct")
+
+
+# ---------------------------------------------------------------------------
+# Section 9 -- physics in a neural operator
+# ---------------------------------------------------------------------------
+
+DM4 = "runs/derived_metrics.json"       # FNO metrics on re100_v4 (runs/fno)
+
+
+def fno(run, variant, step, seeds=(0, 1)):
+    return {"kind": "fno", "run": run, "variant": variant, "step": step,
+            "seeds": list(seeds)}
+
+
+def section_fno():
+    H = (10, 20, 30, 50)
+    E("fno5.periods10", "trained horizon is ten steps, 0.31 shedding periods", 0.31,
+      0.005, path(DM, "fno.periods_per_step_St_lift.10"))
+    v5 = {"data": ("data} (paper recipe)              & ",
+                   ("0.0010", "0.0010", "0.0013", "0.0152"), True),
+          "physics": ("physics} (continuity + vorticity) & ",
+                      ("0.0012", "0.0012", "0.0017", "0.0364"), False),
+          "physics_div": ("physics" + BS + "_div} (continuity only)   & ",
+                          ("0.0012", "0.0012", "0.0018", "0.0387"), False)}
+    for var, (head, vals, bold) in v5.items():
+        cells = [(BS + "textbf{" + v + "}") if bold else v for v in vals]
+        lit = BS + "texttt{" + head + " & ".join(cells)
+        for h, v in zip(H, vals):
+            E(f"fno5.{var}.{h}", lit, float(v), 0.00005, fno("v5/fno", var, h))
+    r5 = "0.0010 at the trained horizon and 0.0152 after 50 steps"
+    E("fno5.text.10", r5, 0.0010, 0.00005, fno("v5/fno", "data", 10))
+    E("fno5.text.50", r5, 0.0152, 0.00005, fno("v5/fno", "data", 50))
+    E("fno5.text.periods50", "about one and a half\nperiods", 1.5, 0.1,
+      path(DM, "fno.periods_per_step_St_lift.50"))
+    w = "16--18" + PCT + " worse at ten and twenty steps"
+    E("fno5.text.worse_lo", w, -16.0, 0.5, path(DM, "fno.improvement_pct.step10_div_only"),
+      note="Printed as a magnitude; the improvement is negative. Smallest of the four.")
+    E("fno5.text.worse_hi", w, -18.0, 0.5, path(DM, "fno.improvement_pct.step20"),
+      note="Printed as a magnitude. Largest of the four (17.5 %).")
+    t = "and 2.4 and 2.5 times as large by"
+    E("fno5.text.x50_phys", t, 2.4, 0.05,
+      ratio(fno("v5/fno", "physics", 50), fno("v5/fno", "data", 50), mode="ratio"))
+    E("fno5.text.x50_div", t, 2.5, 0.05,
+      ratio(fno("v5/fno", "physics_div", 50), fno("v5/fno", "data", 50), mode="ratio"))
+    E("fno5.text.ninety", "about ninety times smaller", 90.0, 5.0,
+      ratio(fno("fno", "data", 10), fno("v5/fno", "data", 10), mode="ratio"),
+      note="91x, printed in words.")
+
+    v4 = {"data": ("data} (paper recipe)        & ",
+                   ("0.093", "0.183", "0.296", "0.365"), (False, False, True, True)),
+          "physics": ("physics} (continuity + vorticity) & ",
+                      ("0.074", "0.132", "0.307", "0.772"), (True, True, False, False)),
+          "physics_div": ("physics" + BS + "_div} (continuity only)   & ",
+                          ("0.075", "0.140", "0.312", "0.764"), (False,) * 4)}
+    for var, (head, vals, bold) in v4.items():
+        cells = [(BS + "textbf{" + v + "}") if b else v for v, b in zip(vals, bold)]
+        lit = BS + "texttt{" + head + " & ".join(cells)
+        for h, v in zip(H, vals):
+            E(f"fno4.{var}.{h}", lit, float(v), 0.0005, fno("fno", var, h))
+    per = "in shedding periods & 0.31 & 0.61 & 0.92 & 1.53"
+    for h, v in zip(H, (0.31, 0.61, 0.92, 1.53)):
+        E(f"fno4.periods{h}", per, v, 0.005, path(DM4, f"fno.periods_per_step_St_lift.{h}"))
+    E("fno4.improve10", "Physics lowers forecast error by 21" + PCT + " at the", 21.0, 0.5,
+      path(DM4, "fno.improvement_pct.step10"))
+    E("fno4.improve20", "trained horizon and 28" + PCT + " at twice it", 28.0, 0.5,
+      path(DM4, "fno.improvement_pct.step20"))
+    E("fno4.cross_lo", "step 27--32 across seeds and variants", 27, 0.5,
+      path(DM4, "fno.crossover_all_variants.min"))
+    E("fno4.cross_hi", "step 27--32 across seeds and variants", 32, 0.5,
+      path(DM4, "fno.crossover_all_variants.max"))
+    cp = "which is 0.8--1.0 shedding"
+    E("fno4.cross_per_lo", cp, 0.8, 0.05,
+      ratio(path(DM4, "fno.crossover_all_variants.min"),
+            ratio(path(DM4, "fno.periods_per_step_St_lift.10"), 10.0, mode="ratio"),
+            mode="product"))
+    E("fno4.cross_per_hi", cp, 1.0, 0.05,
+      ratio(path(DM4, "fno.crossover_all_variants.max"),
+            ratio(path(DM4, "fno.periods_per_step_St_lift.10"), 10.0, mode="ratio"),
+            mode="product"))
+    sd = "physics variant reads 0.63 and 0.92 at 50 steps"
+    E("fno4.seed0_50", sd, 0.63, 0.005, fno("fno", "physics", 50, seeds=(0,)))
+    E("fno4.seed1_50", sd, 0.92, 0.005, fno("fno", "physics", 50, seeds=(1,)))
+    par = "even and odd steps by 24--44" + PCT
+    E("fno4.parity_lo", par, 24.0, 0.5, path(DM4, "fno.parity_oscillation.min_pct"))
+    E("fno4.parity_hi", par, 44.0, 0.5, path(DM4, "fno.parity_oscillation.max_pct"))
+    par5 = "dataset the alternation is 4--6" + PCT
+    E("fno5.parity_lo", par5, 4.0, 0.5, path(DM, "fno.parity_oscillation.min_pct"))
+    E("fno5.parity_hi", par5, 6.0, 0.5, path(DM, "fno.parity_oscillation.max_pct"))
+
+    # three backbones on re100_v4
+    OPN = "operator.fno_v5/data.n_params"
+    back = {"fno": ("FNO     & 59.0" + BS + ",M & ", "fno", 59.0, OPN,
+                    ("0.093", "0.183", "0.365"), ("-21", "-28", "+111")),
+            "unet": ("U-Net   & 1.93" + BS + ",M & ", "fno_unet", 1.93,
+                     "operator.unet/data.n_params",
+                     ("0.056", "0.084", "0.159"), ("+1", "-1", "-7")),
+            "convgru": ("ConvGRU & 0.45" + BS + ",M & ", "fno_convgru", 0.45,
+                        "operator.convgru/data.n_params",
+                        ("0.042", "0.092", "0.220"), ("+30", "+42", "+22"))}
+    for arch, (head, run, mpar, ppath, errs, chg) in back.items():
+        lit = (head + " & ".join(errs) + " & "
+               + " & ".join(f"${c}{PCT}$" for c in chg))
+        E(f"back.{arch}.params", lit, mpar, 0.005 if mpar < 10 else 0.05,
+          ratio(path(AC, ppath), 1e6, mode="ratio"),
+          note="FNO count from the v5 run; the v4 runs use the same configuration "
+               "and predate n_params." if arch == "fno" else None)
+        for h, v in zip((10, 20, 50), errs):
+            E(f"back.{arch}.data{h}", lit, float(v), 0.0005, fno(run, "data", h))
+        key = "fno" if arch == "fno" else arch
+        for h, v in zip((10, 20, 50), chg):
+            E(f"back.{arch}.chg{h}", lit, float(v), 0.5,
+              path(AC, f"physics_effect_pct.{key}.{h}"))
+    E("back.unet.at_most", "changes the error by at most 7" + PCT, -7.0, 0.5,
+      path(AC, "physics_effect_pct.unet.50"),
+      note="The largest of the three tabulated changes, printed as a magnitude.")
+    us = "spread at fifty steps (0.148 and 0.171"
+    E("back.unet.d50_s0", us, 0.148, 0.0005, fno("fno_unet", "data", 50, seeds=(0,)))
+    E("back.unet.d50_s1", us, 0.171, 0.0005, fno("fno_unet", "data", 50, seeds=(1,)))
+    up = "data-driven, 0.133 and 0.163 with physics)"
+    E("back.unet.p50_s0", up, 0.133, 0.0005, fno("fno_unet", "physics", 50, seeds=(0,)))
+    E("back.unet.p50_s1", up, 0.163, 0.0005, fno("fno_unet", "physics", 50, seeds=(1,)))
+    E("back.convgru.worse10", "throughout: 30" + PCT + " worse at the trained horizon",
+      30.0, 0.5, path(AC, "physics_effect_pct.convgru.10"))
+    cs = "on both seeds (0.043 and 0.041"
+    E("back.convgru.d10_s0", cs, 0.043, 0.0005, fno("fno_convgru", "data", 10, seeds=(0,)))
+    E("back.convgru.d10_s1", cs, 0.041, 0.0005, fno("fno_convgru", "data", 10, seeds=(1,)))
+    cp2 = "data-driven, 0.055 and 0.055 with physics)"
+    E("back.convgru.p10_s0", cp2, 0.055, 0.0005,
+      fno("fno_convgru", "physics", 10, seeds=(0,)))
+    E("back.convgru.p10_s1", cp2, 0.055, 0.0005,
+      fno("fno_convgru", "physics", 10, seeds=(1,)))
+    E("back.half", "fifty steps the U-Net's error is less than half the", 0.5, 0.07,
+      ratio(fno("fno_unet", "data", 50), fno("fno", "data", 50), mode="ratio"),
+      note="A bound: 0.159 / 0.365 = 0.44.")
+    fewer = "with 31 and 131 times fewer parameters"
+    E("back.fewer_unet", fewer, 31.0, 0.5,
+      ratio(path(AC, OPN), path(AC, "operator.unet/data.n_params"), mode="ratio"))
+    E("back.fewer_convgru", fewer, 131.0, 0.5,
+      ratio(path(AC, OPN), path(AC, "operator.convgru/data.n_params"), mode="ratio"))
+    E("fno.paper.v4", "data-driven variant reaches $" + BS + "epsilon = 0.093$ on the",
+      0.093, 0.0005, fno("fno", "data", 10))
+    E("fno.paper.v5", "$0.0010$ on the production one", 0.0010, 0.00005,
+      fno("v5/fno", "data", 10))
+
+
+# ---------------------------------------------------------------------------
+# Abstract, conclusions and limitations for Sections 7-9
+# ---------------------------------------------------------------------------
+
+def framing_new():
+    a1 = "the three mechanisms keep 63--79" + PCT + " of the wake"
+    E("abs.sweep_all_lo", a1, 63.0, 0.5, path(RG, "all_shedding_min"), unit="pct")
+    E("abs.sweep_all_hi", a1, 79.0, 0.5, path(RG, "all_shedding_max"), unit="pct")
+    a2 = "against 24--45" + PCT + " for the plain network."
+    E("abs.sweep_base_lo", a2, 24.0, 0.5, path(RG, "baseline_shedding_min"), unit="pct")
+    E("abs.sweep_base_hi", a2, 45.0, 0.5, path(RG, "baseline_shedding_max"), unit="pct")
+
+    c1 = "63--79" + PCT + " retained with all"
+    E("concl.sweep_all_lo", c1, 63.0, 0.5, path(RG, "all_shedding_min"), unit="pct")
+    E("concl.sweep_all_hi", c1, 79.0, 0.5, path(RG, "all_shedding_max"), unit="pct")
+    c2 = "three mechanisms, 24--45" + PCT + " without"
+    E("concl.sweep_base_lo", c2, 24.0, 0.5, path(RG, "baseline_shedding_min"), unit="pct")
+    E("concl.sweep_base_hi", c2, 45.0, 0.5, path(RG, "baseline_shedding_max"), unit="pct")
+    E("concl.sweep_st", "is within $0.6" + PCT + "$ of Qu et al." + BS + " at every", 0.6,
+      0.05, path(RG, "St_vs_qu_abs_max_pct"), note="A bound.")
+    c3 = "PINN keeps 21.8" + PCT + " on one window and 33.6" + PCT + " marched"
+    E("concl.gru", c3, 21.8, 0.05, path(AC, "pinn.gru.shedding_mean"), unit="pct")
+    E("concl.gru_march", c3, 33.6, 0.05, path(AC, "pinn.gru_march.shedding_mean"),
+      unit="pct")
+    c4 = "reached 77.5" + PCT + ", at twelve times the cost"
+    E("concl.tfm", c4, 77.5, 0.05, path(AC, "pinn_runs.tf_march_k0_s0.shedding"),
+      unit="pct")
+    E("concl.tfm_cost", c4, 12.0, 0.5, path(AC, "wall_clock_ratio.tf_march vs march"),
+      note="11.8, printed in words.")
+    c5 = "$0.0010$ at its trained horizon and physics makes it 17" + PCT + " worse"
+    E("concl.fno5", c5, 0.0010, 0.00005, fno("v5/fno", "data", 10))
+    E("concl.fno5_worse", c5, -17.0, 0.5, path(DM, "fno.improvement_pct.step10"),
+      note="Printed as a magnitude.")
+    E("concl.fno4", "physics improves the FNO by 21" + PCT + " there", 21.0, 0.5,
+      path(DM4, "fno.improvement_pct.step10"))
+    E("concl.unet", "leaves a U-Net within 7" + PCT, -7.0, 0.5,
+      path(AC, "physics_effect_pct.unet.50"), note="A bound, printed as a magnitude.")
+    E("concl.convgru", "30" + PCT + " worse --- and both", 30.0, 0.5,
+      path(AC, "physics_effect_pct.convgru.10"))
+
+    E("lim.tf_hours", "The full grid is about 66 GPU-hours.", 66.0, 0.5,
+      path(AC, "wall_clock_ratio.pinnsformer_remaining_gpu_hours"),
+      note="The 14 runs not made, at the pilot's median wall-clock per run.")
+    cd = "$3.5$--$5.7" + PCT + "$ above Qu et al."
+    E("lim.cd_lo", cd, 3.5, 0.05, path(RG, "Cd_vs_qu_min_pct"))
+    E("lim.cd_hi", cd, 5.7, 0.05, path(RG, "Cd_vs_qu_max_pct"))
+    E("lim.cd_d24", "$1.4" + PCT + "$ of it (Section", 1.4, 0.05,
+      ratio(meta("res_D24", "Cd_mean"), meta("res_D32", "Cd_mean")))
+
+
+SECTIONS = [section2, section3, section4, section5, section6, framing,
+            section7, section_arch, section_fno, framing_new]
 
 
 def resolve_lines(entries, lines):

@@ -570,3 +570,50 @@
   year    = {2020},
   doi     = {10.1017/jfm.2019.966}
 }
+
+
+% ==========================================================================
+% Architecture study (Sections 8 and 9), added 2026-10-07
+% ==========================================================================
+
+% VERIFIED -- title/authors from arXiv:2307.11833; venue from the ICLR 2024
+% proceedings page. The architecture details used in src/pinn/seqnets.py
+% (pseudo-sequence, k = 5, dt = 1e-4, wavelet activation, d_model 32,
+% hidden 512) were taken from the paper when the code was written; re-read
+% section 3 before submission to confirm the published hyperparameters.
+@inproceedings{zhao2024pinnsformer,
+  author    = {Zhao, Zhiyuan and Ding, Xueying and Prakash, B. Aditya},
+  title     = {{PINNsFormer}: A Transformer-Based Framework For
+               Physics-Informed Neural Networks},
+  booktitle = {International Conference on Learning Representations (ICLR)},
+  year      = {2024},
+  note      = {arXiv:2307.11833}
+}
+
+% VERIFIED -- CMAME 389, 114399 (2022); arXiv:2106.14103. Note their recurrent
+% cell is a ConvLSTM; this project's operator uses a ConvGRU in the same
+% encoder / recurrent cell / decoder pattern, so the report says "in the
+% PhyCRNet pattern", not "PhyCRNet".
+@article{ren2022phycrnet,
+  author  = {Ren, Pu and Rao, Chengping and Liu, Yang and Wang, Jian-Xun and
+             Sun, Hao},
+  title   = {{PhyCRNet}: Physics-informed convolutional-recurrent network for
+             solving spatiotemporal {PDEs}},
+  journal = {Computer Methods in Applied Mechanics and Engineering},
+  volume  = {389},
+  pages   = {114399},
+  year    = {2022}
+}
+
+% VERIFIED -- MICCAI 2015, LNCS 9351, 234--241; arXiv:1505.04597.
+@inproceedings{ronneberger2015,
+  author    = {Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas},
+  title     = {{U-Net}: Convolutional Networks for Biomedical Image
+               Segmentation},
+  booktitle = {Medical Image Computing and Computer-Assisted Intervention
+               (MICCAI)},
+  series    = {LNCS},
+  volume    = {9351},
+  pages     = {234--241},
+  year      = {2015}
+}

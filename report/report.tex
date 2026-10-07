@@ -60,8 +60,13 @@ phase: 75.1\% retained, at a velocity-field error of 0.031. Over five chained
 periods that configuration sheds 10.4\% slow and ends about half a cycle out of
 phase: data-free marching sustains a wake, but does not forecast one. A few
 hundred supervised points per window close most of the remaining gap.
-%SWEEP_ABSTRACT%
-%FNO_ABSTRACT%
+Across $\Rey = 60$--$180$ the three mechanisms keep 63--79\% of the wake
+against 24--45\% for the plain network. A recurrent sequence PINN is no
+substitute for marching: it keeps less of the wake than the plain network,
+marched or not. Adding the governing equations to a neural-operator forecast
+does not help on the validated data; on an earlier, harder dataset it extends
+a Fourier Neural Operator's useful horizon but is neutral for a U-Net and
+harmful for a convolutional GRU, so that benefit belongs to the backbone.
 \end{abstract}
 
 \section{Introduction and objective}
@@ -123,7 +128,10 @@ al.\,\cite{renn2023} forecast subcritical cylinder wakes with a Fourier Neural
 Operator (FNO) that is \emph{purely data-driven} --- there is no physics term
 anywhere in it. Whether adding physics to such an operator improves forecast
 stability is the natural question joining the two topics, and is addressed in
-Section~\ref{sec:fno}.
+Section~\ref{sec:fno}, for the FNO and for two other common forecasting
+backbones. Section~\ref{sec:arch} asks the corresponding question of the PINN:
+whether a sequence architecture proposed against PINN failure modes does the
+job of marching.
 
 \paragraph{Reynolds number.} The ablation and the accuracy study are at
 $\Rey = 100$: laminar and unambiguously two-dimensional. Renn et al.'s
@@ -133,16 +141,18 @@ comparison across $\Rey = 60$--$180$, the upper limit set by the
 three-dimensional transition at $\Rey_c = 188.5 \pm 1.0$\,\cite{barkley1996}.
 
 \paragraph{Software.} The work builds on \texttt{underPINN}, a JAX PINN
-framework, which supplies the network architectures, the geometry primitives
-and a steady Navier--Stokes residual. The unsteady operator
+framework, which supplies the MLP and Fourier-feature networks, the FNO, the
+geometry primitives and a steady Navier--Stokes residual. The unsteady operator
 (Section~\ref{sec:operator}), the lattice Boltzmann solver, the ablation
-machinery and the operator-forecasting code are contributions of this project.
+machinery, the operator-forecasting code and the sequence, U-Net and ConvGRU
+networks of Sections~\ref{sec:arch} and~\ref{sec:fno} are contributions of
+this project.
 
 \section{Ground truth by lattice Boltzmann}
 \label{sec:lbm}
 
 No experimental data was available, so the reference wake is generated. The
-solver (\texttt{src/cfd/lbm\_cylinder.py}) is a D2Q9 two-relaxation-time (TRT)
+solver (\texttt{src/cfd/\allowbreak lbm\_cylinder.py}) is a D2Q9 two-relaxation-time (TRT)
 lattice Boltzmann method written in JAX.
 
 \paragraph{Why these particular choices.}
@@ -645,25 +655,31 @@ Section~\ref{sec:ongoing}.
 
 Everything above is at $\Rey = 100$. The comparison was therefore repeated at
 five more Reynolds numbers spanning the two-dimensional shedding range, with
-fresh ground truth generated and validated at each. The marching window is set
-to a quarter of each dataset's \emph{measured} shedding period, so all
-configurations span exactly one period whatever the frequency --- otherwise the
-comparison would not be like-for-like across $\Rey$.
+fresh ground truth generated at each by the same solver, geometry and absorbing
+layer as the production dataset. The marching window is set to a quarter of
+each dataset's \emph{measured} shedding period, so all configurations span
+exactly one period whatever the frequency --- otherwise the comparison would
+not be like-for-like across $\Rey$. Every run sees one slice of ground truth,
+as in Section~\ref{sec:ablation}, and \texttt{all} uses $\sigma = 8$.
 
 \begin{table}[h]
 \centering
-\caption{The ablation repeated across the shedding range. Two seeds per entry;
-$\Rey = 100$ is the main ablation, same configuration.}
-\begin{tabular}{lcccc}
+\caption{The plain network and all three mechanisms across the shedding range,
+data-free. Shedding retained for each of two seeds; field error is the
+two-seed mean. $\St$ is each dataset's own wake-vorticity value against Qu et
+al.\,\cite{qu2013}, Table 3.}
+\label{tab:resweep}
+\begin{tabular}{lccccc}
 \toprule
-$\Rey$ & $\St$ vs correlation & \texttt{baseline} & \texttt{all} (data-free) & relative $L_2$ \\
+$\Rey$ & $\St$ vs Qu et al. & \texttt{baseline} & \texttt{all} & \multicolumn{2}{c}{relative $L_2$} \\
+ & & & & \texttt{baseline} & \texttt{all} \\
 \midrule
-60  & $+0.6\%$ & 37.8, 40.1\% & \textbf{88.5, 91.2\%}   & 0.031 \\
-80  & $-1.1\%$ & 22.2, 21.4\% & \textbf{95.8, 98.5\%}   & 0.022 \\
-100 & $-3.0\%$ & 9.8, 11.3\%  & \textbf{96.7, 98.4\%}   & 0.042 \\
-120 & $+2.5\%$ & 20.2, 26.5\% & \textbf{103.5, 104.1\%} & 0.034 \\
-150 & $-0.3\%$ & 35.7, 43.1\% & \textbf{94.1, 96.7\%}   & 0.032 \\
-180 & $-1.6\%$ & 31.1, 38.3\% & \textbf{93.6, 96.3\%}   & 0.026 \\
+60  & $+0.51\%$ & 29.8, 33.5\% & \textbf{62.8, 69.1\%} & 0.163 & \textbf{0.028} \\
+80  & $+0.60\%$ & 40.2, 44.6\% & \textbf{75.5, 76.9\%} & 0.173 & \textbf{0.028} \\
+100 & $-0.04\%$ & 38.8, 41.5\% & \textbf{71.8, 78.5\%} & 0.173 & \textbf{0.031} \\
+120 & $+0.03\%$ & 23.9, 24.1\% & \textbf{71.5, 78.6\%} & 0.170 & \textbf{0.036} \\
+150 & $-0.28\%$ & 38.0, 41.4\% & \textbf{69.7, 75.1\%} & 0.174 & \textbf{0.039} \\
+180 & $-0.45\%$ & 24.1, 27.7\% & \textbf{77.5, 76.6\%} & 0.171 & \textbf{0.040} \\
 \bottomrule
 \end{tabular}
 \end{table}
@@ -672,24 +688,97 @@ $\Rey$ & $\St$ vs correlation & \texttt{baseline} & \texttt{all} (data-free) & r
 \centering
 \includegraphics[width=\textwidth]{re_sweep.png}
 \caption{Left: shedding retained against Reynolds number, every seed plotted.
-Right: each dataset's own validation, measured Strouhal number against
-Williamson's correlation.}
+Right: each dataset's own validation, measured Strouhal number against Qu et
+al.\ (circles) and Williamson's correlation (context).}
 \label{fig:resweep}
 \end{figure}
 
-\paragraph{The result generalises.} The control keeps 10--43\% of the wake and
-the mechanism-equipped configuration 88--104\%, at every Reynolds number
-tested, with field errors of 2--4\%. The claim is therefore about the shedding
-regime rather than about one dataset.
+\paragraph{The result generalises.} At every Reynolds number tested, the plain
+network keeps 24--45\% of the wake and the three mechanisms together 63--79\%,
+and they cut the field error from about 0.17 to 0.028--0.040. The ground truth
+holds up across the range as well: every dataset's $\St$ is within $0.6\%$ of
+Qu et al. The claim is therefore about the two-dimensional shedding regime
+rather than about one dataset. $\Rey = 100$ reproduces the main ablation's
+first start phase, whose two configurations it shares: 38.8 and 41.5\% for
+\texttt{baseline} here against 40.4 and 41.7\% there.
 
-\paragraph{Three things not to over-read.} $\Rey = 120$ exceeds 100\%: the
-network's wake is slightly \emph{stronger} than the reference, which is
-amplitude overshoot, not extra accuracy. The \texttt{baseline} column varies
-from 10\% to 43\% with no clean trend and a seed spread of 5--8 points, so its
-variation should not be given a physical reading. And the $\Rey = 60$ and 80
-datasets run at a lower Mach number than the rest, for the reason in
-Section~\ref{sec:acoustic} --- closer to incompressible, but not an identical
-setup.
+\paragraph{One start phase per Reynolds number.} Each run starts at the
+beginning of its dataset's record, at whatever phase of the cycle that falls.
+Section~\ref{sec:collapse} showed that the plain network's retention swings by
+a factor of two with start phase, so the \texttt{baseline} column's variation
+--- 24--28\% at $\Rey = 120$ and 180, 40--45\% at $\Rey = 80$ --- should not
+be given a physical reading. \texttt{all} is insensitive to start phase at
+$\Rey = 100$ (between 73\% and 78\% at each phase), which is why one phase is
+taken to represent it here; that insensitivity was not re-measured at the
+other Reynolds numbers.
+
+\FloatBarrier
+
+\section{Can a sequence architecture replace marching?}
+\label{sec:arch}
+
+Every network so far is a pointwise MLP. PINNsFormer\,\cite{zhao2024pinnsformer}
+was proposed specifically against PINN failure modes of this kind: it expands
+each query point $(x, y, t)$ into a short pseudo-sequence in time, $(x, y, t),
+(x, y, t + \delta t), \dots$, and mixes the elements with attention. If letting
+the network see a point's own temporal neighbourhood were enough to stop the
+collapse, it would be a cheaper fix than marching. Two sequence networks were
+tested: PINNsFormer at its published size (embedding 32, hidden 512, one
+encoder and one decoder layer, two heads, $k = 5$, $\delta t = 10^{-4}$, its
+wavelet activation), and the same embedding and head with a GRU in place of
+attention, so that attention against recurrence is a controlled comparison.
+One change was made to PINNsFormer: the PDE loss is applied at the token for
+$t$ only rather than at all $k$ pseudo-times. With the published
+$\delta t = 10^{-4}$ in normalised time the other tokens sit within $10^{-4}$
+of $t$, so their residuals are near-copies; dropping them makes each network an
+ordinary function $(x, y, t) \to (u, v, p)$, which runs through the unsteady
+operator, the marching and the scoring unchanged. The protocol is the one
+behind the phase-averaged table of Section~\ref{sec:ablation}: $\Rey = 100$,
+$20\,000$ epochs per window, one slice of ground truth, four start phases and
+two seeds, single-window and marched over four windows.
+
+\begin{table}[h]
+\centering
+\caption{Sequence networks against the MLP, data-free, by start phase. Two
+seeds per cell except PINNsFormer, run once (phase 0, seed 0); the MLP and
+PINNsFormer runs at that phase and seed are compared in the text. Wall-clock is
+the median per run on one A100, training and scoring.}
+\label{tab:arch}
+\small
+\begin{tabular}{llrcccccc}
+\toprule
+ & network & parameters & 0 & 1/4 & 1/2 & 3/4 & mean & wall-clock \\
+\midrule
+single & MLP         & 83\,459  & 41.1\% & 19.3\% & 42.5\% & 17.5\% & 30.1\% & 6.8 min \\
+window & GRU         & 287\,497 & 33.1\% & 13.0\% & 27.8\% & 13.5\% & 21.8\% & 14.1 min \\
+       & PINNsFormer & 454\,619 & 34.9\% & --- & --- & --- & --- & 256 min \\
+\midrule
+marched & MLP         & 83\,459  & 72.2\% & 42.1\% & 72.4\% & 40.1\% & 56.7\% & 25.9 min \\
+        & GRU         & 287\,497 & 45.4\% & 19.1\% & 43.9\% & 25.7\% & 33.6\% & 53.1 min \\
+        & PINNsFormer & 454\,619 & 77.5\% & --- & --- & --- & --- & 307 min \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Neither architecture stops the collapse on its own.} On one window
+the GRU keeps 21.8\% of the wake against the MLP's 30.1\%, and is below the
+MLP at every one of the eight phase--seed pairs (by 3.7 to 15.1 points). Its
+field error is 0.315 against 0.171. PINNsFormer keeps 34.9\% where the MLP
+keeps 40.4\% at the same phase and seed. The pseudo-sequence is a plausible
+reason neither helps: at $\delta t = 10^{-4}$ it spans a negligible fraction of
+the window, so the network sees no more of the time axis than the MLP does.
+
+\paragraph{Marching is still what restores the wake.} Paired by phase and seed,
+marching adds 26.6 points to the MLP and 11.7 to the GRU, and the marched GRU
+stays 23.2 points below the marched MLP, with the half-cycle swing of
+Section~\ref{sec:collapse} intact (45\% and 44\% at phases 0 and 1/2, 19\% and
+26\% at the other two). Marched PINNsFormer is the one result in the other
+direction: 77.5\% against the marched MLP's 69.7\% at the same phase and seed,
+about what all three mechanisms reach (Section~\ref{sec:ablation}). It cost
+11.8 times the marched MLP's wall-clock, about five hours a run, so the other
+three phases and the second seed were not run. One run at one phase, beside
+the marched MLP's swing from 40\% to 72\% across phases, does not establish an
+effect; whether attention adds to marching is left open.
 
 \FloatBarrier
 
@@ -697,12 +786,18 @@ setup.
 \label{sec:fno}
 
 The reference paper's FNO is purely data-driven. This section reproduces its
-recipe and then asks whether physics improves it.
+recipe and then asks whether physics improves it, and whether the answer
+belongs to the FNO or to operator forecasting in general.
 
 \paragraph{Reproduction.} \texttt{underPINN}'s \texttt{FNO2D}, trained after
 Renn et al.: Reynolds-decompose first, map two consecutive frames to the next,
 apply recursively for ten steps during training with the loss summed over every
-step; width 80, 24 modes, Adam at $1\times 10^{-3}$, 200 epochs, batch 16.
+step; width 80, 24 modes, Adam at $1\times 10^{-3}$, 200 epochs, batch 16. The
+record is split in time, never interleaved: the first 70\% trains, and every
+forecast starts from a snapshot in the last 30\%. Two datasets are used: the
+production dataset of Section~\ref{sec:lbm}, and the earlier one it replaced,
+whose fields carry the duct's acoustic mode on top of the wake
+(Section~\ref{sec:acoustic}).
 
 \paragraph{Contribution.} A physics residual is added to that loss. The network
 predicts $(u,v)$ only, so any residual containing $\nabla p$ is unusable;
@@ -718,10 +813,53 @@ residual the LBM data \emph{itself} leaves --- the data is weakly compressible
 and second-order accurate, so driving a prediction below that floor would be
 fitting discretisation error, not physics.
 
+\subsection{On the production dataset}
+
 \begin{table}[h]
 \centering
-\caption{Rollout error (relative $L_2$ on $(u,v)$, held-out initial
-conditions, two seeds). The trained horizon is ten steps.}
+\caption{Rollout error on the production dataset (relative $L_2$ on $(u,v)$,
+held-out initial conditions, two seeds, pairwise mean of adjacent steps). The
+trained horizon is ten steps, 0.31 shedding periods.}
+\label{tab:fno5}
+\begin{tabular}{lcccc}
+\toprule
+forecast steps & 10 (trained) & 20 & 30 & 50 \\
+\midrule
+\texttt{data} (paper recipe)              & \textbf{0.0010} & \textbf{0.0010} & \textbf{0.0013} & \textbf{0.0152} \\
+\texttt{physics} (continuity + vorticity) & 0.0012 & 0.0012 & 0.0017 & 0.0364 \\
+\texttt{physics\_div} (continuity only)   & 0.0012 & 0.0012 & 0.0018 & 0.0387 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\paragraph{Result.} The data-driven reproduction forecasts to an error of
+0.0010 at the trained horizon and 0.0152 after 50 steps, about one and a half
+periods. Neither physics variant improves on it at any horizon: both are
+16--18\% worse at ten and twenty steps, and 2.4 and 2.5 times as large by
+fifty
+(Figure~\ref{fig:operators}, left).
+
+\paragraph{Why this forecast is easy.} The error is about ninety times smaller
+than on the earlier dataset, and the reason limits what the result shows. The
+production record is a clean limit cycle, so every test initial condition is a
+state the training portion already passed through at the same phase: held out
+in time, but close to in-distribution. When the data term alone fits that
+well, a physics term the data does not itself satisfy exactly --- the
+divergence of Section~\ref{sec:acoustic} --- can only pull the prediction away
+from it. That reading is plausible; it has not been tested.
+
+\subsection{On the earlier dataset, and across backbones}
+
+The earlier dataset is the harder test, because its acoustic content makes the
+held-out states less like the training ones, and it is where the physics term
+does change the forecast.
+
+\begin{table}[h]
+\centering
+\caption{Rollout error on the earlier dataset (relative $L_2$ on $(u,v)$,
+held-out initial conditions, two seeds, pairwise mean of adjacent steps). The
+trained horizon is ten steps.}
+\label{tab:fno4}
 \begin{tabular}{lcccc}
 \toprule
 forecast steps & 10 (trained) & 20 & 30 & 50 \\
@@ -737,9 +875,9 @@ in shedding periods & 0.31 & 0.61 & 0.92 & 1.53 \\
 \begin{figure}[h]
 \centering
 \includegraphics[width=\textwidth]{fno.png}
-\caption{Forecast error against horizon. Bold lines are pairwise means over
-adjacent steps; faint lines are raw (see the parity note). The curves cross at
-approximately one shedding period.}
+\caption{FNO forecast error against horizon on the earlier dataset. Bold lines
+are pairwise means over adjacent steps; faint lines are raw (see the parity
+note). The curves cross at approximately one shedding period.}
 \label{fig:fno}
 \end{figure}
 
@@ -757,22 +895,73 @@ either rollout. The data-driven curve flattens because it decays towards the
 mean flow --- the safest wrong answer --- while the physics-constrained
 rollouts keep injecting fluctuation energy and overshoot. Across seeds the
 physics variant reads 0.63 and 0.92 at 50 steps, so the gap is not
-reproducible. The defensible statement is that \emph{physics extends the useful
-forecast horizon, and neither model is usable beyond one shedding period}.
+reproducible. The defensible statement is that, on this dataset, \emph{physics
+extends the FNO's useful forecast horizon, and neither model is usable beyond
+one shedding period}.
 
 \paragraph{A parity artefact worth naming.} Rollout error alternates between
 even and odd steps by 24--44\% in \emph{every} variant,
 physics or not: a period-2 mode of the two-frame autoregressive map. A single
 step's error can therefore read 30\% better or worse purely by
-which parity it lands on, so all numbers above are pairwise means of adjacent
-steps, and the figure keeps the raw curve visible.
+which parity it lands on, so all numbers in this section are pairwise means of
+adjacent steps, and the figure keeps the raw curve visible. On the production
+dataset the alternation is 4--6\%.
+
+\paragraph{Is the effect the FNO's?} The FNO is one of several backbones used
+for this job. A U-Net\,\cite{ronneberger2015} --- local convolutions in an
+encoder--decoder with skip connections, which unlike the FNO assumes nothing
+periodic --- and a convolutional GRU in the PhyCRNet
+pattern\,\cite{ren2022phycrnet} --- a strided encoder, a ConvGRU cell whose
+state is carried through the whole rollout, and a decoder --- were trained on
+this dataset under the identical data, loss, rollout and evaluation, data-only
+and with continuity plus vorticity transport.
+
+\begin{table}[h]
+\centering
+\caption{Three backbones on the earlier dataset: data-driven error, and the
+change when physics is added (negative is better). Two seeds, pairwise means.}
+\label{tab:backbones}
+\begin{tabular}{lrccccccc}
+\toprule
+ & & \multicolumn{3}{c}{data-driven error} & \multicolumn{3}{c}{change with physics} \\
+\cmidrule(lr){3-5}\cmidrule(lr){6-8}
+backbone & parameters & 10 & 20 & 50 & 10 & 20 & 50 \\
+\midrule
+FNO     & 59.0\,M & 0.093 & 0.183 & 0.365 & $-21\%$ & $-28\%$ & $+111\%$ \\
+U-Net   & 1.93\,M & 0.056 & 0.084 & 0.159 & $+1\%$ & $-1\%$ & $-7\%$ \\
+ConvGRU & 0.45\,M & 0.042 & 0.092 & 0.220 & $+30\%$ & $+42\%$ & $+22\%$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{operators.png}
+\caption{Left: the FNO on the production dataset; physics is worse at every
+horizon. Right: three backbones on the earlier dataset, data-driven (solid)
+and with physics (dashed). The dashed line falls below the solid one at short
+horizons only for the FNO.}
+\label{fig:operators}
+\end{figure}
+
+\paragraph{Physics helping short and hurting long is a property of the FNO.}
+For the U-Net the physics term changes the error by at most 7\% at any of the
+three horizons, inside the seed spread at fifty steps (0.148 and 0.171
+data-driven, 0.133 and 0.163 with physics). For the ConvGRU it is harmful
+throughout: 30\% worse at the trained horizon, on both seeds (0.043 and 0.041
+data-driven, 0.055 and 0.055 with physics). Both convolutional networks also forecast better than the FNO with
+no physics at all --- at fifty steps the U-Net's error is less than half the
+FNO's --- with 31 and 131 times fewer parameters. These comparisons exist on
+the earlier dataset only; the U-Net and ConvGRU were not rerun on the
+production one.
 
 \paragraph{Comparison with the reference paper.} At the trained horizon the
-data-driven variant reaches $\epsilon = 0.093$ against the paper's
-$\epsilon < 0.1$. \emph{This is not an improvement on their work.} Our data is
-clean, periodic, two-dimensional LBM output at $\Rey = 100$; theirs is noisy
-experimental PIV at $\Rey = 240$--$3060$ with genuine three-dimensionality. The
-only claim supported is that the reproduction works.
+data-driven variant reaches $\epsilon = 0.093$ on the earlier dataset and
+$0.0010$ on the production one, against the paper's $\epsilon < 0.1$.
+\emph{Neither is an improvement on their work.} Our data is clean, periodic,
+two-dimensional LBM output at $\Rey = 100$; theirs is noisy experimental PIV at
+$\Rey = 240$--$3060$ with genuine three-dimensionality. The only claim
+supported is that the reproduction works.
 
 \FloatBarrier
 \section{Conclusions}
@@ -804,8 +993,19 @@ only claim supported is that the reproduction works.
         that relaxes toward the free stream, because the domain is an acoustic
         duct whose transverse mode captures the wake, and an inlet far enough
         upstream, which mattered more for $\Cd$ than the domain height.
-%SWEEP_CONCL%
-%FNO_CONCL%
+  \item The result holds across $\Rey = 60$--$180$: 63--79\% retained with all
+        three mechanisms, 24--45\% without, against ground truth whose $\St$
+        is within $0.6\%$ of Qu et al.\ at every Reynolds number.
+  \item \textbf{Architecture is not a substitute for causality.} A GRU sequence
+        PINN keeps 21.8\% on one window and 33.6\% marched, below the plain
+        MLP at every phase either way. A single marched PINNsFormer run
+        reached 77.5\%, at twelve times the cost; it is a lead, not a result.
+  \item \textbf{Whether physics helps an operator forecast depends on the data
+        and the backbone.} On the validated data the FNO forecasts to
+        $0.0010$ at its trained horizon and physics makes it 17\% worse. On
+        the earlier dataset physics improves the FNO by 21\% there and crosses
+        over within a period, leaves a U-Net within 7\%, and makes a ConvGRU
+        30\% worse --- and both convolutional networks beat the FNO without it.
 \end{enumerate}
 
 \section{Limitations and ongoing work}
@@ -840,9 +1040,24 @@ only claim supported is that the reproduction works.
         collapse this project responds to was documented at $\Rey =
         200$\,\cite{chuang2023}, above that transition, so what is reproduced
         here is the phenomenon rather than their specific case.
-  \item \textbf{$\Cd$ is a few per cent high.} %SWEEP_CD%
-        Nothing in this report depends on $\Cd$ --- every PINN and FNO
-        result is scored against velocity fields and wake probes.
+  \item \textbf{One start phase per Reynolds number.} The sweep runs each
+        configuration from the start of its record. \texttt{all} was
+        insensitive to start phase at $\Rey = 100$; that was not re-checked
+        at the other five.
+  \item \textbf{PINNsFormer was run once.} Its marched result is the only one
+        in Section~\ref{sec:arch} that beats the MLP, and it rests on one
+        phase and one seed. The full grid is about 66 GPU-hours.
+  \item \textbf{The backbone comparison is on the earlier dataset.} The U-Net
+        and ConvGRU were trained only on the data that carries the duct mode,
+        and on the production data the FNO's forecast is close to
+        in-distribution. An operator test whose held-out states are genuinely
+        new --- a different Reynolds number, or a transient --- would separate
+        what each backbone has learned from what it has memorised.
+  \item \textbf{$\Cd$ is a few per cent high.} Across the sweep it is
+        $3.5$--$5.7\%$ above Qu et al.; keeping $D = 24$ accounts for about
+        $1.4\%$ of it (Section~\ref{sec:acoustic}), and the rest has not been
+        separated. Nothing in this report depends on $\Cd$ --- every PINN and
+        operator result is scored against velocity fields and wake probes.
   \item \textbf{The lock-in band.} The wake locks onto the duct mode at
         $\St/\St_a = 1.43$, outside the band Hong et al.\,\cite{hong2020}
         predict. Lossless walls are the plausible reason; it has not been
@@ -915,6 +1130,24 @@ Differential Equations}, ICLR, 2021.
 Z.~Li et al., \emph{Physics-Informed Neural Operator for Learning Partial
 Differential Equations}, ACM/IMS Journal of Data Science, 2024.
 doi:10.1145/3648506.
+
+\bibitem{zhao2024pinnsformer}
+Z.~Zhao, X.~Ding and B.~A. Prakash,
+\emph{PINNsFormer: A Transformer-Based Framework For Physics-Informed Neural
+Networks}, International Conference on Learning Representations (ICLR), 2024.
+arXiv:2307.11833.
+
+\bibitem{ren2022phycrnet}
+P.~Ren, C.~Rao, Y.~Liu, J.-X. Wang and H.~Sun,
+\emph{PhyCRNet: Physics-informed convolutional-recurrent network for solving
+spatiotemporal PDEs}, Computer Methods in Applied Mechanics and Engineering
+\textbf{389}, 114399, 2022.
+
+\bibitem{ronneberger2015}
+O.~Ronneberger, P.~Fischer and T.~Brox,
+\emph{U-Net: Convolutional Networks for Biomedical Image Segmentation},
+Medical Image Computing and Computer-Assisted Intervention (MICCAI), LNCS
+\textbf{9351}, 234--241, 2015.
 
 \bibitem{roy2024}
 P.~Roy and S.~Castonguay,

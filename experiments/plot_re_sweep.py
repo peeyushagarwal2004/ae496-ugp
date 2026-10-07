@@ -11,9 +11,9 @@ uncontrolled phase of the shedding cycle. That matters for the control, whose
 retention swings with start phase, and not for `all` at sigma = 8, which does
 not (report, Section 4).
 
-Re = 100 comes from the main ablation (`runs/ablation`, `runs/ablation_sigma8`)
-rather than the sweep, since that dataset predates it; the configuration is the
-same.
+The default is the v5 sweep (`runs/re_sweep_v5`), which runs Re = 100 itself.
+For the earlier v1 sweep (`--sweep-dir re_sweep`) Re = 100 is grafted from the
+main ablation, which predates that sweep; the configuration is the same.
 
 Usage:
     python experiments/plot_re_sweep.py
@@ -48,7 +48,7 @@ def strouhal_correlation(re):
     return -3.3265 / re + 0.1816 + 1.6e-4 * re
 
 
-def collect(sweep_dir="re_sweep"):
+def collect(sweep_dir="re_sweep_v5"):
     """{Re: {'baseline': [...], 'all': [...], 'St': float}} across all sources."""
     out = {}
     sweep = json.loads((ROOT / "runs" / sweep_dir / "summary.json").read_text())
@@ -88,7 +88,7 @@ def style(ax):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default=None)
-    ap.add_argument("--sweep-dir", default="re_sweep")
+    ap.add_argument("--sweep-dir", default="re_sweep_v5")
     args = ap.parse_args()
 
     data = collect(args.sweep_dir)
