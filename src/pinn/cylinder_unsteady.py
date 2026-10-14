@@ -277,11 +277,12 @@ def build_ic(pde, params, cfg, ds, rng, t0, from_network):
 
 
 def train_window(pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
-                 t0, t1, epochs, log_every, label, ic_from_network=False):
+                 t0, t1, epochs, log_every, label, ic_from_network=False,
+                 supervised=True):
     ic, ic_source = build_ic(pde, params, cfg, ds, rng, t0, ic_from_network)
 
     data = None
-    if cfg["n_data"] > 0:
+    if cfg["n_data"] > 0 and supervised:
         lo, hi = ds.nearest_time_index(t0), ds.nearest_time_index(t1) + 1
         d_c, d_v = ds.sample(cfg["n_data"], rng, t_slice=(lo, max(hi, lo + 1)))
         data = (jnp.asarray(d_c), jnp.asarray(d_v))
@@ -369,6 +370,11 @@ def main():
                          "single-window run on equal information.")
     ap.add_argument("--n-data", type=int, default=0,
                     help="supervised samples per window (0 = data free)")
+    ap.add_argument("--anchor-every", type=int, default=1,
+                    help="give the --n-data samples only to every K-th window "
+                         "(windows 0, K, 2K, ...); the rest are data-free. "
+                         "1 = every window, the plain --n-data behaviour. "
+                         "Sparse periodic re-anchoring of a marched chain.")
     ap.add_argument("--w-pde", type=float, default=1.0)
     ap.add_argument("--w-bc", type=float, default=10.0)
     ap.add_argument("--w-ic", type=float, default=10.0)
@@ -446,11 +452,14 @@ def main():
         params, state, hist, ic_source = train_window(
             pde, params, opt, state, step_fn, cfg, cyl, ds, rng,
             a, b, args.epochs, args.log_every, f"win {wdw + 1}/{args.windows}",
-            ic_from_network=(args.ic_from_network and wdw > 0))
+            ic_from_network=(args.ic_from_network and wdw > 0),
+            supervised=(wdw % args.anchor_every == 0))
         all_hist.append(hist)
         segments.append((a, b, params))
         m = evaluate(pde, [(a, b, params)], ds, a, b)
-        results.append(dict(window=wdw, ic_source=ic_source, **m))
+        results.append(dict(window=wdw, ic_source=ic_source,
+                            supervised=bool(args.n_data and wdw % args.anchor_every == 0),
+                            **m))
         print(f"  -> rel L2 {m['rel_l2_mean']:.4f}   "
               f"probe v rms: PINN {m['probe_v_rms_pinn']:.4f} vs "
               f"LBM {m['probe_v_rms_lbm']:.4f}   "
@@ -472,7 +481,7 @@ def main():
     n_gt_ic = sum(1 for r in results if r.get("ic_source") == "dataset")
     overall["gt_ic_slices"] = n_gt_ic
     overall["gt_ic_points"] = n_gt_ic * args.n_ic
-    overall["gt_data_points"] = args.n_data * len(results)
+    overall["gt_data_points"] = args.n_data * sum(r["supervised"] for r in results)
     overall["ic_from_network"] = bool(args.ic_from_network)
     overall["n_params"] = n_params
     overall["train_seconds"] = sum(h[-1]["seconds"] for h in all_hist if h)

@@ -1,0 +1,164 @@
+[
+  {
+    "run": "all",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/multiperiod/all_s0",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.1476188755495175,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -10.41969397851163,
+    "zero_crossings_pinn": 9,
+    "amplitude_ratio": 0.6384200334160541,
+    "phase_lag_periods": -0.8313787251054815,
+    "phase_drift_periods": 0.2839261388198313,
+    "phase_lag_by_period": [
+      0.0020893020053326383,
+      0.08942936867220186,
+      0.2117711648543752,
+      0.29611022301908274,
+      0.3693883704471945
+    ],
+    "phase_end_periods": 0.3693883704471945,
+    "gt_data_points": 0,
+    "rel_l2_saved": 0.15628544251604284,
+    "shedding_saved": 0.6372338606672019
+  },
+  {
+    "run": "a1_n100",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor/a1_n100_s0",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.16430564797831734,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -0.2935757899104386,
+    "zero_crossings_pinn": 10,
+    "amplitude_ratio": 0.8694518587103572,
+    "phase_lag_periods": 0.0028785560636776274,
+    "phase_drift_periods": 0.0017620451165978818,
+    "phase_lag_by_period": [
+      0.00017393738511872758,
+      0.000560367605808354,
+      0.0006480440985040525,
+      0.0011120398463650982,
+      0.0014765273862654693
+    ],
+    "phase_end_periods": 0.0014765273862654693,
+    "gt_data_points": 2000,
+    "rel_l2_saved": 0.021135398929997305,
+    "shedding_saved": 0.8658936525330686
+  },
+  {
+    "run": "a2_n100",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor/a2_n100_s0",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.1572294852702067,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -4.587639259034783,
+    "zero_crossings_pinn": 10,
+    "amplitude_ratio": 0.6564110677680197,
+    "phase_lag_periods": 0.07503842401608507,
+    "phase_drift_periods": 0.11520714258928627,
+    "phase_lag_by_period": [
+      0.0007876655242321506,
+      0.004164680494582185,
+      0.04985962261804178,
+      0.12611064253418025,
+      0.12040202871761041
+    ],
+    "phase_end_periods": 0.12040202871761041,
+    "gt_data_points": 1000,
+    "rel_l2_saved": 0.07964650171221221,
+    "shedding_saved": 0.6540015121023913
+  },
+  {
+    "run": "a4_n100",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor/a4_n100_s0",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.15228080748795958,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -7.590670331350017,
+    "zero_crossings_pinn": 9,
+    "amplitude_ratio": 0.6196850119535107,
+    "phase_lag_periods": 0.1316423299122932,
+    "phase_drift_periods": 0.1869656791719283,
+    "phase_lag_by_period": [
+      0.0012066718135228527,
+      0.03935766906319915,
+      0.1375632804533644,
+      0.21788161039967857,
+      0.2204300517577905
+    ],
+    "phase_end_periods": 0.2204300517577905,
+    "gt_data_points": 500,
+    "rel_l2_saved": 0.11925247272096358,
+    "shedding_saved": 0.617968968174432
+  },
+  {
+    "run": "a4_n500",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor/a4_n500_s0",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.16433423219930976,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -0.27622988306516094,
+    "zero_crossings_pinn": 10,
+    "amplitude_ratio": 0.8444788515893996,
+    "phase_lag_periods": 0.007747665288597878,
+    "phase_drift_periods": 0.0025957175620049573,
+    "phase_lag_by_period": [
+      0.0007614995548065329,
+      0.001273201032760296,
+      0.0020813093386330417,
+      0.00217221548463431,
+      0.001738734587434454
+    ],
+    "phase_end_periods": 0.001738734587434454,
+    "gt_data_points": 2500,
+    "rel_l2_saved": 0.025721838197954473,
+    "shedding_saved": 0.8415782744096046
+  },
+  {
+    "run": "a8_n100",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor/a8_n100_s0",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.15032047383183236,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -8.780269480960078,
+    "zero_crossings_pinn": 9,
+    "amplitude_ratio": 0.6310627116667986,
+    "phase_lag_periods": 0.1849596484642722,
+    "phase_drift_periods": 0.24698047855900848,
+    "phase_lag_by_period": [
+      0.0012066718135228527,
+      0.08056908029066556,
+      0.16915959267462033,
+      0.25728181734026845,
+      0.32693293407045565
+    ],
+    "phase_end_periods": 0.32693293407045565,
+    "gt_data_points": 300,
+    "rel_l2_saved": 0.13882703652409326,
+    "shedding_saved": 0.6298303646451963
+  }
+]
