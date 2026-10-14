@@ -118,6 +118,18 @@ def main():
         lag_first = phase_lag(v_pinn[:half], v_lbm[:half], dt, period)
         lag_second = phase_lag(v_pinn[half:], v_lbm[half:], dt, period)
 
+        # Lag within each whole reference period, wrapped to [-0.5, 0.5). The
+        # full-span lag is ambiguous modulo a period once the frequencies
+        # differ; one period at a time is not, as long as the drift per period
+        # stays under half a cycle. The last entry is the phase error the run
+        # ends with.
+        n_per = int(round(period / dt)) if np.isfinite(period) else 0
+        lag_by_period = []
+        starts = range(0, len(tt) - n_per + 1, n_per) if n_per > 2 else []
+        for s in starts:
+            lg = phase_lag(v_pinn[s:s + n_per], v_lbm[s:s + n_per], dt, period)
+            lag_by_period.append(float((lg + 0.5) % 1.0 - 0.5))
+
         row = {
             "run": name, "dir": str(d), "t_span": [float(t0), float(t1)],
             "periods_covered": float((t1 - t0) * st_lbm),
@@ -127,6 +139,9 @@ def main():
             "amplitude_ratio": amp,
             "phase_lag_periods": lag,
             "phase_drift_periods": float(lag_second - lag_first),
+            "phase_lag_by_period": lag_by_period,
+            "phase_end_periods": lag_by_period[-1] if lag_by_period else None,
+            "gt_data_points": saved.get("gt_data_points"),
             "rel_l2_saved": saved.get("rel_l2_mean"),
             "shedding_saved": saved.get("shedding_ratio"),
         }
@@ -140,6 +155,9 @@ def main():
         print(f"  phase lag     {lag:+.3f} periods ({360 * lag:+.1f} deg)")
         print(f"  phase drift   {row['phase_drift_periods']:+.3f} periods "
               f"between the first and second half of the span")
+        if lag_by_period:
+            print("  lag by period " + "  ".join(f"{x:+.3f}" for x in lag_by_period)
+                  + "  (periods, wrapped)")
         print(f"  field rel L2  {row['rel_l2_saved']:.4f}")
 
     print(f"\n  caveat: {rows[0]['periods_covered']:.1f} periods of signal and "

@@ -1,0 +1,595 @@
+### starting Mon Oct 12 11:11:15 IST 2026
+window length (quarter of the vorticity period): 1.5167
+### a8_n100 seed 0  Mon Oct 12 11:11:15 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0142   probe v rms: PINN 0.1150 vs LBM 0.1262   shedding retained 91.1 %
+  -> rel L2 0.0258   probe v rms: PINN 0.1846 vs LBM 0.2244   shedding retained 82.3 %
+  -> rel L2 0.0333   probe v rms: PINN 0.0777 vs LBM 0.1224   shedding retained 63.5 %
+  -> rel L2 0.0430   probe v rms: PINN 0.1442 vs LBM 0.2256   shedding retained 63.9 %
+  -> rel L2 0.0567   probe v rms: PINN 0.0298 vs LBM 0.1263   shedding retained 23.6 %
+  -> rel L2 0.0714   probe v rms: PINN 0.1235 vs LBM 0.2250   shedding retained 54.9 %
+  -> rel L2 0.0902   probe v rms: PINN 0.0523 vs LBM 0.1215   shedding retained 43.0 %
+  -> rel L2 0.1077   probe v rms: PINN 0.1053 vs LBM 0.2265   shedding retained 46.5 %
+  -> rel L2 0.1216   probe v rms: PINN 0.0812 vs LBM 0.1266   shedding retained 64.1 %
+  -> rel L2 0.1325   probe v rms: PINN 0.0941 vs LBM 0.2260   shedding retained 41.6 %
+  -> rel L2 0.1476   probe v rms: PINN 0.0891 vs LBM 0.1215   shedding retained 73.3 %
+  -> rel L2 0.1633   probe v rms: PINN 0.0692 vs LBM 0.2266   shedding retained 30.5 %
+  -> rel L2 0.1789   probe v rms: PINN 0.1123 vs LBM 0.1264   shedding retained 88.8 %
+  -> rel L2 0.1945   probe v rms: PINN 0.0439 vs LBM 0.2253   shedding retained 19.5 %
+  -> rel L2 0.2086   probe v rms: PINN 0.1256 vs LBM 0.1214   shedding retained 103.5 %
+  -> rel L2 0.2233   probe v rms: PINN 0.0272 vs LBM 0.2261   shedding retained 12.0 %
+  -> rel L2 0.2305   probe v rms: PINN 0.1210 vs LBM 0.1262   shedding retained 95.8 %
+  -> rel L2 0.2394   probe v rms: PINN 0.0471 vs LBM 0.2253   shedding retained 20.9 %
+  -> rel L2 0.2467   probe v rms: PINN 0.1186 vs LBM 0.1216   shedding retained 97.5 %
+  -> rel L2 0.2574   probe v rms: PINN 0.0744 vs LBM 0.2265   shedding retained 32.9 %
+  window 0  t* 91.5-93.0   relL2 0.0142   shedding  91.1 %
+  window 1  t* 93.0-94.5   relL2 0.0258   shedding  82.3 %
+  window 2  t* 94.5-96.0   relL2 0.0333   shedding  63.5 %
+  window 3  t* 96.0-97.5   relL2 0.0430   shedding  63.9 %
+  window 4  t* 97.5-99.0   relL2 0.0567   shedding  23.6 %
+  window 5  t* 99.0-100.6   relL2 0.0714   shedding  54.9 %
+  window 6  t* 100.6-102.1   relL2 0.0902   shedding  43.0 %
+  window 7  t* 102.1-103.6   relL2 0.1077   shedding  46.5 %
+  window 8  t* 103.6-105.1   relL2 0.1216   shedding  64.1 %
+  window 9  t* 105.1-106.6   relL2 0.1325   shedding  41.6 %
+  window 10  t* 106.6-108.1   relL2 0.1476   shedding  73.3 %
+  window 11  t* 108.1-109.7   relL2 0.1633   shedding  30.5 %
+  window 12  t* 109.7-111.2   relL2 0.1789   shedding  88.8 %
+  window 13  t* 111.2-112.7   relL2 0.1945   shedding  19.5 %
+  window 14  t* 112.7-114.2   relL2 0.2086   shedding 103.5 %
+  window 15  t* 114.2-115.7   relL2 0.2233   shedding  12.0 %
+  window 16  t* 115.7-117.2   relL2 0.2305   shedding  95.8 %
+  window 17  t* 117.2-118.8   relL2 0.2394   shedding  20.9 %
+  window 18  t* 118.8-120.3   relL2 0.2467   shedding  97.5 %
+  window 19  t* 120.3-121.8   relL2 0.2574   shedding  32.9 %
+    relative L2       0.1388
+    shedding retained 63.0 %
+### a4_n100 seed 0  Mon Oct 12 12:28:57 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0142   probe v rms: PINN 0.1150 vs LBM 0.1262   shedding retained 91.1 %
+  -> rel L2 0.0258   probe v rms: PINN 0.1846 vs LBM 0.2244   shedding retained 82.3 %
+  -> rel L2 0.0333   probe v rms: PINN 0.0777 vs LBM 0.1224   shedding retained 63.5 %
+  -> rel L2 0.0430   probe v rms: PINN 0.1442 vs LBM 0.2256   shedding retained 63.9 %
+  -> rel L2 0.0502   probe v rms: PINN 0.0440 vs LBM 0.1263   shedding retained 34.8 %
+  -> rel L2 0.0593   probe v rms: PINN 0.1354 vs LBM 0.2250   shedding retained 60.2 %
+  -> rel L2 0.0727   probe v rms: PINN 0.0310 vs LBM 0.1215   shedding retained 25.5 %
+  -> rel L2 0.0855   probe v rms: PINN 0.1155 vs LBM 0.2265   shedding retained 51.0 %
+  -> rel L2 0.0973   probe v rms: PINN 0.0473 vs LBM 0.1266   shedding retained 37.4 %
+  -> rel L2 0.1071   probe v rms: PINN 0.0999 vs LBM 0.2260   shedding retained 44.2 %
+  -> rel L2 0.1230   probe v rms: PINN 0.0786 vs LBM 0.1215   shedding retained 64.7 %
+  -> rel L2 0.1392   probe v rms: PINN 0.0905 vs LBM 0.2266   shedding retained 39.9 %
+  -> rel L2 0.1532   probe v rms: PINN 0.1101 vs LBM 0.1264   shedding retained 87.1 %
+  -> rel L2 0.1655   probe v rms: PINN 0.0783 vs LBM 0.2253   shedding retained 34.8 %
+  -> rel L2 0.1800   probe v rms: PINN 0.1266 vs LBM 0.1214   shedding retained 104.3 %
+  -> rel L2 0.1942   probe v rms: PINN 0.0534 vs LBM 0.2261   shedding retained 23.6 %
+  -> rel L2 0.2019   probe v rms: PINN 0.0938 vs LBM 0.1262   shedding retained 74.3 %
+  -> rel L2 0.2080   probe v rms: PINN 0.0374 vs LBM 0.2253   shedding retained 16.6 %
+  -> rel L2 0.2161   probe v rms: PINN 0.0983 vs LBM 0.1216   shedding retained 80.9 %
+  -> rel L2 0.2244   probe v rms: PINN 0.0596 vs LBM 0.2265   shedding retained 26.3 %
+  window 0  t* 91.5-93.0   relL2 0.0142   shedding  91.1 %
+  window 1  t* 93.0-94.5   relL2 0.0258   shedding  82.3 %
+  window 2  t* 94.5-96.0   relL2 0.0333   shedding  63.5 %
+  window 3  t* 96.0-97.5   relL2 0.0430   shedding  63.9 %
+  window 4  t* 97.5-99.0   relL2 0.0502   shedding  34.8 %
+  window 5  t* 99.0-100.6   relL2 0.0593   shedding  60.2 %
+  window 6  t* 100.6-102.1   relL2 0.0727   shedding  25.5 %
+  window 7  t* 102.1-103.6   relL2 0.0855   shedding  51.0 %
+  window 8  t* 103.6-105.1   relL2 0.0973   shedding  37.4 %
+  window 9  t* 105.1-106.6   relL2 0.1071   shedding  44.2 %
+  window 10  t* 106.6-108.1   relL2 0.1230   shedding  64.7 %
+  window 11  t* 108.1-109.7   relL2 0.1392   shedding  39.9 %
+  window 12  t* 109.7-111.2   relL2 0.1532   shedding  87.1 %
+  window 13  t* 111.2-112.7   relL2 0.1655   shedding  34.8 %
+  window 14  t* 112.7-114.2   relL2 0.1800   shedding 104.3 %
+  window 15  t* 114.2-115.7   relL2 0.1942   shedding  23.6 %
+  window 16  t* 115.7-117.2   relL2 0.2019   shedding  74.3 %
+  window 17  t* 117.2-118.8   relL2 0.2080   shedding  16.6 %
+  window 18  t* 118.8-120.3   relL2 0.2161   shedding  80.9 %
+  window 19  t* 120.3-121.8   relL2 0.2244   shedding  26.3 %
+    relative L2       0.1193
+    shedding retained 61.8 %
+### a2_n100 seed 0  Mon Oct 12 13:46:32 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0142   probe v rms: PINN 0.1150 vs LBM 0.1262   shedding retained 91.1 %
+  -> rel L2 0.0258   probe v rms: PINN 0.1846 vs LBM 0.2244   shedding retained 82.3 %
+  -> rel L2 0.0275   probe v rms: PINN 0.0808 vs LBM 0.1224   shedding retained 66.0 %
+  -> rel L2 0.0320   probe v rms: PINN 0.1603 vs LBM 0.2256   shedding retained 71.0 %
+  -> rel L2 0.0357   probe v rms: PINN 0.0522 vs LBM 0.1263   shedding retained 41.4 %
+  -> rel L2 0.0405   probe v rms: PINN 0.1451 vs LBM 0.2250   shedding retained 64.5 %
+  -> rel L2 0.0476   probe v rms: PINN 0.0383 vs LBM 0.1215   shedding retained 31.5 %
+  -> rel L2 0.0535   probe v rms: PINN 0.1334 vs LBM 0.2265   shedding retained 58.9 %
+  -> rel L2 0.0616   probe v rms: PINN 0.0359 vs LBM 0.1266   shedding retained 28.3 %
+  -> rel L2 0.0702   probe v rms: PINN 0.1336 vs LBM 0.2260   shedding retained 59.1 %
+  -> rel L2 0.0794   probe v rms: PINN 0.0391 vs LBM 0.1215   shedding retained 32.2 %
+  -> rel L2 0.0879   probe v rms: PINN 0.1404 vs LBM 0.2266   shedding retained 61.9 %
+  -> rel L2 0.0971   probe v rms: PINN 0.0676 vs LBM 0.1264   shedding retained 53.5 %
+  -> rel L2 0.1065   probe v rms: PINN 0.1391 vs LBM 0.2253   shedding retained 61.7 %
+  -> rel L2 0.1170   probe v rms: PINN 0.1003 vs LBM 0.1214   shedding retained 82.6 %
+  -> rel L2 0.1264   probe v rms: PINN 0.1252 vs LBM 0.2261   shedding retained 55.4 %
+  -> rel L2 0.1344   probe v rms: PINN 0.0589 vs LBM 0.1262   shedding retained 46.6 %
+  -> rel L2 0.1404   probe v rms: PINN 0.0894 vs LBM 0.2253   shedding retained 39.7 %
+  -> rel L2 0.1452   probe v rms: PINN 0.0636 vs LBM 0.1216   shedding retained 52.3 %
+  -> rel L2 0.1526   probe v rms: PINN 0.0936 vs LBM 0.2265   shedding retained 41.3 %
+  window 0  t* 91.5-93.0   relL2 0.0142   shedding  91.1 %
+  window 1  t* 93.0-94.5   relL2 0.0258   shedding  82.3 %
+  window 2  t* 94.5-96.0   relL2 0.0275   shedding  66.0 %
+  window 3  t* 96.0-97.5   relL2 0.0320   shedding  71.0 %
+  window 4  t* 97.5-99.0   relL2 0.0357   shedding  41.4 %
+  window 5  t* 99.0-100.6   relL2 0.0405   shedding  64.5 %
+  window 6  t* 100.6-102.1   relL2 0.0476   shedding  31.5 %
+  window 7  t* 102.1-103.6   relL2 0.0535   shedding  58.9 %
+  window 8  t* 103.6-105.1   relL2 0.0616   shedding  28.3 %
+  window 9  t* 105.1-106.6   relL2 0.0702   shedding  59.1 %
+  window 10  t* 106.6-108.1   relL2 0.0794   shedding  32.2 %
+  window 11  t* 108.1-109.7   relL2 0.0879   shedding  61.9 %
+  window 12  t* 109.7-111.2   relL2 0.0971   shedding  53.5 %
+  window 13  t* 111.2-112.7   relL2 0.1065   shedding  61.7 %
+  window 14  t* 112.7-114.2   relL2 0.1170   shedding  82.6 %
+  window 15  t* 114.2-115.7   relL2 0.1264   shedding  55.4 %
+  window 16  t* 115.7-117.2   relL2 0.1344   shedding  46.6 %
+  window 17  t* 117.2-118.8   relL2 0.1404   shedding  39.7 %
+  window 18  t* 118.8-120.3   relL2 0.1452   shedding  52.3 %
+  window 19  t* 120.3-121.8   relL2 0.1526   shedding  41.3 %
+    relative L2       0.0796
+    shedding retained 65.4 %
+### a1_n100 seed 0  Mon Oct 12 15:04:20 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0142   probe v rms: PINN 0.1150 vs LBM 0.1262   shedding retained 91.1 %
+  -> rel L2 0.0216   probe v rms: PINN 0.1929 vs LBM 0.2244   shedding retained 86.0 %
+  -> rel L2 0.0197   probe v rms: PINN 0.0897 vs LBM 0.1224   shedding retained 73.3 %
+  -> rel L2 0.0175   probe v rms: PINN 0.2366 vs LBM 0.2256   shedding retained 104.9 %
+  -> rel L2 0.0188   probe v rms: PINN 0.1117 vs LBM 0.1263   shedding retained 88.5 %
+  -> rel L2 0.0198   probe v rms: PINN 0.2231 vs LBM 0.2250   shedding retained 99.1 %
+  -> rel L2 0.0203   probe v rms: PINN 0.1011 vs LBM 0.1215   shedding retained 83.2 %
+  -> rel L2 0.0211   probe v rms: PINN 0.1962 vs LBM 0.2265   shedding retained 86.6 %
+  -> rel L2 0.0231   probe v rms: PINN 0.0838 vs LBM 0.1266   shedding retained 66.2 %
+  -> rel L2 0.0231   probe v rms: PINN 0.1965 vs LBM 0.2260   shedding retained 86.9 %
+  -> rel L2 0.0248   probe v rms: PINN 0.0908 vs LBM 0.1215   shedding retained 74.7 %
+  -> rel L2 0.0240   probe v rms: PINN 0.2046 vs LBM 0.2266   shedding retained 90.3 %
+  -> rel L2 0.0231   probe v rms: PINN 0.0943 vs LBM 0.1264   shedding retained 74.6 %
+  -> rel L2 0.0211   probe v rms: PINN 0.2026 vs LBM 0.2253   shedding retained 89.9 %
+  -> rel L2 0.0206   probe v rms: PINN 0.0858 vs LBM 0.1214   shedding retained 70.7 %
+  -> rel L2 0.0200   probe v rms: PINN 0.2103 vs LBM 0.2261   shedding retained 93.0 %
+  -> rel L2 0.0207   probe v rms: PINN 0.0873 vs LBM 0.1262   shedding retained 69.1 %
+  -> rel L2 0.0229   probe v rms: PINN 0.1854 vs LBM 0.2253   shedding retained 82.3 %
+  -> rel L2 0.0255   probe v rms: PINN 0.0843 vs LBM 0.1216   shedding retained 69.3 %
+  -> rel L2 0.0265   probe v rms: PINN 0.1797 vs LBM 0.2265   shedding retained 79.4 %
+  window 0  t* 91.5-93.0   relL2 0.0142   shedding  91.1 %
+  window 1  t* 93.0-94.5   relL2 0.0216   shedding  86.0 %
+  window 2  t* 94.5-96.0   relL2 0.0197   shedding  73.3 %
+  window 3  t* 96.0-97.5   relL2 0.0175   shedding 104.9 %
+  window 4  t* 97.5-99.0   relL2 0.0188   shedding  88.5 %
+  window 5  t* 99.0-100.6   relL2 0.0198   shedding  99.1 %
+  window 6  t* 100.6-102.1   relL2 0.0203   shedding  83.2 %
+  window 7  t* 102.1-103.6   relL2 0.0211   shedding  86.6 %
+  window 8  t* 103.6-105.1   relL2 0.0231   shedding  66.2 %
+  window 9  t* 105.1-106.6   relL2 0.0231   shedding  86.9 %
+  window 10  t* 106.6-108.1   relL2 0.0248   shedding  74.7 %
+  window 11  t* 108.1-109.7   relL2 0.0240   shedding  90.3 %
+  window 12  t* 109.7-111.2   relL2 0.0231   shedding  74.6 %
+  window 13  t* 111.2-112.7   relL2 0.0211   shedding  89.9 %
+  window 14  t* 112.7-114.2   relL2 0.0206   shedding  70.7 %
+  window 15  t* 114.2-115.7   relL2 0.0200   shedding  93.0 %
+  window 16  t* 115.7-117.2   relL2 0.0207   shedding  69.1 %
+  window 17  t* 117.2-118.8   relL2 0.0229   shedding  82.3 %
+  window 18  t* 118.8-120.3   relL2 0.0255   shedding  69.3 %
+  window 19  t* 120.3-121.8   relL2 0.0265   shedding  79.4 %
+    relative L2       0.0211
+    shedding retained 86.6 %
+### a4_n500 seed 0  Mon Oct 12 16:22:11 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=500  epochs/window=20000  params=91,363
+  -> rel L2 0.0110   probe v rms: PINN 0.1120 vs LBM 0.1262   shedding retained 88.8 %
+  -> rel L2 0.0204   probe v rms: PINN 0.2074 vs LBM 0.2244   shedding retained 92.4 %
+  -> rel L2 0.0280   probe v rms: PINN 0.0967 vs LBM 0.1224   shedding retained 79.0 %
+  -> rel L2 0.0355   probe v rms: PINN 0.1580 vs LBM 0.2256   shedding retained 70.0 %
+  -> rel L2 0.0278   probe v rms: PINN 0.0667 vs LBM 0.1263   shedding retained 52.8 %
+  -> rel L2 0.0250   probe v rms: PINN 0.2112 vs LBM 0.2250   shedding retained 93.8 %
+  -> rel L2 0.0292   probe v rms: PINN 0.1008 vs LBM 0.1215   shedding retained 82.9 %
+  -> rel L2 0.0336   probe v rms: PINN 0.1606 vs LBM 0.2265   shedding retained 70.9 %
+  -> rel L2 0.0266   probe v rms: PINN 0.0665 vs LBM 0.1266   shedding retained 52.5 %
+  -> rel L2 0.0241   probe v rms: PINN 0.1871 vs LBM 0.2260   shedding retained 82.8 %
+  -> rel L2 0.0285   probe v rms: PINN 0.0710 vs LBM 0.1215   shedding retained 58.5 %
+  -> rel L2 0.0335   probe v rms: PINN 0.1867 vs LBM 0.2266   shedding retained 82.4 %
+  -> rel L2 0.0260   probe v rms: PINN 0.0902 vs LBM 0.1264   shedding retained 71.4 %
+  -> rel L2 0.0212   probe v rms: PINN 0.2244 vs LBM 0.2253   shedding retained 99.6 %
+  -> rel L2 0.0247   probe v rms: PINN 0.0894 vs LBM 0.1214   shedding retained 73.6 %
+  -> rel L2 0.0285   probe v rms: PINN 0.2054 vs LBM 0.2261   shedding retained 90.9 %
+  -> rel L2 0.0230   probe v rms: PINN 0.0925 vs LBM 0.1262   shedding retained 73.3 %
+  -> rel L2 0.0204   probe v rms: PINN 0.2024 vs LBM 0.2253   shedding retained 89.8 %
+  -> rel L2 0.0257   probe v rms: PINN 0.0831 vs LBM 0.1216   shedding retained 68.3 %
+  -> rel L2 0.0312   probe v rms: PINN 0.1870 vs LBM 0.2265   shedding retained 82.6 %
+  window 0  t* 91.5-93.0   relL2 0.0110   shedding  88.8 %
+  window 1  t* 93.0-94.5   relL2 0.0204   shedding  92.4 %
+  window 2  t* 94.5-96.0   relL2 0.0280   shedding  79.0 %
+  window 3  t* 96.0-97.5   relL2 0.0355   shedding  70.0 %
+  window 4  t* 97.5-99.0   relL2 0.0278   shedding  52.8 %
+  window 5  t* 99.0-100.6   relL2 0.0250   shedding  93.8 %
+  window 6  t* 100.6-102.1   relL2 0.0292   shedding  82.9 %
+  window 7  t* 102.1-103.6   relL2 0.0336   shedding  70.9 %
+  window 8  t* 103.6-105.1   relL2 0.0266   shedding  52.5 %
+  window 9  t* 105.1-106.6   relL2 0.0241   shedding  82.8 %
+  window 10  t* 106.6-108.1   relL2 0.0285   shedding  58.5 %
+  window 11  t* 108.1-109.7   relL2 0.0335   shedding  82.4 %
+  window 12  t* 109.7-111.2   relL2 0.0260   shedding  71.4 %
+  window 13  t* 111.2-112.7   relL2 0.0212   shedding  99.6 %
+  window 14  t* 112.7-114.2   relL2 0.0247   shedding  73.6 %
+  window 15  t* 114.2-115.7   relL2 0.0285   shedding  90.9 %
+  window 16  t* 115.7-117.2   relL2 0.0230   shedding  73.3 %
+  window 17  t* 117.2-118.8   relL2 0.0204   shedding  89.8 %
+  window 18  t* 118.8-120.3   relL2 0.0257   shedding  68.3 %
+  window 19  t* 120.3-121.8   relL2 0.0312   shedding  82.6 %
+    relative L2       0.0257
+    shedding retained 84.2 %
+
+all   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1476   LBM 0.1648   (-10.4 %)
+  amplitude     63.8 % of LBM
+  phase lag     -0.831 periods (-299.3 deg)
+  phase drift   +0.284 periods between the first and second half of the span
+  lag by period +0.002  +0.089  +0.212  +0.296  +0.369  (periods, wrapped)
+  field rel L2  0.1563
+
+a1_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1643   LBM 0.1648   (-0.3 %)
+  amplitude     86.9 % of LBM
+  phase lag     +0.003 periods (+1.0 deg)
+  phase drift   +0.002 periods between the first and second half of the span
+  lag by period +0.000  +0.001  +0.001  +0.001  +0.001  (periods, wrapped)
+  field rel L2  0.0211
+
+a2_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1572   LBM 0.1648   (-4.6 %)
+  amplitude     65.6 % of LBM
+  phase lag     +0.075 periods (+27.0 deg)
+  phase drift   +0.115 periods between the first and second half of the span
+  lag by period +0.001  +0.004  +0.050  +0.126  +0.120  (periods, wrapped)
+  field rel L2  0.0796
+
+a4_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1523   LBM 0.1648   (-7.6 %)
+  amplitude     62.0 % of LBM
+  phase lag     +0.132 periods (+47.4 deg)
+  phase drift   +0.187 periods between the first and second half of the span
+  lag by period +0.001  +0.039  +0.138  +0.218  +0.220  (periods, wrapped)
+  field rel L2  0.1193
+
+a4_n500   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1643   LBM 0.1648   (-0.3 %)
+  amplitude     84.4 % of LBM
+  phase lag     +0.008 periods (+2.8 deg)
+  phase drift   +0.003 periods between the first and second half of the span
+  lag by period +0.001  +0.001  +0.002  +0.002  +0.002  (periods, wrapped)
+  field rel L2  0.0257
+
+a8_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1503   LBM 0.1648   (-8.8 %)
+  amplitude     63.1 % of LBM
+  phase lag     +0.185 periods (+66.6 deg)
+  phase drift   +0.247 periods between the first and second half of the span
+  lag by period +0.001  +0.081  +0.169  +0.257  +0.327  (periods, wrapped)
+  field rel L2  0.1388
+
+  caveat: 5.0 periods of signal and 9 zero crossings. St from so short a record
+  carries roughly a percent of uncertainty per crossing -- it is a consistency
+  check, not a validated frequency like the LBM's 12-period value.
+
+results -> runs/v5/reanchor/shedding_accuracy_s0.json
+### a8_n100 seed 1  Mon Oct 12 17:40:08 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0138   probe v rms: PINN 0.1138 vs LBM 0.1262   shedding retained 90.2 %
+  -> rel L2 0.0251   probe v rms: PINN 0.2065 vs LBM 0.2244   shedding retained 92.0 %
+  -> rel L2 0.0322   probe v rms: PINN 0.0868 vs LBM 0.1224   shedding retained 70.9 %
+  -> rel L2 0.0408   probe v rms: PINN 0.1455 vs LBM 0.2256   shedding retained 64.5 %
+  -> rel L2 0.0534   probe v rms: PINN 0.0361 vs LBM 0.1263   shedding retained 28.6 %
+  -> rel L2 0.0661   probe v rms: PINN 0.1125 vs LBM 0.2250   shedding retained 50.0 %
+  -> rel L2 0.0814   probe v rms: PINN 0.0291 vs LBM 0.1215   shedding retained 23.9 %
+  -> rel L2 0.0966   probe v rms: PINN 0.0929 vs LBM 0.2265   shedding retained 41.0 %
+  -> rel L2 0.1099   probe v rms: PINN 0.0563 vs LBM 0.1266   shedding retained 44.5 %
+  -> rel L2 0.1205   probe v rms: PINN 0.0844 vs LBM 0.2260   shedding retained 37.3 %
+  -> rel L2 0.1350   probe v rms: PINN 0.0839 vs LBM 0.1215   shedding retained 69.1 %
+  -> rel L2 0.1518   probe v rms: PINN 0.0664 vs LBM 0.2266   shedding retained 29.3 %
+  -> rel L2 0.1702   probe v rms: PINN 0.1165 vs LBM 0.1264   shedding retained 92.1 %
+  -> rel L2 0.1892   probe v rms: PINN 0.0390 vs LBM 0.2253   shedding retained 17.3 %
+  -> rel L2 0.2088   probe v rms: PINN 0.1354 vs LBM 0.1214   shedding retained 111.5 %
+  -> rel L2 0.2275   probe v rms: PINN 0.0338 vs LBM 0.2261   shedding retained 15.0 %
+  -> rel L2 0.2372   probe v rms: PINN 0.1361 vs LBM 0.1262   shedding retained 107.8 %
+  -> rel L2 0.2482   probe v rms: PINN 0.0480 vs LBM 0.2253   shedding retained 21.3 %
+  -> rel L2 0.2591   probe v rms: PINN 0.1188 vs LBM 0.1216   shedding retained 97.6 %
+  -> rel L2 0.2714   probe v rms: PINN 0.0843 vs LBM 0.2265   shedding retained 37.2 %
+  window 0  t* 91.5-93.0   relL2 0.0138   shedding  90.2 %
+  window 1  t* 93.0-94.5   relL2 0.0251   shedding  92.0 %
+  window 2  t* 94.5-96.0   relL2 0.0322   shedding  70.9 %
+  window 3  t* 96.0-97.5   relL2 0.0408   shedding  64.5 %
+  window 4  t* 97.5-99.0   relL2 0.0534   shedding  28.6 %
+  window 5  t* 99.0-100.6   relL2 0.0661   shedding  50.0 %
+  window 6  t* 100.6-102.1   relL2 0.0814   shedding  23.9 %
+  window 7  t* 102.1-103.6   relL2 0.0966   shedding  41.0 %
+  window 8  t* 103.6-105.1   relL2 0.1099   shedding  44.5 %
+  window 9  t* 105.1-106.6   relL2 0.1205   shedding  37.3 %
+  window 10  t* 106.6-108.1   relL2 0.1350   shedding  69.1 %
+  window 11  t* 108.1-109.7   relL2 0.1518   shedding  29.3 %
+  window 12  t* 109.7-111.2   relL2 0.1702   shedding  92.1 %
+  window 13  t* 111.2-112.7   relL2 0.1892   shedding  17.3 %
+  window 14  t* 112.7-114.2   relL2 0.2088   shedding 111.5 %
+  window 15  t* 114.2-115.7   relL2 0.2275   shedding  15.0 %
+  window 16  t* 115.7-117.2   relL2 0.2372   shedding 107.8 %
+  window 17  t* 117.2-118.8   relL2 0.2482   shedding  21.3 %
+  window 18  t* 118.8-120.3   relL2 0.2591   shedding  97.6 %
+  window 19  t* 120.3-121.8   relL2 0.2714   shedding  37.2 %
+    relative L2       0.1368
+    shedding retained 63.3 %
+### a4_n100 seed 1  Mon Oct 12 18:57:53 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0138   probe v rms: PINN 0.1138 vs LBM 0.1262   shedding retained 90.2 %
+  -> rel L2 0.0251   probe v rms: PINN 0.2065 vs LBM 0.2244   shedding retained 92.0 %
+  -> rel L2 0.0322   probe v rms: PINN 0.0868 vs LBM 0.1224   shedding retained 70.9 %
+  -> rel L2 0.0408   probe v rms: PINN 0.1455 vs LBM 0.2256   shedding retained 64.5 %
+  -> rel L2 0.0472   probe v rms: PINN 0.0374 vs LBM 0.1263   shedding retained 29.6 %
+  -> rel L2 0.0547   probe v rms: PINN 0.1193 vs LBM 0.2250   shedding retained 53.0 %
+  -> rel L2 0.0690   probe v rms: PINN 0.0316 vs LBM 0.1215   shedding retained 26.0 %
+  -> rel L2 0.0834   probe v rms: PINN 0.1079 vs LBM 0.2265   shedding retained 47.6 %
+  -> rel L2 0.0968   probe v rms: PINN 0.0617 vs LBM 0.1266   shedding retained 48.8 %
+  -> rel L2 0.1104   probe v rms: PINN 0.0955 vs LBM 0.2260   shedding retained 42.2 %
+  -> rel L2 0.1303   probe v rms: PINN 0.0944 vs LBM 0.1215   shedding retained 77.7 %
+  -> rel L2 0.1497   probe v rms: PINN 0.0707 vs LBM 0.2266   shedding retained 31.2 %
+  -> rel L2 0.1645   probe v rms: PINN 0.1147 vs LBM 0.1264   shedding retained 90.7 %
+  -> rel L2 0.1792   probe v rms: PINN 0.0490 vs LBM 0.2253   shedding retained 21.7 %
+  -> rel L2 0.1964   probe v rms: PINN 0.1220 vs LBM 0.1214   shedding retained 100.5 %
+  -> rel L2 0.2133   probe v rms: PINN 0.0273 vs LBM 0.2261   shedding retained 12.1 %
+  -> rel L2 0.2212   probe v rms: PINN 0.1150 vs LBM 0.1262   shedding retained 91.1 %
+  -> rel L2 0.2295   probe v rms: PINN 0.0265 vs LBM 0.2253   shedding retained 11.8 %
+  -> rel L2 0.2389   probe v rms: PINN 0.0851 vs LBM 0.1216   shedding retained 69.9 %
+  -> rel L2 0.2503   probe v rms: PINN 0.0510 vs LBM 0.2265   shedding retained 22.5 %
+  window 0  t* 91.5-93.0   relL2 0.0138   shedding  90.2 %
+  window 1  t* 93.0-94.5   relL2 0.0251   shedding  92.0 %
+  window 2  t* 94.5-96.0   relL2 0.0322   shedding  70.9 %
+  window 3  t* 96.0-97.5   relL2 0.0408   shedding  64.5 %
+  window 4  t* 97.5-99.0   relL2 0.0472   shedding  29.6 %
+  window 5  t* 99.0-100.6   relL2 0.0547   shedding  53.0 %
+  window 6  t* 100.6-102.1   relL2 0.0690   shedding  26.0 %
+  window 7  t* 102.1-103.6   relL2 0.0834   shedding  47.6 %
+  window 8  t* 103.6-105.1   relL2 0.0968   shedding  48.8 %
+  window 9  t* 105.1-106.6   relL2 0.1104   shedding  42.2 %
+  window 10  t* 106.6-108.1   relL2 0.1303   shedding  77.7 %
+  window 11  t* 108.1-109.7   relL2 0.1497   shedding  31.2 %
+  window 12  t* 109.7-111.2   relL2 0.1645   shedding  90.7 %
+  window 13  t* 111.2-112.7   relL2 0.1792   shedding  21.7 %
+  window 14  t* 112.7-114.2   relL2 0.1964   shedding 100.5 %
+  window 15  t* 114.2-115.7   relL2 0.2133   shedding  12.1 %
+  window 16  t* 115.7-117.2   relL2 0.2212   shedding  91.1 %
+  window 17  t* 117.2-118.8   relL2 0.2295   shedding  11.8 %
+  window 18  t* 118.8-120.3   relL2 0.2389   shedding  69.9 %
+  window 19  t* 120.3-121.8   relL2 0.2503   shedding  22.5 %
+    relative L2       0.1272
+    shedding retained 61.0 %
+### a2_n100 seed 1  Mon Oct 12 20:15:31 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0138   probe v rms: PINN 0.1138 vs LBM 0.1262   shedding retained 90.2 %
+  -> rel L2 0.0251   probe v rms: PINN 0.2065 vs LBM 0.2244   shedding retained 92.0 %
+  -> rel L2 0.0253   probe v rms: PINN 0.0912 vs LBM 0.1224   shedding retained 74.5 %
+  -> rel L2 0.0286   probe v rms: PINN 0.1690 vs LBM 0.2256   shedding retained 74.9 %
+  -> rel L2 0.0339   probe v rms: PINN 0.0649 vs LBM 0.1263   shedding retained 51.4 %
+  -> rel L2 0.0417   probe v rms: PINN 0.1350 vs LBM 0.2250   shedding retained 60.0 %
+  -> rel L2 0.0515   probe v rms: PINN 0.0310 vs LBM 0.1215   shedding retained 25.5 %
+  -> rel L2 0.0595   probe v rms: PINN 0.1396 vs LBM 0.2265   shedding retained 61.6 %
+  -> rel L2 0.0710   probe v rms: PINN 0.0203 vs LBM 0.1266   shedding retained 16.0 %
+  -> rel L2 0.0821   probe v rms: PINN 0.0979 vs LBM 0.2260   shedding retained 43.3 %
+  -> rel L2 0.0931   probe v rms: PINN 0.0512 vs LBM 0.1215   shedding retained 42.1 %
+  -> rel L2 0.1034   probe v rms: PINN 0.1253 vs LBM 0.2266   shedding retained 55.3 %
+  -> rel L2 0.1107   probe v rms: PINN 0.0981 vs LBM 0.1264   shedding retained 77.6 %
+  -> rel L2 0.1169   probe v rms: PINN 0.1726 vs LBM 0.2253   shedding retained 76.6 %
+  -> rel L2 0.1232   probe v rms: PINN 0.0685 vs LBM 0.1214   shedding retained 56.4 %
+  -> rel L2 0.1296   probe v rms: PINN 0.1425 vs LBM 0.2261   shedding retained 63.0 %
+  -> rel L2 0.1335   probe v rms: PINN 0.0739 vs LBM 0.1262   shedding retained 58.6 %
+  -> rel L2 0.1375   probe v rms: PINN 0.1531 vs LBM 0.2253   shedding retained 68.0 %
+  -> rel L2 0.1413   probe v rms: PINN 0.0731 vs LBM 0.1216   shedding retained 60.1 %
+  -> rel L2 0.1448   probe v rms: PINN 0.1446 vs LBM 0.2265   shedding retained 63.8 %
+  window 0  t* 91.5-93.0   relL2 0.0138   shedding  90.2 %
+  window 1  t* 93.0-94.5   relL2 0.0251   shedding  92.0 %
+  window 2  t* 94.5-96.0   relL2 0.0253   shedding  74.5 %
+  window 3  t* 96.0-97.5   relL2 0.0286   shedding  74.9 %
+  window 4  t* 97.5-99.0   relL2 0.0339   shedding  51.4 %
+  window 5  t* 99.0-100.6   relL2 0.0417   shedding  60.0 %
+  window 6  t* 100.6-102.1   relL2 0.0515   shedding  25.5 %
+  window 7  t* 102.1-103.6   relL2 0.0595   shedding  61.6 %
+  window 8  t* 103.6-105.1   relL2 0.0710   shedding  16.0 %
+  window 9  t* 105.1-106.6   relL2 0.0821   shedding  43.3 %
+  window 10  t* 106.6-108.1   relL2 0.0931   shedding  42.1 %
+  window 11  t* 108.1-109.7   relL2 0.1034   shedding  55.3 %
+  window 12  t* 109.7-111.2   relL2 0.1107   shedding  77.6 %
+  window 13  t* 111.2-112.7   relL2 0.1169   shedding  76.6 %
+  window 14  t* 112.7-114.2   relL2 0.1232   shedding  56.4 %
+  window 15  t* 114.2-115.7   relL2 0.1296   shedding  63.0 %
+  window 16  t* 115.7-117.2   relL2 0.1335   shedding  58.6 %
+  window 17  t* 117.2-118.8   relL2 0.1375   shedding  68.0 %
+  window 18  t* 118.8-120.3   relL2 0.1413   shedding  60.1 %
+  window 19  t* 120.3-121.8   relL2 0.1448   shedding  63.8 %
+    relative L2       0.0828
+    shedding retained 68.9 %
+### a1_n100 seed 1  Mon Oct 12 21:33:09 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=100  epochs/window=20000  params=91,363
+  -> rel L2 0.0138   probe v rms: PINN 0.1138 vs LBM 0.1262   shedding retained 90.2 %
+  -> rel L2 0.0192   probe v rms: PINN 0.2352 vs LBM 0.2244   shedding retained 104.8 %
+  -> rel L2 0.0204   probe v rms: PINN 0.1168 vs LBM 0.1224   shedding retained 95.4 %
+  -> rel L2 0.0233   probe v rms: PINN 0.1812 vs LBM 0.2256   shedding retained 80.3 %
+  -> rel L2 0.0247   probe v rms: PINN 0.0717 vs LBM 0.1263   shedding retained 56.8 %
+  -> rel L2 0.0246   probe v rms: PINN 0.1844 vs LBM 0.2250   shedding retained 81.9 %
+  -> rel L2 0.0270   probe v rms: PINN 0.0814 vs LBM 0.1215   shedding retained 67.0 %
+  -> rel L2 0.0295   probe v rms: PINN 0.1785 vs LBM 0.2265   shedding retained 78.8 %
+  -> rel L2 0.0321   probe v rms: PINN 0.0866 vs LBM 0.1266   shedding retained 68.4 %
+  -> rel L2 0.0319   probe v rms: PINN 0.1935 vs LBM 0.2260   shedding retained 85.6 %
+  -> rel L2 0.0325   probe v rms: PINN 0.0778 vs LBM 0.1215   shedding retained 64.0 %
+  -> rel L2 0.0325   probe v rms: PINN 0.2126 vs LBM 0.2266   shedding retained 93.8 %
+  -> rel L2 0.0329   probe v rms: PINN 0.0950 vs LBM 0.1264   shedding retained 75.2 %
+  -> rel L2 0.0320   probe v rms: PINN 0.1766 vs LBM 0.2253   shedding retained 78.4 %
+  -> rel L2 0.0342   probe v rms: PINN 0.0686 vs LBM 0.1214   shedding retained 56.5 %
+  -> rel L2 0.0363   probe v rms: PINN 0.1717 vs LBM 0.2261   shedding retained 75.9 %
+  -> rel L2 0.0368   probe v rms: PINN 0.0782 vs LBM 0.1262   shedding retained 61.9 %
+  -> rel L2 0.0367   probe v rms: PINN 0.1559 vs LBM 0.2253   shedding retained 69.2 %
+  -> rel L2 0.0370   probe v rms: PINN 0.0796 vs LBM 0.1216   shedding retained 65.4 %
+  -> rel L2 0.0370   probe v rms: PINN 0.1632 vs LBM 0.2265   shedding retained 72.1 %
+  window 0  t* 91.5-93.0   relL2 0.0138   shedding  90.2 %
+  window 1  t* 93.0-94.5   relL2 0.0192   shedding 104.8 %
+  window 2  t* 94.5-96.0   relL2 0.0204   shedding  95.4 %
+  window 3  t* 96.0-97.5   relL2 0.0233   shedding  80.3 %
+  window 4  t* 97.5-99.0   relL2 0.0247   shedding  56.8 %
+  window 5  t* 99.0-100.6   relL2 0.0246   shedding  81.9 %
+  window 6  t* 100.6-102.1   relL2 0.0270   shedding  67.0 %
+  window 7  t* 102.1-103.6   relL2 0.0295   shedding  78.8 %
+  window 8  t* 103.6-105.1   relL2 0.0321   shedding  68.4 %
+  window 9  t* 105.1-106.6   relL2 0.0319   shedding  85.6 %
+  window 10  t* 106.6-108.1   relL2 0.0325   shedding  64.0 %
+  window 11  t* 108.1-109.7   relL2 0.0325   shedding  93.8 %
+  window 12  t* 109.7-111.2   relL2 0.0329   shedding  75.2 %
+  window 13  t* 111.2-112.7   relL2 0.0320   shedding  78.4 %
+  window 14  t* 112.7-114.2   relL2 0.0342   shedding  56.5 %
+  window 15  t* 114.2-115.7   relL2 0.0363   shedding  75.9 %
+  window 16  t* 115.7-117.2   relL2 0.0368   shedding  61.9 %
+  window 17  t* 117.2-118.8   relL2 0.0367   shedding  69.2 %
+  window 18  t* 118.8-120.3   relL2 0.0370   shedding  65.4 %
+  window 19  t* 120.3-121.8   relL2 0.0370   shedding  72.1 %
+    relative L2       0.0292
+    shedding retained 80.1 %
+### a4_n500 seed 1  Mon Oct 12 22:50:51 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=500  epochs/window=20000  params=91,363
+  -> rel L2 0.0092   probe v rms: PINN 0.1133 vs LBM 0.1262   shedding retained 89.8 %
+  -> rel L2 0.0181   probe v rms: PINN 0.2094 vs LBM 0.2244   shedding retained 93.3 %
+  -> rel L2 0.0263   probe v rms: PINN 0.1010 vs LBM 0.1224   shedding retained 82.5 %
+  -> rel L2 0.0327   probe v rms: PINN 0.1486 vs LBM 0.2256   shedding retained 65.9 %
+  -> rel L2 0.0258   probe v rms: PINN 0.0506 vs LBM 0.1263   shedding retained 40.1 %
+  -> rel L2 0.0244   probe v rms: PINN 0.1803 vs LBM 0.2250   shedding retained 80.1 %
+  -> rel L2 0.0327   probe v rms: PINN 0.0682 vs LBM 0.1215   shedding retained 56.1 %
+  -> rel L2 0.0402   probe v rms: PINN 0.1333 vs LBM 0.2265   shedding retained 58.9 %
+  -> rel L2 0.0318   probe v rms: PINN 0.0601 vs LBM 0.1266   shedding retained 47.5 %
+  -> rel L2 0.0282   probe v rms: PINN 0.1977 vs LBM 0.2260   shedding retained 87.5 %
+  -> rel L2 0.0337   probe v rms: PINN 0.0794 vs LBM 0.1215   shedding retained 65.4 %
+  -> rel L2 0.0386   probe v rms: PINN 0.1718 vs LBM 0.2266   shedding retained 75.8 %
+  -> rel L2 0.0325   probe v rms: PINN 0.0837 vs LBM 0.1264   shedding retained 66.2 %
+  -> rel L2 0.0286   probe v rms: PINN 0.1767 vs LBM 0.2253   shedding retained 78.4 %
+  -> rel L2 0.0332   probe v rms: PINN 0.0857 vs LBM 0.1214   shedding retained 70.6 %
+  -> rel L2 0.0381   probe v rms: PINN 0.1537 vs LBM 0.2261   shedding retained 68.0 %
+  -> rel L2 0.0312   probe v rms: PINN 0.0789 vs LBM 0.1262   shedding retained 62.5 %
+  -> rel L2 0.0281   probe v rms: PINN 0.2002 vs LBM 0.2253   shedding retained 88.9 %
+  -> rel L2 0.0333   probe v rms: PINN 0.0767 vs LBM 0.1216   shedding retained 63.1 %
+  -> rel L2 0.0392   probe v rms: PINN 0.1659 vs LBM 0.2265   shedding retained 73.3 %
+  window 0  t* 91.5-93.0   relL2 0.0092   shedding  89.8 %
+  window 1  t* 93.0-94.5   relL2 0.0181   shedding  93.3 %
+  window 2  t* 94.5-96.0   relL2 0.0263   shedding  82.5 %
+  window 3  t* 96.0-97.5   relL2 0.0327   shedding  65.9 %
+  window 4  t* 97.5-99.0   relL2 0.0258   shedding  40.1 %
+  window 5  t* 99.0-100.6   relL2 0.0244   shedding  80.1 %
+  window 6  t* 100.6-102.1   relL2 0.0327   shedding  56.1 %
+  window 7  t* 102.1-103.6   relL2 0.0402   shedding  58.9 %
+  window 8  t* 103.6-105.1   relL2 0.0318   shedding  47.5 %
+  window 9  t* 105.1-106.6   relL2 0.0282   shedding  87.5 %
+  window 10  t* 106.6-108.1   relL2 0.0337   shedding  65.4 %
+  window 11  t* 108.1-109.7   relL2 0.0386   shedding  75.8 %
+  window 12  t* 109.7-111.2   relL2 0.0325   shedding  66.2 %
+  window 13  t* 111.2-112.7   relL2 0.0286   shedding  78.4 %
+  window 14  t* 112.7-114.2   relL2 0.0332   shedding  70.6 %
+  window 15  t* 114.2-115.7   relL2 0.0381   shedding  68.0 %
+  window 16  t* 115.7-117.2   relL2 0.0312   shedding  62.5 %
+  window 17  t* 117.2-118.8   relL2 0.0281   shedding  88.9 %
+  window 18  t* 118.8-120.3   relL2 0.0333   shedding  63.1 %
+  window 19  t* 120.3-121.8   relL2 0.0392   shedding  73.3 %
+    relative L2       0.0299
+    shedding retained 78.1 %
+### free seed 1  Tue Oct 13 00:08:41 IST 2026
+Re=100  mode=decomposed fourier_mlp  windows=20 x 1.5167 t*  data=0  epochs/window=20000  params=91,363
+  -> rel L2 0.0198   probe v rms: PINN 0.1127 vs LBM 0.1262   shedding retained 89.3 %
+  -> rel L2 0.0349   probe v rms: PINN 0.2011 vs LBM 0.2244   shedding retained 89.6 %
+  -> rel L2 0.0389   probe v rms: PINN 0.0840 vs LBM 0.1224   shedding retained 68.6 %
+  -> rel L2 0.0463   probe v rms: PINN 0.1409 vs LBM 0.2256   shedding retained 62.4 %
+  -> rel L2 0.0580   probe v rms: PINN 0.0296 vs LBM 0.1263   shedding retained 23.5 %
+  -> rel L2 0.0721   probe v rms: PINN 0.1100 vs LBM 0.2250   shedding retained 48.9 %
+  -> rel L2 0.0895   probe v rms: PINN 0.0439 vs LBM 0.1215   shedding retained 36.1 %
+  -> rel L2 0.1063   probe v rms: PINN 0.0965 vs LBM 0.2265   shedding retained 42.6 %
+  -> rel L2 0.1249   probe v rms: PINN 0.0768 vs LBM 0.1266   shedding retained 60.7 %
+  -> rel L2 0.1423   probe v rms: PINN 0.0777 vs LBM 0.2260   shedding retained 34.4 %
+  -> rel L2 0.1606   probe v rms: PINN 0.1043 vs LBM 0.1215   shedding retained 85.8 %
+  -> rel L2 0.1788   probe v rms: PINN 0.0546 vs LBM 0.2266   shedding retained 24.1 %
+  -> rel L2 0.1957   probe v rms: PINN 0.1194 vs LBM 0.1264   shedding retained 94.5 %
+  -> rel L2 0.2125   probe v rms: PINN 0.0278 vs LBM 0.2253   shedding retained 12.3 %
+  -> rel L2 0.2274   probe v rms: PINN 0.1242 vs LBM 0.1214   shedding retained 102.3 %
+  -> rel L2 0.2428   probe v rms: PINN 0.0403 vs LBM 0.2261   shedding retained 17.8 %
+  -> rel L2 0.2532   probe v rms: PINN 0.1248 vs LBM 0.1262   shedding retained 98.9 %
+  -> rel L2 0.2650   probe v rms: PINN 0.0681 vs LBM 0.2253   shedding retained 30.2 %
+  -> rel L2 0.2729   probe v rms: PINN 0.1179 vs LBM 0.1216   shedding retained 96.9 %
+  -> rel L2 0.2818   probe v rms: PINN 0.0969 vs LBM 0.2265   shedding retained 42.8 %
+  window 0  t* 91.5-93.0   relL2 0.0198   shedding  89.3 %
+  window 1  t* 93.0-94.5   relL2 0.0349   shedding  89.6 %
+  window 2  t* 94.5-96.0   relL2 0.0389   shedding  68.6 %
+  window 3  t* 96.0-97.5   relL2 0.0463   shedding  62.4 %
+  window 4  t* 97.5-99.0   relL2 0.0580   shedding  23.5 %
+  window 5  t* 99.0-100.6   relL2 0.0721   shedding  48.9 %
+  window 6  t* 100.6-102.1   relL2 0.0895   shedding  36.1 %
+  window 7  t* 102.1-103.6   relL2 0.1063   shedding  42.6 %
+  window 8  t* 103.6-105.1   relL2 0.1249   shedding  60.7 %
+  window 9  t* 105.1-106.6   relL2 0.1423   shedding  34.4 %
+  window 10  t* 106.6-108.1   relL2 0.1606   shedding  85.8 %
+  window 11  t* 108.1-109.7   relL2 0.1788   shedding  24.1 %
+  window 12  t* 109.7-111.2   relL2 0.1957   shedding  94.5 %
+  window 13  t* 111.2-112.7   relL2 0.2125   shedding  12.3 %
+  window 14  t* 112.7-114.2   relL2 0.2274   shedding 102.3 %
+  window 15  t* 114.2-115.7   relL2 0.2428   shedding  17.8 %
+  window 16  t* 115.7-117.2   relL2 0.2532   shedding  98.9 %
+  window 17  t* 117.2-118.8   relL2 0.2650   shedding  30.2 %
+  window 18  t* 118.8-120.3   relL2 0.2729   shedding  96.9 %
+  window 19  t* 120.3-121.8   relL2 0.2818   shedding  42.8 %
+    relative L2       0.1507
+    shedding retained 63.2 %
+
+a1_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1644   LBM 0.1648   (-0.2 %)
+  amplitude     80.3 % of LBM
+  phase lag     +0.003 periods (+1.3 deg)
+  phase drift   +0.001 periods between the first and second half of the span
+  lag by period -0.000  +0.001  +0.002  +0.001  +0.001  (periods, wrapped)
+  field rel L2  0.0292
+
+a2_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1594   LBM 0.1648   (-3.3 %)
+  amplitude     69.1 % of LBM
+  phase lag     +0.077 periods (+27.8 deg)
+  phase drift   +0.100 periods between the first and second half of the span
+  lag by period +0.001  +0.020  +0.079  +0.111  +0.100  (periods, wrapped)
+  field rel L2  0.0828
+
+a4_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1497   LBM 0.1648   (-9.1 %)
+  amplitude     61.1 % of LBM
+  phase lag     -0.866 periods (-311.9 deg)
+  phase drift   +0.243 periods between the first and second half of the span
+  lag by period +0.001  +0.049  +0.169  +0.248  +0.318  (periods, wrapped)
+  field rel L2  0.1272
+
+a4_n500   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1656   LBM 0.1648   (+0.5 %)
+  amplitude     78.3 % of LBM
+  phase lag     +0.009 periods (+3.4 deg)
+  phase drift   +0.001 periods between the first and second half of the span
+  lag by period +0.000  +0.003  +0.003  +0.001  +0.003  (periods, wrapped)
+  field rel L2  0.0299
+
+a8_n100   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1488   LBM 0.1648   (-9.7 %)
+  amplitude     63.4 % of LBM
+  phase lag     +0.184 periods (+66.2 deg)
+  phase drift   +0.274 periods between the first and second half of the span
+  lag by period +0.001  +0.047  +0.169  +0.265  +0.328  (periods, wrapped)
+  field rel L2  0.1368
+
+free   t* 91.46 .. 121.80  (5.00 shedding periods)
+  St            PINN 0.1479   LBM 0.1648   (-10.2 %)
+  amplitude     63.3 % of LBM
+  phase lag     -0.849 periods (-305.6 deg)
+  phase drift   +0.281 periods between the first and second half of the span
+  lag by period +0.001  +0.070  +0.198  +0.280  +0.345  (periods, wrapped)
+  field rel L2  0.1507
+
+  caveat: 5.0 periods of signal and 10 zero crossings. St from so short a record
+  carries roughly a percent of uncertainty per crossing -- it is a consistency
+  check, not a validated frequency like the LBM's 12-period value.
+
+results -> runs/v5/reanchor/shedding_accuracy_s1.json
+QUEUE21_DONE Tue Oct 13 01:26:28 IST 2026
