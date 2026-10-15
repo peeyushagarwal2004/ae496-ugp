@@ -1,0 +1,137 @@
+[
+  {
+    "run": "a1_n75",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor_threshold/a1_n75_s1",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.16056786660634925,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -2.5617924925231326,
+    "zero_crossings_pinn": 10,
+    "amplitude_ratio": 0.7441214296753014,
+    "phase_lag_periods": 0.06183210902919114,
+    "phase_drift_periods": 0.06486249821953799,
+    "phase_lag_by_period": [
+      0.0011068060521852718,
+      0.004529287911988367,
+      0.050205025354820076,
+      0.07086429410054729,
+      0.079914672079899
+    ],
+    "phase_end_periods": 0.079914672079899,
+    "gt_data_points": 1500,
+    "rel_l2_saved": 0.06765629701497534,
+    "shedding_saved": 0.741311043469616
+  },
+  {
+    "run": "a2_n125",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor_threshold/a2_n125_s1",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.15546931046763568,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -5.655775003048988,
+    "zero_crossings_pinn": 9,
+    "amplitude_ratio": 0.6775522912635308,
+    "phase_lag_periods": 0.09685653469272283,
+    "phase_drift_periods": 0.15548276942267328,
+    "phase_lag_by_period": [
+      0.0008223590457325791,
+      0.01456985286942647,
+      0.06026680750463553,
+      0.151371710459539,
+      0.18457534161173772
+    ],
+    "phase_end_periods": 0.18457534161173772,
+    "gt_data_points": 1250,
+    "rel_l2_saved": 0.08793995439234399,
+    "shedding_saved": 0.6755426278340471
+  },
+  {
+    "run": "a2_n150",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor_threshold/a2_n150_s1",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.16259432490118814,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -1.3320665952373358,
+    "zero_crossings_pinn": 10,
+    "amplitude_ratio": 0.7200577128972386,
+    "phase_lag_periods": 0.04067302446354379,
+    "phase_drift_periods": 0.04518579332295253,
+    "phase_lag_by_period": [
+      0.0007636890918730765,
+      0.003166682035618984,
+      0.024643910152693183,
+      0.028161709979280247,
+      0.04202212604134958
+    ],
+    "phase_end_periods": 0.04202212604134958,
+    "gt_data_points": 1500,
+    "rel_l2_saved": 0.059352355421255304,
+    "shedding_saved": 0.7174235056181778
+  },
+  {
+    "run": "a2_n175",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor_threshold/a2_n175_s1",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.16367580274677726,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -0.6757879452158054,
+    "zero_crossings_pinn": 10,
+    "amplitude_ratio": 0.7732297948540439,
+    "phase_lag_periods": 0.0033230399202573285,
+    "phase_drift_periods": 0.0023888324644621385,
+    "phase_lag_by_period": [
+      0.000928127906510201,
+      -0.0003301201023931388,
+      0.000481929514230206,
+      0.0017038583489219494,
+      0.0022777793587218653
+    ],
+    "phase_end_periods": 0.0022777793587218653,
+    "gt_data_points": 1750,
+    "rel_l2_saved": 0.03056829218271188,
+    "shedding_saved": 0.7708227844643456
+  },
+  {
+    "run": "a4_n300",
+    "dir": "/data/rajeshr/peeyush/AE496_UGP/runs/v5/reanchor_threshold/a4_n300_s1",
+    "t_span": [
+      91.4625,
+      121.79650000000001
+    ],
+    "periods_covered": 4.998722565029997,
+    "St_pinn": 0.15968100058350507,
+    "St_lbm": 0.16478942984868453,
+    "St_error_pct": -3.0999738696045003,
+    "zero_crossings_pinn": 10,
+    "amplitude_ratio": 0.6498652716952573,
+    "phase_lag_periods": 0.06198619738894769,
+    "phase_drift_periods": 0.08659736609686182,
+    "phase_lag_by_period": [
+      0.0007455960306255172,
+      0.0039581012122300585,
+      0.03775258989466268,
+      0.08384729652911282,
+      0.1066322216000275
+    ],
+    "phase_end_periods": 0.1066322216000275,
+    "gt_data_points": 1500,
+    "rel_l2_saved": 0.06814420464361254,
+    "shedding_saved": 0.6477484784651883
+  }
+]
