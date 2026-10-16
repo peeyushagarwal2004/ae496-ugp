@@ -1,0 +1,99 @@
+{
+  "args": {
+    "tag": "re100_v5",
+    "net": "mlp",
+    "width": 128,
+    "depth": 6,
+    "n_fourier": 32,
+    "sigma": 2.0,
+    "d_model": 32,
+    "d_hidden": 512,
+    "heads": 2,
+    "seq_k": 5,
+    "seq_dt": 0.0001,
+    "decompose": false,
+    "epochs": 20000,
+    "lr": 0.001,
+    "windows": 1,
+    "window_len": 6.0,
+    "t_start": 91.4625,
+    "n_interior": 8000,
+    "n_wake": 4000,
+    "n_bc": 400,
+    "n_ic": 4000,
+    "ic_from_network": false,
+    "n_data": 0,
+    "anchor_every": 1,
+    "w_pde": 1.0,
+    "w_bc": 10.0,
+    "w_ic": 10.0,
+    "w_data": 10.0,
+    "resample_every": 1000,
+    "log_every": 10000,
+    "seed": 2,
+    "f64": false,
+    "smoke": false,
+    "out": "runs/v5/phase_core/baseline_k0_s2",
+    "save_params": false
+  },
+  "overall": {
+    "t0": 91.4625,
+    "t1": 97.4625,
+    "rel_l2_mean": 0.16972074228986322,
+    "rel_l2_max": 0.2781021511844136,
+    "probe_v_rms_pinn": 0.18439285589474796,
+    "probe_v_rms_lbm": 0.4026983678340912,
+    "shedding_ratio": 0.4578932288365184,
+    "gt_ic_slices": 1,
+    "gt_ic_points": 4000,
+    "gt_data_points": 0,
+    "ic_from_network": false,
+    "n_params": 83459,
+    "train_seconds": 176.21745419502258
+  },
+  "results": [
+    {
+      "window": 0,
+      "ic_source": "dataset",
+      "supervised": false,
+      "t0": 91.4625,
+      "t1": 97.4625,
+      "rel_l2_mean": 0.16787041922594498,
+      "rel_l2_max": 0.2781021511844136,
+      "probe_v_rms_pinn": 0.18439285589474796,
+      "probe_v_rms_lbm": 0.4026983678340912,
+      "shedding_ratio": 0.4578932288365184
+    }
+  ],
+  "history": [
+    [
+      {
+        "epoch": 0,
+        "loss": 21.41659164428711,
+        "pde": 0.003383665345609188,
+        "bc": 1.6961582899093628,
+        "ic": 0.44516268372535706,
+        "data": 0.0,
+        "seconds": 6.750338315963745
+      },
+      {
+        "epoch": 10000,
+        "loss": 0.0055220117792487144,
+        "pde": 0.0021479788701981306,
+        "bc": 0.00015517430438194424,
+        "ic": 0.00018222899234388024,
+        "data": 0.0,
+        "seconds": 91.30122637748718
+      },
+      {
+        "epoch": 19999,
+        "loss": 0.0018994646379724145,
+        "pde": 0.0012229870771989226,
+        "bc": 1.2536429494502954e-05,
+        "ic": 5.511132985702716e-05,
+        "data": 0.0,
+        "seconds": 176.21745419502258
+      }
+    ]
+  ]
+}
