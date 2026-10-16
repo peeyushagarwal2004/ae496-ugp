@@ -51,15 +51,18 @@ ground truth, validated at $\Rey = 100$ against Qu et al.\ ($\St$ within
 $0.04\%$, $\Cd$ $3.5\%$ high), and measures what defeats it. Two confounds that
 inflated the project's own earlier results are controlled: how many slices of
 ground truth a run sees, and the phase of the shedding cycle at which it
-starts. With one slice and four start phases averaged, a plain PINN keeps
-30.1\% of the reference wake amplitude. Causal time-marching raises that to
-56.7\%, although at equal training budget it adds only 9.3 points, less than
-the 17.3 that training longer adds on its own. Only with Fourier features and a
-Reynolds decomposition as well does the result stop depending on the start
-phase: 75.1\% retained, at a velocity-field error of 0.031. Over five chained
-periods that configuration sheds 10.4\% slow and ends about half a cycle out of
-phase: data-free marching sustains a wake, but does not forecast one. A few
-hundred supervised points per window close most of the remaining gap.
+starts. With one slice and four start phases averaged over five seeds, a plain
+PINN keeps 31.1\% of the reference wake amplitude. Causal time-marching raises
+that to 56.4\%, although at equal training budget it adds only 7.7 points, less
+than the 17.5 that training longer adds on its own. Only with Fourier features
+and a Reynolds decomposition as well does the result stop depending on the
+start phase: 72.9\% retained, at a velocity-field error of 0.031. Over five
+chained periods that configuration sheds 10.4\% slow and ends about half a
+cycle out of phase: data-free marching sustains a wake, but does not forecast
+one. Re-anchoring it with 350 supervised points per shedding period, about 2\%
+of the reference data that per-window snapshots use, holds the phase over all
+five. A few hundred supervised points per window close most of the remaining
+gap in amplitude.
 Across $\Rey = 60$--$180$ the three mechanisms keep 63--79\% of the wake
 against 24--45\% for the plain network. A recurrent sequence PINN is no
 substitute for marching: it keeps less of the wake than the plain network,
@@ -121,7 +124,8 @@ supervision is necessary to sustain shedding at all. Neither tests hard
 time-window marching. The answer found here sits between: a data-free marched
 chain does sustain a wake, at three-quarters of its amplitude, but only with
 all three mechanisms together, and over five periods it drifts about half a
-cycle out of phase with the reference.
+cycle out of phase with the reference. Holding the phase does take data, but
+little: 350 supervised points per shedding period.
 
 A second thread connects the work to its reference paper. Renn et
 al.\,\cite{renn2023} forecast subcritical cylinder wakes with a Fourier Neural
@@ -358,18 +362,18 @@ the wake amplitude matches.
 \begin{table}[h]
 \centering
 \caption{The plain PINN, by the phase of the shedding cycle at which it is
-started. Quarter-period steps, two seeds each, seed means.}
+started. Quarter-period steps, five seeds each, seed means.}
 \begin{tabular}{lccccc}
 \toprule
 start phase & 0 & $\tfrac14$ & $\tfrac12$ & $\tfrac34$ & mean \\
 \midrule
-shedding retained & 41.1\% & 19.3\% & 42.5\% & 17.5\% & \textbf{30.1\%} \\
+shedding retained & 43.2\% & 20.3\% & 42.1\% & 19.0\% & \textbf{31.1\%} \\
 \bottomrule
 \end{tabular}
 \label{tab:baseline_phase}
 \end{table}
 
-The plain PINN keeps between 17\% and 42\% of the reference amplitude,
+The plain PINN keeps between 19\% and 43\% of the reference amplitude,
 with a field error of 0.17: it does not reproduce the wake, though
 within one period it does not collapse fully onto the steady solution either.
 Which of those it looks like depends on \emph{when it starts}. Retention
@@ -387,10 +391,10 @@ either averaged over the four phases or labelled with its phase.
 
 \paragraph{Is it under-trained?} Trained for $80\,000$ epochs instead of
 $20\,000$ --- the budget a four-window marched run spends in
-Section~\ref{sec:ablation} --- the same network keeps 47.4\% on average, at a
-field error of 0.116. Training longer helps, by 17.3 points phase-averaged, but
-the half-cycle swing survives it: 61.6\% and 59.8\% at phases 0 and
-$\tfrac12$, 33.9\% and 34.4\% at the other two.
+Section~\ref{sec:ablation} --- the same network keeps 48.6\% on average, at a
+field error of 0.115. Training longer helps, by 17.5 points phase-averaged, but
+the half-cycle swing survives it: 62.6\% and 61.2\% at phases 0 and
+$\tfrac12$, 34.3\% and 36.5\% at the other two.
 
 \section{Defeating the collapse}
 \label{sec:ablation}
@@ -459,14 +463,14 @@ configuration & shedding retained & relative $L_2$ \\
 \begin{table}[h]
 \centering
 \caption{The three configurations the conclusion rests on, at all four start
-phases (two seeds each). \texttt{all} uses $\sigma = 8$.}
+phases (five seeds each). \texttt{all} uses $\sigma = 8$.}
 \begin{tabular}{lcccccc}
 \toprule
 configuration & 0 & $\tfrac14$ & $\tfrac12$ & $\tfrac34$ & mean & relative $L_2$ \\
 \midrule
-\texttt{baseline} & 41.1\% & 19.3\% & 42.5\% & 17.5\% & 30.1\% & 0.171 \\
-\texttt{march}    & 72.2\% & 42.1\% & 72.4\% & 40.1\% & 56.7\% & 0.158 \\
-\texttt{all}      & 76.4\% & 72.9\% & 77.8\% & 73.2\% & \textbf{75.1\%} & \textbf{0.031} \\
+\texttt{baseline} & 43.2\% & 20.3\% & 42.1\% & 19.0\% & 31.1\% & 0.166 \\
+\texttt{march}    & 70.6\% & 40.4\% & 73.8\% & 40.7\% & 56.4\% & 0.156 \\
+\texttt{all}      & 74.9\% & 70.2\% & 76.6\% & 70.0\% & \textbf{72.9\%} & \textbf{0.031} \\
 \bottomrule
 \end{tabular}
 \label{tab:phase_core}
@@ -489,9 +493,12 @@ halves the field error. Causal
 time-marching roughly doubles the retained wake --- at every start phase, not
 only on average, though with four times the training (see \emph{Equal compute}
 below) --- but on its own it inherits the plain PINN's half-cycle
-swing, between 40\% and 72\%. Only with all three mechanisms does the result
-stop depending on when the run starts: 73--78\% at every phase, at a field
-error of 0.031, a fifth of either of the others. The mechanisms are
+swing, between 40\% and 74\%. Only with all three mechanisms does the result
+stop depending on when the run starts: 70--77\% at every phase, at a field
+error of 0.031, a fifth of either of the others. Over the five seeds the phase
+means carry 95\% intervals of $\pm 1.5$, $\pm 0.9$ and $\pm 4.6$ points for
+\texttt{baseline}, \texttt{march} and \texttt{all}: \texttt{all} varies most
+from seed to seed, but nowhere near enough to close either gap. The mechanisms are
 complementary rather than one of them being sufficient, which is the reverse of
 what an earlier version of this report concluded and agrees with the
 interaction effects Shah\,\cite{shah2026} reports.
@@ -510,28 +517,34 @@ single-window run given $80\,000$ epochs, at every start phase and seed.
 \begin{table}[h]
 \centering
 \caption{Marching against single-window runs of equal training budget
-($80\,000$ epochs), averaged over four start phases and two seeds. Gains are
+($80\,000$ epochs), averaged over four start phases and five seeds. Gains are
 paired by phase and seed.}
+\small
 \begin{tabular}{lcccc}
 \toprule
 comparison & retained & retained & gain (points) & paired range \\
 \midrule
-\texttt{march} vs \texttt{baseline}, $80\,000$ & 56.7\% & 47.4\% & $+9.3$ & $+3.7$ to $+13.8$ \\
-\texttt{all} vs Fourier + decomposition, $80\,000$ & 75.1\% & 46.6\% & $+28.4$ & $+20.0$ to $+37.2$ \\
+\texttt{march} vs \texttt{baseline}, $80\,000$ & 56.4\% & 48.6\% & $+7.7$ & $-2.2$ to $+15.8$ \\
+\texttt{all} vs Fourier + decomposition, $80\,000$ & 72.9\% & 38.7\% & $+34.1$ & $+20.0$ to $+55.2$ \\
 \bottomrule
 \end{tabular}
 \label{tab:budget}
 \end{table}
 
-Marching still wins in every pairing, but on its own it wins by less than the
-first table suggests: of its gain over the plain PINN, training longer accounts
-for more than causality does --- 17.3 points against 9.3. With Fourier features
-and the decomposition in place the picture changes. Those two mechanisms on one
-window keep 46.6\% at $80\,000$ epochs, no better than the plain PINN given the
-same budget, and they still swing with start phase; adding the marching chain
-lifts them by 28.4 points and removes the swing. Causality is worth three times
-as much in the combination as alone, which is what ``complementary'' means
-here.
+On its own, marching wins 19 of the 20 pairings and loses one by 2.2 points,
+and it wins by less than the first table suggests: of its gain over the plain
+PINN, training longer accounts for more than causality does --- 17.5 points
+against 7.7. With Fourier features and the decomposition in place the picture
+changes. Those two mechanisms on one window keep 38.7\% at $80\,000$ epochs,
+less than the plain PINN given the same budget, and they still swing with start
+phase; adding the marching chain lifts them by 34.1 points, in all 20
+pairings, and removes the swing. Causality is worth more than four times as
+much in the combination as alone, which is what ``complementary'' means here.
+Over the five seeds the three paired gains carry 95\% intervals of
+$\pm 0.7$ points (training longer), $\pm 1.9$ (causality alone) and $\pm 9.0$
+(causality in the combination). The last is wide because its one-window
+control varies more between seeds than any other configuration, at
+$38.7 \pm 9.5\%$.
 
 \subsection{Hyperparameters}
 
@@ -648,6 +661,57 @@ initial-condition loss. Roy and Castonguay\,\cite{roy2024} enforce it exactly
 through a solution ansatz; applying that here is listed in
 Section~\ref{sec:ongoing}.
 
+\paragraph{How little data holds the phase.} The earlier run held the phase
+with a fresh snapshot at every window: $20 \times 4\,000 = 80\,000$ reference
+points. Table~\ref{tab:reanchor} asks how few will do. The five-period run is
+repeated with $N$ supervised $(u, v)$ samples, drawn across the window's own
+time span, given to every $K$-th window (windows $0, K, 2K, \ldots$) and to no
+other. Initial conditions stay chained throughout, so after the first slice the
+anchor points are the only ground truth a run sees. The phase is scored as the
+cross-correlation lag within the last reference period, which is unambiguous
+while the drift per period stays under half a cycle; for the data-free run it
+reads 0.37 of a period, a little below the end-point estimate of
+Table~\ref{tab:accuracy} because it averages over the final period.
+
+\begin{table}[h]
+\centering
+\caption{Sparse re-anchoring of the five-period run (\texttt{all}, $\sigma = 8$,
+20 chained quarter-period windows). $N$ supervised points go to every $K$-th
+window. Two seeds per row, each listed; the lag is in shedding periods, over
+the last period, positive behind the reference.}
+\label{tab:reanchor}
+\begin{tabular}{rrrrcc}
+\toprule
+$N$ & $K$ & points per period & total points & $\St$ error (\%) & lag at the end \\
+\midrule
+---    & --- & 0 & 0 & $-10.4$, $-10.2$ & 0.369, 0.345 \\
+100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\
+100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\
+100    & 2   & 200 & 1\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\
+125    & 2   & 250 & 1\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\
+150    & 2   & 300 & 1\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\
+75     & 1   & 300 & 1\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\
+300    & 4   & 300 & 1\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\
+175    & 2   & 350 & 1\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\
+100    & 1   & 400 & 2\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\
+500    & 4   & 500 & 2\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Up to 300 points per period the anchors slow the drift but do not stop it:
+200 per period still leaves the run 3--5\% slow and a tenth of a period behind.
+At 350 per period and above, both seeds hold the phase to within 0.003 of a
+period over all five periods and $\St$ to within 0.7\%, on as few as 1\,750
+points --- about 2\% of what the per-window snapshots used. The threshold
+therefore lies between 300 and 350 points per period. Near it the schedule
+matters a little: at 300 per period, one anchor per period is the worst of the
+three schedules on both seeds, while one in every window and one every half
+period overlap within the seed spread. Amplitude rises with the supervision
+too, from 63--64\% data-free to 74--87\% where the phase locks.
+\emph{Data-free marching sustains the wake; a few hundred supervised points
+per period keep it in phase.}
+
 \FloatBarrier
 
 \section{Does it hold across Reynolds number?}
@@ -708,7 +772,7 @@ Section~\ref{sec:collapse} showed that the plain network's retention swings by
 a factor of two with start phase, so the \texttt{baseline} column's variation
 --- 24--28\% at $\Rey = 120$ and 180, 40--45\% at $\Rey = 80$ --- should not
 be given a physical reading. \texttt{all} is insensitive to start phase at
-$\Rey = 100$ (between 73\% and 78\% at each phase), which is why one phase is
+$\Rey = 100$ (between 70\% and 77\% at each phase), which is why one phase is
 taken to represent it here; that insensitivity was not re-measured at the
 other Reynolds numbers.
 
@@ -735,7 +799,9 @@ ordinary function $(x, y, t) \to (u, v, p)$, which runs through the unsteady
 operator, the marching and the scoring unchanged. The protocol is the one
 behind the phase-averaged table of Section~\ref{sec:ablation}: $\Rey = 100$,
 $20\,000$ epochs per window, one slice of ground truth, four start phases and
-two seeds, single-window and marched over four windows.
+two seeds, single-window and marched over four windows. The MLP rows are its
+seeds 0 and 1, the two the sequence networks were run with, so they differ
+slightly from the five-seed means of Section~\ref{sec:ablation}.
 
 \begin{table}[h]
 \centering
@@ -969,15 +1035,15 @@ supported is that the reproduction works.
 \begin{enumerate}
   \item The documented failure reproduces on validated ground truth, and how
         badly depends on when the run starts: a data-free PINN keeps between
-        17\% and 42\% of the wake depending on the start phase, 30.1\% on
-        average. Four times the training raises that to 47.4\% and leaves the
+        19\% and 43\% of the wake depending on the start phase, 31.1\% on
+        average. Four times the training raises that to 48.6\% and leaves the
         dependence on phase in place.
   \item \textbf{The three mechanisms are complementary.} Causal time-marching
-        on its own reaches 56.7\%, but beats an equal-budget single window by
-        only 9.3 points. Fourier features and the Reynolds decomposition on
-        their own do not help. All three together keep 75.1\% at every start
-        phase, at a field error of 0.031, and there marching is worth 28.4
-        points at equal budget.
+        on its own reaches 56.4\%, but beats an equal-budget single window by
+        only 7.7 points. Fourier features and the Reynolds decomposition on
+        their own do not help. All three together keep 72.9\% (five seeds,
+        $\pm 4.6$ points) at every start phase, at a field error of 0.031, and
+        there marching is worth 34.1 points at equal budget.
   \item \textbf{Two confounds inflate marching results}, and both affected this
         project's earlier report: giving each window a fresh reference
         snapshot (about twenty points here), and scoring every configuration at
@@ -985,6 +1051,8 @@ supported is that the reproduction works.
   \item The best data-free configuration matches the phase of the reference to
         $0.1^\circ$ over one period, but over five it sheds 10.4\% slow and ends
         about half a cycle behind. It sustains a wake; it does not forecast one.
+        Re-anchored with 350 supervised points per period it holds the phase
+        over all five, at about 2\% of the data per-window snapshots use.
   \item Supervision is needed in small quantity: 100 points per window take
         retention to 87.4\% and 500 to 96.9\%, and further data buys accuracy.
   \item The ground truth needed two corrections, both of which would affect
@@ -1015,21 +1083,23 @@ supported is that the reproduction works.
   \item \textbf{No data-free configuration forecasts.} The best one holds
         three-quarters of the wake amplitude over a period and sheds, but over
         five periods it runs 10\% slow and ends half a cycle out of phase
-        (Section~\ref{sec:accuracy}). Whether a sparse, periodic
-        re-anchoring --- a few supervised points every few windows --- holds
-        the phase at a small fraction of the data that full supervision uses is
-        the most direct next experiment.
+        (Section~\ref{sec:accuracy}). Sparse re-anchoring with 350 supervised
+        points per period holds the phase; whether that threshold moves with
+        the horizon, the Reynolds number or the network is untested, and each
+        re-anchoring schedule was run with two seeds.
   \item \textbf{Soft window continuity.} The marching chain enforces continuity
         between windows only through the initial-condition loss, which is what
         produces the small handoff kinks in Figure~\ref{fig:fields}. Roy and
         Castonguay\,\cite{roy2024} enforce it exactly through a solution
         ansatz, on one-dimensional problems; applying it here would remove one
         source of the accumulated error.
-  \item \textbf{Two seeds per configuration and phase.} The seed spread is
-        small beside the effects reported --- \texttt{march} gives 69.7\% and
-        74.6\% on its two seeds at phase 0, against a swing from 40\% to 72\%
-        across start phases --- but three to five seeds would put a proper
-        interval on each mean.
+  \item \textbf{Five seeds for the headline, two elsewhere.} The
+        phase-averaged comparison and its equal-budget controls
+        (Sections~\ref{sec:collapse} and~\ref{sec:ablation}) have five seeds
+        per start phase, with 95\% intervals of $\pm 0.9$ to $\pm 1.5$ points
+        on the plain and marched networks and $\pm 4.6$ on \texttt{all}. The
+        phase-0 ablation, the supervision and Reynolds sweeps, the architecture
+        study and the re-anchoring runs are two seeds each.
   \item \textbf{The equal-budget control has one budget.} Single-window runs
         were given the marched runs' $80\,000$ epochs. Whether either kind keeps
         improving beyond that, and whether marching still wins at a matched
