@@ -1,0 +1,99 @@
+{
+  "args": {
+    "tag": "re100_v5",
+    "net": "mlp",
+    "width": 128,
+    "depth": 6,
+    "n_fourier": 32,
+    "sigma": 2.0,
+    "d_model": 32,
+    "d_hidden": 512,
+    "heads": 2,
+    "seq_k": 5,
+    "seq_dt": 0.0001,
+    "decompose": false,
+    "epochs": 20000,
+    "lr": 0.001,
+    "windows": 1,
+    "window_len": 6.0,
+    "t_start": 94.4959,
+    "n_interior": 8000,
+    "n_wake": 4000,
+    "n_bc": 400,
+    "n_ic": 4000,
+    "ic_from_network": false,
+    "n_data": 0,
+    "anchor_every": 1,
+    "w_pde": 1.0,
+    "w_bc": 10.0,
+    "w_ic": 10.0,
+    "w_data": 10.0,
+    "resample_every": 1000,
+    "log_every": 10000,
+    "seed": 3,
+    "f64": false,
+    "smoke": false,
+    "out": "runs/v5/phase_core/baseline_k2_s3",
+    "save_params": false
+  },
+  "overall": {
+    "t0": 94.4959,
+    "t1": 100.4959,
+    "rel_l2_mean": 0.1581704258632655,
+    "rel_l2_max": 0.2668868178883378,
+    "probe_v_rms_pinn": 0.15332315551504785,
+    "probe_v_rms_lbm": 0.396338552236557,
+    "shedding_ratio": 0.38684895690777016,
+    "gt_ic_slices": 1,
+    "gt_ic_points": 4000,
+    "gt_data_points": 0,
+    "ic_from_network": false,
+    "n_params": 83459,
+    "train_seconds": 176.68551015853882
+  },
+  "results": [
+    {
+      "window": 0,
+      "ic_source": "dataset",
+      "supervised": false,
+      "t0": 94.4959,
+      "t1": 100.4959,
+      "rel_l2_mean": 0.15706533659191152,
+      "rel_l2_max": 0.2668868178883378,
+      "probe_v_rms_pinn": 0.15332315551504785,
+      "probe_v_rms_lbm": 0.396338552236557,
+      "shedding_ratio": 0.38684895690777016
+    }
+  ],
+  "history": [
+    [
+      {
+        "epoch": 0,
+        "loss": 22.84479331970215,
+        "pde": 0.002597931306809187,
+        "bc": 1.6380858421325684,
+        "ic": 0.6461336016654968,
+        "data": 0.0,
+        "seconds": 6.946970701217651
+      },
+      {
+        "epoch": 10000,
+        "loss": 0.004685067571699619,
+        "pde": 0.0017560238484293222,
+        "bc": 9.864658204605803e-05,
+        "ic": 0.00019425778009463102,
+        "data": 0.0,
+        "seconds": 91.78859305381775
+      },
+      {
+        "epoch": 19999,
+        "loss": 0.0017965491861104965,
+        "pde": 0.0010546027915552258,
+        "bc": 1.8215039744973183e-05,
+        "ic": 5.597959898295812e-05,
+        "data": 0.0,
+        "seconds": 176.68551015853882
+      }
+    ]
+  ]
+}
