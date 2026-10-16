@@ -162,6 +162,7 @@ def main():
                             for s in seeds
                             if all((x, k, s) in table for x in (a, b) for k in range(4))]
                 paired[name]["over_seeds_pts"] = seed_interval(per_seed)
+                paired[name]["n_positive"] = sum(x > 0 for x in d)
             print(f"{name:58s} n={len(d)}  mean {100 * statistics.mean(d):+5.1f} pts"
                   f"  range {100 * min(d):+5.1f} .. {100 * max(d):+5.1f}")
             iv = paired[name].get("over_seeds_pts")

@@ -469,6 +469,16 @@ at 1000–4000 epochs (`runs/ablation_cpu`) gave `march` 3.7 % and `all` 35 %,
 which reads as "only the combined mechanisms work". That conclusion was an
 artefact of under-training. Do not quote the CPU numbers as the result.
 
+**Later runs [MEASURED] — see report §4–6.** Everything above is on `re100_v4`,
+with a fresh reference snapshot at every marched window and one start phase,
+and its headline did not survive either control. On `re100_v5`, with one
+ground-truth slice per run and four start phases x five seeds
+(`runs/v5/phase_average_5seed.json`): plain PINN 31.1 %, `march` 56.4 %, `all`
+(sigma 8) 72.9 % (95 % interval +/- 4.6). At equal budget marching alone adds
+7.7 points and training longer 17.5. Over five chained periods data-free `all`
+ends about half a cycle behind; re-anchoring it with 350 supervised points per
+period holds the phase (`runs/v5/reanchor`, `runs/v5/reanchor_threshold`).
+
 ---
 
 ### Phase 5 — The FNO comparison (done; current account in report §9)

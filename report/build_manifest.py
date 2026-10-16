@@ -243,22 +243,27 @@ def section3():
 # Sections 4-5 -- the collapse and the ablation (re100_v5, chained ICs)
 # ---------------------------------------------------------------------------
 
-PA = "runs/v5/phase_average.json"
+# Five seeds per phase (queue17/18 seeds 0-1, queue23 seeds 2-4):
+#     python experiments/phase_average.py --seeds 5
+# The two-seed file is kept for Section 8, whose sequence networks have two
+# seeds and are compared against the MLP's seeds 0-1.
+PA = "runs/v5/phase_average_5seed.json"
+PA2 = "runs/v5/phase_average.json"
 PH = "runs/v5/phase/summary.json"
 
 
 def section4():
-    row = ("shedding retained & 41.1" + PCT + " & 19.3" + PCT + " & 42.5" + PCT
-           + " & 17.5" + PCT + " & " + BS + "textbf{30.1" + PCT + "}")
-    for k, v in enumerate((41.1, 19.3, 42.5, 17.5)):
+    row = ("shedding retained & 43.2" + PCT + " & 20.3" + PCT + " & 42.1" + PCT
+           + " & 19.0" + PCT + " & " + BS + "textbf{31.1" + PCT + "}")
+    for k, v in enumerate((43.2, 20.3, 42.1, 19.0)):
         E(f"collapse.phase{k}", row, v, 0.05,
           path(PA, f"summary.baseline.shedding_by_phase.{k}"), unit="pct")
-    E("collapse.mean", row, 30.1, 0.05, path(PA, "summary.baseline.shedding_mean"),
+    E("collapse.mean", row, 31.1, 0.05, path(PA, "summary.baseline.shedding_mean"),
       unit="pct")
-    E("collapse.range_lo", "keeps between 17" + PCT + " and 42" + PCT, 17.0, 0.5,
+    E("collapse.range_lo", "keeps between 19" + PCT + " and 43" + PCT, 19.0, 0.5,
       path(PA, "summary.baseline.shedding_phase_mean_min"), unit="pct",
-      note="Range of the four phase means, 17.49 to 42.49 %.")
-    E("collapse.range_hi", "keeps between 17" + PCT + " and 42" + PCT, 42.0, 0.5,
+      note="Range of the four phase means, 19.04 to 43.15 %.")
+    E("collapse.range_hi", "keeps between 19" + PCT + " and 43" + PCT, 43.0, 0.5,
       path(PA, "summary.baseline.shedding_phase_mean_max"), unit="pct")
     E("collapse.l2", "with a field error of 0.17:", 0.17, 0.005,
       path(PA, "summary.baseline.rel_l2_mean"))
@@ -270,16 +275,16 @@ def section4():
       path(PH, "re100_v4.runs.3.shedding"), unit="pct")
     # equal-budget control: the plain PINN at 80 000 epochs
     b80 = "summary.baseline80k."
-    E("ctrl.b80.mean", "the same network keeps 47.4" + PCT + " on average", 47.4,
+    E("ctrl.b80.mean", "the same network keeps 48.6" + PCT + " on average", 48.6,
       0.05, path(PA, b80 + "shedding_mean"), unit="pct")
-    E("ctrl.b80.l2", "field error of 0.116.", 0.116, 0.0005,
+    E("ctrl.b80.l2", "field error of 0.115.", 0.115, 0.0005,
       path(PA, b80 + "rel_l2_mean"))
-    E("ctrl.compute_gain", "by 17.3 points phase-averaged", 17.3, 0.05,
+    E("ctrl.compute_gain", "by 17.5 points phase-averaged", 17.5, 0.05,
       path(PA, "paired.compute (baseline80k vs baseline).mean_pts"))
-    for k, v, lit in ((0, 61.6, "the half-cycle swing survives it: 61.6" + PCT),
-                      (2, 59.8, "and 59.8" + PCT + " at phases 0 and"),
-                      (1, 33.9, "33.9" + PCT + " and 34.4" + PCT + " at the other two"),
-                      (3, 34.4, "33.9" + PCT + " and 34.4" + PCT + " at the other two")):
+    for k, v, lit in ((0, 62.6, "the half-cycle swing survives it: 62.6" + PCT),
+                      (2, 61.2, "and 61.2" + PCT + " at phases 0 and"),
+                      (1, 34.3, "34.3" + PCT + " and 36.5" + PCT + " at the other two"),
+                      (3, 36.5, "34.3" + PCT + " and 36.5" + PCT + " at the other two")):
         E(f"ctrl.b80.phase{k}", lit, v, 0.05,
           path(PA, b80 + f"shedding_by_phase.{k}"), unit="pct")
     E("collapse.old_claim", "``10.6" + PCT + " of the wake''", 10.6, 0.05,
@@ -306,9 +311,9 @@ def section5():
       0.0005, lst(AB, "rel_l2", config="all+data"))
 
     # the phase-averaged core table
-    core = {"baseline": (("41.1", "19.3", "42.5", "17.5"), "30.1", "0.171", False),
-            "march": (("72.2", "42.1", "72.4", "40.1"), "56.7", "0.158", False),
-            "all": (("76.4", "72.9", "77.8", "73.2"), "75.1", "0.031", True)}
+    core = {"baseline": (("43.2", "20.3", "42.1", "19.0"), "31.1", "0.166", False),
+            "march": (("70.6", "40.4", "73.8", "40.7"), "56.4", "0.156", False),
+            "all": (("74.9", "70.2", "76.6", "70.0"), "72.9", "0.031", True)}
     for cfg, (phases, mean, l2, bold) in core.items():
         if bold:
             tail = (" & " + BS + "textbf{" + mean + PCT + "} & " + BS + "textbf{"
@@ -331,16 +336,24 @@ def section5():
       36.0, 0.5, lst(AB, "shedding", config="decompose"), unit="pct")
     E("abl.text.baseline", "(37" + PCT + " and 36" + PCT + " against 41" + PCT,
       41.0, 0.5, lst(AB, "shedding", config="baseline"), unit="pct")
-    E("abl.text.march_lo", "swing, between 40" + PCT + " and 72" + PCT, 40.0, 0.5,
+    E("abl.text.march_lo", "swing, between 40" + PCT + " and 74" + PCT, 40.0, 0.5,
       path(PA, "summary.march.shedding_phase_mean_min"), unit="pct")
-    E("abl.text.march_hi", "swing, between 40" + PCT + " and 72" + PCT, 72.0, 0.5,
+    E("abl.text.march_hi", "swing, between 40" + PCT + " and 74" + PCT, 74.0, 0.5,
       path(PA, "summary.march.shedding_phase_mean_max"), unit="pct")
-    E("abl.text.all_lo", "73--78" + PCT + " at every phase", 73.0, 0.5,
+    E("abl.text.all_lo", "70--77" + PCT + " at every phase", 70.0, 0.5,
       path(PA, "summary.all.shedding_phase_mean_min"), unit="pct")
-    E("abl.text.all_hi", "73--78" + PCT + " at every phase", 78.0, 0.5,
+    E("abl.text.all_hi", "70--77" + PCT + " at every phase", 77.0, 0.5,
       path(PA, "summary.all.shedding_phase_mean_max"), unit="pct")
     E("abl.text.all_l2", "at a field\nerror of 0.031", 0.031, 0.0005,
       path(PA, "summary.all.rel_l2_mean"))
+    E("abl.text.n_seeds", "Over the five seeds the phase\nmeans", 5, 0.5,
+      path(PA, "summary.all.shedding_over_seeds.n_seeds"))
+    ci = "intervals of $" + BS + "pm 1.5$, $" + BS + "pm 0.9$ and $" + BS + "pm 4.6$ points for"
+    for cfg, v in (("baseline", 1.5), ("march", 0.9), ("all", 4.6)):
+        E(f"abl.text.ci.{cfg}", ci, v, 0.05,
+          path(PA, f"summary.{cfg}.shedding_over_seeds.ci95_half"), unit="pct",
+          note="Half-width of the 95 % Student-t interval over the five per-seed "
+               "phase means.")
 
     # what the extra ground truth was worth
     E("dsic.march", "retain 93.0" + PCT + " (" + BS + "texttt{march})", 93.0, 0.05,
@@ -357,33 +370,52 @@ def section5():
     # equal compute
     CM = "paired.causality (march vs baseline80k)."
     CA = "paired.causality with the other two mechanisms (all vs fd8_80k)."
-    r1 = ("& 56.7" + PCT + " & 47.4" + PCT + " & $+9.3$ & $+3.7$ to $+13.8$")
-    E("budget.march", r1, 56.7, 0.05, path(PA, "summary.march.shedding_mean"),
+    CC = "paired.compute (baseline80k vs baseline)."
+    r1 = ("& 56.4" + PCT + " & 48.6" + PCT + " & $+7.7$ & $-2.2$ to $+15.8$")
+    E("budget.march", r1, 56.4, 0.05, path(PA, "summary.march.shedding_mean"),
       unit="pct")
-    E("budget.b80", r1, 47.4, 0.05, path(PA, "summary.baseline80k.shedding_mean"),
+    E("budget.b80", r1, 48.6, 0.05, path(PA, "summary.baseline80k.shedding_mean"),
       unit="pct")
-    E("budget.march_gain", r1, 9.3, 0.05, path(PA, CM + "mean_pts"))
-    E("budget.march_min", r1, 3.7, 0.05, path(PA, CM + "min_pts"))
-    E("budget.march_max", r1, 13.8, 0.05, path(PA, CM + "max_pts"))
-    r2 = ("& 75.1" + PCT + " & 46.6" + PCT + " & $+28.4$ & $+20.0$ to $+37.2$")
-    E("budget.all", r2, 75.1, 0.05, path(PA, "summary.all.shedding_mean"),
+    E("budget.march_gain", r1, 7.7, 0.05, path(PA, CM + "mean_pts"))
+    E("budget.march_min", r1, -2.2, 0.05, path(PA, CM + "min_pts"))
+    E("budget.march_max", r1, 15.8, 0.05, path(PA, CM + "max_pts"))
+    r2 = ("& 72.9" + PCT + " & 38.7" + PCT + " & $+34.1$ & $+20.0$ to $+55.2$")
+    E("budget.all", r2, 72.9, 0.05, path(PA, "summary.all.shedding_mean"),
       unit="pct")
-    E("budget.fd8", r2, 46.6, 0.05, path(PA, "summary.fd8_80k.shedding_mean"),
+    E("budget.fd8", r2, 38.7, 0.05, path(PA, "summary.fd8_80k.shedding_mean"),
       unit="pct")
-    E("budget.all_gain", r2, 28.4, 0.05, path(PA, CA + "mean_pts"))
+    E("budget.all_gain", r2, 34.1, 0.05, path(PA, CA + "mean_pts"))
     E("budget.all_min", r2, 20.0, 0.05, path(PA, CA + "min_pts"))
-    E("budget.all_max", r2, 37.2, 0.05, path(PA, CA + "max_pts"))
-    E("budget.text.compute", "17.3 points against 9.3", 17.3, 0.05,
-      path(PA, "paired.compute (baseline80k vs baseline).mean_pts"))
-    E("budget.text.causal", "17.3 points against 9.3", 9.3, 0.05,
+    E("budget.all_max", r2, 55.2, 0.05, path(PA, CA + "max_pts"))
+    E("budget.text.wins", "marching wins 19 of the 20 pairings", 19, 0.5,
+      path(PA, CM + "n_positive"))
+    E("budget.text.pairs", "marching wins 19 of the 20 pairings", 20, 0.5,
+      path(PA, CM + "n"))
+    E("budget.text.loses", "and loses one by 2.2 points,", -2.2, 0.05,
+      path(PA, CM + "min_pts"), note="Printed as a magnitude.")
+    E("budget.text.compute", "PINN, training longer accounts for more than causality does --- 17.5 points",
+      17.5, 0.05, path(PA, CC + "mean_pts"))
+    E("budget.text.causal", "against 7.7. With Fourier features", 7.7, 0.05,
       path(PA, CM + "mean_pts"))
-    E("budget.text.fd8", "window keep 46.6" + PCT + " at", 46.6, 0.05,
+    E("budget.text.fd8", "window keep 38.7" + PCT + " at", 38.7, 0.05,
       path(PA, "summary.fd8_80k.shedding_mean"), unit="pct")
-    E("budget.text.all_gain", "lifts them by 28.4 points", 28.4, 0.05,
+    E("budget.text.all_gain", "lifts them by 34.1 points, in all 20", 34.1, 0.05,
       path(PA, CA + "mean_pts"))
-    E("budget.text.three_times", "Causality is worth three times", 3.0, 0.5,
+    E("budget.text.all_pos", "lifts them by 34.1 points, in all 20", 20, 0.5,
+      path(PA, CA + "n_positive"))
+    E("budget.text.four_times", "Causality is worth more than four times", 4.0, 0.5,
       ratio(path(PA, CA + "mean_pts"), path(PA, CM + "mean_pts"), mode="ratio"),
-      note="28.4 / 9.3 paired-mean points; printed as a round multiple.")
+      note="34.1 / 7.7 = 4.4 paired-mean points; printed as a bound.")
+    ci = ("$" + BS + "pm 0.7$ points (training longer), $" + BS + "pm 1.9$ (causality alone) "
+          "and $" + BS + "pm 9.0$")
+    for k, (pair, v) in enumerate(((CC, 0.7), (CM, 1.9), (CA, 9.0))):
+        E(f"budget.text.ci{k}", ci, v, 0.05, path(PA, pair + "over_seeds_pts.ci95_half"),
+          note="95 % Student-t half-width over the five per-seed paired means.")
+    fd = "$38.7 " + BS + "pm 9.5" + PCT + "$."
+    E("budget.text.fd8_mean", fd, 38.7, 0.05,
+      path(PA, "summary.fd8_80k.shedding_over_seeds.mean"), unit="pct")
+    E("budget.text.fd8_ci", fd, 9.5, 0.05,
+      path(PA, "summary.fd8_80k.shedding_over_seeds.ci95_half"), unit="pct")
 
     # knobs
     S8 = "runs/v5/ablation_sigma8/summary.json"
@@ -427,6 +459,39 @@ def section5():
 # ---------------------------------------------------------------------------
 # Section 6 -- accuracy over one period and five
 # ---------------------------------------------------------------------------
+
+# Sparse re-anchoring (queue21 -> runs/v5/reanchor, queue22 ->
+# runs/v5/reanchor_threshold), scored by experiments/shedding_accuracy.py per
+# seed. The data-free seed 0 is the queue15 run, listed in the queue21 seed-0
+# file under the name "all"; its seed 1 is queue21's "free".
+RA = {0: "runs/v5/reanchor/shedding_accuracy_s0.json",
+      1: "runs/v5/reanchor/shedding_accuracy_s1.json"}
+RT = {0: "runs/v5/reanchor_threshold/shedding_accuracy_s0.json",
+      1: "runs/v5/reanchor_threshold/shedding_accuracy_s1.json"}
+THRESHOLD_RUNS = ("a2_n125", "a2_n150", "a2_n175", "a1_n75", "a4_n300")
+MP = "runs/v5/multiperiod/all_s0/results.json"
+
+
+def reanchor(run, seed, key):
+    f = (RT if run in THRESHOLD_RUNS else RA)[seed]
+    name = {("free", 0): "all"}.get((run, seed), run)
+    return lst(f, key, run=name)
+
+
+def reanchor_per_period(run):
+    return ratio(reanchor(run, 0, "gt_data_points"),
+                 reanchor(run, 0, "periods_covered"), mode="ratio")
+
+
+def snapshot_points():
+    """What per-window snapshots cost over the same run: windows x IC points."""
+    return ratio(path(MP, "args.windows"), path(MP, "args.n_ic"), mode="product")
+
+
+def reanchor_fraction(run):
+    """Anchor points as a fraction of the snapshot points; use unit="pct"."""
+    return ratio(reanchor(run, 0, "gt_data_points"), snapshot_points(), mode="ratio")
+
 
 def section6():
     ONE = "runs/v5/ablation_sigma8/shedding_accuracy.json"
@@ -484,6 +549,78 @@ def section6():
                   "index": 0, "key": "St_error_pct"},
       note="The earlier report's figure, from the per-window-snapshot run on v4.")
 
+    # sparse re-anchoring: the paragraph and Table tab:reanchor
+    snap = "$20 " + BS + "times 4" + BS + ",000 = 80" + BS + ",000$ reference"
+    E("ra.snap_windows", snap, 20, 0.5, path(MP, "args.windows"))
+    E("ra.snap_ic", snap, 4000, 0.5, path(MP, "args.n_ic"))
+    E("ra.snap_total", snap, 80000, 0.5, snapshot_points())
+    E("ra.free_lag", "reads 0.37 of a period", 0.37, 0.005,
+      reanchor("free", 0, "phase_end_periods"))
+    rows = [("free", None, None, "0", "0", "-10.4", "-10.2", "0.369", "0.345"),
+            ("a8_n100", 100, 8, "60", "300", "-8.8", "-9.7", "0.327", "0.328"),
+            ("a4_n100", 100, 4, "100", "500", "-7.6", "-9.1", "0.220", "0.318"),
+            ("a2_n100", 100, 2, "200", "1000", "-4.6", "-3.3", "0.120", "0.100"),
+            ("a2_n125", 125, 2, "250", "1250", "-1.7", "-5.7", "0.070", "0.185"),
+            ("a2_n150", 150, 2, "300", "1500", "-1.5", "-1.3", "0.053", "0.042"),
+            ("a1_n75", 75, 1, "300", "1500", "-1.5", "-2.6", "0.037", "0.080"),
+            ("a4_n300", 300, 4, "300", "1500", "-3.3", "-3.1", "0.088", "0.107"),
+            ("a2_n175", 175, 2, "350", "1750", "-0.2", "-0.7", "0.002", "0.002"),
+            ("a1_n100", 100, 1, "400", "2000", "-0.3", "-0.2", "0.001", "0.001"),
+            ("a4_n500", 500, 4, "500", "2500", "-0.3", "+0.5", "0.002", "0.003")]
+
+    def thou(s):
+        return s if len(s) < 4 else s[:-3] + BS + "," + s[-3:]
+
+    for run, n, k, pp, tot, st0, st1, lag0, lag1 in rows:
+        head = "---    & ---" if n is None else f"{n:<6d} & {k:<3d}"
+        lit = (f"{head} & {pp} & {thou(tot)} & ${st0}$, ${st1}$ & {lag0}, {lag1} "
+               + BS + BS)
+        if n is not None:
+            E(f"ra.{run}.N", lit, n, 0.5, path(f"runs/v5/{'reanchor_threshold' if run in THRESHOLD_RUNS else 'reanchor'}/{run}_s0/results.json", "args.n_data"))
+            E(f"ra.{run}.K", lit, k, 0.5, path(f"runs/v5/{'reanchor_threshold' if run in THRESHOLD_RUNS else 'reanchor'}/{run}_s0/results.json", "args.anchor_every"))
+        E(f"ra.{run}.per_period", lit, float(pp), 0.5, reanchor_per_period(run))
+        E(f"ra.{run}.total", lit, float(tot), 0.5, reanchor(run, 0, "gt_data_points"))
+        E(f"ra.{run}.St0", lit, float(st0), 0.05, reanchor(run, 0, "St_error_pct"))
+        E(f"ra.{run}.St1", lit, float(st1), 0.05, reanchor(run, 1, "St_error_pct"))
+        E(f"ra.{run}.lag0", lit, float(lag0), 0.0005, reanchor(run, 0, "phase_end_periods"))
+        E(f"ra.{run}.lag1", lit, float(lag1), 0.0005, reanchor(run, 1, "phase_end_periods"))
+
+    E("ra.text.upto", "Up to 300 points per period the anchors", 300, 0.5,
+      reanchor_per_period("a2_n150"))
+    t2 = "200 per period still leaves the run 3--5" + PCT + " slow"
+    E("ra.text.200", t2, 200, 0.5, reanchor_per_period("a2_n100"))
+    E("ra.text.200_lo", t2, -3.0, 0.5, reanchor("a2_n100", 1, "St_error_pct"),
+      note="Printed as a magnitude; -3.29 % on seed 1.")
+    E("ra.text.200_hi", t2, -5.0, 0.5, reanchor("a2_n100", 0, "St_error_pct"),
+      note="Printed as a magnitude; -4.59 % on seed 0.")
+    E("ra.text.350", "At 350 per period and above, both seeds hold the phase to within 0.003 of a",
+      350, 0.5, reanchor_per_period("a2_n175"))
+    E("ra.text.lag_bound", "At 350 per period and above, both seeds hold the phase to within 0.003 of a",
+      0.003, 0.0005, reanchor("a4_n500", 1, "phase_end_periods"),
+      note="A bound: the largest lag of the six locked runs (a4_n500 seed 1, 0.0029).")
+    E("ra.text.St_bound", "to within 0.7" + PCT + ", on as few as 1" + BS + ",750", -0.7, 0.05,
+      reanchor("a2_n175", 1, "St_error_pct"),
+      note="A bound, printed as a magnitude: the largest |St error| of the six locked "
+           "runs (a2_n175 seed 1, -0.68 %).")
+    E("ra.text.fewest", "to within 0.7" + PCT + ", on as few as 1" + BS + ",750", 1750, 0.5,
+      reanchor("a2_n175", 0, "gt_data_points"))
+    E("ra.text.frac", "points --- about 2" + PCT + " of what the per-window", 2.0, 0.5,
+      reanchor_fraction("a2_n175"), unit="pct")
+    th = "therefore lies between 300 and 350 points per period"
+    E("ra.text.th_lo", th, 300, 0.5, reanchor_per_period("a2_n150"))
+    E("ra.text.th_hi", th, 350, 0.5, reanchor_per_period("a2_n175"))
+    E("ra.text.at300", "at 300 per period, one anchor per period", 300, 0.5,
+      reanchor_per_period("a4_n300"))
+    amp = "too, from 63--64" + PCT + " data-free to 74--87" + PCT + " where the phase locks."
+    E("ra.text.amp_free_lo", amp, 63.0, 0.5, reanchor("free", 1, "amplitude_ratio"),
+      unit="pct")
+    E("ra.text.amp_free_hi", amp, 64.0, 0.5, reanchor("free", 0, "amplitude_ratio"),
+      unit="pct")
+    E("ra.text.amp_lock_lo", amp, 74.0, 0.5, reanchor("a2_n175", 0, "amplitude_ratio"),
+      unit="pct", note="Smallest of the six locked runs.")
+    E("ra.text.amp_lock_hi", amp, 87.0, 0.5, reanchor("a1_n100", 0, "amplitude_ratio"),
+      unit="pct", note="Largest of the six locked runs.")
+
 
 # ---------------------------------------------------------------------------
 # Framing -- introduction, limitations, note on method
@@ -501,22 +638,27 @@ def framing():
 
     E("intro.three_quarters", "at three-quarters of its amplitude", 75.0, 2.5,
       path(PA, "summary.all.shedding_mean"), unit="pct",
-      note="75.1 % phase-averaged, printed in words.")
+      note="72.9 % phase-averaged over five seeds, printed in words.")
     E("intro.half_cycle", "it drifts about half a", 0.5, 0.05, half_cycle,
       note="Same estimate as acc5.phase_err.")
+    E("intro.reanchor", "little: 350 supervised points per shedding period.", 350, 0.5,
+      reanchor_per_period("a2_n175"))
     E("lim.three_quarters", "three-quarters of the wake amplitude over a period",
       75.0, 2.5, path(PA, "summary.all.shedding_mean"), unit="pct")
     E("lim.slow", "five periods it runs 10" + PCT + " slow", -10.0, 0.5,
       it("St_error_pct"), note="Printed as a magnitude.")
     E("lim.half_cycle", "ends half a cycle out of phase", 0.5, 0.05, half_cycle)
-    E("lim.seed0", "gives 69.7" + PCT + " and", 69.7, 0.05,
-      lst(AB, "shedding", config="march", seed=0), unit="pct")
-    E("lim.seed1", "74.6" + PCT + " on its two seeds", 74.6, 0.05,
-      lst(AB, "shedding", config="march", seed=1), unit="pct")
-    E("lim.swing_lo", "against a swing from 40" + PCT + " to 72" + PCT, 40.0, 0.5,
-      path(PA, "summary.march.shedding_phase_mean_min"), unit="pct")
-    E("lim.swing_hi", "against a swing from 40" + PCT + " to 72" + PCT, 72.0, 0.5,
-      path(PA, "summary.march.shedding_phase_mean_max"), unit="pct")
+    E("lim.reanchor", "Sparse re-anchoring with 350 supervised", 350, 0.5,
+      reanchor_per_period("a2_n175"))
+    ci = ("per start phase, with 95" + PCT + " intervals of $" + BS + "pm 0.9$ to $"
+          + BS + "pm 1.5$ points")
+    E("lim.ci_lo", ci, 0.9, 0.05, path(PA, "summary.march.shedding_over_seeds.ci95_half"),
+      unit="pct", note="Smallest of baseline, baseline80k and march.")
+    E("lim.ci_hi", ci, 1.5, 0.05,
+      path(PA, "summary.baseline.shedding_over_seeds.ci95_half"), unit="pct",
+      note="Largest of baseline, baseline80k and march.")
+    E("lim.ci_all", "on the plain and marched networks and $" + BS + "pm 4.6$ on", 4.6,
+      0.05, path(PA, "summary.all.shedding_over_seeds.ci95_half"), unit="pct")
     E("lim.lockin", "$" + BS + "St/" + BS + "St_a = 1.43$, outside", 1.43, 0.005,
       ratio(dct(SWEEP5, "100", "St_vorticity"),
             path(DM, "acoustic.St_resonance"), mode="ratio"))
@@ -529,39 +671,49 @@ def framing():
       path(DM, "benchmark.per_Re.100.St_error_pct"), note="Printed as a magnitude.")
     E("abs.Cd", "$0.04" + PCT + "$, $" + BS + "Cd$ $3.5" + PCT + "$ high", 3.5, 0.05,
       path(DM, "benchmark.per_Re.100.Cd_error_pct"))
-    E("abs.baseline", "30.1" + PCT + " of the reference wake amplitude", 30.1, 0.05,
-      path(PA, S + "baseline.shedding_mean"), unit="pct")
-    E("abs.march", "56.7" + PCT + ", although at equal training budget it adds only 9.3",
-      56.7, 0.05, path(PA, S + "march.shedding_mean"), unit="pct")
-    E("abs.causal", "56.7" + PCT + ", although at equal training budget it adds only 9.3",
-      9.3, 0.05, path(PA, CM))
-    E("abs.compute", "the 17.3 that training longer adds", 17.3, 0.05, path(PA, CC))
-    E("abs.all", "phase: 75.1" + PCT + " retained, at a velocity-field error of 0.031",
-      75.1, 0.05, path(PA, S + "all.shedding_mean"), unit="pct")
-    E("abs.all_l2", "phase: 75.1" + PCT + " retained, at a velocity-field error of 0.031",
-      0.031, 0.0005, path(PA, S + "all.rel_l2_mean"))
+    E("abs.n_seeds", "four start phases averaged over five seeds", 5, 0.5,
+      path(PA, S + "baseline.shedding_over_seeds.n_seeds"))
+    E("abs.baseline", "PINN keeps 31.1" + PCT + " of the reference wake amplitude", 31.1,
+      0.05, path(PA, S + "baseline.shedding_mean"), unit="pct")
+    ab = "that to 56.4" + PCT + ", although at equal training budget it adds only 7.7"
+    E("abs.march", ab, 56.4, 0.05, path(PA, S + "march.shedding_mean"), unit="pct")
+    E("abs.causal", ab, 7.7, 0.05, path(PA, CM))
+    E("abs.compute", "than the 17.5 that training longer adds", 17.5, 0.05, path(PA, CC))
+    aa = "start phase: 72.9" + PCT + " retained, at a velocity-field error of 0.031"
+    E("abs.all", aa, 72.9, 0.05, path(PA, S + "all.shedding_mean"), unit="pct")
+    E("abs.all_l2", aa, 0.031, 0.0005, path(PA, S + "all.rel_l2_mean"))
     E("abs.slow", "periods that configuration sheds 10.4" + PCT + " slow", -10.4, 0.05,
       it("St_error_pct"), note="Printed as a magnitude.")
-    E("abs.half_cycle", "ends about half a cycle out of", 0.5, 0.05, half_cycle)
+    E("abs.half_cycle", "ends about half a\ncycle out of", 0.5, 0.05, half_cycle)
+    ar = "Re-anchoring it with 350 supervised points per shedding period, about 2" + PCT
+    E("abs.reanchor", ar, 350, 0.5, reanchor_per_period("a2_n175"))
+    E("abs.reanchor_frac", ar, 2.0, 0.5, reanchor_fraction("a2_n175"), unit="pct",
+      note="1750 of 80 000 points = 2.2 %, printed as about 2.")
 
     # conclusions
-    E("concl.lo", "17" + PCT + " and 42" + PCT + " of the wake depending", 17.0, 0.5,
+    E("concl.lo", "19" + PCT + " and 43" + PCT + " of the wake depending", 19.0, 0.5,
       path(PA, S + "baseline.shedding_phase_mean_min"), unit="pct")
-    E("concl.hi", "17" + PCT + " and 42" + PCT + " of the wake depending", 42.0, 0.5,
+    E("concl.hi", "19" + PCT + " and 43" + PCT + " of the wake depending", 43.0, 0.5,
       path(PA, S + "baseline.shedding_phase_mean_max"), unit="pct")
-    E("concl.baseline", "start phase, 30.1" + PCT + " on", 30.1, 0.05,
+    E("concl.baseline", "start phase, 31.1" + PCT + " on", 31.1, 0.05,
       path(PA, S + "baseline.shedding_mean"), unit="pct")
-    E("concl.b80", "raises that to 47.4" + PCT + " and leaves", 47.4, 0.05,
+    E("concl.b80", "raises that to 48.6" + PCT + " and leaves", 48.6, 0.05,
       path(PA, S + "baseline80k.shedding_mean"), unit="pct")
-    E("concl.march", "on its own reaches 56.7" + PCT, 56.7, 0.05,
+    E("concl.march", "on its own reaches 56.4" + PCT, 56.4, 0.05,
       path(PA, S + "march.shedding_mean"), unit="pct")
-    E("concl.causal", "only 9.3 points. Fourier", 9.3, 0.05, path(PA, CM))
-    E("concl.all", "keep 75.1" + PCT + " at every start", 75.1, 0.05,
+    E("concl.causal", "only 7.7 points. Fourier", 7.7, 0.05, path(PA, CM))
+    E("concl.all", "together keep 72.9" + PCT + " (five seeds,", 72.9, 0.05,
       path(PA, S + "all.shedding_mean"), unit="pct")
-    E("concl.all_l2", "phase, at a field error of 0.031, and there marching is worth 28.4",
-      0.031, 0.0005, path(PA, S + "all.rel_l2_mean"))
-    E("concl.all_gain", "phase, at a field error of 0.031, and there marching is worth 28.4",
-      28.4, 0.05, path(PA, CA))
+    cc = "$" + BS + "pm 4.6$ points) at every start phase, at a field error of 0.031, and"
+    E("concl.all_ci", cc, 4.6, 0.05, path(PA, S + "all.shedding_over_seeds.ci95_half"),
+      unit="pct")
+    E("concl.all_l2", cc, 0.031, 0.0005, path(PA, S + "all.rel_l2_mean"))
+    E("concl.all_gain", "there marching is worth 34.1 points at equal budget", 34.1, 0.05,
+      path(PA, CA))
+    E("concl.reanchor", "Re-anchored with 350 supervised points per period it holds",
+      350, 0.5, reanchor_per_period("a2_n175"))
+    E("concl.reanchor_frac", "over all five, at about 2" + PCT + " of the data", 2.0, 0.5,
+      reanchor_fraction("a2_n175"), unit="pct")
     E("concl.lag", "$0.1^" + BS + "circ$ over one period", 0.1, 0.05,
       {"kind": "item", "file": "runs/v5/ablation_sigma8/shedding_accuracy.json",
        "index": 0, "key": "phase_lag_periods"}, unit="deg_from_periods")
@@ -638,7 +790,7 @@ def section7():
     E("sweep.text.factor_two", "swings by\na factor of two with start phase", 2.0, 0.5,
       ratio(path(PA, "summary.baseline.shedding_phase_mean_max"),
             path(PA, "summary.baseline.shedding_phase_mean_min"), mode="ratio"),
-      note="42.5 / 17.5 = 2.4, printed in words.")
+      note="43.2 / 19.0 = 2.3 over five seeds, printed in words.")
     var = ("--- 24--28" + PCT + " at $" + BS + "Rey = 120$ and 180, 40--45" + PCT
            + " at $" + BS + "Rey = 80$")
     E("sweep.text.var_lo", var, 24.0, 0.5,
@@ -653,10 +805,10 @@ def section7():
     E("sweep.text.var80_hi", var, 45.0, 0.5,
       dct(SWEEP5, "80", keys=["baseline_shedding_s0", "baseline_shedding_s1"],
           reduce="max"), unit="pct")
-    ins = "(between 73" + PCT + " and 78" + PCT + " at each phase)"
-    E("sweep.text.all_phase_lo", ins, 73.0, 0.5,
+    ins = "(between 70" + PCT + " and 77" + PCT + " at each phase)"
+    E("sweep.text.all_phase_lo", ins, 70.0, 0.5,
       path(PA, "summary.all.shedding_phase_mean_min"), unit="pct")
-    E("sweep.text.all_phase_hi", ins, 78.0, 0.5,
+    E("sweep.text.all_phase_hi", ins, 77.0, 0.5,
       path(PA, "summary.all.shedding_phase_mean_max"), unit="pct")
 
 
@@ -739,9 +891,9 @@ def section_arch():
       note="307 minutes, printed in words.")
     sw2 = "marched MLP's swing from 40" + PCT + " to 72" + PCT + " across phases"
     E("arch.text.swing_lo", sw2, 40.0, 0.5,
-      path(PA, "summary.march.shedding_phase_mean_min"), unit="pct")
+      path(PA2, "summary.march.shedding_phase_mean_min"), unit="pct")
     E("arch.text.swing_hi", sw2, 72.0, 0.5,
-      path(PA, "summary.march.shedding_phase_mean_max"), unit="pct")
+      path(PA2, "summary.march.shedding_phase_mean_max"), unit="pct")
 
 
 # ---------------------------------------------------------------------------

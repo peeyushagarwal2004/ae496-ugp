@@ -27,12 +27,16 @@ retained) was inflated twice: marched runs got a fresh reference snapshot at
 every window (four ground-truth slices against the baseline's one, worth about
 twenty points), and every configuration was scored at one start phase of a
 quantity that swings with a half-cycle period. With one ground-truth slice and
-four phases averaged: plain PINN 30.1 %, `march` 56.7 %, `all` (σ = 8) 75.1 %
-at L₂ 0.031. Over five chained periods `all` runs 10.4 % slow and ends about
-half a cycle out of phase. So:
+four phases averaged over five seeds: plain PINN 31.1 %, `march` 56.4 %, `all`
+(σ = 8) 72.9 % (95 % interval ± 4.6) at L₂ 0.031. Over five chained periods
+`all` runs 10.4 % slow and ends about half a cycle out of phase. So:
 
 - Do **not** claim to contradict Shah or Chuang & Barba. A data-free chain
   sustains a wake at three-quarters amplitude but does not forecast it.
+- Their "supervision is necessary" survives in a narrower form: it is not
+  needed to sustain the wake, but it is needed to hold its phase, and the dose
+  is small — 350 supervised points per period hold it over five periods
+  (report §6, sparse re-anchoring), about 2 % of what per-window snapshots use.
 - Shah's title, *Complementary, Not Cumulative*, now **agrees** with the
   finding here: only all three mechanisms together give a phase-independent
   wake. Cite him in support of the interaction effect.
@@ -41,10 +45,10 @@ half a cycle out of phase. So:
   optimiser-step-matched control.
 
 **The equal-budget control now cuts the other way (§3, §9.3).** At matched
-optimiser steps (80 000 epochs, four phases, two seeds), training budget
-accounts for more of `march`'s gain than causality does: +17.3 points from
-training alone, +9.3 from causality. Within the combination causality is worth
-+28.4. The distinction from Krishnapriyan et al. (collocation-point matching
+optimiser steps (80 000 epochs, four phases, five seeds), training budget
+accounts for more of `march`'s gain than causality does: +17.5 points from
+training alone, +7.7 from causality. Within the combination causality is worth
++34.1. The distinction from Krishnapriyan et al. (collocation-point matching
 vs optimiser-step matching) still stands; the claim "the gain is causality, not
 compute" does not.
 
@@ -456,7 +460,9 @@ u = 0.05 would take minutes and would close the last gap.
    Allen–Cahn, KdV and wave equations — **not Navier–Stokes, not shedding.**
    Your report already documents the handoff steps as a visible artefact.
    Applying their ansatz closes your own stated limitation and is well-scoped.
-2. **Seed count.** Everything is n = 2 and `decompose` has seeds of 9.3 % and
+2. **Seed count** **[done for the headline, 2026-10-16: five seeds on the
+   phase-averaged comparison and its equal-budget controls; see §0]**.
+   Everything was n = 2 and `decompose` has seeds of 9.3 % and
    4.6 %. Three to five seeds with reported spread on the main ablation removes
    the easiest referee objection you have. Cheapest credibility available.
 3. **Resolve the lock-in band discrepancy** (§6).

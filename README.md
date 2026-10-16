@@ -44,8 +44,8 @@ upinn/       vendored underPINN source
 |---|---|
 | 1. Ground-truth data | **done** — v5 dataset, validated against Qu et al. (report §2) |
 | 2. Unsteady NS operator | **done** — validated to machine precision (report §3) |
-| 3. PINN experiment | **done** — phase-averaged collapse, 30.1 % retained (report §4) |
-| 4. Defeating the collapse | **done** — ablation, equal-budget controls, supervision, accuracy, Re 60–180 sweep (report §5–7) |
+| 3. PINN experiment | **done** — phase-averaged collapse, 31.1 % retained over five seeds (report §4) |
+| 4. Defeating the collapse | **done** — ablation, equal-budget controls (five seeds), supervision, accuracy, sparse re-anchoring, Re 60–180 sweep (report §5–7) |
 | 5. FNO comparison | **done** — v5 and v4 datasets, FNO / U-Net / ConvGRU backbones (report §9) |
 | — Architecture study | **done** — GRU and PINNsFormer sequence PINNs (report §8) |
 | 6. Write-up | `report/report.pdf`; every number checked by `experiments/verify_report.py` |
