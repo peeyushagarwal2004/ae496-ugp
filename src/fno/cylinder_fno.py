@@ -26,7 +26,7 @@ Usage:
 
 Note on data: this needs a long record -- the 50-step rollout alone is 50
 snapshots after the training split. The trimmed 34-snapshot copy on the IITK
-server (RESUME section 11) is *not* enough; use the full
+server (docs/RESUME.md section 11) is *not* enough; use the full
 `data/cylinder_re100_v4.npz` (641 snapshots).
 """
 
@@ -235,7 +235,7 @@ def reference_residuals(frames, idx, n_samples=16):
 
     LBM is weakly compressible and second-order accurate, so the measured field
     does not satisfy either residual exactly (continuity error tracks O(Ma^2),
-    see RESUME section 1.10). Driving a prediction below that floor is not
+    see docs/RESUME.md section 1.10). Driving a prediction below that floor is not
     physics, it is fitting the discretisation error.
 
     Both physics terms are therefore divided by these numbers, which makes

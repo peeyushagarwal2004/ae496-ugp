@@ -15,7 +15,7 @@ data/*
 !data/convergence.json
 !data/base_flow_*.json
 
-# underPINN is cloned separately (see COLAB.md / KAGGLE.md)
+# underPINN is cloned separately (see docs/COLAB.md / docs/KAGGLE.md)
 upinn/
 underPINN/
 
@@ -28,7 +28,7 @@ runs_quick/
 logs_*.txt
 # ...except the base-flow fit, whose printed rel L2 is quoted in the report
 # and sourced from this file by report/numbers.json.
-!logs_base_flow_v4.txt
+!logs/logs_base_flow_v4.txt
 run_v3_after_v2.sh
 run_v4_chain.sh
 

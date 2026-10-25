@@ -99,10 +99,10 @@ def section2():
       ratio(path(f"data/cylinder_{V5}_meta.json", "grid.0"),
             meta(V5, "D_lattice"), mode="ratio"))
     E("gt.upstream", "The inlet $25D$ ahead of the cylinder", 25.0, 0.5,
-      {"kind": "logline", "file": "queue15.sh", "pattern": r"--upstream (\d+)"},
+      {"kind": "logline", "file": "scripts/gpu/queue15.sh", "pattern": r"--upstream (\d+)"},
       note="Not recorded in the v5 metadata -- lbm_cylinder.py began writing "
            "upstream_d after this dataset was made. Read from the SWEEP flags of "
-           "queue15.sh, which generated re100_v5.")
+           "scripts/gpu/queue15.sh, which generated re100_v5.")
     E("gt.D", "$" + BS + "Rey = 100$, $D = 24$ lattice units", 24, 0.5,
       meta(V5, "D_lattice"))
     E("gt.Ma", "$" + BS + "mathrm{Ma} = 0.087$", 0.087, 0.0005, meta(V5, "Ma"))

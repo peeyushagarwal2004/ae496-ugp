@@ -782,6 +782,6 @@ Constraints found the hard way, all still true:
   The server's `base_flow_re100_v4.pkl` was re-saved for it; if you refit the
   base flow locally you must convert it again.
 
-`gpu_sweep.sh`, `gpu_control.sh` and `gpu_fields.sh` in the repo root run the
+`gpu_sweep.sh`, `gpu_control.sh` and `gpu_fields.sh` in scripts/gpu/ run the
 matrix unattended (`setsid nohup ./gpu_sweep.sh &`), and `run_ablation.py`
 skips configs already in `summary.json`, so a killed sweep resumes.

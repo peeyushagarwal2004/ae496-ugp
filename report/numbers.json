@@ -57,10 +57,10 @@
       "literal": "The inlet $25D$ ahead of the cylinder",
       "printed": 25.0,
       "tol": 0.5,
-      "note": "Not recorded in the v5 metadata -- lbm_cylinder.py began writing upstream_d after this dataset was made. Read from the SWEEP flags of queue15.sh, which generated re100_v5.",
+      "note": "Not recorded in the v5 metadata -- lbm_cylinder.py began writing upstream_d after this dataset was made. Read from the SWEEP flags of scripts/gpu/queue15.sh, which generated re100_v5.",
       "src": {
         "kind": "logline",
-        "file": "queue15.sh",
+        "file": "scripts/gpu/queue15.sh",
         "pattern": "--upstream (\\d+)"
       }
     },
