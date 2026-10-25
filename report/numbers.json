@@ -8,7 +8,7 @@
   "entries": [
     {
       "id": "gt.layer_width",
-      "tex": 175,
+      "tex": 173,
       "literal": "An absorbing layer} of $8D$",
       "printed": 8.0,
       "tol": 0.5,
@@ -20,7 +20,7 @@
     },
     {
       "id": "gt.layer_rate",
-      "tex": 176,
+      "tex": 174,
       "literal": "equilibrium at a peak rate of\n",
       "printed": 0.05,
       "tol": 0.005,
@@ -32,7 +32,7 @@
     },
     {
       "id": "gt.length",
-      "tex": 180,
+      "tex": 178,
       "literal": "in a domain $60D$ long",
       "printed": 60.0,
       "tol": 0.5,
@@ -53,7 +53,7 @@
     },
     {
       "id": "gt.upstream",
-      "tex": 180,
+      "tex": 178,
       "literal": "The inlet $25D$ ahead of the cylinder",
       "printed": 25.0,
       "tol": 0.5,
@@ -66,7 +66,7 @@
     },
     {
       "id": "gt.D",
-      "tex": 187,
+      "tex": 185,
       "literal": "$\\Rey = 100$, $D = 24$ lattice units",
       "printed": 24,
       "tol": 0.5,
@@ -78,7 +78,7 @@
     },
     {
       "id": "gt.Ma",
-      "tex": 188,
+      "tex": 186,
       "literal": "$\\mathrm{Ma} = 0.087$",
       "printed": 0.087,
       "tol": 0.0005,
@@ -90,7 +90,7 @@
     },
     {
       "id": "gt.grid_x",
-      "tex": 188,
+      "tex": 186,
       "literal": "grid $1440 \\times 1200$",
       "printed": 1440,
       "tol": 0.5,
@@ -102,7 +102,7 @@
     },
     {
       "id": "gt.grid_y",
-      "tex": 188,
+      "tex": 186,
       "literal": "grid $1440 \\times 1200$",
       "printed": 1200,
       "tol": 0.5,
@@ -114,7 +114,7 @@
     },
     {
       "id": "gt.blockage",
-      "tex": 188,
+      "tex": 186,
       "literal": "blockage $D/H = 2\\%$",
       "printed": 2.0,
       "unit": "pct",
@@ -127,7 +127,7 @@
     },
     {
       "id": "gt.n_snapshots",
-      "tex": 189,
+      "tex": 187,
       "literal": "record is 641 snapshots",
       "printed": 641,
       "tol": 0.5,
@@ -139,7 +139,7 @@
     },
     {
       "id": "gt.record_periods",
-      "tex": 189,
+      "tex": 187,
       "literal": "covering 20 shedding periods",
       "printed": 20,
       "tol": 0.5,
@@ -151,7 +151,7 @@
     },
     {
       "id": "gt.dx",
-      "tex": 190,
+      "tex": 188,
       "literal": "$\\Delta x = 0.083D$",
       "printed": 0.083,
       "tol": 0.0005,
@@ -163,7 +163,7 @@
     },
     {
       "id": "gt.dt",
-      "tex": 190,
+      "tex": 188,
       "literal": "$\\Delta \\tstar = 0.19$",
       "printed": 0.19,
       "tol": 0.005,
@@ -175,7 +175,7 @@
     },
     {
       "id": "gt.Cd",
-      "tex": 203,
+      "tex": 201,
       "literal": "& 1.3634 & 1.318--1.336",
       "printed": 1.3634,
       "tol": 5e-05,
@@ -187,7 +187,7 @@
     },
     {
       "id": "gt.Cd_err",
-      "tex": 203,
+      "tex": 201,
       "literal": "& 1.3634 & 1.318--1.336 & $+3.5\\%$",
       "printed": 3.5,
       "vs": 1.317,
@@ -200,7 +200,7 @@
     },
     {
       "id": "gt.St",
-      "tex": 204,
+      "tex": 202,
       "literal": "& 0.1648 & 0.164--0.166",
       "printed": 0.1648,
       "tol": 5e-05,
@@ -214,7 +214,7 @@
     },
     {
       "id": "gt.St_err",
-      "tex": 204,
+      "tex": 202,
       "literal": "& 0.1648 & 0.164--0.166 & $-0.04\\%$",
       "printed": -0.04,
       "vs": 0.1649,
@@ -229,7 +229,7 @@
     },
     {
       "id": "gt.Cl",
-      "tex": 205,
+      "tex": 203,
       "literal": "& 0.2362 & 0.222--0.235",
       "printed": 0.2362,
       "tol": 5e-05,
@@ -241,7 +241,7 @@
     },
     {
       "id": "gt.Cl_err",
-      "tex": 205,
+      "tex": 203,
       "literal": "& 0.2362 & 0.222--0.235 & $+6.2\\%$",
       "printed": 6.2,
       "vs": 0.2224,
@@ -254,7 +254,7 @@
     },
     {
       "id": "gt.instrument_agree",
-      "tex": 212,
+      "tex": 210,
       "literal": "give the same value to within $0.002\\%$",
       "printed": 0.002,
       "tol": 0.001,
@@ -269,7 +269,7 @@
     },
     {
       "id": "gt.Cd_D32",
-      "tex": 214,
+      "tex": 212,
       "literal": "geometry gives $+2.3\\%$",
       "printed": 2.3,
       "vs": 1.317,
@@ -282,7 +282,7 @@
     },
     {
       "id": "gt.v4_St",
-      "tex": 220,
+      "tex": 218,
       "literal": "It read $\\St = 0.1595$",
       "printed": 0.1595,
       "tol": 5e-05,
@@ -296,7 +296,7 @@
     },
     {
       "id": "gt.v4_St_err",
-      "tex": 220,
+      "tex": 218,
       "literal": "It read $\\St = 0.1595$ ($-3.3\\%$)",
       "printed": -3.3,
       "vs": 0.1649,
@@ -311,7 +311,7 @@
     },
     {
       "id": "gt.v4_Cd",
-      "tex": 220,
+      "tex": 218,
       "literal": "and $\\Cd = 1.3798$",
       "printed": 1.3798,
       "tol": 5e-05,
@@ -323,7 +323,7 @@
     },
     {
       "id": "gt.v4_claim",
-      "tex": 221,
+      "tex": 219,
       "literal": "1.37--1.38 to $0.3\\%$",
       "printed": 0.3,
       "vs": 1.375,
@@ -337,7 +337,7 @@
     },
     {
       "id": "ac.St_a",
-      "tex": 228,
+      "tex": 226,
       "literal": "$\\St_a = (c_s/2H)(D/U) = 0.1155$",
       "printed": 0.1155,
       "tol": 5e-05,
@@ -349,7 +349,7 @@
     },
     {
       "id": "ac.short",
-      "tex": 229,
+      "tex": 227,
       "literal": "sheds at $\\St = 0.1600$ over 20 recorded",
       "printed": 0.16,
       "tol": 5e-05,
@@ -365,7 +365,7 @@
     },
     {
       "id": "ac.long",
-      "tex": 230,
+      "tex": 228,
       "literal": "and at $0.1132$ over 38",
       "printed": 0.1132,
       "tol": 5e-05,
@@ -381,7 +381,7 @@
     },
     {
       "id": "ac.viscous",
-      "tex": 231,
+      "tex": 229,
       "literal": "does nothing here (0.1131)",
       "printed": 0.1131,
       "tol": 5e-05,
@@ -397,7 +397,7 @@
     },
     {
       "id": "ac.visc_absorb",
-      "tex": 233,
+      "tex": 231,
       "literal": "removes about $0.04\\%$ of the",
       "printed": 0.04,
       "tol": 0.005,
@@ -409,7 +409,7 @@
     },
     {
       "id": "ac.released",
-      "tex": 235,
+      "tex": 233,
       "literal": "releases the wake ($0.1694$ over the same",
       "printed": 0.1694,
       "tol": 5e-05,
@@ -425,7 +425,7 @@
     },
     {
       "id": "ac.spread_cd",
-      "tex": 237,
+      "tex": 235,
       "literal": "$\\Cd$ moves by $0.1\\%$ and",
       "printed": 0.1,
       "tol": 0.05,
@@ -437,7 +437,7 @@
     },
     {
       "id": "ac.spread_st",
-      "tex": 238,
+      "tex": 236,
       "literal": "$\\St$ by $0.2\\%$, and 38 and 120",
       "printed": 0.2,
       "tol": 0.05,
@@ -449,7 +449,7 @@
     },
     {
       "id": "ac.hong_band",
-      "tex": 245,
+      "tex": 242,
       "literal": "$\\St/\\St_a \\le 1.14$",
       "printed": 1.14,
       "tol": 0.005,
@@ -461,7 +461,7 @@
     },
     {
       "id": "ac.ratio_100",
-      "tex": 245,
+      "tex": 242,
       "literal": "At $\\Rey = 100$ the ratio here is $1.43$",
       "printed": 1.43,
       "tol": 0.005,
@@ -484,7 +484,7 @@
     },
     {
       "id": "geo.inlet_effect",
-      "tex": 254,
+      "tex": 251,
       "literal": "lowers $\\Cd$ by\n",
       "printed": -4.7,
       "tol": 0.05,
@@ -506,7 +506,7 @@
     },
     {
       "id": "geo.base_cd",
-      "tex": 255,
+      "tex": 252,
       "literal": "from $+7.4\\%$ to $+2.3\\%$ against",
       "printed": 7.4,
       "vs": 1.317,
@@ -519,7 +519,7 @@
     },
     {
       "id": "geo.long_cd",
-      "tex": 255,
+      "tex": 252,
       "literal": "from $+7.4\\%$ to $+2.3\\%$ against",
       "printed": 2.3,
       "vs": 1.317,
@@ -532,7 +532,7 @@
     },
     {
       "id": "geo.base_st",
-      "tex": 256,
+      "tex": 253,
       "literal": "$+3.0\\%$ to $+0.3\\%$; raising",
       "printed": 3.0,
       "vs": 0.1649,
@@ -545,7 +545,7 @@
     },
     {
       "id": "geo.long_st",
-      "tex": 256,
+      "tex": 253,
       "literal": "$+3.0\\%$ to $+0.3\\%$; raising",
       "printed": 0.3,
       "vs": 0.1649,
@@ -558,7 +558,7 @@
     },
     {
       "id": "geo.height_xu8",
-      "tex": 257,
+      "tex": 254,
       "literal": "moves $\\Cd$ by $0.36\\%$",
       "printed": -0.36,
       "tol": 0.005,
@@ -579,7 +579,7 @@
     },
     {
       "id": "geo.height_xu25",
-      "tex": 257,
+      "tex": 254,
       "literal": "and by $0.07\\%$ once the inlet",
       "printed": -0.07,
       "tol": 0.005,
@@ -600,7 +600,7 @@
     },
     {
       "id": "geo.posdziech",
-      "tex": 259,
+      "tex": 256,
       "literal": "require more than $20D$",
       "printed": 20,
       "tol": 0.5,
@@ -612,7 +612,7 @@
     },
     {
       "id": "res.D24",
-      "tex": 262,
+      "tex": 259,
       "literal": "$\\Cd = 1.4334$, $1.4139$ and $1.4147$",
       "printed": 1.4334,
       "tol": 5e-05,
@@ -624,7 +624,7 @@
     },
     {
       "id": "res.D32",
-      "tex": 262,
+      "tex": 259,
       "literal": "$\\Cd = 1.4334$, $1.4139$ and $1.4147$",
       "printed": 1.4139,
       "tol": 5e-05,
@@ -636,7 +636,7 @@
     },
     {
       "id": "res.D48",
-      "tex": 262,
+      "tex": 259,
       "literal": "$\\Cd = 1.4334$, $1.4139$ and $1.4147$",
       "printed": 1.4147,
       "tol": 5e-05,
@@ -648,7 +648,7 @@
     },
     {
       "id": "res.D24_cd_high",
-      "tex": 263,
+      "tex": 260,
       "literal": "with $D = 24$ about $1.4\\%$",
       "printed": 1.4,
       "tol": 0.05,
@@ -669,7 +669,7 @@
     },
     {
       "id": "res.D24_st",
-      "tex": 264,
+      "tex": 261,
       "literal": "within $0.3\\%$ in $\\St$",
       "printed": -0.3,
       "tol": 0.05,
@@ -691,7 +691,7 @@
     },
     {
       "id": "div.rms",
-      "tex": 270,
+      "tex": 267,
       "literal": "its r.m.s.\\ is $2.46\\%$ of",
       "printed": 2.46,
       "tol": 0.005,
@@ -703,7 +703,7 @@
     },
     {
       "id": "div.ma2",
-      "tex": 271,
+      "tex": 268,
       "literal": "against $\\mathrm{Ma}^2 = 0.75\\%$.",
       "printed": 0.75,
       "tol": 0.005,
@@ -715,7 +715,7 @@
     },
     {
       "id": "gt.instrument_agree2",
-      "tex": 304,
+      "tex": 301,
       "literal": "the three agree to $0.002\\%$",
       "printed": 0.002,
       "tol": 0.001,
@@ -729,7 +729,7 @@
     },
     {
       "id": "gt.v4_disagree",
-      "tex": 305,
+      "tex": 302,
       "literal": "disagreed by about $1\\%$ because the lift",
       "printed": 1.0,
       "tol": 0.5,
@@ -753,7 +753,7 @@
     },
     {
       "id": "operator.taylor_green",
-      "tex": 336,
+      "tex": 333,
       "literal": "& $1.6\\times 10^{-16}$",
       "printed": 1.6e-16,
       "tol": 5e-18,
@@ -765,7 +765,7 @@
     },
     {
       "id": "operator.backends",
-      "tex": 337,
+      "tex": 334,
       "literal": "& $2.8\\times 10^{-17}$",
       "printed": 2.8e-17,
       "tol": 5e-19,
@@ -777,7 +777,7 @@
     },
     {
       "id": "operator.steady",
-      "tex": 338,
+      "tex": 335,
       "literal": "& $5.6\\times 10^{-17}$",
       "printed": 5.6e-17,
       "tol": 5e-19,
@@ -789,7 +789,7 @@
     },
     {
       "id": "operator.speedup",
-      "tex": 339,
+      "tex": 336,
       "literal": "speed-up of the fast backend & ${\\approx}2.5\\times$",
       "printed": 2.5,
       "tol": 0.25,
@@ -802,7 +802,7 @@
     },
     {
       "id": "collapse.phase0",
-      "tex": 370,
+      "tex": 367,
       "literal": "shedding retained & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & \\textbf{31.1\\%}",
       "printed": 43.2,
       "unit": "pct",
@@ -815,7 +815,7 @@
     },
     {
       "id": "collapse.phase1",
-      "tex": 370,
+      "tex": 367,
       "literal": "shedding retained & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & \\textbf{31.1\\%}",
       "printed": 20.3,
       "unit": "pct",
@@ -828,7 +828,7 @@
     },
     {
       "id": "collapse.phase2",
-      "tex": 370,
+      "tex": 367,
       "literal": "shedding retained & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & \\textbf{31.1\\%}",
       "printed": 42.1,
       "unit": "pct",
@@ -841,7 +841,7 @@
     },
     {
       "id": "collapse.phase3",
-      "tex": 370,
+      "tex": 367,
       "literal": "shedding retained & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & \\textbf{31.1\\%}",
       "printed": 19.0,
       "unit": "pct",
@@ -854,7 +854,7 @@
     },
     {
       "id": "collapse.mean",
-      "tex": 370,
+      "tex": 367,
       "literal": "shedding retained & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & \\textbf{31.1\\%}",
       "printed": 31.1,
       "unit": "pct",
@@ -867,7 +867,7 @@
     },
     {
       "id": "collapse.range_lo",
-      "tex": 376,
+      "tex": 373,
       "literal": "keeps between 19\\% and 43\\%",
       "printed": 19.0,
       "unit": "pct",
@@ -881,7 +881,7 @@
     },
     {
       "id": "collapse.range_hi",
-      "tex": 376,
+      "tex": 373,
       "literal": "keeps between 19\\% and 43\\%",
       "printed": 43.0,
       "unit": "pct",
@@ -894,7 +894,7 @@
     },
     {
       "id": "collapse.l2",
-      "tex": 377,
+      "tex": 374,
       "literal": "with a field error of 0.17:",
       "printed": 0.17,
       "tol": 0.005,
@@ -906,7 +906,7 @@
     },
     {
       "id": "collapse.v4_phase0",
-      "tex": 387,
+      "tex": 383,
       "literal": "the same configuration gives 9.1\\%, 25.6\\%, 13.1\\%",
       "printed": 9.1,
       "unit": "pct",
@@ -919,7 +919,7 @@
     },
     {
       "id": "collapse.v4_phase1",
-      "tex": 387,
+      "tex": 383,
       "literal": "the same configuration gives 9.1\\%, 25.6\\%, 13.1\\%",
       "printed": 25.6,
       "unit": "pct",
@@ -932,7 +932,7 @@
     },
     {
       "id": "collapse.v4_phase2",
-      "tex": 387,
+      "tex": 383,
       "literal": "the same configuration gives 9.1\\%, 25.6\\%, 13.1\\%",
       "printed": 13.1,
       "unit": "pct",
@@ -945,7 +945,7 @@
     },
     {
       "id": "collapse.v4_phase3",
-      "tex": 388,
+      "tex": 384,
       "literal": "34.9\\% at the four phases",
       "printed": 34.9,
       "unit": "pct",
@@ -958,7 +958,7 @@
     },
     {
       "id": "ctrl.b80.mean",
-      "tex": 394,
+      "tex": 390,
       "literal": "the same network keeps 48.6\\% on average",
       "printed": 48.6,
       "unit": "pct",
@@ -971,7 +971,7 @@
     },
     {
       "id": "ctrl.b80.l2",
-      "tex": 395,
+      "tex": 391,
       "literal": "field error of 0.115.",
       "printed": 0.115,
       "tol": 0.0005,
@@ -983,7 +983,7 @@
     },
     {
       "id": "ctrl.compute_gain",
-      "tex": 395,
+      "tex": 391,
       "literal": "by 17.5 points phase-averaged",
       "printed": 17.5,
       "tol": 0.05,
@@ -995,7 +995,7 @@
     },
     {
       "id": "ctrl.b80.phase0",
-      "tex": 396,
+      "tex": 392,
       "literal": "the half-cycle swing survives it: 62.6\\%",
       "printed": 62.6,
       "unit": "pct",
@@ -1008,7 +1008,7 @@
     },
     {
       "id": "ctrl.b80.phase2",
-      "tex": 396,
+      "tex": 392,
       "literal": "and 61.2\\% at phases 0 and",
       "printed": 61.2,
       "unit": "pct",
@@ -1021,7 +1021,7 @@
     },
     {
       "id": "ctrl.b80.phase1",
-      "tex": 397,
+      "tex": 393,
       "literal": "34.3\\% and 36.5\\% at the other two",
       "printed": 34.3,
       "unit": "pct",
@@ -1034,7 +1034,7 @@
     },
     {
       "id": "ctrl.b80.phase3",
-      "tex": 397,
+      "tex": 393,
       "literal": "34.3\\% and 36.5\\% at the other two",
       "printed": 36.5,
       "unit": "pct",
@@ -1047,7 +1047,7 @@
     },
     {
       "id": "collapse.old_claim",
-      "tex": 386,
+      "tex": 382,
       "literal": "``10.6\\% of the wake''",
       "printed": 10.6,
       "unit": "pct",
@@ -1065,7 +1065,7 @@
     },
     {
       "id": "abl.baseflow",
-      "tex": 428,
+      "tex": 424,
       "literal": "$L_2 = 2.2\\times 10^{-3}$",
       "printed": 0.0022,
       "tol": 5e-05,
@@ -1077,7 +1077,7 @@
     },
     {
       "id": "abl.baseline.shedding",
-      "tex": 452,
+      "tex": 448,
       "literal": "\\texttt{baseline}  & 41.1\\% & 0.173",
       "printed": 41.1,
       "unit": "pct",
@@ -1094,7 +1094,7 @@
     },
     {
       "id": "abl.baseline.l2",
-      "tex": 452,
+      "tex": 448,
       "literal": "\\texttt{baseline}  & 41.1\\% & 0.173",
       "printed": 0.173,
       "tol": 0.0005,
@@ -1110,7 +1110,7 @@
     },
     {
       "id": "abl.fourier.shedding",
-      "tex": 453,
+      "tex": 449,
       "literal": "\\texttt{fourier}   & 36.9\\% & 0.149",
       "printed": 36.9,
       "unit": "pct",
@@ -1127,7 +1127,7 @@
     },
     {
       "id": "abl.fourier.l2",
-      "tex": 453,
+      "tex": 449,
       "literal": "\\texttt{fourier}   & 36.9\\% & 0.149",
       "printed": 0.149,
       "tol": 0.0005,
@@ -1143,7 +1143,7 @@
     },
     {
       "id": "abl.decompose.shedding",
-      "tex": 454,
+      "tex": 450,
       "literal": "\\texttt{decompose} & 36.1\\% & 0.086",
       "printed": 36.1,
       "unit": "pct",
@@ -1160,7 +1160,7 @@
     },
     {
       "id": "abl.decompose.l2",
-      "tex": 454,
+      "tex": 450,
       "literal": "\\texttt{decompose} & 36.1\\% & 0.086",
       "printed": 0.086,
       "tol": 0.0005,
@@ -1176,7 +1176,7 @@
     },
     {
       "id": "abl.march.shedding",
-      "tex": 455,
+      "tex": 451,
       "literal": "\\texttt{march}     & 72.2\\% & 0.156",
       "printed": 72.2,
       "unit": "pct",
@@ -1193,7 +1193,7 @@
     },
     {
       "id": "abl.march.l2",
-      "tex": 455,
+      "tex": 451,
       "literal": "\\texttt{march}     & 72.2\\% & 0.156",
       "printed": 0.156,
       "tol": 0.0005,
@@ -1209,7 +1209,7 @@
     },
     {
       "id": "abl.all.shedding",
-      "tex": 456,
+      "tex": 452,
       "literal": "\\texttt{all}       & 77.3\\% & 0.052",
       "printed": 77.3,
       "unit": "pct",
@@ -1226,7 +1226,7 @@
     },
     {
       "id": "abl.all.l2",
-      "tex": 456,
+      "tex": 452,
       "literal": "\\texttt{all}       & 77.3\\% & 0.052",
       "printed": 0.052,
       "tol": 0.0005,
@@ -1242,7 +1242,7 @@
     },
     {
       "id": "abl.all+data.shedding",
-      "tex": 457,
+      "tex": 453,
       "literal": "& 99.1\\% & \\textbf{0.006}",
       "printed": 99.1,
       "unit": "pct",
@@ -1259,7 +1259,7 @@
     },
     {
       "id": "abl.all+data.l2",
-      "tex": 457,
+      "tex": 453,
       "literal": "& 99.1\\% & \\textbf{0.006}",
       "printed": 0.006,
       "tol": 0.0005,
@@ -1275,7 +1275,7 @@
     },
     {
       "id": "core.baseline.phase0",
-      "tex": 471,
+      "tex": 467,
       "literal": "\\texttt{baseline} & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & 31.1\\% & 0.166",
       "printed": 43.2,
       "unit": "pct",
@@ -1288,7 +1288,7 @@
     },
     {
       "id": "core.baseline.phase1",
-      "tex": 471,
+      "tex": 467,
       "literal": "\\texttt{baseline} & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & 31.1\\% & 0.166",
       "printed": 20.3,
       "unit": "pct",
@@ -1301,7 +1301,7 @@
     },
     {
       "id": "core.baseline.phase2",
-      "tex": 471,
+      "tex": 467,
       "literal": "\\texttt{baseline} & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & 31.1\\% & 0.166",
       "printed": 42.1,
       "unit": "pct",
@@ -1314,7 +1314,7 @@
     },
     {
       "id": "core.baseline.phase3",
-      "tex": 471,
+      "tex": 467,
       "literal": "\\texttt{baseline} & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & 31.1\\% & 0.166",
       "printed": 19.0,
       "unit": "pct",
@@ -1327,7 +1327,7 @@
     },
     {
       "id": "core.baseline.mean",
-      "tex": 471,
+      "tex": 467,
       "literal": "\\texttt{baseline} & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & 31.1\\% & 0.166",
       "printed": 31.1,
       "unit": "pct",
@@ -1340,7 +1340,7 @@
     },
     {
       "id": "core.baseline.l2",
-      "tex": 471,
+      "tex": 467,
       "literal": "\\texttt{baseline} & 43.2\\% & 20.3\\% & 42.1\\% & 19.0\\% & 31.1\\% & 0.166",
       "printed": 0.166,
       "tol": 0.0005,
@@ -1352,7 +1352,7 @@
     },
     {
       "id": "core.march.phase0",
-      "tex": 472,
+      "tex": 468,
       "literal": "\\texttt{march}    & 70.6\\% & 40.4\\% & 73.8\\% & 40.7\\% & 56.4\\% & 0.156",
       "printed": 70.6,
       "unit": "pct",
@@ -1365,7 +1365,7 @@
     },
     {
       "id": "core.march.phase1",
-      "tex": 472,
+      "tex": 468,
       "literal": "\\texttt{march}    & 70.6\\% & 40.4\\% & 73.8\\% & 40.7\\% & 56.4\\% & 0.156",
       "printed": 40.4,
       "unit": "pct",
@@ -1378,7 +1378,7 @@
     },
     {
       "id": "core.march.phase2",
-      "tex": 472,
+      "tex": 468,
       "literal": "\\texttt{march}    & 70.6\\% & 40.4\\% & 73.8\\% & 40.7\\% & 56.4\\% & 0.156",
       "printed": 73.8,
       "unit": "pct",
@@ -1391,7 +1391,7 @@
     },
     {
       "id": "core.march.phase3",
-      "tex": 472,
+      "tex": 468,
       "literal": "\\texttt{march}    & 70.6\\% & 40.4\\% & 73.8\\% & 40.7\\% & 56.4\\% & 0.156",
       "printed": 40.7,
       "unit": "pct",
@@ -1404,7 +1404,7 @@
     },
     {
       "id": "core.march.mean",
-      "tex": 472,
+      "tex": 468,
       "literal": "\\texttt{march}    & 70.6\\% & 40.4\\% & 73.8\\% & 40.7\\% & 56.4\\% & 0.156",
       "printed": 56.4,
       "unit": "pct",
@@ -1417,7 +1417,7 @@
     },
     {
       "id": "core.march.l2",
-      "tex": 472,
+      "tex": 468,
       "literal": "\\texttt{march}    & 70.6\\% & 40.4\\% & 73.8\\% & 40.7\\% & 56.4\\% & 0.156",
       "printed": 0.156,
       "tol": 0.0005,
@@ -1429,7 +1429,7 @@
     },
     {
       "id": "core.all.phase0",
-      "tex": 473,
+      "tex": 469,
       "literal": "\\texttt{all}      & 74.9\\% & 70.2\\% & 76.6\\% & 70.0\\% & \\textbf{72.9\\%} & \\textbf{0.031}",
       "printed": 74.9,
       "unit": "pct",
@@ -1442,7 +1442,7 @@
     },
     {
       "id": "core.all.phase1",
-      "tex": 473,
+      "tex": 469,
       "literal": "\\texttt{all}      & 74.9\\% & 70.2\\% & 76.6\\% & 70.0\\% & \\textbf{72.9\\%} & \\textbf{0.031}",
       "printed": 70.2,
       "unit": "pct",
@@ -1455,7 +1455,7 @@
     },
     {
       "id": "core.all.phase2",
-      "tex": 473,
+      "tex": 469,
       "literal": "\\texttt{all}      & 74.9\\% & 70.2\\% & 76.6\\% & 70.0\\% & \\textbf{72.9\\%} & \\textbf{0.031}",
       "printed": 76.6,
       "unit": "pct",
@@ -1468,7 +1468,7 @@
     },
     {
       "id": "core.all.phase3",
-      "tex": 473,
+      "tex": 469,
       "literal": "\\texttt{all}      & 74.9\\% & 70.2\\% & 76.6\\% & 70.0\\% & \\textbf{72.9\\%} & \\textbf{0.031}",
       "printed": 70.0,
       "unit": "pct",
@@ -1481,7 +1481,7 @@
     },
     {
       "id": "core.all.mean",
-      "tex": 473,
+      "tex": 469,
       "literal": "\\texttt{all}      & 74.9\\% & 70.2\\% & 76.6\\% & 70.0\\% & \\textbf{72.9\\%} & \\textbf{0.031}",
       "printed": 72.9,
       "unit": "pct",
@@ -1494,7 +1494,7 @@
     },
     {
       "id": "core.all.l2",
-      "tex": 473,
+      "tex": 469,
       "literal": "\\texttt{all}      & 74.9\\% & 70.2\\% & 76.6\\% & 70.0\\% & \\textbf{72.9\\%} & \\textbf{0.031}",
       "printed": 0.031,
       "tol": 0.0005,
@@ -1506,7 +1506,7 @@
     },
     {
       "id": "abl.text.fourier",
-      "tex": 491,
+      "tex": 487,
       "literal": "(37\\% and 36\\% against 41\\%",
       "printed": 37.0,
       "unit": "pct",
@@ -1523,7 +1523,7 @@
     },
     {
       "id": "abl.text.decompose",
-      "tex": 491,
+      "tex": 487,
       "literal": "(37\\% and 36\\% against 41\\%",
       "printed": 36.0,
       "unit": "pct",
@@ -1540,7 +1540,7 @@
     },
     {
       "id": "abl.text.baseline",
-      "tex": 491,
+      "tex": 487,
       "literal": "(37\\% and 36\\% against 41\\%",
       "printed": 41.0,
       "unit": "pct",
@@ -1557,7 +1557,7 @@
     },
     {
       "id": "abl.text.march_lo",
-      "tex": 496,
+      "tex": 492,
       "literal": "swing, between 40\\% and 74\\%",
       "printed": 40.0,
       "unit": "pct",
@@ -1570,7 +1570,7 @@
     },
     {
       "id": "abl.text.march_hi",
-      "tex": 496,
+      "tex": 492,
       "literal": "swing, between 40\\% and 74\\%",
       "printed": 74.0,
       "unit": "pct",
@@ -1583,7 +1583,7 @@
     },
     {
       "id": "abl.text.all_lo",
-      "tex": 497,
+      "tex": 493,
       "literal": "70--77\\% at every phase",
       "printed": 70.0,
       "unit": "pct",
@@ -1596,7 +1596,7 @@
     },
     {
       "id": "abl.text.all_hi",
-      "tex": 497,
+      "tex": 493,
       "literal": "70--77\\% at every phase",
       "printed": 77.0,
       "unit": "pct",
@@ -1609,7 +1609,7 @@
     },
     {
       "id": "abl.text.all_l2",
-      "tex": 497,
+      "tex": 493,
       "literal": "at a field\nerror of 0.031",
       "printed": 0.031,
       "tol": 0.0005,
@@ -1621,7 +1621,7 @@
     },
     {
       "id": "abl.text.n_seeds",
-      "tex": 498,
+      "tex": 494,
       "literal": "Over the five seeds the phase\nmeans",
       "printed": 5,
       "tol": 0.5,
@@ -1633,7 +1633,7 @@
     },
     {
       "id": "abl.text.ci.baseline",
-      "tex": 499,
+      "tex": 495,
       "literal": "intervals of $\\pm 1.5$, $\\pm 0.9$ and $\\pm 4.6$ points for",
       "printed": 1.5,
       "unit": "pct",
@@ -1647,7 +1647,7 @@
     },
     {
       "id": "abl.text.ci.march",
-      "tex": 499,
+      "tex": 495,
       "literal": "intervals of $\\pm 1.5$, $\\pm 0.9$ and $\\pm 4.6$ points for",
       "printed": 0.9,
       "unit": "pct",
@@ -1661,7 +1661,7 @@
     },
     {
       "id": "abl.text.ci.all",
-      "tex": 499,
+      "tex": 495,
       "literal": "intervals of $\\pm 1.5$, $\\pm 0.9$ and $\\pm 4.6$ points for",
       "printed": 4.6,
       "unit": "pct",
@@ -1675,7 +1675,7 @@
     },
     {
       "id": "dsic.march",
-      "tex": 508,
+      "tex": 503,
       "literal": "retain 93.0\\% (\\texttt{march})",
       "printed": 93.0,
       "unit": "pct",
@@ -1692,7 +1692,7 @@
     },
     {
       "id": "dsic.all",
-      "tex": 508,
+      "tex": 503,
       "literal": "and 94.5\\% (\\texttt{all})",
       "printed": 94.5,
       "unit": "pct",
@@ -1709,7 +1709,7 @@
     },
     {
       "id": "dsic.march_chained",
-      "tex": 509,
+      "tex": 504,
       "literal": "against 72.2\\% and 77.3\\% chained",
       "printed": 72.2,
       "unit": "pct",
@@ -1726,7 +1726,7 @@
     },
     {
       "id": "dsic.all_chained",
-      "tex": 509,
+      "tex": 504,
       "literal": "against 72.2\\% and 77.3\\% chained",
       "printed": 77.3,
       "unit": "pct",
@@ -1743,7 +1743,7 @@
     },
     {
       "id": "budget.march",
-      "tex": 527,
+      "tex": 522,
       "literal": "& 56.4\\% & 48.6\\% & $+7.7$ & $-2.2$ to $+15.8$",
       "printed": 56.4,
       "unit": "pct",
@@ -1756,7 +1756,7 @@
     },
     {
       "id": "budget.b80",
-      "tex": 527,
+      "tex": 522,
       "literal": "& 56.4\\% & 48.6\\% & $+7.7$ & $-2.2$ to $+15.8$",
       "printed": 48.6,
       "unit": "pct",
@@ -1769,7 +1769,7 @@
     },
     {
       "id": "budget.march_gain",
-      "tex": 527,
+      "tex": 522,
       "literal": "& 56.4\\% & 48.6\\% & $+7.7$ & $-2.2$ to $+15.8$",
       "printed": 7.7,
       "tol": 0.05,
@@ -1781,7 +1781,7 @@
     },
     {
       "id": "budget.march_min",
-      "tex": 527,
+      "tex": 522,
       "literal": "& 56.4\\% & 48.6\\% & $+7.7$ & $-2.2$ to $+15.8$",
       "printed": -2.2,
       "tol": 0.05,
@@ -1793,7 +1793,7 @@
     },
     {
       "id": "budget.march_max",
-      "tex": 527,
+      "tex": 522,
       "literal": "& 56.4\\% & 48.6\\% & $+7.7$ & $-2.2$ to $+15.8$",
       "printed": 15.8,
       "tol": 0.05,
@@ -1805,7 +1805,7 @@
     },
     {
       "id": "budget.all",
-      "tex": 528,
+      "tex": 523,
       "literal": "& 72.9\\% & 38.7\\% & $+34.1$ & $+20.0$ to $+55.2$",
       "printed": 72.9,
       "unit": "pct",
@@ -1818,7 +1818,7 @@
     },
     {
       "id": "budget.fd8",
-      "tex": 528,
+      "tex": 523,
       "literal": "& 72.9\\% & 38.7\\% & $+34.1$ & $+20.0$ to $+55.2$",
       "printed": 38.7,
       "unit": "pct",
@@ -1831,7 +1831,7 @@
     },
     {
       "id": "budget.all_gain",
-      "tex": 528,
+      "tex": 523,
       "literal": "& 72.9\\% & 38.7\\% & $+34.1$ & $+20.0$ to $+55.2$",
       "printed": 34.1,
       "tol": 0.05,
@@ -1843,7 +1843,7 @@
     },
     {
       "id": "budget.all_min",
-      "tex": 528,
+      "tex": 523,
       "literal": "& 72.9\\% & 38.7\\% & $+34.1$ & $+20.0$ to $+55.2$",
       "printed": 20.0,
       "tol": 0.05,
@@ -1855,7 +1855,7 @@
     },
     {
       "id": "budget.all_max",
-      "tex": 528,
+      "tex": 523,
       "literal": "& 72.9\\% & 38.7\\% & $+34.1$ & $+20.0$ to $+55.2$",
       "printed": 55.2,
       "tol": 0.05,
@@ -1867,7 +1867,7 @@
     },
     {
       "id": "budget.text.wins",
-      "tex": 534,
+      "tex": 529,
       "literal": "marching wins 19 of the 20 pairings",
       "printed": 19,
       "tol": 0.5,
@@ -1879,7 +1879,7 @@
     },
     {
       "id": "budget.text.pairs",
-      "tex": 534,
+      "tex": 529,
       "literal": "marching wins 19 of the 20 pairings",
       "printed": 20,
       "tol": 0.5,
@@ -1891,7 +1891,7 @@
     },
     {
       "id": "budget.text.loses",
-      "tex": 534,
+      "tex": 529,
       "literal": "and loses one by 2.2 points,",
       "printed": -2.2,
       "tol": 0.05,
@@ -1904,8 +1904,8 @@
     },
     {
       "id": "budget.text.compute",
-      "tex": 536,
-      "literal": "PINN, training longer accounts for more than causality does --- 17.5 points",
+      "tex": 531,
+      "literal": "PINN, training longer accounts for 17.5 points",
       "printed": 17.5,
       "tol": 0.05,
       "src": {
@@ -1916,8 +1916,8 @@
     },
     {
       "id": "budget.text.causal",
-      "tex": 537,
-      "literal": "against 7.7. With Fourier features",
+      "tex": 532,
+      "literal": "7.7. With Fourier features",
       "printed": 7.7,
       "tol": 0.05,
       "src": {
@@ -1928,7 +1928,7 @@
     },
     {
       "id": "budget.text.fd8",
-      "tex": 538,
+      "tex": 533,
       "literal": "window keep 38.7\\% at",
       "printed": 38.7,
       "unit": "pct",
@@ -1941,7 +1941,7 @@
     },
     {
       "id": "budget.text.all_gain",
-      "tex": 540,
+      "tex": 535,
       "literal": "lifts them by 34.1 points, in all 20",
       "printed": 34.1,
       "tol": 0.05,
@@ -1953,7 +1953,7 @@
     },
     {
       "id": "budget.text.all_pos",
-      "tex": 540,
+      "tex": 535,
       "literal": "lifts them by 34.1 points, in all 20",
       "printed": 20,
       "tol": 0.5,
@@ -1965,7 +1965,7 @@
     },
     {
       "id": "budget.text.four_times",
-      "tex": 541,
+      "tex": 536,
       "literal": "Causality is worth more than four times",
       "printed": 4.0,
       "tol": 0.5,
@@ -1987,7 +1987,7 @@
     },
     {
       "id": "budget.text.ci0",
-      "tex": 544,
+      "tex": 539,
       "literal": "$\\pm 0.7$ points (training longer), $\\pm 1.9$ (causality alone) and $\\pm 9.0$",
       "printed": 0.7,
       "tol": 0.05,
@@ -2000,7 +2000,7 @@
     },
     {
       "id": "budget.text.ci1",
-      "tex": 544,
+      "tex": 539,
       "literal": "$\\pm 0.7$ points (training longer), $\\pm 1.9$ (causality alone) and $\\pm 9.0$",
       "printed": 1.9,
       "tol": 0.05,
@@ -2013,7 +2013,7 @@
     },
     {
       "id": "budget.text.ci2",
-      "tex": 544,
+      "tex": 539,
       "literal": "$\\pm 0.7$ points (training longer), $\\pm 1.9$ (causality alone) and $\\pm 9.0$",
       "printed": 9.0,
       "tol": 0.05,
@@ -2026,7 +2026,7 @@
     },
     {
       "id": "budget.text.fd8_mean",
-      "tex": 547,
+      "tex": 542,
       "literal": "$38.7 \\pm 9.5\\%$.",
       "printed": 38.7,
       "unit": "pct",
@@ -2039,7 +2039,7 @@
     },
     {
       "id": "budget.text.fd8_ci",
-      "tex": 547,
+      "tex": 542,
       "literal": "$38.7 \\pm 9.5\\%$.",
       "printed": 9.5,
       "unit": "pct",
@@ -2052,7 +2052,7 @@
     },
     {
       "id": "knob.s8.all.before",
-      "tex": 558,
+      "tex": 553,
       "literal": "& 77.3\\% $\\rightarrow$ 76.4\\%",
       "printed": 77.3,
       "unit": "pct",
@@ -2069,7 +2069,7 @@
     },
     {
       "id": "knob.s8.all.after",
-      "tex": 558,
+      "tex": 553,
       "literal": "& 77.3\\% $\\rightarrow$ 76.4\\%",
       "printed": 76.4,
       "unit": "pct",
@@ -2086,7 +2086,7 @@
     },
     {
       "id": "knob.s8.all.l2_before",
-      "tex": 558,
+      "tex": 553,
       "literal": "& 0.052 $\\rightarrow$ \\textbf{0.031}",
       "printed": 0.052,
       "tol": 0.0005,
@@ -2102,7 +2102,7 @@
     },
     {
       "id": "knob.s8.all.l2_after",
-      "tex": 558,
+      "tex": 553,
       "literal": "& 0.052 $\\rightarrow$ \\textbf{0.031}",
       "printed": 0.031,
       "tol": 0.0005,
@@ -2118,7 +2118,7 @@
     },
     {
       "id": "knob.s8.fourier.before",
-      "tex": 559,
+      "tex": 554,
       "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
       "printed": 36.9,
       "unit": "pct",
@@ -2135,7 +2135,7 @@
     },
     {
       "id": "knob.s8.fourier.after",
-      "tex": 559,
+      "tex": 554,
       "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
       "printed": 37.6,
       "unit": "pct",
@@ -2152,7 +2152,7 @@
     },
     {
       "id": "knob.s8.fourier.l2_before",
-      "tex": 559,
+      "tex": 554,
       "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
       "printed": 0.149,
       "tol": 0.0005,
@@ -2168,7 +2168,7 @@
     },
     {
       "id": "knob.s8.fourier.l2_after",
-      "tex": 559,
+      "tex": 554,
       "literal": "& 36.9\\% $\\rightarrow$ 37.6\\% & 0.149 $\\rightarrow$ 0.136",
       "printed": 0.136,
       "tol": 0.0005,
@@ -2184,7 +2184,7 @@
     },
     {
       "id": "knob.wic.after",
-      "tex": 560,
+      "tex": 555,
       "literal": "& 77.3\\% $\\rightarrow$ 74.7\\% & 0.052 $\\rightarrow$ 0.065",
       "printed": 74.7,
       "unit": "pct",
@@ -2201,7 +2201,7 @@
     },
     {
       "id": "knob.wic.l2_after",
-      "tex": 560,
+      "tex": 555,
       "literal": "& 77.3\\% $\\rightarrow$ 74.7\\% & 0.052 $\\rightarrow$ 0.065",
       "printed": 0.065,
       "tol": 0.0005,
@@ -2217,7 +2217,7 @@
     },
     {
       "id": "sup.0.shedding",
-      "tex": 579,
+      "tex": 574,
       "literal": "0    & 77.3\\% & 0.052",
       "printed": 77.3,
       "unit": "pct",
@@ -2234,7 +2234,7 @@
     },
     {
       "id": "sup.0.l2",
-      "tex": 579,
+      "tex": 574,
       "literal": "0    & 77.3\\% & 0.052",
       "printed": 0.052,
       "tol": 0.0005,
@@ -2250,7 +2250,7 @@
     },
     {
       "id": "sup.100.shedding",
-      "tex": 580,
+      "tex": 575,
       "literal": "100  & 87.4\\% & 0.020",
       "printed": 87.4,
       "unit": "pct",
@@ -2267,7 +2267,7 @@
     },
     {
       "id": "sup.100.l2",
-      "tex": 580,
+      "tex": 575,
       "literal": "100  & 87.4\\% & 0.020",
       "printed": 0.02,
       "tol": 0.0005,
@@ -2283,7 +2283,7 @@
     },
     {
       "id": "sup.500.shedding",
-      "tex": 581,
+      "tex": 576,
       "literal": "500  & 96.9\\% & 0.010",
       "printed": 96.9,
       "unit": "pct",
@@ -2300,7 +2300,7 @@
     },
     {
       "id": "sup.500.l2",
-      "tex": 581,
+      "tex": 576,
       "literal": "500  & 96.9\\% & 0.010",
       "printed": 0.01,
       "tol": 0.0005,
@@ -2316,7 +2316,7 @@
     },
     {
       "id": "sup.2000.shedding",
-      "tex": 582,
+      "tex": 577,
       "literal": "2000 & 98.1\\% & 0.007",
       "printed": 98.1,
       "unit": "pct",
@@ -2333,7 +2333,7 @@
     },
     {
       "id": "sup.2000.l2",
-      "tex": 582,
+      "tex": 577,
       "literal": "2000 & 98.1\\% & 0.007",
       "printed": 0.007,
       "tol": 0.0005,
@@ -2349,7 +2349,7 @@
     },
     {
       "id": "sup.4000.shedding",
-      "tex": 583,
+      "tex": 578,
       "literal": "4000 & 99.1\\% & 0.006",
       "printed": 99.1,
       "unit": "pct",
@@ -2366,7 +2366,7 @@
     },
     {
       "id": "sup.4000.l2",
-      "tex": 583,
+      "tex": 578,
       "literal": "4000 & 99.1\\% & 0.006",
       "printed": 0.006,
       "tol": 0.0005,
@@ -2382,7 +2382,7 @@
     },
     {
       "id": "acc5.St",
-      "tex": 612,
+      "tex": 605,
       "literal": "& --- & 0.1476 ($-10.4\\%$)",
       "printed": 0.1476,
       "tol": 5e-05,
@@ -2395,7 +2395,7 @@
     },
     {
       "id": "acc5.St_err",
-      "tex": 612,
+      "tex": 605,
       "literal": "& --- & 0.1476 ($-10.4\\%$)",
       "printed": -10.4,
       "tol": 0.05,
@@ -2408,7 +2408,7 @@
     },
     {
       "id": "acc5.St_ref",
-      "tex": 613,
+      "tex": 606,
       "literal": "reference $\\St$ over the same span & --- & 0.1648",
       "printed": 0.1648,
       "tol": 5e-05,
@@ -2421,7 +2421,7 @@
     },
     {
       "id": "acc.crossings1",
-      "tex": 614,
+      "tex": 607,
       "literal": "zero crossings available & 2 & 9",
       "printed": 2,
       "tol": 0.5,
@@ -2434,7 +2434,7 @@
     },
     {
       "id": "acc.crossings5",
-      "tex": 614,
+      "tex": 607,
       "literal": "zero crossings available & 2 & 9",
       "printed": 9,
       "tol": 0.5,
@@ -2447,7 +2447,7 @@
     },
     {
       "id": "acc1.amp",
-      "tex": 615,
+      "tex": 608,
       "literal": "wake amplitude           & 73.5\\% & 63.8\\%",
       "printed": 73.5,
       "unit": "pct",
@@ -2461,7 +2461,7 @@
     },
     {
       "id": "acc5.amp",
-      "tex": 615,
+      "tex": 608,
       "literal": "wake amplitude           & 73.5\\% & 63.8\\%",
       "printed": 63.8,
       "unit": "pct",
@@ -2475,7 +2475,7 @@
     },
     {
       "id": "acc1.lag",
-      "tex": 616,
+      "tex": 609,
       "literal": "phase lag                & $0.1^\\circ$",
       "printed": 0.1,
       "unit": "deg_from_periods",
@@ -2489,7 +2489,7 @@
     },
     {
       "id": "acc5.phase_err",
-      "tex": 617,
+      "tex": 610,
       "literal": "phase error by the end   & --- & ${\\approx}\\,0.5$ period",
       "printed": 0.5,
       "tol": 0.05,
@@ -2518,7 +2518,7 @@
     },
     {
       "id": "acc1.l2",
-      "tex": 618,
+      "tex": 611,
       "literal": "velocity-field error     & 0.034 & 0.156",
       "printed": 0.034,
       "tol": 0.0005,
@@ -2531,7 +2531,7 @@
     },
     {
       "id": "acc5.l2",
-      "tex": 618,
+      "tex": 611,
       "literal": "velocity-field error     & 0.034 & 0.156",
       "printed": 0.156,
       "tol": 0.0005,
@@ -2544,7 +2544,7 @@
     },
     {
       "id": "acc1.text_amp",
-      "tex": 625,
+      "tex": 618,
       "literal": "at 73.5\\% of its amplitude and a field error of 0.034",
       "printed": 73.5,
       "unit": "pct",
@@ -2558,7 +2558,7 @@
     },
     {
       "id": "acc1.text_l2",
-      "tex": 625,
+      "tex": 618,
       "literal": "at 73.5\\% of its amplitude and a field error of 0.034",
       "printed": 0.034,
       "tol": 0.0005,
@@ -2571,7 +2571,7 @@
     },
     {
       "id": "acc1.ref_misread",
-      "tex": 627,
+      "tex": 620,
       "literal": "reads even the reference at 0.139 against the",
       "printed": 0.139,
       "tol": 0.0005,
@@ -2585,7 +2585,7 @@
     },
     {
       "id": "acc1.true_st",
-      "tex": 628,
+      "tex": 621,
       "literal": "dataset's 0.1648.",
       "printed": 0.1648,
       "tol": 5e-05,
@@ -2599,7 +2599,7 @@
     },
     {
       "id": "acc5.text_err",
-      "tex": 632,
+      "tex": 625,
       "literal": "10.4\\% below the reference",
       "printed": -10.4,
       "tol": 0.05,
@@ -2613,7 +2613,7 @@
     },
     {
       "id": "acc5.text_amp",
-      "tex": 634,
+      "tex": 627,
       "literal": "Amplitude decays\nto 63.8\\%",
       "printed": 63.8,
       "unit": "pct",
@@ -2627,7 +2627,7 @@
     },
     {
       "id": "acc5.text_l2",
-      "tex": 635,
+      "tex": 628,
       "literal": "and the field error grows to 0.156",
       "printed": 0.156,
       "tol": 0.0005,
@@ -2640,7 +2640,7 @@
     },
     {
       "id": "acc5.old_claim",
-      "tex": 639,
+      "tex": 632,
       "literal": "$\\St$ within $0.1\\%$\nover five periods",
       "printed": 0.1,
       "tol": 0.05,
@@ -2654,7 +2654,7 @@
     },
     {
       "id": "ra.snap_windows",
-      "tex": 665,
+      "tex": 658,
       "literal": "$20 \\times 4\\,000 = 80\\,000$ reference",
       "printed": 20,
       "tol": 0.5,
@@ -2666,7 +2666,7 @@
     },
     {
       "id": "ra.snap_ic",
-      "tex": 665,
+      "tex": 658,
       "literal": "$20 \\times 4\\,000 = 80\\,000$ reference",
       "printed": 4000,
       "tol": 0.5,
@@ -2678,7 +2678,7 @@
     },
     {
       "id": "ra.snap_total",
-      "tex": 665,
+      "tex": 658,
       "literal": "$20 \\times 4\\,000 = 80\\,000$ reference",
       "printed": 80000,
       "tol": 0.5,
@@ -2699,7 +2699,7 @@
     },
     {
       "id": "ra.free_lag",
-      "tex": 673,
+      "tex": 666,
       "literal": "reads 0.37 of a period",
       "printed": 0.37,
       "tol": 0.005,
@@ -2715,7 +2715,7 @@
     },
     {
       "id": "ra.free.per_period",
-      "tex": 687,
+      "tex": 680,
       "literal": "---    & --- & 0 & 0 & $-10.4$, $-10.2$ & 0.369, 0.345 \\\\",
       "printed": 0.0,
       "tol": 0.5,
@@ -2744,7 +2744,7 @@
     },
     {
       "id": "ra.free.total",
-      "tex": 687,
+      "tex": 680,
       "literal": "---    & --- & 0 & 0 & $-10.4$, $-10.2$ & 0.369, 0.345 \\\\",
       "printed": 0.0,
       "tol": 0.5,
@@ -2760,7 +2760,7 @@
     },
     {
       "id": "ra.free.St0",
-      "tex": 687,
+      "tex": 680,
       "literal": "---    & --- & 0 & 0 & $-10.4$, $-10.2$ & 0.369, 0.345 \\\\",
       "printed": -10.4,
       "tol": 0.05,
@@ -2776,7 +2776,7 @@
     },
     {
       "id": "ra.free.St1",
-      "tex": 687,
+      "tex": 680,
       "literal": "---    & --- & 0 & 0 & $-10.4$, $-10.2$ & 0.369, 0.345 \\\\",
       "printed": -10.2,
       "tol": 0.05,
@@ -2792,7 +2792,7 @@
     },
     {
       "id": "ra.free.lag0",
-      "tex": 687,
+      "tex": 680,
       "literal": "---    & --- & 0 & 0 & $-10.4$, $-10.2$ & 0.369, 0.345 \\\\",
       "printed": 0.369,
       "tol": 0.0005,
@@ -2808,7 +2808,7 @@
     },
     {
       "id": "ra.free.lag1",
-      "tex": 687,
+      "tex": 680,
       "literal": "---    & --- & 0 & 0 & $-10.4$, $-10.2$ & 0.369, 0.345 \\\\",
       "printed": 0.345,
       "tol": 0.0005,
@@ -2824,7 +2824,7 @@
     },
     {
       "id": "ra.a8_n100.N",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": 100,
       "tol": 0.5,
@@ -2836,7 +2836,7 @@
     },
     {
       "id": "ra.a8_n100.K",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": 8,
       "tol": 0.5,
@@ -2848,7 +2848,7 @@
     },
     {
       "id": "ra.a8_n100.per_period",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": 60.0,
       "tol": 0.5,
@@ -2877,7 +2877,7 @@
     },
     {
       "id": "ra.a8_n100.total",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": 300.0,
       "tol": 0.5,
@@ -2893,7 +2893,7 @@
     },
     {
       "id": "ra.a8_n100.St0",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": -8.8,
       "tol": 0.05,
@@ -2909,7 +2909,7 @@
     },
     {
       "id": "ra.a8_n100.St1",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": -9.7,
       "tol": 0.05,
@@ -2925,7 +2925,7 @@
     },
     {
       "id": "ra.a8_n100.lag0",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": 0.327,
       "tol": 0.0005,
@@ -2941,7 +2941,7 @@
     },
     {
       "id": "ra.a8_n100.lag1",
-      "tex": 688,
+      "tex": 681,
       "literal": "100    & 8   & 60 & 300 & $-8.8$, $-9.7$ & 0.327, 0.328 \\\\",
       "printed": 0.328,
       "tol": 0.0005,
@@ -2957,7 +2957,7 @@
     },
     {
       "id": "ra.a4_n100.N",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": 100,
       "tol": 0.5,
@@ -2969,7 +2969,7 @@
     },
     {
       "id": "ra.a4_n100.K",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": 4,
       "tol": 0.5,
@@ -2981,7 +2981,7 @@
     },
     {
       "id": "ra.a4_n100.per_period",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": 100.0,
       "tol": 0.5,
@@ -3010,7 +3010,7 @@
     },
     {
       "id": "ra.a4_n100.total",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": 500.0,
       "tol": 0.5,
@@ -3026,7 +3026,7 @@
     },
     {
       "id": "ra.a4_n100.St0",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": -7.6,
       "tol": 0.05,
@@ -3042,7 +3042,7 @@
     },
     {
       "id": "ra.a4_n100.St1",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": -9.1,
       "tol": 0.05,
@@ -3058,7 +3058,7 @@
     },
     {
       "id": "ra.a4_n100.lag0",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": 0.22,
       "tol": 0.0005,
@@ -3074,7 +3074,7 @@
     },
     {
       "id": "ra.a4_n100.lag1",
-      "tex": 689,
+      "tex": 682,
       "literal": "100    & 4   & 100 & 500 & $-7.6$, $-9.1$ & 0.220, 0.318 \\\\",
       "printed": 0.318,
       "tol": 0.0005,
@@ -3090,7 +3090,7 @@
     },
     {
       "id": "ra.a2_n100.N",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": 100,
       "tol": 0.5,
@@ -3102,7 +3102,7 @@
     },
     {
       "id": "ra.a2_n100.K",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": 2,
       "tol": 0.5,
@@ -3114,7 +3114,7 @@
     },
     {
       "id": "ra.a2_n100.per_period",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": 200.0,
       "tol": 0.5,
@@ -3143,7 +3143,7 @@
     },
     {
       "id": "ra.a2_n100.total",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": 1000.0,
       "tol": 0.5,
@@ -3159,7 +3159,7 @@
     },
     {
       "id": "ra.a2_n100.St0",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": -4.6,
       "tol": 0.05,
@@ -3175,7 +3175,7 @@
     },
     {
       "id": "ra.a2_n100.St1",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": -3.3,
       "tol": 0.05,
@@ -3191,7 +3191,7 @@
     },
     {
       "id": "ra.a2_n100.lag0",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": 0.12,
       "tol": 0.0005,
@@ -3207,7 +3207,7 @@
     },
     {
       "id": "ra.a2_n100.lag1",
-      "tex": 690,
+      "tex": 683,
       "literal": "100    & 2   & 200 & 1\\,000 & $-4.6$, $-3.3$ & 0.120, 0.100 \\\\",
       "printed": 0.1,
       "tol": 0.0005,
@@ -3223,7 +3223,7 @@
     },
     {
       "id": "ra.a2_n125.N",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": 125,
       "tol": 0.5,
@@ -3235,7 +3235,7 @@
     },
     {
       "id": "ra.a2_n125.K",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": 2,
       "tol": 0.5,
@@ -3247,7 +3247,7 @@
     },
     {
       "id": "ra.a2_n125.per_period",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": 250.0,
       "tol": 0.5,
@@ -3276,7 +3276,7 @@
     },
     {
       "id": "ra.a2_n125.total",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": 1250.0,
       "tol": 0.5,
@@ -3292,7 +3292,7 @@
     },
     {
       "id": "ra.a2_n125.St0",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": -1.7,
       "tol": 0.05,
@@ -3308,7 +3308,7 @@
     },
     {
       "id": "ra.a2_n125.St1",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": -5.7,
       "tol": 0.05,
@@ -3324,7 +3324,7 @@
     },
     {
       "id": "ra.a2_n125.lag0",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": 0.07,
       "tol": 0.0005,
@@ -3340,7 +3340,7 @@
     },
     {
       "id": "ra.a2_n125.lag1",
-      "tex": 691,
+      "tex": 684,
       "literal": "125    & 2   & 250 & 1\\,250 & $-1.7$, $-5.7$ & 0.070, 0.185 \\\\",
       "printed": 0.185,
       "tol": 0.0005,
@@ -3356,7 +3356,7 @@
     },
     {
       "id": "ra.a2_n150.N",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": 150,
       "tol": 0.5,
@@ -3368,7 +3368,7 @@
     },
     {
       "id": "ra.a2_n150.K",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": 2,
       "tol": 0.5,
@@ -3380,7 +3380,7 @@
     },
     {
       "id": "ra.a2_n150.per_period",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": 300.0,
       "tol": 0.5,
@@ -3409,7 +3409,7 @@
     },
     {
       "id": "ra.a2_n150.total",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": 1500.0,
       "tol": 0.5,
@@ -3425,7 +3425,7 @@
     },
     {
       "id": "ra.a2_n150.St0",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": -1.5,
       "tol": 0.05,
@@ -3441,7 +3441,7 @@
     },
     {
       "id": "ra.a2_n150.St1",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": -1.3,
       "tol": 0.05,
@@ -3457,7 +3457,7 @@
     },
     {
       "id": "ra.a2_n150.lag0",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": 0.053,
       "tol": 0.0005,
@@ -3473,7 +3473,7 @@
     },
     {
       "id": "ra.a2_n150.lag1",
-      "tex": 692,
+      "tex": 685,
       "literal": "150    & 2   & 300 & 1\\,500 & $-1.5$, $-1.3$ & 0.053, 0.042 \\\\",
       "printed": 0.042,
       "tol": 0.0005,
@@ -3489,7 +3489,7 @@
     },
     {
       "id": "ra.a1_n75.N",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": 75,
       "tol": 0.5,
@@ -3501,7 +3501,7 @@
     },
     {
       "id": "ra.a1_n75.K",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": 1,
       "tol": 0.5,
@@ -3513,7 +3513,7 @@
     },
     {
       "id": "ra.a1_n75.per_period",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": 300.0,
       "tol": 0.5,
@@ -3542,7 +3542,7 @@
     },
     {
       "id": "ra.a1_n75.total",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": 1500.0,
       "tol": 0.5,
@@ -3558,7 +3558,7 @@
     },
     {
       "id": "ra.a1_n75.St0",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": -1.5,
       "tol": 0.05,
@@ -3574,7 +3574,7 @@
     },
     {
       "id": "ra.a1_n75.St1",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": -2.6,
       "tol": 0.05,
@@ -3590,7 +3590,7 @@
     },
     {
       "id": "ra.a1_n75.lag0",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": 0.037,
       "tol": 0.0005,
@@ -3606,7 +3606,7 @@
     },
     {
       "id": "ra.a1_n75.lag1",
-      "tex": 693,
+      "tex": 686,
       "literal": "75     & 1   & 300 & 1\\,500 & $-1.5$, $-2.6$ & 0.037, 0.080 \\\\",
       "printed": 0.08,
       "tol": 0.0005,
@@ -3622,7 +3622,7 @@
     },
     {
       "id": "ra.a4_n300.N",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": 300,
       "tol": 0.5,
@@ -3634,7 +3634,7 @@
     },
     {
       "id": "ra.a4_n300.K",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": 4,
       "tol": 0.5,
@@ -3646,7 +3646,7 @@
     },
     {
       "id": "ra.a4_n300.per_period",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": 300.0,
       "tol": 0.5,
@@ -3675,7 +3675,7 @@
     },
     {
       "id": "ra.a4_n300.total",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": 1500.0,
       "tol": 0.5,
@@ -3691,7 +3691,7 @@
     },
     {
       "id": "ra.a4_n300.St0",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": -3.3,
       "tol": 0.05,
@@ -3707,7 +3707,7 @@
     },
     {
       "id": "ra.a4_n300.St1",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": -3.1,
       "tol": 0.05,
@@ -3723,7 +3723,7 @@
     },
     {
       "id": "ra.a4_n300.lag0",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": 0.088,
       "tol": 0.0005,
@@ -3739,7 +3739,7 @@
     },
     {
       "id": "ra.a4_n300.lag1",
-      "tex": 694,
+      "tex": 687,
       "literal": "300    & 4   & 300 & 1\\,500 & $-3.3$, $-3.1$ & 0.088, 0.107 \\\\",
       "printed": 0.107,
       "tol": 0.0005,
@@ -3755,7 +3755,7 @@
     },
     {
       "id": "ra.a2_n175.N",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": 175,
       "tol": 0.5,
@@ -3767,7 +3767,7 @@
     },
     {
       "id": "ra.a2_n175.K",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": 2,
       "tol": 0.5,
@@ -3779,7 +3779,7 @@
     },
     {
       "id": "ra.a2_n175.per_period",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": 350.0,
       "tol": 0.5,
@@ -3808,7 +3808,7 @@
     },
     {
       "id": "ra.a2_n175.total",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": 1750.0,
       "tol": 0.5,
@@ -3824,7 +3824,7 @@
     },
     {
       "id": "ra.a2_n175.St0",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": -0.2,
       "tol": 0.05,
@@ -3840,7 +3840,7 @@
     },
     {
       "id": "ra.a2_n175.St1",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": -0.7,
       "tol": 0.05,
@@ -3856,7 +3856,7 @@
     },
     {
       "id": "ra.a2_n175.lag0",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": 0.002,
       "tol": 0.0005,
@@ -3872,7 +3872,7 @@
     },
     {
       "id": "ra.a2_n175.lag1",
-      "tex": 695,
+      "tex": 688,
       "literal": "175    & 2   & 350 & 1\\,750 & $-0.2$, $-0.7$ & 0.002, 0.002 \\\\",
       "printed": 0.002,
       "tol": 0.0005,
@@ -3888,7 +3888,7 @@
     },
     {
       "id": "ra.a1_n100.N",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": 100,
       "tol": 0.5,
@@ -3900,7 +3900,7 @@
     },
     {
       "id": "ra.a1_n100.K",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": 1,
       "tol": 0.5,
@@ -3912,7 +3912,7 @@
     },
     {
       "id": "ra.a1_n100.per_period",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": 400.0,
       "tol": 0.5,
@@ -3941,7 +3941,7 @@
     },
     {
       "id": "ra.a1_n100.total",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": 2000.0,
       "tol": 0.5,
@@ -3957,7 +3957,7 @@
     },
     {
       "id": "ra.a1_n100.St0",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": -0.3,
       "tol": 0.05,
@@ -3973,7 +3973,7 @@
     },
     {
       "id": "ra.a1_n100.St1",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": -0.2,
       "tol": 0.05,
@@ -3989,7 +3989,7 @@
     },
     {
       "id": "ra.a1_n100.lag0",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": 0.001,
       "tol": 0.0005,
@@ -4005,7 +4005,7 @@
     },
     {
       "id": "ra.a1_n100.lag1",
-      "tex": 696,
+      "tex": 689,
       "literal": "100    & 1   & 400 & 2\\,000 & $-0.3$, $-0.2$ & 0.001, 0.001 \\\\",
       "printed": 0.001,
       "tol": 0.0005,
@@ -4021,7 +4021,7 @@
     },
     {
       "id": "ra.a4_n500.N",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": 500,
       "tol": 0.5,
@@ -4033,7 +4033,7 @@
     },
     {
       "id": "ra.a4_n500.K",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": 4,
       "tol": 0.5,
@@ -4045,7 +4045,7 @@
     },
     {
       "id": "ra.a4_n500.per_period",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": 500.0,
       "tol": 0.5,
@@ -4074,7 +4074,7 @@
     },
     {
       "id": "ra.a4_n500.total",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": 2500.0,
       "tol": 0.5,
@@ -4090,7 +4090,7 @@
     },
     {
       "id": "ra.a4_n500.St0",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": -0.3,
       "tol": 0.05,
@@ -4106,7 +4106,7 @@
     },
     {
       "id": "ra.a4_n500.St1",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": 0.5,
       "tol": 0.05,
@@ -4122,7 +4122,7 @@
     },
     {
       "id": "ra.a4_n500.lag0",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": 0.002,
       "tol": 0.0005,
@@ -4138,7 +4138,7 @@
     },
     {
       "id": "ra.a4_n500.lag1",
-      "tex": 697,
+      "tex": 690,
       "literal": "500    & 4   & 500 & 2\\,500 & $-0.3$, $+0.5$ & 0.002, 0.003 \\\\",
       "printed": 0.003,
       "tol": 0.0005,
@@ -4154,7 +4154,7 @@
     },
     {
       "id": "ra.text.upto",
-      "tex": 702,
+      "tex": 695,
       "literal": "Up to 300 points per period the anchors",
       "printed": 300,
       "tol": 0.5,
@@ -4183,7 +4183,7 @@
     },
     {
       "id": "ra.text.200",
-      "tex": 703,
+      "tex": 696,
       "literal": "200 per period still leaves the run 3--5\\% slow",
       "printed": 200,
       "tol": 0.5,
@@ -4212,7 +4212,7 @@
     },
     {
       "id": "ra.text.200_lo",
-      "tex": 703,
+      "tex": 696,
       "literal": "200 per period still leaves the run 3--5\\% slow",
       "printed": -3.0,
       "tol": 0.5,
@@ -4229,7 +4229,7 @@
     },
     {
       "id": "ra.text.200_hi",
-      "tex": 703,
+      "tex": 696,
       "literal": "200 per period still leaves the run 3--5\\% slow",
       "printed": -5.0,
       "tol": 0.5,
@@ -4246,7 +4246,7 @@
     },
     {
       "id": "ra.text.350",
-      "tex": 704,
+      "tex": 697,
       "literal": "At 350 per period and above, both seeds hold the phase to within 0.003 of a",
       "printed": 350,
       "tol": 0.5,
@@ -4275,7 +4275,7 @@
     },
     {
       "id": "ra.text.lag_bound",
-      "tex": 704,
+      "tex": 697,
       "literal": "At 350 per period and above, both seeds hold the phase to within 0.003 of a",
       "printed": 0.003,
       "tol": 0.0005,
@@ -4292,7 +4292,7 @@
     },
     {
       "id": "ra.text.St_bound",
-      "tex": 705,
+      "tex": 698,
       "literal": "to within 0.7\\%, on as few as 1\\,750",
       "printed": -0.7,
       "tol": 0.05,
@@ -4309,7 +4309,7 @@
     },
     {
       "id": "ra.text.fewest",
-      "tex": 705,
+      "tex": 698,
       "literal": "to within 0.7\\%, on as few as 1\\,750",
       "printed": 1750,
       "tol": 0.5,
@@ -4325,8 +4325,8 @@
     },
     {
       "id": "ra.text.frac",
-      "tex": 706,
-      "literal": "points --- about 2\\% of what the per-window",
+      "tex": 699,
+      "literal": "points (about 2\\% of what the per-window",
       "printed": 2.0,
       "unit": "pct",
       "tol": 0.5,
@@ -4360,7 +4360,7 @@
     },
     {
       "id": "ra.text.th_lo",
-      "tex": 707,
+      "tex": 700,
       "literal": "therefore lies between 300 and 350 points per period",
       "printed": 300,
       "tol": 0.5,
@@ -4389,7 +4389,7 @@
     },
     {
       "id": "ra.text.th_hi",
-      "tex": 707,
+      "tex": 700,
       "literal": "therefore lies between 300 and 350 points per period",
       "printed": 350,
       "tol": 0.5,
@@ -4418,7 +4418,7 @@
     },
     {
       "id": "ra.text.at300",
-      "tex": 708,
+      "tex": 701,
       "literal": "at 300 per period, one anchor per period",
       "printed": 300,
       "tol": 0.5,
@@ -4447,7 +4447,7 @@
     },
     {
       "id": "ra.text.amp_free_lo",
-      "tex": 711,
+      "tex": 704,
       "literal": "too, from 63--64\\% data-free to 74--87\\% where the phase locks.",
       "printed": 63.0,
       "unit": "pct",
@@ -4464,7 +4464,7 @@
     },
     {
       "id": "ra.text.amp_free_hi",
-      "tex": 711,
+      "tex": 704,
       "literal": "too, from 63--64\\% data-free to 74--87\\% where the phase locks.",
       "printed": 64.0,
       "unit": "pct",
@@ -4481,7 +4481,7 @@
     },
     {
       "id": "ra.text.amp_lock_lo",
-      "tex": 711,
+      "tex": 704,
       "literal": "too, from 63--64\\% data-free to 74--87\\% where the phase locks.",
       "printed": 74.0,
       "unit": "pct",
@@ -4499,7 +4499,7 @@
     },
     {
       "id": "ra.text.amp_lock_hi",
-      "tex": 711,
+      "tex": 704,
       "literal": "too, from 63--64\\% data-free to 74--87\\% where the phase locks.",
       "printed": 87.0,
       "unit": "pct",
@@ -4517,7 +4517,7 @@
     },
     {
       "id": "intro.three_quarters",
-      "tex": 125,
+      "tex": 124,
       "literal": "at three-quarters of its amplitude",
       "printed": 75.0,
       "unit": "pct",
@@ -4531,7 +4531,7 @@
     },
     {
       "id": "intro.half_cycle",
-      "tex": 126,
+      "tex": 125,
       "literal": "it drifts about half a",
       "printed": 0.5,
       "tol": 0.05,
@@ -4560,7 +4560,7 @@
     },
     {
       "id": "intro.reanchor",
-      "tex": 128,
+      "tex": 127,
       "literal": "little: 350 supervised points per shedding period.",
       "printed": 350,
       "tol": 0.5,
@@ -4588,64 +4588,9 @@
       }
     },
     {
-      "id": "lim.three_quarters",
-      "tex": 1084,
-      "literal": "three-quarters of the wake amplitude over a period",
-      "printed": 75.0,
-      "unit": "pct",
-      "tol": 2.5,
-      "src": {
-        "kind": "path",
-        "file": "runs/v5/phase_average_5seed.json",
-        "path": "summary.all.shedding_mean"
-      }
-    },
-    {
-      "id": "lim.slow",
-      "tex": 1085,
-      "literal": "five periods it runs 10\\% slow",
-      "printed": -10.0,
-      "tol": 0.5,
-      "note": "Printed as a magnitude.",
-      "src": {
-        "kind": "item",
-        "file": "runs/v5/multiperiod/shedding_accuracy.json",
-        "index": 0,
-        "key": "St_error_pct"
-      }
-    },
-    {
-      "id": "lim.half_cycle",
-      "tex": 1085,
-      "literal": "ends half a cycle out of phase",
-      "printed": 0.5,
-      "tol": 0.05,
-      "src": {
-        "kind": "ratio",
-        "num": {
-          "kind": "ratio",
-          "num": {
-            "kind": "item",
-            "file": "runs/v5/multiperiod/shedding_accuracy.json",
-            "index": 0,
-            "key": "St_error_pct"
-          },
-          "den": {
-            "kind": "item",
-            "file": "runs/v5/multiperiod/shedding_accuracy.json",
-            "index": 0,
-            "key": "periods_covered"
-          },
-          "mode": "product"
-        },
-        "den": -100.0,
-        "mode": "ratio"
-      }
-    },
-    {
       "id": "lim.reanchor",
-      "tex": 1086,
-      "literal": "Sparse re-anchoring with 350 supervised",
+      "tex": 1074,
+      "literal": "re-anchoring threshold of 350",
       "printed": 350,
       "tol": 0.5,
       "src": {
@@ -4673,7 +4618,7 @@
     },
     {
       "id": "lim.ci_lo",
-      "tex": 1099,
+      "tex": 1087,
       "literal": "per start phase, with 95\\% intervals of $\\pm 0.9$ to $\\pm 1.5$ points",
       "printed": 0.9,
       "unit": "pct",
@@ -4687,7 +4632,7 @@
     },
     {
       "id": "lim.ci_hi",
-      "tex": 1099,
+      "tex": 1087,
       "literal": "per start phase, with 95\\% intervals of $\\pm 0.9$ to $\\pm 1.5$ points",
       "printed": 1.5,
       "unit": "pct",
@@ -4701,7 +4646,7 @@
     },
     {
       "id": "lim.ci_all",
-      "tex": 1100,
+      "tex": 1088,
       "literal": "on the plain and marched networks and $\\pm 4.6$ on",
       "printed": 4.6,
       "unit": "pct",
@@ -4710,29 +4655,6 @@
         "kind": "path",
         "file": "runs/v5/phase_average_5seed.json",
         "path": "summary.all.shedding_over_seeds.ci95_half"
-      }
-    },
-    {
-      "id": "lim.lockin",
-      "tex": 1132,
-      "literal": "$\\St/\\St_a = 1.43$, outside",
-      "printed": 1.43,
-      "tol": 0.005,
-      "src": {
-        "kind": "ratio",
-        "num": {
-          "kind": "dict",
-          "file": "runs/re_sweep_v5/summary.json",
-          "at": "100",
-          "reduce": "mean",
-          "key": "St_vorticity"
-        },
-        "den": {
-          "kind": "path",
-          "file": "runs/v5/derived_metrics.json",
-          "path": "acoustic.St_resonance"
-        },
-        "mode": "ratio"
       }
     },
     {
@@ -4891,8 +4813,8 @@
     },
     {
       "id": "abs.reanchor",
-      "tex": 62,
-      "literal": "Re-anchoring it with 350 supervised points per shedding period, about 2\\%",
+      "tex": 61,
+      "literal": "Re-anchoring it with 350 supervised points per shedding",
       "printed": 350,
       "tol": 0.5,
       "src": {
@@ -4921,7 +4843,7 @@
     {
       "id": "abs.reanchor_frac",
       "tex": 62,
-      "literal": "Re-anchoring it with 350 supervised points per shedding period, about 2\\%",
+      "literal": "period, about 2\\% of the reference data",
       "printed": 2.0,
       "unit": "pct",
       "tol": 0.5,
@@ -4956,7 +4878,7 @@
     },
     {
       "id": "concl.lo",
-      "tex": 1038,
+      "tex": 1028,
       "literal": "19\\% and 43\\% of the wake depending",
       "printed": 19.0,
       "unit": "pct",
@@ -4969,7 +4891,7 @@
     },
     {
       "id": "concl.hi",
-      "tex": 1038,
+      "tex": 1028,
       "literal": "19\\% and 43\\% of the wake depending",
       "printed": 43.0,
       "unit": "pct",
@@ -4982,7 +4904,7 @@
     },
     {
       "id": "concl.baseline",
-      "tex": 1038,
+      "tex": 1028,
       "literal": "start phase, 31.1\\% on",
       "printed": 31.1,
       "unit": "pct",
@@ -4995,7 +4917,7 @@
     },
     {
       "id": "concl.b80",
-      "tex": 1039,
+      "tex": 1029,
       "literal": "raises that to 48.6\\% and leaves",
       "printed": 48.6,
       "unit": "pct",
@@ -5008,7 +4930,7 @@
     },
     {
       "id": "concl.march",
-      "tex": 1042,
+      "tex": 1032,
       "literal": "on its own reaches 56.4\\%",
       "printed": 56.4,
       "unit": "pct",
@@ -5021,7 +4943,7 @@
     },
     {
       "id": "concl.causal",
-      "tex": 1043,
+      "tex": 1033,
       "literal": "only 7.7 points. Fourier",
       "printed": 7.7,
       "tol": 0.05,
@@ -5033,7 +4955,7 @@
     },
     {
       "id": "concl.all",
-      "tex": 1044,
+      "tex": 1034,
       "literal": "together keep 72.9\\% (five seeds,",
       "printed": 72.9,
       "unit": "pct",
@@ -5046,7 +4968,7 @@
     },
     {
       "id": "concl.all_ci",
-      "tex": 1045,
+      "tex": 1035,
       "literal": "$\\pm 4.6$ points) at every start phase, at a field error of 0.031, and",
       "printed": 4.6,
       "unit": "pct",
@@ -5059,7 +4981,7 @@
     },
     {
       "id": "concl.all_l2",
-      "tex": 1045,
+      "tex": 1035,
       "literal": "$\\pm 4.6$ points) at every start phase, at a field error of 0.031, and",
       "printed": 0.031,
       "tol": 0.0005,
@@ -5071,7 +4993,7 @@
     },
     {
       "id": "concl.all_gain",
-      "tex": 1046,
+      "tex": 1036,
       "literal": "there marching is worth 34.1 points at equal budget",
       "printed": 34.1,
       "tol": 0.05,
@@ -5083,7 +5005,7 @@
     },
     {
       "id": "concl.reanchor",
-      "tex": 1054,
+      "tex": 1043,
       "literal": "Re-anchored with 350 supervised points per period it holds",
       "printed": 350,
       "tol": 0.5,
@@ -5112,7 +5034,7 @@
     },
     {
       "id": "concl.reanchor_frac",
-      "tex": 1055,
+      "tex": 1044,
       "literal": "over all five, at about 2\\% of the data",
       "printed": 2.0,
       "unit": "pct",
@@ -5147,7 +5069,7 @@
     },
     {
       "id": "concl.lag",
-      "tex": 1052,
+      "tex": 1042,
       "literal": "$0.1^\\circ$ over one period",
       "printed": 0.1,
       "unit": "deg_from_periods",
@@ -5161,7 +5083,7 @@
     },
     {
       "id": "concl.slow",
-      "tex": 1052,
+      "tex": 1042,
       "literal": "over five it sheds 10.4\\% slow",
       "printed": -10.4,
       "tol": 0.05,
@@ -5175,7 +5097,7 @@
     },
     {
       "id": "concl.half_cycle",
-      "tex": 1053,
+      "tex": 1043,
       "literal": "about half a cycle behind",
       "printed": 0.5,
       "tol": 0.05,
@@ -5203,7 +5125,7 @@
     },
     {
       "id": "concl.sup100",
-      "tex": 1057,
+      "tex": 1046,
       "literal": "retention to 87.4\\% and 500 to 96.9\\%",
       "printed": 87.4,
       "unit": "pct",
@@ -5220,7 +5142,7 @@
     },
     {
       "id": "concl.sup500",
-      "tex": 1057,
+      "tex": 1046,
       "literal": "retention to 87.4\\% and 500 to 96.9\\%",
       "printed": 96.9,
       "unit": "pct",
@@ -5236,26 +5158,8 @@
       }
     },
     {
-      "id": "method.old_march",
-      "tex": 1140,
-      "literal": "causal marching alone retains 89.2\\%",
-      "printed": 89.2,
-      "unit": "pct",
-      "tol": 0.05,
-      "note": "The earlier report's headline, v4 dataset, per-window snapshots, phase 0.",
-      "src": {
-        "kind": "list",
-        "file": "runs/ablation/summary.json",
-        "where": {
-          "config": "march"
-        },
-        "key": "shedding",
-        "reduce": "mean"
-      }
-    },
-    {
       "id": "sweep.60.St",
-      "tex": 741,
+      "tex": 732,
       "literal": "60  & $+0.51\\%$ & 29.8, 33.5\\% & \\textbf{62.8, 69.1\\%} & 0.163 & \\textbf{0.028}",
       "printed": 0.51,
       "vs": 0.1354,
@@ -5270,7 +5174,7 @@
     },
     {
       "id": "sweep.60.baseline_s0",
-      "tex": 741,
+      "tex": 732,
       "literal": "60  & $+0.51\\%$ & 29.8, 33.5\\% & \\textbf{62.8, 69.1\\%} & 0.163 & \\textbf{0.028}",
       "printed": 29.8,
       "unit": "pct",
@@ -5285,7 +5189,7 @@
     },
     {
       "id": "sweep.60.baseline_s1",
-      "tex": 741,
+      "tex": 732,
       "literal": "60  & $+0.51\\%$ & 29.8, 33.5\\% & \\textbf{62.8, 69.1\\%} & 0.163 & \\textbf{0.028}",
       "printed": 33.5,
       "unit": "pct",
@@ -5300,7 +5204,7 @@
     },
     {
       "id": "sweep.60.all_s0",
-      "tex": 741,
+      "tex": 732,
       "literal": "60  & $+0.51\\%$ & 29.8, 33.5\\% & \\textbf{62.8, 69.1\\%} & 0.163 & \\textbf{0.028}",
       "printed": 62.8,
       "unit": "pct",
@@ -5315,7 +5219,7 @@
     },
     {
       "id": "sweep.60.all_s1",
-      "tex": 741,
+      "tex": 732,
       "literal": "60  & $+0.51\\%$ & 29.8, 33.5\\% & \\textbf{62.8, 69.1\\%} & 0.163 & \\textbf{0.028}",
       "printed": 69.1,
       "unit": "pct",
@@ -5330,7 +5234,7 @@
     },
     {
       "id": "sweep.60.baseline_l2",
-      "tex": 741,
+      "tex": 732,
       "literal": "60  & $+0.51\\%$ & 29.8, 33.5\\% & \\textbf{62.8, 69.1\\%} & 0.163 & \\textbf{0.028}",
       "printed": 0.163,
       "tol": 0.0005,
@@ -5347,7 +5251,7 @@
     },
     {
       "id": "sweep.60.all_l2",
-      "tex": 741,
+      "tex": 732,
       "literal": "60  & $+0.51\\%$ & 29.8, 33.5\\% & \\textbf{62.8, 69.1\\%} & 0.163 & \\textbf{0.028}",
       "printed": 0.028,
       "tol": 0.0005,
@@ -5364,7 +5268,7 @@
     },
     {
       "id": "sweep.80.St",
-      "tex": 742,
+      "tex": 733,
       "literal": "80  & $+0.60\\%$ & 40.2, 44.6\\% & \\textbf{75.5, 76.9\\%} & 0.173 & \\textbf{0.028}",
       "printed": 0.6,
       "vs": 0.1528,
@@ -5379,7 +5283,7 @@
     },
     {
       "id": "sweep.80.baseline_s0",
-      "tex": 742,
+      "tex": 733,
       "literal": "80  & $+0.60\\%$ & 40.2, 44.6\\% & \\textbf{75.5, 76.9\\%} & 0.173 & \\textbf{0.028}",
       "printed": 40.2,
       "unit": "pct",
@@ -5394,7 +5298,7 @@
     },
     {
       "id": "sweep.80.baseline_s1",
-      "tex": 742,
+      "tex": 733,
       "literal": "80  & $+0.60\\%$ & 40.2, 44.6\\% & \\textbf{75.5, 76.9\\%} & 0.173 & \\textbf{0.028}",
       "printed": 44.6,
       "unit": "pct",
@@ -5409,7 +5313,7 @@
     },
     {
       "id": "sweep.80.all_s0",
-      "tex": 742,
+      "tex": 733,
       "literal": "80  & $+0.60\\%$ & 40.2, 44.6\\% & \\textbf{75.5, 76.9\\%} & 0.173 & \\textbf{0.028}",
       "printed": 75.5,
       "unit": "pct",
@@ -5424,7 +5328,7 @@
     },
     {
       "id": "sweep.80.all_s1",
-      "tex": 742,
+      "tex": 733,
       "literal": "80  & $+0.60\\%$ & 40.2, 44.6\\% & \\textbf{75.5, 76.9\\%} & 0.173 & \\textbf{0.028}",
       "printed": 76.9,
       "unit": "pct",
@@ -5439,7 +5343,7 @@
     },
     {
       "id": "sweep.80.baseline_l2",
-      "tex": 742,
+      "tex": 733,
       "literal": "80  & $+0.60\\%$ & 40.2, 44.6\\% & \\textbf{75.5, 76.9\\%} & 0.173 & \\textbf{0.028}",
       "printed": 0.173,
       "tol": 0.0005,
@@ -5456,7 +5360,7 @@
     },
     {
       "id": "sweep.80.all_l2",
-      "tex": 742,
+      "tex": 733,
       "literal": "80  & $+0.60\\%$ & 40.2, 44.6\\% & \\textbf{75.5, 76.9\\%} & 0.173 & \\textbf{0.028}",
       "printed": 0.028,
       "tol": 0.0005,
@@ -5473,7 +5377,7 @@
     },
     {
       "id": "sweep.100.St",
-      "tex": 743,
+      "tex": 734,
       "literal": "100 & $-0.04\\%$ & 38.8, 41.5\\% & \\textbf{71.8, 78.5\\%} & 0.173 & \\textbf{0.031}",
       "printed": -0.04,
       "vs": 0.1649,
@@ -5488,7 +5392,7 @@
     },
     {
       "id": "sweep.100.baseline_s0",
-      "tex": 743,
+      "tex": 734,
       "literal": "100 & $-0.04\\%$ & 38.8, 41.5\\% & \\textbf{71.8, 78.5\\%} & 0.173 & \\textbf{0.031}",
       "printed": 38.8,
       "unit": "pct",
@@ -5503,7 +5407,7 @@
     },
     {
       "id": "sweep.100.baseline_s1",
-      "tex": 743,
+      "tex": 734,
       "literal": "100 & $-0.04\\%$ & 38.8, 41.5\\% & \\textbf{71.8, 78.5\\%} & 0.173 & \\textbf{0.031}",
       "printed": 41.5,
       "unit": "pct",
@@ -5518,7 +5422,7 @@
     },
     {
       "id": "sweep.100.all_s0",
-      "tex": 743,
+      "tex": 734,
       "literal": "100 & $-0.04\\%$ & 38.8, 41.5\\% & \\textbf{71.8, 78.5\\%} & 0.173 & \\textbf{0.031}",
       "printed": 71.8,
       "unit": "pct",
@@ -5533,7 +5437,7 @@
     },
     {
       "id": "sweep.100.all_s1",
-      "tex": 743,
+      "tex": 734,
       "literal": "100 & $-0.04\\%$ & 38.8, 41.5\\% & \\textbf{71.8, 78.5\\%} & 0.173 & \\textbf{0.031}",
       "printed": 78.5,
       "unit": "pct",
@@ -5548,7 +5452,7 @@
     },
     {
       "id": "sweep.100.baseline_l2",
-      "tex": 743,
+      "tex": 734,
       "literal": "100 & $-0.04\\%$ & 38.8, 41.5\\% & \\textbf{71.8, 78.5\\%} & 0.173 & \\textbf{0.031}",
       "printed": 0.173,
       "tol": 0.0005,
@@ -5565,7 +5469,7 @@
     },
     {
       "id": "sweep.100.all_l2",
-      "tex": 743,
+      "tex": 734,
       "literal": "100 & $-0.04\\%$ & 38.8, 41.5\\% & \\textbf{71.8, 78.5\\%} & 0.173 & \\textbf{0.031}",
       "printed": 0.031,
       "tol": 0.0005,
@@ -5582,7 +5486,7 @@
     },
     {
       "id": "sweep.120.St",
-      "tex": 744,
+      "tex": 735,
       "literal": "120 & $+0.03\\%$ & 23.9, 24.1\\% & \\textbf{71.5, 78.6\\%} & 0.170 & \\textbf{0.036}",
       "printed": 0.03,
       "vs": 0.1739,
@@ -5597,7 +5501,7 @@
     },
     {
       "id": "sweep.120.baseline_s0",
-      "tex": 744,
+      "tex": 735,
       "literal": "120 & $+0.03\\%$ & 23.9, 24.1\\% & \\textbf{71.5, 78.6\\%} & 0.170 & \\textbf{0.036}",
       "printed": 23.9,
       "unit": "pct",
@@ -5612,7 +5516,7 @@
     },
     {
       "id": "sweep.120.baseline_s1",
-      "tex": 744,
+      "tex": 735,
       "literal": "120 & $+0.03\\%$ & 23.9, 24.1\\% & \\textbf{71.5, 78.6\\%} & 0.170 & \\textbf{0.036}",
       "printed": 24.1,
       "unit": "pct",
@@ -5627,7 +5531,7 @@
     },
     {
       "id": "sweep.120.all_s0",
-      "tex": 744,
+      "tex": 735,
       "literal": "120 & $+0.03\\%$ & 23.9, 24.1\\% & \\textbf{71.5, 78.6\\%} & 0.170 & \\textbf{0.036}",
       "printed": 71.5,
       "unit": "pct",
@@ -5642,7 +5546,7 @@
     },
     {
       "id": "sweep.120.all_s1",
-      "tex": 744,
+      "tex": 735,
       "literal": "120 & $+0.03\\%$ & 23.9, 24.1\\% & \\textbf{71.5, 78.6\\%} & 0.170 & \\textbf{0.036}",
       "printed": 78.6,
       "unit": "pct",
@@ -5657,7 +5561,7 @@
     },
     {
       "id": "sweep.120.baseline_l2",
-      "tex": 744,
+      "tex": 735,
       "literal": "120 & $+0.03\\%$ & 23.9, 24.1\\% & \\textbf{71.5, 78.6\\%} & 0.170 & \\textbf{0.036}",
       "printed": 0.17,
       "tol": 0.0005,
@@ -5674,7 +5578,7 @@
     },
     {
       "id": "sweep.120.all_l2",
-      "tex": 744,
+      "tex": 735,
       "literal": "120 & $+0.03\\%$ & 23.9, 24.1\\% & \\textbf{71.5, 78.6\\%} & 0.170 & \\textbf{0.036}",
       "printed": 0.036,
       "tol": 0.0005,
@@ -5691,7 +5595,7 @@
     },
     {
       "id": "sweep.150.St",
-      "tex": 745,
+      "tex": 736,
       "literal": "150 & $-0.28\\%$ & 38.0, 41.4\\% & \\textbf{69.7, 75.1\\%} & 0.174 & \\textbf{0.039}",
       "printed": -0.28,
       "vs": 0.1837,
@@ -5706,7 +5610,7 @@
     },
     {
       "id": "sweep.150.baseline_s0",
-      "tex": 745,
+      "tex": 736,
       "literal": "150 & $-0.28\\%$ & 38.0, 41.4\\% & \\textbf{69.7, 75.1\\%} & 0.174 & \\textbf{0.039}",
       "printed": 38.0,
       "unit": "pct",
@@ -5721,7 +5625,7 @@
     },
     {
       "id": "sweep.150.baseline_s1",
-      "tex": 745,
+      "tex": 736,
       "literal": "150 & $-0.28\\%$ & 38.0, 41.4\\% & \\textbf{69.7, 75.1\\%} & 0.174 & \\textbf{0.039}",
       "printed": 41.4,
       "unit": "pct",
@@ -5736,7 +5640,7 @@
     },
     {
       "id": "sweep.150.all_s0",
-      "tex": 745,
+      "tex": 736,
       "literal": "150 & $-0.28\\%$ & 38.0, 41.4\\% & \\textbf{69.7, 75.1\\%} & 0.174 & \\textbf{0.039}",
       "printed": 69.7,
       "unit": "pct",
@@ -5751,7 +5655,7 @@
     },
     {
       "id": "sweep.150.all_s1",
-      "tex": 745,
+      "tex": 736,
       "literal": "150 & $-0.28\\%$ & 38.0, 41.4\\% & \\textbf{69.7, 75.1\\%} & 0.174 & \\textbf{0.039}",
       "printed": 75.1,
       "unit": "pct",
@@ -5766,7 +5670,7 @@
     },
     {
       "id": "sweep.150.baseline_l2",
-      "tex": 745,
+      "tex": 736,
       "literal": "150 & $-0.28\\%$ & 38.0, 41.4\\% & \\textbf{69.7, 75.1\\%} & 0.174 & \\textbf{0.039}",
       "printed": 0.174,
       "tol": 0.0005,
@@ -5783,7 +5687,7 @@
     },
     {
       "id": "sweep.150.all_l2",
-      "tex": 745,
+      "tex": 736,
       "literal": "150 & $-0.28\\%$ & 38.0, 41.4\\% & \\textbf{69.7, 75.1\\%} & 0.174 & \\textbf{0.039}",
       "printed": 0.039,
       "tol": 0.0005,
@@ -5800,7 +5704,7 @@
     },
     {
       "id": "sweep.180.St",
-      "tex": 746,
+      "tex": 737,
       "literal": "180 & $-0.45\\%$ & 24.1, 27.7\\% & \\textbf{77.5, 76.6\\%} & 0.171 & \\textbf{0.040}",
       "printed": -0.45,
       "vs": 0.1919,
@@ -5815,7 +5719,7 @@
     },
     {
       "id": "sweep.180.baseline_s0",
-      "tex": 746,
+      "tex": 737,
       "literal": "180 & $-0.45\\%$ & 24.1, 27.7\\% & \\textbf{77.5, 76.6\\%} & 0.171 & \\textbf{0.040}",
       "printed": 24.1,
       "unit": "pct",
@@ -5830,7 +5734,7 @@
     },
     {
       "id": "sweep.180.baseline_s1",
-      "tex": 746,
+      "tex": 737,
       "literal": "180 & $-0.45\\%$ & 24.1, 27.7\\% & \\textbf{77.5, 76.6\\%} & 0.171 & \\textbf{0.040}",
       "printed": 27.7,
       "unit": "pct",
@@ -5845,7 +5749,7 @@
     },
     {
       "id": "sweep.180.all_s0",
-      "tex": 746,
+      "tex": 737,
       "literal": "180 & $-0.45\\%$ & 24.1, 27.7\\% & \\textbf{77.5, 76.6\\%} & 0.171 & \\textbf{0.040}",
       "printed": 77.5,
       "unit": "pct",
@@ -5860,7 +5764,7 @@
     },
     {
       "id": "sweep.180.all_s1",
-      "tex": 746,
+      "tex": 737,
       "literal": "180 & $-0.45\\%$ & 24.1, 27.7\\% & \\textbf{77.5, 76.6\\%} & 0.171 & \\textbf{0.040}",
       "printed": 76.6,
       "unit": "pct",
@@ -5875,7 +5779,7 @@
     },
     {
       "id": "sweep.180.baseline_l2",
-      "tex": 746,
+      "tex": 737,
       "literal": "180 & $-0.45\\%$ & 24.1, 27.7\\% & \\textbf{77.5, 76.6\\%} & 0.171 & \\textbf{0.040}",
       "printed": 0.171,
       "tol": 0.0005,
@@ -5892,7 +5796,7 @@
     },
     {
       "id": "sweep.180.all_l2",
-      "tex": 746,
+      "tex": 737,
       "literal": "180 & $-0.45\\%$ & 24.1, 27.7\\% & \\textbf{77.5, 76.6\\%} & 0.171 & \\textbf{0.040}",
       "printed": 0.04,
       "tol": 0.0005,
@@ -5909,7 +5813,7 @@
     },
     {
       "id": "sweep.text.base_lo",
-      "tex": 761,
+      "tex": 752,
       "literal": "network keeps 24--45\\% of the wake and the three mechanisms together 63--79\\%",
       "printed": 24.0,
       "unit": "pct",
@@ -5922,7 +5826,7 @@
     },
     {
       "id": "sweep.text.base_hi",
-      "tex": 761,
+      "tex": 752,
       "literal": "network keeps 24--45\\% of the wake and the three mechanisms together 63--79\\%",
       "printed": 45.0,
       "unit": "pct",
@@ -5935,7 +5839,7 @@
     },
     {
       "id": "sweep.text.all_lo",
-      "tex": 761,
+      "tex": 752,
       "literal": "network keeps 24--45\\% of the wake and the three mechanisms together 63--79\\%",
       "printed": 63.0,
       "unit": "pct",
@@ -5948,7 +5852,7 @@
     },
     {
       "id": "sweep.text.all_hi",
-      "tex": 761,
+      "tex": 752,
       "literal": "network keeps 24--45\\% of the wake and the three mechanisms together 63--79\\%",
       "printed": 79.0,
       "unit": "pct",
@@ -5961,7 +5865,7 @@
     },
     {
       "id": "sweep.text.base_l2",
-      "tex": 762,
+      "tex": 753,
       "literal": "from about 0.17 to 0.028--0.040",
       "printed": 0.17,
       "tol": 0.005,
@@ -5973,7 +5877,7 @@
     },
     {
       "id": "sweep.text.all_l2_lo",
-      "tex": 762,
+      "tex": 753,
       "literal": "from about 0.17 to 0.028--0.040",
       "printed": 0.028,
       "tol": 0.0005,
@@ -5985,7 +5889,7 @@
     },
     {
       "id": "sweep.text.all_l2_hi",
-      "tex": 762,
+      "tex": 753,
       "literal": "from about 0.17 to 0.028--0.040",
       "printed": 0.04,
       "tol": 0.0005,
@@ -5997,7 +5901,7 @@
     },
     {
       "id": "sweep.text.st_bound",
-      "tex": 763,
+      "tex": 754,
       "literal": "every dataset's $\\St$ is within $0.6\\%$",
       "printed": 0.6,
       "tol": 0.05,
@@ -6010,7 +5914,7 @@
     },
     {
       "id": "sweep.text.re100_s0",
-      "tex": 766,
+      "tex": 757,
       "literal": "first start phase, whose two configurations it shares: 38.8 and 41.5",
       "printed": 38.8,
       "unit": "pct",
@@ -6025,7 +5929,7 @@
     },
     {
       "id": "sweep.text.re100_s1",
-      "tex": 766,
+      "tex": 757,
       "literal": "first start phase, whose two configurations it shares: 38.8 and 41.5",
       "printed": 41.5,
       "unit": "pct",
@@ -6040,7 +5944,7 @@
     },
     {
       "id": "sweep.text.abl_s0",
-      "tex": 767,
+      "tex": 758,
       "literal": "here against 40.4 and 41.7\\% there",
       "printed": 40.4,
       "unit": "pct",
@@ -6058,7 +5962,7 @@
     },
     {
       "id": "sweep.text.abl_s1",
-      "tex": 767,
+      "tex": 758,
       "literal": "here against 40.4 and 41.7\\% there",
       "printed": 41.7,
       "unit": "pct",
@@ -6076,7 +5980,7 @@
     },
     {
       "id": "sweep.text.factor_two",
-      "tex": 771,
+      "tex": 762,
       "literal": "swings by\na factor of two with start phase",
       "printed": 2.0,
       "tol": 0.5,
@@ -6098,8 +6002,8 @@
     },
     {
       "id": "sweep.text.var_lo",
-      "tex": 773,
-      "literal": "--- 24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
+      "tex": 764,
+      "literal": "(24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
       "printed": 24.0,
       "unit": "pct",
       "tol": 0.5,
@@ -6116,8 +6020,8 @@
     },
     {
       "id": "sweep.text.var_hi",
-      "tex": 773,
-      "literal": "--- 24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
+      "tex": 764,
+      "literal": "(24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
       "printed": 28.0,
       "unit": "pct",
       "tol": 0.5,
@@ -6134,8 +6038,8 @@
     },
     {
       "id": "sweep.text.var80_lo",
-      "tex": 773,
-      "literal": "--- 24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
+      "tex": 764,
+      "literal": "(24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
       "printed": 40.0,
       "unit": "pct",
       "tol": 0.5,
@@ -6152,8 +6056,8 @@
     },
     {
       "id": "sweep.text.var80_hi",
-      "tex": 773,
-      "literal": "--- 24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
+      "tex": 764,
+      "literal": "(24--28\\% at $\\Rey = 120$ and 180, 40--45\\% at $\\Rey = 80$",
       "printed": 45.0,
       "unit": "pct",
       "tol": 0.5,
@@ -6170,7 +6074,7 @@
     },
     {
       "id": "sweep.text.all_phase_lo",
-      "tex": 775,
+      "tex": 766,
       "literal": "(between 70\\% and 77\\% at each phase)",
       "printed": 70.0,
       "unit": "pct",
@@ -6183,7 +6087,7 @@
     },
     {
       "id": "sweep.text.all_phase_hi",
-      "tex": 775,
+      "tex": 766,
       "literal": "(between 70\\% and 77\\% at each phase)",
       "printed": 77.0,
       "unit": "pct",
@@ -6196,7 +6100,7 @@
     },
     {
       "id": "arch.baseline.params",
-      "tex": 818,
+      "tex": 809,
       "literal": "single & MLP         & 83\\,459  & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 6.8 min",
       "printed": 83459,
       "tol": 0.5,
@@ -6208,7 +6112,7 @@
     },
     {
       "id": "arch.baseline.phase0",
-      "tex": 818,
+      "tex": 809,
       "literal": "single & MLP         & 83\\,459  & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 6.8 min",
       "printed": 41.1,
       "unit": "pct",
@@ -6221,7 +6125,7 @@
     },
     {
       "id": "arch.baseline.phase1",
-      "tex": 818,
+      "tex": 809,
       "literal": "single & MLP         & 83\\,459  & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 6.8 min",
       "printed": 19.3,
       "unit": "pct",
@@ -6234,7 +6138,7 @@
     },
     {
       "id": "arch.baseline.phase2",
-      "tex": 818,
+      "tex": 809,
       "literal": "single & MLP         & 83\\,459  & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 6.8 min",
       "printed": 42.5,
       "unit": "pct",
@@ -6247,7 +6151,7 @@
     },
     {
       "id": "arch.baseline.phase3",
-      "tex": 818,
+      "tex": 809,
       "literal": "single & MLP         & 83\\,459  & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 6.8 min",
       "printed": 17.5,
       "unit": "pct",
@@ -6260,7 +6164,7 @@
     },
     {
       "id": "arch.baseline.mean",
-      "tex": 818,
+      "tex": 809,
       "literal": "single & MLP         & 83\\,459  & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 6.8 min",
       "printed": 30.1,
       "unit": "pct",
@@ -6273,7 +6177,7 @@
     },
     {
       "id": "arch.baseline.wall",
-      "tex": 818,
+      "tex": 809,
       "literal": "single & MLP         & 83\\,459  & 41.1\\% & 19.3\\% & 42.5\\% & 17.5\\% & 30.1\\% & 6.8 min",
       "printed": 6.8,
       "tol": 0.05,
@@ -6286,7 +6190,7 @@
     },
     {
       "id": "arch.gru.params",
-      "tex": 819,
+      "tex": 810,
       "literal": "window & GRU         & 287\\,497 & 33.1\\% & 13.0\\% & 27.8\\% & 13.5\\% & 21.8\\% & 14.1 min",
       "printed": 287497,
       "tol": 0.5,
@@ -6298,7 +6202,7 @@
     },
     {
       "id": "arch.gru.phase0",
-      "tex": 819,
+      "tex": 810,
       "literal": "window & GRU         & 287\\,497 & 33.1\\% & 13.0\\% & 27.8\\% & 13.5\\% & 21.8\\% & 14.1 min",
       "printed": 33.1,
       "unit": "pct",
@@ -6311,7 +6215,7 @@
     },
     {
       "id": "arch.gru.phase1",
-      "tex": 819,
+      "tex": 810,
       "literal": "window & GRU         & 287\\,497 & 33.1\\% & 13.0\\% & 27.8\\% & 13.5\\% & 21.8\\% & 14.1 min",
       "printed": 13.0,
       "unit": "pct",
@@ -6324,7 +6228,7 @@
     },
     {
       "id": "arch.gru.phase2",
-      "tex": 819,
+      "tex": 810,
       "literal": "window & GRU         & 287\\,497 & 33.1\\% & 13.0\\% & 27.8\\% & 13.5\\% & 21.8\\% & 14.1 min",
       "printed": 27.8,
       "unit": "pct",
@@ -6337,7 +6241,7 @@
     },
     {
       "id": "arch.gru.phase3",
-      "tex": 819,
+      "tex": 810,
       "literal": "window & GRU         & 287\\,497 & 33.1\\% & 13.0\\% & 27.8\\% & 13.5\\% & 21.8\\% & 14.1 min",
       "printed": 13.5,
       "unit": "pct",
@@ -6350,7 +6254,7 @@
     },
     {
       "id": "arch.gru.mean",
-      "tex": 819,
+      "tex": 810,
       "literal": "window & GRU         & 287\\,497 & 33.1\\% & 13.0\\% & 27.8\\% & 13.5\\% & 21.8\\% & 14.1 min",
       "printed": 21.8,
       "unit": "pct",
@@ -6363,7 +6267,7 @@
     },
     {
       "id": "arch.gru.wall",
-      "tex": 819,
+      "tex": 810,
       "literal": "window & GRU         & 287\\,497 & 33.1\\% & 13.0\\% & 27.8\\% & 13.5\\% & 21.8\\% & 14.1 min",
       "printed": 14.1,
       "tol": 0.05,
@@ -6376,7 +6280,7 @@
     },
     {
       "id": "arch.march.params",
-      "tex": 822,
+      "tex": 813,
       "literal": "marched & MLP         & 83\\,459  & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 25.9 min",
       "printed": 83459,
       "tol": 0.5,
@@ -6388,7 +6292,7 @@
     },
     {
       "id": "arch.march.phase0",
-      "tex": 822,
+      "tex": 813,
       "literal": "marched & MLP         & 83\\,459  & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 25.9 min",
       "printed": 72.2,
       "unit": "pct",
@@ -6401,7 +6305,7 @@
     },
     {
       "id": "arch.march.phase1",
-      "tex": 822,
+      "tex": 813,
       "literal": "marched & MLP         & 83\\,459  & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 25.9 min",
       "printed": 42.1,
       "unit": "pct",
@@ -6414,7 +6318,7 @@
     },
     {
       "id": "arch.march.phase2",
-      "tex": 822,
+      "tex": 813,
       "literal": "marched & MLP         & 83\\,459  & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 25.9 min",
       "printed": 72.4,
       "unit": "pct",
@@ -6427,7 +6331,7 @@
     },
     {
       "id": "arch.march.phase3",
-      "tex": 822,
+      "tex": 813,
       "literal": "marched & MLP         & 83\\,459  & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 25.9 min",
       "printed": 40.1,
       "unit": "pct",
@@ -6440,7 +6344,7 @@
     },
     {
       "id": "arch.march.mean",
-      "tex": 822,
+      "tex": 813,
       "literal": "marched & MLP         & 83\\,459  & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 25.9 min",
       "printed": 56.7,
       "unit": "pct",
@@ -6453,7 +6357,7 @@
     },
     {
       "id": "arch.march.wall",
-      "tex": 822,
+      "tex": 813,
       "literal": "marched & MLP         & 83\\,459  & 72.2\\% & 42.1\\% & 72.4\\% & 40.1\\% & 56.7\\% & 25.9 min",
       "printed": 25.9,
       "tol": 0.05,
@@ -6466,7 +6370,7 @@
     },
     {
       "id": "arch.gru_march.params",
-      "tex": 823,
+      "tex": 814,
       "literal": "        & GRU         & 287\\,497 & 45.4\\% & 19.1\\% & 43.9\\% & 25.7\\% & 33.6\\% & 53.1 min",
       "printed": 287497,
       "tol": 0.5,
@@ -6478,7 +6382,7 @@
     },
     {
       "id": "arch.gru_march.phase0",
-      "tex": 823,
+      "tex": 814,
       "literal": "        & GRU         & 287\\,497 & 45.4\\% & 19.1\\% & 43.9\\% & 25.7\\% & 33.6\\% & 53.1 min",
       "printed": 45.4,
       "unit": "pct",
@@ -6491,7 +6395,7 @@
     },
     {
       "id": "arch.gru_march.phase1",
-      "tex": 823,
+      "tex": 814,
       "literal": "        & GRU         & 287\\,497 & 45.4\\% & 19.1\\% & 43.9\\% & 25.7\\% & 33.6\\% & 53.1 min",
       "printed": 19.1,
       "unit": "pct",
@@ -6504,7 +6408,7 @@
     },
     {
       "id": "arch.gru_march.phase2",
-      "tex": 823,
+      "tex": 814,
       "literal": "        & GRU         & 287\\,497 & 45.4\\% & 19.1\\% & 43.9\\% & 25.7\\% & 33.6\\% & 53.1 min",
       "printed": 43.9,
       "unit": "pct",
@@ -6517,7 +6421,7 @@
     },
     {
       "id": "arch.gru_march.phase3",
-      "tex": 823,
+      "tex": 814,
       "literal": "        & GRU         & 287\\,497 & 45.4\\% & 19.1\\% & 43.9\\% & 25.7\\% & 33.6\\% & 53.1 min",
       "printed": 25.7,
       "unit": "pct",
@@ -6530,7 +6434,7 @@
     },
     {
       "id": "arch.gru_march.mean",
-      "tex": 823,
+      "tex": 814,
       "literal": "        & GRU         & 287\\,497 & 45.4\\% & 19.1\\% & 43.9\\% & 25.7\\% & 33.6\\% & 53.1 min",
       "printed": 33.6,
       "unit": "pct",
@@ -6543,7 +6447,7 @@
     },
     {
       "id": "arch.gru_march.wall",
-      "tex": 823,
+      "tex": 814,
       "literal": "        & GRU         & 287\\,497 & 45.4\\% & 19.1\\% & 43.9\\% & 25.7\\% & 33.6\\% & 53.1 min",
       "printed": 53.1,
       "tol": 0.05,
@@ -6556,7 +6460,7 @@
     },
     {
       "id": "arch.tf.params",
-      "tex": 820,
+      "tex": 811,
       "literal": "       & PINNsFormer & 454\\,619 & 34.9\\% & --- & --- & --- & --- & 256 min",
       "printed": 454619,
       "tol": 0.5,
@@ -6568,7 +6472,7 @@
     },
     {
       "id": "arch.tf.phase0",
-      "tex": 820,
+      "tex": 811,
       "literal": "       & PINNsFormer & 454\\,619 & 34.9\\% & --- & --- & --- & --- & 256 min",
       "printed": 34.9,
       "unit": "pct",
@@ -6581,7 +6485,7 @@
     },
     {
       "id": "arch.tf.wall",
-      "tex": 820,
+      "tex": 811,
       "literal": "       & PINNsFormer & 454\\,619 & 34.9\\% & --- & --- & --- & --- & 256 min",
       "printed": 256,
       "tol": 0.5,
@@ -6593,7 +6497,7 @@
     },
     {
       "id": "arch.tf_march.params",
-      "tex": 824,
+      "tex": 815,
       "literal": "        & PINNsFormer & 454\\,619 & 77.5\\% & --- & --- & --- & --- & 307 min",
       "printed": 454619,
       "tol": 0.5,
@@ -6605,7 +6509,7 @@
     },
     {
       "id": "arch.tf_march.phase0",
-      "tex": 824,
+      "tex": 815,
       "literal": "        & PINNsFormer & 454\\,619 & 77.5\\% & --- & --- & --- & --- & 307 min",
       "printed": 77.5,
       "unit": "pct",
@@ -6618,7 +6522,7 @@
     },
     {
       "id": "arch.tf_march.wall",
-      "tex": 824,
+      "tex": 815,
       "literal": "        & PINNsFormer & 454\\,619 & 77.5\\% & --- & --- & --- & --- & 307 min",
       "printed": 307,
       "tol": 0.5,
@@ -6630,7 +6534,7 @@
     },
     {
       "id": "arch.text.gru",
-      "tex": 830,
+      "tex": 821,
       "literal": "the GRU keeps 21.8\\% of the wake against the MLP's 30.1\\%",
       "printed": 21.8,
       "unit": "pct",
@@ -6643,7 +6547,7 @@
     },
     {
       "id": "arch.text.mlp",
-      "tex": 830,
+      "tex": 821,
       "literal": "the GRU keeps 21.8\\% of the wake against the MLP's 30.1\\%",
       "printed": 30.1,
       "unit": "pct",
@@ -6656,7 +6560,7 @@
     },
     {
       "id": "arch.text.gap_small",
-      "tex": 831,
+      "tex": 822,
       "literal": "(by 3.7 to 15.1 points)",
       "printed": -3.7,
       "tol": 0.05,
@@ -6669,7 +6573,7 @@
     },
     {
       "id": "arch.text.gap_large",
-      "tex": 831,
+      "tex": 822,
       "literal": "(by 3.7 to 15.1 points)",
       "printed": -15.1,
       "tol": 0.05,
@@ -6682,7 +6586,7 @@
     },
     {
       "id": "arch.text.gru_l2",
-      "tex": 832,
+      "tex": 823,
       "literal": "field error is 0.315 against 0.171",
       "printed": 0.315,
       "tol": 0.0005,
@@ -6694,7 +6598,7 @@
     },
     {
       "id": "arch.text.mlp_l2",
-      "tex": 832,
+      "tex": 823,
       "literal": "field error is 0.315 against 0.171",
       "printed": 0.171,
       "tol": 0.0005,
@@ -6706,7 +6610,7 @@
     },
     {
       "id": "arch.text.tf",
-      "tex": 832,
+      "tex": 823,
       "literal": "PINNsFormer keeps 34.9\\% where the MLP",
       "printed": 34.9,
       "unit": "pct",
@@ -6719,7 +6623,7 @@
     },
     {
       "id": "arch.text.tf_mlp",
-      "tex": 833,
+      "tex": 824,
       "literal": "keeps 40.4\\% at the same phase and seed",
       "printed": 40.4,
       "unit": "pct",
@@ -6732,7 +6636,7 @@
     },
     {
       "id": "arch.text.march_mlp",
-      "tex": 838,
+      "tex": 829,
       "literal": "marching adds 26.6 points to the MLP and 11.7 to the GRU",
       "printed": 26.6,
       "tol": 0.05,
@@ -6744,7 +6648,7 @@
     },
     {
       "id": "arch.text.march_gru",
-      "tex": 838,
+      "tex": 829,
       "literal": "marching adds 26.6 points to the MLP and 11.7 to the GRU",
       "printed": 11.7,
       "tol": 0.05,
@@ -6756,7 +6660,7 @@
     },
     {
       "id": "arch.text.gru_march_gap",
-      "tex": 839,
+      "tex": 830,
       "literal": "stays 23.2 points below the marched MLP",
       "printed": -23.2,
       "tol": 0.05,
@@ -6769,7 +6673,7 @@
     },
     {
       "id": "arch.text.gm_phase0",
-      "tex": 840,
+      "tex": 831,
       "literal": "(45\\% and 44\\% at phases 0 and 1/2, 19\\% and",
       "printed": 45.0,
       "unit": "pct",
@@ -6782,7 +6686,7 @@
     },
     {
       "id": "arch.text.gm_phase2",
-      "tex": 840,
+      "tex": 831,
       "literal": "(45\\% and 44\\% at phases 0 and 1/2, 19\\% and",
       "printed": 44.0,
       "unit": "pct",
@@ -6795,7 +6699,7 @@
     },
     {
       "id": "arch.text.gm_phase1",
-      "tex": 840,
+      "tex": 831,
       "literal": "(45\\% and 44\\% at phases 0 and 1/2, 19\\% and",
       "printed": 19.0,
       "unit": "pct",
@@ -6808,7 +6712,7 @@
     },
     {
       "id": "arch.text.gm_phase3",
-      "tex": 841,
+      "tex": 832,
       "literal": "26\\% at the other two)",
       "printed": 26.0,
       "unit": "pct",
@@ -6821,7 +6725,7 @@
     },
     {
       "id": "arch.text.tfm",
-      "tex": 842,
+      "tex": 833,
       "literal": "77.5\\% against the marched MLP's 69.7\\%",
       "printed": 77.5,
       "unit": "pct",
@@ -6834,7 +6738,7 @@
     },
     {
       "id": "arch.text.tfm_mlp",
-      "tex": 842,
+      "tex": 833,
       "literal": "77.5\\% against the marched MLP's 69.7\\%",
       "printed": 69.7,
       "unit": "pct",
@@ -6847,7 +6751,7 @@
     },
     {
       "id": "arch.text.cost",
-      "tex": 844,
+      "tex": 835,
       "literal": "11.8 times the marched MLP's wall-clock",
       "printed": 11.8,
       "tol": 0.05,
@@ -6859,7 +6763,7 @@
     },
     {
       "id": "arch.text.hours",
-      "tex": 844,
+      "tex": 835,
       "literal": "about five hours a run",
       "printed": 5.0,
       "tol": 0.5,
@@ -6877,7 +6781,7 @@
     },
     {
       "id": "arch.text.swing_lo",
-      "tex": 846,
+      "tex": 837,
       "literal": "marched MLP's swing from 40\\% to 72\\% across phases",
       "printed": 40.0,
       "unit": "pct",
@@ -6890,7 +6794,7 @@
     },
     {
       "id": "arch.text.swing_hi",
-      "tex": 846,
+      "tex": 837,
       "literal": "marched MLP's swing from 40\\% to 72\\% across phases",
       "printed": 72.0,
       "unit": "pct",
@@ -6903,7 +6807,7 @@
     },
     {
       "id": "fno5.periods10",
-      "tex": 888,
+      "tex": 879,
       "literal": "trained horizon is ten steps, 0.31 shedding periods",
       "printed": 0.31,
       "tol": 0.005,
@@ -6915,7 +6819,7 @@
     },
     {
       "id": "fno5.data.10",
-      "tex": 894,
+      "tex": 885,
       "literal": "\\texttt{data} (paper recipe)              & \\textbf{0.0010} & \\textbf{0.0010} & \\textbf{0.0013} & \\textbf{0.0152}",
       "printed": 0.001,
       "tol": 5e-05,
@@ -6932,7 +6836,7 @@
     },
     {
       "id": "fno5.data.20",
-      "tex": 894,
+      "tex": 885,
       "literal": "\\texttt{data} (paper recipe)              & \\textbf{0.0010} & \\textbf{0.0010} & \\textbf{0.0013} & \\textbf{0.0152}",
       "printed": 0.001,
       "tol": 5e-05,
@@ -6949,7 +6853,7 @@
     },
     {
       "id": "fno5.data.30",
-      "tex": 894,
+      "tex": 885,
       "literal": "\\texttt{data} (paper recipe)              & \\textbf{0.0010} & \\textbf{0.0010} & \\textbf{0.0013} & \\textbf{0.0152}",
       "printed": 0.0013,
       "tol": 5e-05,
@@ -6966,7 +6870,7 @@
     },
     {
       "id": "fno5.data.50",
-      "tex": 894,
+      "tex": 885,
       "literal": "\\texttt{data} (paper recipe)              & \\textbf{0.0010} & \\textbf{0.0010} & \\textbf{0.0013} & \\textbf{0.0152}",
       "printed": 0.0152,
       "tol": 5e-05,
@@ -6983,7 +6887,7 @@
     },
     {
       "id": "fno5.physics.10",
-      "tex": 895,
+      "tex": 886,
       "literal": "\\texttt{physics} (continuity + vorticity) & 0.0012 & 0.0012 & 0.0017 & 0.0364",
       "printed": 0.0012,
       "tol": 5e-05,
@@ -7000,7 +6904,7 @@
     },
     {
       "id": "fno5.physics.20",
-      "tex": 895,
+      "tex": 886,
       "literal": "\\texttt{physics} (continuity + vorticity) & 0.0012 & 0.0012 & 0.0017 & 0.0364",
       "printed": 0.0012,
       "tol": 5e-05,
@@ -7017,7 +6921,7 @@
     },
     {
       "id": "fno5.physics.30",
-      "tex": 895,
+      "tex": 886,
       "literal": "\\texttt{physics} (continuity + vorticity) & 0.0012 & 0.0012 & 0.0017 & 0.0364",
       "printed": 0.0017,
       "tol": 5e-05,
@@ -7034,7 +6938,7 @@
     },
     {
       "id": "fno5.physics.50",
-      "tex": 895,
+      "tex": 886,
       "literal": "\\texttt{physics} (continuity + vorticity) & 0.0012 & 0.0012 & 0.0017 & 0.0364",
       "printed": 0.0364,
       "tol": 5e-05,
@@ -7051,7 +6955,7 @@
     },
     {
       "id": "fno5.physics_div.10",
-      "tex": 896,
+      "tex": 887,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.0012 & 0.0012 & 0.0018 & 0.0387",
       "printed": 0.0012,
       "tol": 5e-05,
@@ -7068,7 +6972,7 @@
     },
     {
       "id": "fno5.physics_div.20",
-      "tex": 896,
+      "tex": 887,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.0012 & 0.0012 & 0.0018 & 0.0387",
       "printed": 0.0012,
       "tol": 5e-05,
@@ -7085,7 +6989,7 @@
     },
     {
       "id": "fno5.physics_div.30",
-      "tex": 896,
+      "tex": 887,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.0012 & 0.0012 & 0.0018 & 0.0387",
       "printed": 0.0018,
       "tol": 5e-05,
@@ -7102,7 +7006,7 @@
     },
     {
       "id": "fno5.physics_div.50",
-      "tex": 896,
+      "tex": 887,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.0012 & 0.0012 & 0.0018 & 0.0387",
       "printed": 0.0387,
       "tol": 5e-05,
@@ -7119,7 +7023,7 @@
     },
     {
       "id": "fno5.text.10",
-      "tex": 902,
+      "tex": 893,
       "literal": "0.0010 at the trained horizon and 0.0152 after 50 steps",
       "printed": 0.001,
       "tol": 5e-05,
@@ -7136,7 +7040,7 @@
     },
     {
       "id": "fno5.text.50",
-      "tex": 902,
+      "tex": 893,
       "literal": "0.0010 at the trained horizon and 0.0152 after 50 steps",
       "printed": 0.0152,
       "tol": 5e-05,
@@ -7153,7 +7057,7 @@
     },
     {
       "id": "fno5.text.periods50",
-      "tex": 902,
+      "tex": 893,
       "literal": "about one and a half\nperiods",
       "printed": 1.5,
       "tol": 0.1,
@@ -7165,7 +7069,7 @@
     },
     {
       "id": "fno5.text.worse_lo",
-      "tex": 904,
+      "tex": 895,
       "literal": "16--18\\% worse at ten and twenty steps",
       "printed": -16.0,
       "tol": 0.5,
@@ -7178,7 +7082,7 @@
     },
     {
       "id": "fno5.text.worse_hi",
-      "tex": 904,
+      "tex": 895,
       "literal": "16--18\\% worse at ten and twenty steps",
       "printed": -18.0,
       "tol": 0.5,
@@ -7191,7 +7095,7 @@
     },
     {
       "id": "fno5.text.x50_phys",
-      "tex": 904,
+      "tex": 895,
       "literal": "and 2.4 and 2.5 times as large by",
       "printed": 2.4,
       "tol": 0.05,
@@ -7222,7 +7126,7 @@
     },
     {
       "id": "fno5.text.x50_div",
-      "tex": 904,
+      "tex": 895,
       "literal": "and 2.4 and 2.5 times as large by",
       "printed": 2.5,
       "tol": 0.05,
@@ -7253,7 +7157,7 @@
     },
     {
       "id": "fno5.text.ninety",
-      "tex": 908,
+      "tex": 899,
       "literal": "about ninety times smaller",
       "printed": 90.0,
       "tol": 5.0,
@@ -7285,7 +7189,7 @@
     },
     {
       "id": "fno4.data.10",
-      "tex": 934,
+      "tex": 925,
       "literal": "\\texttt{data} (paper recipe)        & 0.093 & 0.183 & \\textbf{0.296} & \\textbf{0.365}",
       "printed": 0.093,
       "tol": 0.0005,
@@ -7302,7 +7206,7 @@
     },
     {
       "id": "fno4.data.20",
-      "tex": 934,
+      "tex": 925,
       "literal": "\\texttt{data} (paper recipe)        & 0.093 & 0.183 & \\textbf{0.296} & \\textbf{0.365}",
       "printed": 0.183,
       "tol": 0.0005,
@@ -7319,7 +7223,7 @@
     },
     {
       "id": "fno4.data.30",
-      "tex": 934,
+      "tex": 925,
       "literal": "\\texttt{data} (paper recipe)        & 0.093 & 0.183 & \\textbf{0.296} & \\textbf{0.365}",
       "printed": 0.296,
       "tol": 0.0005,
@@ -7336,7 +7240,7 @@
     },
     {
       "id": "fno4.data.50",
-      "tex": 934,
+      "tex": 925,
       "literal": "\\texttt{data} (paper recipe)        & 0.093 & 0.183 & \\textbf{0.296} & \\textbf{0.365}",
       "printed": 0.365,
       "tol": 0.0005,
@@ -7353,7 +7257,7 @@
     },
     {
       "id": "fno4.physics.10",
-      "tex": 935,
+      "tex": 926,
       "literal": "\\texttt{physics} (continuity + vorticity) & \\textbf{0.074} & \\textbf{0.132} & 0.307 & 0.772",
       "printed": 0.074,
       "tol": 0.0005,
@@ -7370,7 +7274,7 @@
     },
     {
       "id": "fno4.physics.20",
-      "tex": 935,
+      "tex": 926,
       "literal": "\\texttt{physics} (continuity + vorticity) & \\textbf{0.074} & \\textbf{0.132} & 0.307 & 0.772",
       "printed": 0.132,
       "tol": 0.0005,
@@ -7387,7 +7291,7 @@
     },
     {
       "id": "fno4.physics.30",
-      "tex": 935,
+      "tex": 926,
       "literal": "\\texttt{physics} (continuity + vorticity) & \\textbf{0.074} & \\textbf{0.132} & 0.307 & 0.772",
       "printed": 0.307,
       "tol": 0.0005,
@@ -7404,7 +7308,7 @@
     },
     {
       "id": "fno4.physics.50",
-      "tex": 935,
+      "tex": 926,
       "literal": "\\texttt{physics} (continuity + vorticity) & \\textbf{0.074} & \\textbf{0.132} & 0.307 & 0.772",
       "printed": 0.772,
       "tol": 0.0005,
@@ -7421,7 +7325,7 @@
     },
     {
       "id": "fno4.physics_div.10",
-      "tex": 936,
+      "tex": 927,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.075 & 0.140 & 0.312 & 0.764",
       "printed": 0.075,
       "tol": 0.0005,
@@ -7438,7 +7342,7 @@
     },
     {
       "id": "fno4.physics_div.20",
-      "tex": 936,
+      "tex": 927,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.075 & 0.140 & 0.312 & 0.764",
       "printed": 0.14,
       "tol": 0.0005,
@@ -7455,7 +7359,7 @@
     },
     {
       "id": "fno4.physics_div.30",
-      "tex": 936,
+      "tex": 927,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.075 & 0.140 & 0.312 & 0.764",
       "printed": 0.312,
       "tol": 0.0005,
@@ -7472,7 +7376,7 @@
     },
     {
       "id": "fno4.physics_div.50",
-      "tex": 936,
+      "tex": 927,
       "literal": "\\texttt{physics\\_div} (continuity only)   & 0.075 & 0.140 & 0.312 & 0.764",
       "printed": 0.764,
       "tol": 0.0005,
@@ -7489,7 +7393,7 @@
     },
     {
       "id": "fno4.periods10",
-      "tex": 932,
+      "tex": 923,
       "literal": "in shedding periods & 0.31 & 0.61 & 0.92 & 1.53",
       "printed": 0.31,
       "tol": 0.005,
@@ -7501,7 +7405,7 @@
     },
     {
       "id": "fno4.periods20",
-      "tex": 932,
+      "tex": 923,
       "literal": "in shedding periods & 0.31 & 0.61 & 0.92 & 1.53",
       "printed": 0.61,
       "tol": 0.005,
@@ -7513,7 +7417,7 @@
     },
     {
       "id": "fno4.periods30",
-      "tex": 932,
+      "tex": 923,
       "literal": "in shedding periods & 0.31 & 0.61 & 0.92 & 1.53",
       "printed": 0.92,
       "tol": 0.005,
@@ -7525,7 +7429,7 @@
     },
     {
       "id": "fno4.periods50",
-      "tex": 932,
+      "tex": 923,
       "literal": "in shedding periods & 0.31 & 0.61 & 0.92 & 1.53",
       "printed": 1.53,
       "tol": 0.005,
@@ -7537,7 +7441,7 @@
     },
     {
       "id": "fno4.improve10",
-      "tex": 950,
+      "tex": 941,
       "literal": "Physics lowers forecast error by 21\\% at the",
       "printed": 21.0,
       "tol": 0.5,
@@ -7549,7 +7453,7 @@
     },
     {
       "id": "fno4.improve20",
-      "tex": 951,
+      "tex": 942,
       "literal": "trained horizon and 28\\% at twice it",
       "printed": 28.0,
       "tol": 0.5,
@@ -7561,7 +7465,7 @@
     },
     {
       "id": "fno4.cross_lo",
-      "tex": 952,
+      "tex": 943,
       "literal": "step 27--32 across seeds and variants",
       "printed": 27,
       "tol": 0.5,
@@ -7573,7 +7477,7 @@
     },
     {
       "id": "fno4.cross_hi",
-      "tex": 952,
+      "tex": 943,
       "literal": "step 27--32 across seeds and variants",
       "printed": 32,
       "tol": 0.5,
@@ -7585,7 +7489,7 @@
     },
     {
       "id": "fno4.cross_per_lo",
-      "tex": 952,
+      "tex": 943,
       "literal": "which is 0.8--1.0 shedding",
       "printed": 0.8,
       "tol": 0.05,
@@ -7611,7 +7515,7 @@
     },
     {
       "id": "fno4.cross_per_hi",
-      "tex": 952,
+      "tex": 943,
       "literal": "which is 0.8--1.0 shedding",
       "printed": 1.0,
       "tol": 0.05,
@@ -7637,7 +7541,7 @@
     },
     {
       "id": "fno4.seed0_50",
-      "tex": 963,
+      "tex": 954,
       "literal": "physics variant reads 0.63 and 0.92 at 50 steps",
       "printed": 0.63,
       "tol": 0.005,
@@ -7653,7 +7557,7 @@
     },
     {
       "id": "fno4.seed1_50",
-      "tex": 963,
+      "tex": 954,
       "literal": "physics variant reads 0.63 and 0.92 at 50 steps",
       "printed": 0.92,
       "tol": 0.005,
@@ -7669,7 +7573,7 @@
     },
     {
       "id": "fno4.parity_lo",
-      "tex": 969,
+      "tex": 959,
       "literal": "even and odd steps by 24--44\\%",
       "printed": 24.0,
       "tol": 0.5,
@@ -7681,7 +7585,7 @@
     },
     {
       "id": "fno4.parity_hi",
-      "tex": 969,
+      "tex": 959,
       "literal": "even and odd steps by 24--44\\%",
       "printed": 44.0,
       "tol": 0.5,
@@ -7693,7 +7597,7 @@
     },
     {
       "id": "fno5.parity_lo",
-      "tex": 974,
+      "tex": 964,
       "literal": "dataset the alternation is 4--6\\%",
       "printed": 4.0,
       "tol": 0.5,
@@ -7705,7 +7609,7 @@
     },
     {
       "id": "fno5.parity_hi",
-      "tex": 974,
+      "tex": 964,
       "literal": "dataset the alternation is 4--6\\%",
       "printed": 6.0,
       "tol": 0.5,
@@ -7717,7 +7621,7 @@
     },
     {
       "id": "back.fno.params",
-      "tex": 996,
+      "tex": 986,
       "literal": "FNO     & 59.0\\,M & 0.093 & 0.183 & 0.365 & $-21\\%$ & $-28\\%$ & $+111\\%$",
       "printed": 59.0,
       "tol": 0.05,
@@ -7735,7 +7639,7 @@
     },
     {
       "id": "back.fno.data10",
-      "tex": 996,
+      "tex": 986,
       "literal": "FNO     & 59.0\\,M & 0.093 & 0.183 & 0.365 & $-21\\%$ & $-28\\%$ & $+111\\%$",
       "printed": 0.093,
       "tol": 0.0005,
@@ -7752,7 +7656,7 @@
     },
     {
       "id": "back.fno.data20",
-      "tex": 996,
+      "tex": 986,
       "literal": "FNO     & 59.0\\,M & 0.093 & 0.183 & 0.365 & $-21\\%$ & $-28\\%$ & $+111\\%$",
       "printed": 0.183,
       "tol": 0.0005,
@@ -7769,7 +7673,7 @@
     },
     {
       "id": "back.fno.data50",
-      "tex": 996,
+      "tex": 986,
       "literal": "FNO     & 59.0\\,M & 0.093 & 0.183 & 0.365 & $-21\\%$ & $-28\\%$ & $+111\\%$",
       "printed": 0.365,
       "tol": 0.0005,
@@ -7786,7 +7690,7 @@
     },
     {
       "id": "back.fno.chg10",
-      "tex": 996,
+      "tex": 986,
       "literal": "FNO     & 59.0\\,M & 0.093 & 0.183 & 0.365 & $-21\\%$ & $-28\\%$ & $+111\\%$",
       "printed": -21.0,
       "tol": 0.5,
@@ -7798,7 +7702,7 @@
     },
     {
       "id": "back.fno.chg20",
-      "tex": 996,
+      "tex": 986,
       "literal": "FNO     & 59.0\\,M & 0.093 & 0.183 & 0.365 & $-21\\%$ & $-28\\%$ & $+111\\%$",
       "printed": -28.0,
       "tol": 0.5,
@@ -7810,7 +7714,7 @@
     },
     {
       "id": "back.fno.chg50",
-      "tex": 996,
+      "tex": 986,
       "literal": "FNO     & 59.0\\,M & 0.093 & 0.183 & 0.365 & $-21\\%$ & $-28\\%$ & $+111\\%$",
       "printed": 111.0,
       "tol": 0.5,
@@ -7822,7 +7726,7 @@
     },
     {
       "id": "back.unet.params",
-      "tex": 997,
+      "tex": 987,
       "literal": "U-Net   & 1.93\\,M & 0.056 & 0.084 & 0.159 & $+1\\%$ & $-1\\%$ & $-7\\%$",
       "printed": 1.93,
       "tol": 0.005,
@@ -7839,7 +7743,7 @@
     },
     {
       "id": "back.unet.data10",
-      "tex": 997,
+      "tex": 987,
       "literal": "U-Net   & 1.93\\,M & 0.056 & 0.084 & 0.159 & $+1\\%$ & $-1\\%$ & $-7\\%$",
       "printed": 0.056,
       "tol": 0.0005,
@@ -7856,7 +7760,7 @@
     },
     {
       "id": "back.unet.data20",
-      "tex": 997,
+      "tex": 987,
       "literal": "U-Net   & 1.93\\,M & 0.056 & 0.084 & 0.159 & $+1\\%$ & $-1\\%$ & $-7\\%$",
       "printed": 0.084,
       "tol": 0.0005,
@@ -7873,7 +7777,7 @@
     },
     {
       "id": "back.unet.data50",
-      "tex": 997,
+      "tex": 987,
       "literal": "U-Net   & 1.93\\,M & 0.056 & 0.084 & 0.159 & $+1\\%$ & $-1\\%$ & $-7\\%$",
       "printed": 0.159,
       "tol": 0.0005,
@@ -7890,7 +7794,7 @@
     },
     {
       "id": "back.unet.chg10",
-      "tex": 997,
+      "tex": 987,
       "literal": "U-Net   & 1.93\\,M & 0.056 & 0.084 & 0.159 & $+1\\%$ & $-1\\%$ & $-7\\%$",
       "printed": 1.0,
       "tol": 0.5,
@@ -7902,7 +7806,7 @@
     },
     {
       "id": "back.unet.chg20",
-      "tex": 997,
+      "tex": 987,
       "literal": "U-Net   & 1.93\\,M & 0.056 & 0.084 & 0.159 & $+1\\%$ & $-1\\%$ & $-7\\%$",
       "printed": -1.0,
       "tol": 0.5,
@@ -7914,7 +7818,7 @@
     },
     {
       "id": "back.unet.chg50",
-      "tex": 997,
+      "tex": 987,
       "literal": "U-Net   & 1.93\\,M & 0.056 & 0.084 & 0.159 & $+1\\%$ & $-1\\%$ & $-7\\%$",
       "printed": -7.0,
       "tol": 0.5,
@@ -7926,7 +7830,7 @@
     },
     {
       "id": "back.convgru.params",
-      "tex": 998,
+      "tex": 988,
       "literal": "ConvGRU & 0.45\\,M & 0.042 & 0.092 & 0.220 & $+30\\%$ & $+42\\%$ & $+22\\%$",
       "printed": 0.45,
       "tol": 0.005,
@@ -7943,7 +7847,7 @@
     },
     {
       "id": "back.convgru.data10",
-      "tex": 998,
+      "tex": 988,
       "literal": "ConvGRU & 0.45\\,M & 0.042 & 0.092 & 0.220 & $+30\\%$ & $+42\\%$ & $+22\\%$",
       "printed": 0.042,
       "tol": 0.0005,
@@ -7960,7 +7864,7 @@
     },
     {
       "id": "back.convgru.data20",
-      "tex": 998,
+      "tex": 988,
       "literal": "ConvGRU & 0.45\\,M & 0.042 & 0.092 & 0.220 & $+30\\%$ & $+42\\%$ & $+22\\%$",
       "printed": 0.092,
       "tol": 0.0005,
@@ -7977,7 +7881,7 @@
     },
     {
       "id": "back.convgru.data50",
-      "tex": 998,
+      "tex": 988,
       "literal": "ConvGRU & 0.45\\,M & 0.042 & 0.092 & 0.220 & $+30\\%$ & $+42\\%$ & $+22\\%$",
       "printed": 0.22,
       "tol": 0.0005,
@@ -7994,7 +7898,7 @@
     },
     {
       "id": "back.convgru.chg10",
-      "tex": 998,
+      "tex": 988,
       "literal": "ConvGRU & 0.45\\,M & 0.042 & 0.092 & 0.220 & $+30\\%$ & $+42\\%$ & $+22\\%$",
       "printed": 30.0,
       "tol": 0.5,
@@ -8006,7 +7910,7 @@
     },
     {
       "id": "back.convgru.chg20",
-      "tex": 998,
+      "tex": 988,
       "literal": "ConvGRU & 0.45\\,M & 0.042 & 0.092 & 0.220 & $+30\\%$ & $+42\\%$ & $+22\\%$",
       "printed": 42.0,
       "tol": 0.5,
@@ -8018,7 +7922,7 @@
     },
     {
       "id": "back.convgru.chg50",
-      "tex": 998,
+      "tex": 988,
       "literal": "ConvGRU & 0.45\\,M & 0.042 & 0.092 & 0.220 & $+30\\%$ & $+42\\%$ & $+22\\%$",
       "printed": 22.0,
       "tol": 0.5,
@@ -8030,7 +7934,7 @@
     },
     {
       "id": "back.unet.at_most",
-      "tex": 1014,
+      "tex": 1004,
       "literal": "changes the error by at most 7\\%",
       "printed": -7.0,
       "tol": 0.5,
@@ -8043,7 +7947,7 @@
     },
     {
       "id": "back.unet.d50_s0",
-      "tex": 1015,
+      "tex": 1005,
       "literal": "spread at fifty steps (0.148 and 0.171",
       "printed": 0.148,
       "tol": 0.0005,
@@ -8059,7 +7963,7 @@
     },
     {
       "id": "back.unet.d50_s1",
-      "tex": 1015,
+      "tex": 1005,
       "literal": "spread at fifty steps (0.148 and 0.171",
       "printed": 0.171,
       "tol": 0.0005,
@@ -8075,7 +7979,7 @@
     },
     {
       "id": "back.unet.p50_s0",
-      "tex": 1016,
+      "tex": 1006,
       "literal": "data-driven, 0.133 and 0.163 with physics)",
       "printed": 0.133,
       "tol": 0.0005,
@@ -8091,7 +7995,7 @@
     },
     {
       "id": "back.unet.p50_s1",
-      "tex": 1016,
+      "tex": 1006,
       "literal": "data-driven, 0.133 and 0.163 with physics)",
       "printed": 0.163,
       "tol": 0.0005,
@@ -8107,7 +8011,7 @@
     },
     {
       "id": "back.convgru.worse10",
-      "tex": 1017,
+      "tex": 1007,
       "literal": "throughout: 30\\% worse at the trained horizon",
       "printed": 30.0,
       "tol": 0.5,
@@ -8119,7 +8023,7 @@
     },
     {
       "id": "back.convgru.d10_s0",
-      "tex": 1017,
+      "tex": 1007,
       "literal": "on both seeds (0.043 and 0.041",
       "printed": 0.043,
       "tol": 0.0005,
@@ -8135,7 +8039,7 @@
     },
     {
       "id": "back.convgru.d10_s1",
-      "tex": 1017,
+      "tex": 1007,
       "literal": "on both seeds (0.043 and 0.041",
       "printed": 0.041,
       "tol": 0.0005,
@@ -8151,7 +8055,7 @@
     },
     {
       "id": "back.convgru.p10_s0",
-      "tex": 1018,
+      "tex": 1008,
       "literal": "data-driven, 0.055 and 0.055 with physics)",
       "printed": 0.055,
       "tol": 0.0005,
@@ -8167,7 +8071,7 @@
     },
     {
       "id": "back.convgru.p10_s1",
-      "tex": 1018,
+      "tex": 1008,
       "literal": "data-driven, 0.055 and 0.055 with physics)",
       "printed": 0.055,
       "tol": 0.0005,
@@ -8183,7 +8087,7 @@
     },
     {
       "id": "back.half",
-      "tex": 1019,
+      "tex": 1010,
       "literal": "fifty steps the U-Net's error is less than half the",
       "printed": 0.5,
       "tol": 0.07,
@@ -8215,8 +8119,8 @@
     },
     {
       "id": "back.fewer_unet",
-      "tex": 1020,
-      "literal": "with 31 and 131 times fewer parameters",
+      "tex": 1009,
+      "literal": "with 31 and 131 times fewer",
       "printed": 31.0,
       "tol": 0.5,
       "src": {
@@ -8236,8 +8140,8 @@
     },
     {
       "id": "back.fewer_convgru",
-      "tex": 1020,
-      "literal": "with 31 and 131 times fewer parameters",
+      "tex": 1009,
+      "literal": "with 31 and 131 times fewer",
       "printed": 131.0,
       "tol": 0.5,
       "src": {
@@ -8257,7 +8161,7 @@
     },
     {
       "id": "fno.paper.v4",
-      "tex": 1025,
+      "tex": 1015,
       "literal": "data-driven variant reaches $\\epsilon = 0.093$ on the",
       "printed": 0.093,
       "tol": 0.0005,
@@ -8274,7 +8178,7 @@
     },
     {
       "id": "fno.paper.v5",
-      "tex": 1026,
+      "tex": 1016,
       "literal": "$0.0010$ on the production one",
       "printed": 0.001,
       "tol": 5e-05,
@@ -8291,7 +8195,7 @@
     },
     {
       "id": "abs.sweep_all_lo",
-      "tex": 66,
+      "tex": 65,
       "literal": "the three mechanisms keep 63--79\\% of the wake",
       "printed": 63.0,
       "unit": "pct",
@@ -8304,7 +8208,7 @@
     },
     {
       "id": "abs.sweep_all_hi",
-      "tex": 66,
+      "tex": 65,
       "literal": "the three mechanisms keep 63--79\\% of the wake",
       "printed": 79.0,
       "unit": "pct",
@@ -8317,7 +8221,7 @@
     },
     {
       "id": "abs.sweep_base_lo",
-      "tex": 67,
+      "tex": 66,
       "literal": "against 24--45\\% for the plain network.",
       "printed": 24.0,
       "unit": "pct",
@@ -8330,7 +8234,7 @@
     },
     {
       "id": "abs.sweep_base_hi",
-      "tex": 67,
+      "tex": 66,
       "literal": "against 24--45\\% for the plain network.",
       "printed": 45.0,
       "unit": "pct",
@@ -8343,7 +8247,7 @@
     },
     {
       "id": "concl.sweep_all_lo",
-      "tex": 1064,
+      "tex": 1053,
       "literal": "63--79\\% retained with all",
       "printed": 63.0,
       "unit": "pct",
@@ -8356,7 +8260,7 @@
     },
     {
       "id": "concl.sweep_all_hi",
-      "tex": 1064,
+      "tex": 1053,
       "literal": "63--79\\% retained with all",
       "printed": 79.0,
       "unit": "pct",
@@ -8369,7 +8273,7 @@
     },
     {
       "id": "concl.sweep_base_lo",
-      "tex": 1065,
+      "tex": 1054,
       "literal": "three mechanisms, 24--45\\% without",
       "printed": 24.0,
       "unit": "pct",
@@ -8382,7 +8286,7 @@
     },
     {
       "id": "concl.sweep_base_hi",
-      "tex": 1065,
+      "tex": 1054,
       "literal": "three mechanisms, 24--45\\% without",
       "printed": 45.0,
       "unit": "pct",
@@ -8395,7 +8299,7 @@
     },
     {
       "id": "concl.sweep_st",
-      "tex": 1066,
+      "tex": 1055,
       "literal": "is within $0.6\\%$ of Qu et al.\\ at every",
       "printed": 0.6,
       "tol": 0.05,
@@ -8408,7 +8312,7 @@
     },
     {
       "id": "concl.gru",
-      "tex": 1068,
+      "tex": 1057,
       "literal": "PINN keeps 21.8\\% on one window and 33.6\\% marched",
       "printed": 21.8,
       "unit": "pct",
@@ -8421,7 +8325,7 @@
     },
     {
       "id": "concl.gru_march",
-      "tex": 1068,
+      "tex": 1057,
       "literal": "PINN keeps 21.8\\% on one window and 33.6\\% marched",
       "printed": 33.6,
       "unit": "pct",
@@ -8434,7 +8338,7 @@
     },
     {
       "id": "concl.tfm",
-      "tex": 1070,
+      "tex": 1059,
       "literal": "reached 77.5\\%, at twelve times the cost",
       "printed": 77.5,
       "unit": "pct",
@@ -8447,7 +8351,7 @@
     },
     {
       "id": "concl.tfm_cost",
-      "tex": 1070,
+      "tex": 1059,
       "literal": "reached 77.5\\%, at twelve times the cost",
       "printed": 12.0,
       "tol": 0.5,
@@ -8460,7 +8364,7 @@
     },
     {
       "id": "concl.fno5",
-      "tex": 1073,
+      "tex": 1063,
       "literal": "$0.0010$ at its trained horizon and physics makes it 17\\% worse",
       "printed": 0.001,
       "tol": 5e-05,
@@ -8477,7 +8381,7 @@
     },
     {
       "id": "concl.fno5_worse",
-      "tex": 1073,
+      "tex": 1063,
       "literal": "$0.0010$ at its trained horizon and physics makes it 17\\% worse",
       "printed": -17.0,
       "tol": 0.5,
@@ -8490,7 +8394,7 @@
     },
     {
       "id": "concl.fno4",
-      "tex": 1074,
+      "tex": 1064,
       "literal": "physics improves the FNO by 21\\% there",
       "printed": 21.0,
       "tol": 0.5,
@@ -8502,7 +8406,7 @@
     },
     {
       "id": "concl.unet",
-      "tex": 1075,
+      "tex": 1065,
       "literal": "leaves a U-Net within 7\\%",
       "printed": -7.0,
       "tol": 0.5,
@@ -8515,8 +8419,8 @@
     },
     {
       "id": "concl.convgru",
-      "tex": 1076,
-      "literal": "30\\% worse --- and both",
+      "tex": 1066,
+      "literal": "30\\% worse, and both",
       "printed": 30.0,
       "tol": 0.5,
       "src": {
@@ -8527,8 +8431,8 @@
     },
     {
       "id": "lim.tf_hours",
-      "tex": 1119,
-      "literal": "The full grid is about 66 GPU-hours.",
+      "tex": 1102,
+      "literal": "grid would take about 66 GPU-hours.",
       "printed": 66.0,
       "tol": 0.5,
       "note": "The 14 runs not made, at the pilot's median wall-clock per run.",
@@ -8540,7 +8444,7 @@
     },
     {
       "id": "lim.cd_lo",
-      "tex": 1127,
+      "tex": 1110,
       "literal": "$3.5$--$5.7\\%$ above Qu et al.",
       "printed": 3.5,
       "tol": 0.05,
@@ -8552,7 +8456,7 @@
     },
     {
       "id": "lim.cd_hi",
-      "tex": 1127,
+      "tex": 1110,
       "literal": "$3.5$--$5.7\\%$ above Qu et al.",
       "printed": 5.7,
       "tol": 0.05,
@@ -8564,7 +8468,7 @@
     },
     {
       "id": "lim.cd_d24",
-      "tex": 1128,
+      "tex": 1111,
       "literal": "$1.4\\%$ of it (Section",
       "printed": 1.4,
       "tol": 0.05,

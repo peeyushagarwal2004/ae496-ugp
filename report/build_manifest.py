@@ -393,9 +393,9 @@ def section5():
       path(PA, CM + "n"))
     E("budget.text.loses", "and loses one by 2.2 points,", -2.2, 0.05,
       path(PA, CM + "min_pts"), note="Printed as a magnitude.")
-    E("budget.text.compute", "PINN, training longer accounts for more than causality does --- 17.5 points",
+    E("budget.text.compute", "PINN, training longer accounts for 17.5 points",
       17.5, 0.05, path(PA, CC + "mean_pts"))
-    E("budget.text.causal", "against 7.7. With Fourier features", 7.7, 0.05,
+    E("budget.text.causal", "7.7. With Fourier features", 7.7, 0.05,
       path(PA, CM + "mean_pts"))
     E("budget.text.fd8", "window keep 38.7" + PCT + " at", 38.7, 0.05,
       path(PA, "summary.fd8_80k.shedding_mean"), unit="pct")
@@ -604,7 +604,7 @@ def section6():
            "runs (a2_n175 seed 1, -0.68 %).")
     E("ra.text.fewest", "to within 0.7" + PCT + ", on as few as 1" + BS + ",750", 1750, 0.5,
       reanchor("a2_n175", 0, "gt_data_points"))
-    E("ra.text.frac", "points --- about 2" + PCT + " of what the per-window", 2.0, 0.5,
+    E("ra.text.frac", "points (about 2" + PCT + " of what the per-window", 2.0, 0.5,
       reanchor_fraction("a2_n175"), unit="pct")
     th = "therefore lies between 300 and 350 points per period"
     E("ra.text.th_lo", th, 300, 0.5, reanchor_per_period("a2_n150"))
@@ -643,12 +643,7 @@ def framing():
       note="Same estimate as acc5.phase_err.")
     E("intro.reanchor", "little: 350 supervised points per shedding period.", 350, 0.5,
       reanchor_per_period("a2_n175"))
-    E("lim.three_quarters", "three-quarters of the wake amplitude over a period",
-      75.0, 2.5, path(PA, "summary.all.shedding_mean"), unit="pct")
-    E("lim.slow", "five periods it runs 10" + PCT + " slow", -10.0, 0.5,
-      it("St_error_pct"), note="Printed as a magnitude.")
-    E("lim.half_cycle", "ends half a cycle out of phase", 0.5, 0.05, half_cycle)
-    E("lim.reanchor", "Sparse re-anchoring with 350 supervised", 350, 0.5,
+    E("lim.reanchor", "re-anchoring threshold of 350", 350, 0.5,
       reanchor_per_period("a2_n175"))
     ci = ("per start phase, with 95" + PCT + " intervals of $" + BS + "pm 0.9$ to $"
           + BS + "pm 1.5$ points")
@@ -659,9 +654,6 @@ def framing():
       note="Largest of baseline, baseline80k and march.")
     E("lim.ci_all", "on the plain and marched networks and $" + BS + "pm 4.6$ on", 4.6,
       0.05, path(PA, "summary.all.shedding_over_seeds.ci95_half"), unit="pct")
-    E("lim.lockin", "$" + BS + "St/" + BS + "St_a = 1.43$, outside", 1.43, 0.005,
-      ratio(dct(SWEEP5, "100", "St_vorticity"),
-            path(DM, "acoustic.St_resonance"), mode="ratio"))
     # abstract
     S = "summary."
     CM = "paired.causality (march vs baseline80k).mean_pts"
@@ -685,9 +677,10 @@ def framing():
     E("abs.slow", "periods that configuration sheds 10.4" + PCT + " slow", -10.4, 0.05,
       it("St_error_pct"), note="Printed as a magnitude.")
     E("abs.half_cycle", "ends about half a\ncycle out of", 0.5, 0.05, half_cycle)
-    ar = "Re-anchoring it with 350 supervised points per shedding period, about 2" + PCT
-    E("abs.reanchor", ar, 350, 0.5, reanchor_per_period("a2_n175"))
-    E("abs.reanchor_frac", ar, 2.0, 0.5, reanchor_fraction("a2_n175"), unit="pct",
+    E("abs.reanchor", "Re-anchoring it with 350 supervised points per shedding", 350,
+      0.5, reanchor_per_period("a2_n175"))
+    E("abs.reanchor_frac", "period, about 2" + PCT + " of the reference data", 2.0,
+      0.5, reanchor_fraction("a2_n175"), unit="pct",
       note="1750 of 80 000 points = 2.2 %, printed as about 2.")
 
     # conclusions
@@ -727,10 +720,6 @@ def framing():
       lst("runs/v5/data_n500/summary.json", "shedding", config="all+data"),
       unit="pct")
 
-    E("method.old_march", "causal marching alone retains 89.2" + PCT, 89.2, 0.05,
-      lst("runs/ablation/summary.json", "shedding", config="march"), unit="pct",
-      note="The earlier report's headline, v4 dataset, per-window snapshots, "
-           "phase 0.")
 
 
 # ---------------------------------------------------------------------------
@@ -791,7 +780,7 @@ def section7():
       ratio(path(PA, "summary.baseline.shedding_phase_mean_max"),
             path(PA, "summary.baseline.shedding_phase_mean_min"), mode="ratio"),
       note="43.2 / 19.0 = 2.3 over five seeds, printed in words.")
-    var = ("--- 24--28" + PCT + " at $" + BS + "Rey = 120$ and 180, 40--45" + PCT
+    var = ("(24--28" + PCT + " at $" + BS + "Rey = 120$ and 180, 40--45" + PCT
            + " at $" + BS + "Rey = 80$")
     E("sweep.text.var_lo", var, 24.0, 0.5,
       dct(SWEEP5, "120", keys=["baseline_shedding_s0", "baseline_shedding_s1"],
@@ -1028,7 +1017,7 @@ def section_fno():
     E("back.half", "fifty steps the U-Net's error is less than half the", 0.5, 0.07,
       ratio(fno("fno_unet", "data", 50), fno("fno", "data", 50), mode="ratio"),
       note="A bound: 0.159 / 0.365 = 0.44.")
-    fewer = "with 31 and 131 times fewer parameters"
+    fewer = "with 31 and 131 times fewer"
     E("back.fewer_unet", fewer, 31.0, 0.5,
       ratio(path(AC, OPN), path(AC, "operator.unet/data.n_params"), mode="ratio"))
     E("back.fewer_convgru", fewer, 131.0, 0.5,
@@ -1076,10 +1065,10 @@ def framing_new():
       path(DM4, "fno.improvement_pct.step10"))
     E("concl.unet", "leaves a U-Net within 7" + PCT, -7.0, 0.5,
       path(AC, "physics_effect_pct.unet.50"), note="A bound, printed as a magnitude.")
-    E("concl.convgru", "30" + PCT + " worse --- and both", 30.0, 0.5,
+    E("concl.convgru", "30" + PCT + " worse, and both", 30.0, 0.5,
       path(AC, "physics_effect_pct.convgru.10"))
 
-    E("lim.tf_hours", "The full grid is about 66 GPU-hours.", 66.0, 0.5,
+    E("lim.tf_hours", "grid would take about 66 GPU-hours.", 66.0, 0.5,
       path(AC, "wall_clock_ratio.pinnsformer_remaining_gpu_hours"),
       note="The 14 runs not made, at the pilot's median wall-clock per run.")
     cd = "$3.5$--$5.7" + PCT + "$ above Qu et al."
